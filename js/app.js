@@ -1,6 +1,4 @@
-console.log("X");
 window.addEventListener('load', () => {
-    console.log('page is fully loaded');
     requestApiData();
 });
 async function requestApiData() {
