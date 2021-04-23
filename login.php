@@ -5,14 +5,19 @@ if(isset($_POST['customer_email']) && isset($_POST['customer_password'])){
     if($_POST['customer_email'] != "" && $_POST['customer_password']!=""){
         //echo "Data is there";
         include("DB_Connection/connection.php");
-        $password = $_POST['customer_password'];
-        $email = $_POST['customer_email'];
-        $sql = "SELECT * FROM customers WHERE customer_email = \"$email\" AND customer_password = \"$password\"";
+        $password = $conn->real_escape_string($_POST['customer_password']);
+        $email = $conn->real_escape_string($_POST['customer_email']);
+        $sql = "SELECT customer_password FROM customers WHERE customer_email = \"$email\"";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
-                echo "Data is matching";
+            $row = $result->fetch_object();
+            $db_password = $row->customer_password;
+            if(password_verify($password,$db_password)){
+                echo "LOGGED IN";
+            }else{
+                $errorMess = "<p style='color:red'> ERROR - You don' fuckd up kiddo</p>";
             }
+            
         } else {
             $errorMess = "<p style='color:red'> ERROR - You don' fuckd up kiddo</p>";
         }
