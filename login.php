@@ -19,8 +19,6 @@ if(isset($_POST['customer_email']) && isset($_POST['customer_password'])){
                 $_SESSION['customer_first_name'] = $row->customer_first_name;
                 $_SESSION['customer_last_name'] = $row->customer_last_name;
                 header('Location: index.php');
-
-
             }else{
                 $errorMess = "<p style='color:red'> ERROR - You don' fuckd up kiddo</p>";
             }

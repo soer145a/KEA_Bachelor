@@ -20,6 +20,7 @@
         }
     ?>
     <a href="login.php">login</a>
+    <a href="signup.php">signup</a>
 </body>
 <script src="js/app.js"></script>
 </html>
