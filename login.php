@@ -1,3 +1,11 @@
+<?php 
+if(isset($_POST['customer_email']) && isset($_POST['customer_password'])){
+    echo $_POST['customer_email']." ".$_POST['customer_password'];
+    if($_POST['customer_email'] != "" && $_POST['customer_password']!=""){
+        
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,10 +18,10 @@
 <h1>Login</h1>
     <form method="post">
         <label><p>Enter Email:</p>
-            <input type="email" name="customer_email" id="">
+            <input type="email" name="customer_email">
         </label>
         <label><p>Enter Password:</p>
-            <input type="password" name="customer_password" id="">
+            <input type="password" name="customer_password">
         </label>
         <br>
         <button type="submit">Login</button>
