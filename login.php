@@ -1,20 +1,20 @@
-<?php 
+<?php
+$errorMess = "";
 if(isset($_POST['customer_email']) && isset($_POST['customer_password'])){
     //echo $_POST['customer_email']." ".$_POST['customer_password'];
     if($_POST['customer_email'] != "" && $_POST['customer_password']!=""){
-        echo "Data is there";
+        //echo "Data is there";
         include("DB_Connection/connection.php");
         $password = $_POST['customer_password'];
         $email = $_POST['customer_email'];
         $sql = "SELECT * FROM customers WHERE customer_email = \"$email\" AND customer_password = \"$password\"";
         $result = $conn->query($sql);
-
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
-                echo "id: " . $row["customer_id"]. " - Name: " . $row["customer_first_name"]. " " . $row["customer_last_name"]. "<br>";
+                echo "Data is matching";
             }
         } else {
-            echo "0 results";
+            $errorMess = "<p style='color:red'> ERROR - You don' fuckd up kiddo</p>";
         }
     }
 }
@@ -36,6 +36,7 @@ if(isset($_POST['customer_email']) && isset($_POST['customer_password'])){
         <label><p>Enter Password:</p>
             <input type="password" name="customer_password">
         </label>
+        <?=$errorMess?>
         <br>
         <button type="submit">Login</button>
     </form>

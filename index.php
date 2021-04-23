@@ -12,6 +12,7 @@
     <?php
         echo "Testing PHP";
     ?>
+    <a href="login.php">login</a>
 </body>
 <script src="js/app.js"></script>
 </html>
