@@ -1,4 +1,5 @@
 <?php
+session_start();
 $errorMess = "";
 if(isset($_POST['customer_email']) && isset($_POST['customer_password'])){
     //echo $_POST['customer_email']." ".$_POST['customer_password'];
@@ -7,13 +8,19 @@ if(isset($_POST['customer_email']) && isset($_POST['customer_password'])){
         include("DB_Connection/connection.php");
         $password = $conn->real_escape_string($_POST['customer_password']);
         $email = $conn->real_escape_string($_POST['customer_email']);
-        $sql = "SELECT customer_password FROM customers WHERE customer_email = \"$email\"";
+        $sql = "SELECT * FROM customers WHERE customer_email = \"$email\"";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             $row = $result->fetch_object();
             $db_password = $row->customer_password;
             if(password_verify($password,$db_password)){
-                echo "LOGGED IN";
+                $_SESSION['loginStatus'] = true;
+                $_SESSION['customer_id'] = $row->customer_id;
+                $_SESSION['customer_first_name'] = $row->customer_first_name;
+                $_SESSION['customer_last_name'] = $row->customer_last_name;
+                header('Location: index.php');
+
+
             }else{
                 $errorMess = "<p style='color:red'> ERROR - You don' fuckd up kiddo</p>";
             }

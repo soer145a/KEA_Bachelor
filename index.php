@@ -10,7 +10,14 @@
 <body>
     <h1>Initial Page</h1>
     <?php
-        echo "Testing PHP";
+    session_start();
+        if(isset($_SESSION['loginStatus'])){
+            $firstName = $_SESSION['customer_first_name'];
+            $lastName = $_SESSION['customer_last_name'];
+            echo "Hi $firstName $lastName";
+        }else{
+            echo "fuck you";
+        }
     ?>
     <a href="login.php">login</a>
 </body>
