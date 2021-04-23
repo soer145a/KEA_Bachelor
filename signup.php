@@ -18,6 +18,7 @@ if($inputFields != 7){
     $sEmail = strtolower($conn->real_escape_string($_POST['input_email']));
     $sCVR = $conn->real_escape_string($_POST['input_company_cvr']);
     $sPasswordInit = $conn->real_escape_string($_POST['input_password_init']);
+    //echo $sPasswordInit;
     $sPasswordConfirm = $conn->real_escape_string($_POST['input_password_confirm']);
     //echo $sEmail;
     $sql = "SELECT customer_email FROM customers WHERE customer_email = \"$sEmail\"";
@@ -37,7 +38,6 @@ if($inputFields != 7){
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
