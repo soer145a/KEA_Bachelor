@@ -4,4 +4,5 @@ $username = "root";
 $password = "";
 $db = "purplescout";
 $conn = new mysqli($servername, $username, $password,$db);
+echo "XX";
 ?>
