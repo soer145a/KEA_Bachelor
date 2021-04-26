@@ -38,6 +38,24 @@
             <button onclick="addToBasket(3)">Buy me</button>
         </div>
     </div>
+    <div id="addOns">
+        <label>
+            <p>New 3D model of dress/design/style:</p>
+            <input type="checkbox" name="" id="">
+        </label>
+        <label>
+            <p>Adding specific accessories (jewellery, shoes, veils, etc.):</p>
+            <input type="checkbox" name="" id="">
+        </label>
+        <label>
+            <p>Price subject to requirements:</p>
+            <input type="checkbox" name="" id="">
+        </label>
+        <label>
+            <p>Guidance tool for taking measurements:</p>
+            <input type="checkbox" name="" id="">
+        </label>
+    </div>
 </body>
 <script src="js/app.js"></script>
 </html>
