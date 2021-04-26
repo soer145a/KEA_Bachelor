@@ -17,25 +17,30 @@ if($inputFields != 7){
     include("DB_Connection/connection.php");
     $sEmail = strtolower($conn->real_escape_string($_POST['input_email']));
     $sCVR = $conn->real_escape_string($_POST['input_company_cvr']);
-    $sPasswordInit = $conn->real_escape_string($_POST['input_password_init']);
-    //echo $sPasswordInit;
-    $sPasswordConfirm = $conn->real_escape_string($_POST['input_password_confirm']);
-    //echo $sEmail;
-    $sql = "SELECT customer_email FROM customers WHERE customer_email = \"$sEmail\"";
-    $result = $conn->query($sql);
-    $data = $result->fetch_object();
-    if(isset($data->customer_email)){
+    $sPasswordInit = $_POST['input_password_init'];
+    $sPasswordConfirm = $_POST['input_password_confirm'];
+    $stmt = $conn->prepare("SELECT customer_email FROM customers WHERE customer_email = ?");
+    $stmt->bind_param("s", $sEmail);
+    $stmt->execute();
+    $data = $stmt->get_result();
+    $convertedData = $data->fetch_object();
+    //echo $convertedData->customer_email;
+    if(isset($convertedData->customer_email)){
         $errorEmail = "<p style='color:red'>Your email was stolen sucker</p>";
     }
-    $sql = "SELECT customer_cvr FROM customers WHERE customer_cvr = \"$sCVR\"";
-    $result = $conn->query($sql);
-    $data = $result->fetch_object();
-    if(isset($data->customer_cvr)){
+    $stmt = $conn->prepare("SELECT customer_cvr FROM customers WHERE customer_cvr = ?");
+    $stmt->bind_param("s", $sCVR);
+    $stmt->execute();
+    $data = $stmt->get_result();
+    $convertedData = $data->fetch_object();
+    //echo $convertedData->customer_cvr;
+    if(isset($convertedData->customer_cvr)){
         $errorCvr = "<p style='color:red'>Your company was already fo shizzle registered</p>";
     }
     if($sPasswordInit !== $sPasswordConfirm){
         $errorPass = "<p style='color:red'> Your big dumb head can't spell for shitz</p>";
     }
+    
 }
 ?>
 <!DOCTYPE html>
