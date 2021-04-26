@@ -1,46 +1,46 @@
 <?php
-// session_start();
-// $inputFields = 0;
-// $errorMsg = "";
-// $errorEmail = "";
-// $errorCvr = "";
-// $errorPass = "";
-// foreach ($_POST as $key) {
-//     if ($key != "") {
-//         $inputFields++;
-//     }
-// }
-// if ($inputFields != 7) {
-//     $errorMsg = "Fuck you fill out the form";
-// } else {
-//     //echo "THANKS FOR YOUR DATA FUCK FACE";
-//     include("DB_Connection/connection.php");
-//     $sEmail = strtolower($conn->real_escape_string($_POST['input_email']));
-//     $sCVR = $conn->real_escape_string($_POST['input_company_cvr']);
-//     $sPasswordInit = $_POST['input_password_init'];
-//     $sPasswordConfirm = $_POST['input_password_confirm'];
-//     $stmt = $conn->prepare("SELECT customer_email FROM customers WHERE customer_email = ?");
-//     $stmt->bind_param("s", $sEmail);
-//     $stmt->execute();
-//     $data = $stmt->get_result();
-//     $convertedData = $data->fetch_object();
-//     //echo $convertedData->customer_email;
-//     if (isset($convertedData->customer_email)) {
-//         $errorEmail = "<p style='color:red'>Your email was stolen sucker</p>";
-//     }
-//     $stmt = $conn->prepare("SELECT customer_cvr FROM customers WHERE customer_cvr = ?");
-//     $stmt->bind_param("s", $sCVR);
-//     $stmt->execute();
-//     $data = $stmt->get_result();
-//     $convertedData = $data->fetch_object();
-//     //echo $convertedData->customer_cvr;
-//     if (isset($convertedData->customer_cvr)) {
-//         $errorCvr = "<p style='color:red'>Your company was already fo shizzle registered</p>";
-//     }
-//     if ($sPasswordInit !== $sPasswordConfirm) {
-//         $errorPass = "<p style='color:red'> Your big dumb head can't spell for shitz</p>";
-//     }
-// }
+session_start();
+$inputFields = 0;
+$errorMsg = "";
+$errorEmail = "";
+$errorCvr = "";
+$errorPass = "";
+foreach ($_POST as $key) {
+    if ($key != "") {
+        $inputFields++;
+    }
+}
+if ($inputFields != 7) {
+    $errorMsg = "Fuck you fill out the form";
+} else {
+    //echo "THANKS FOR YOUR DATA FUCK FACE";
+    include("DB_Connection/connection.php");
+    $sEmail = strtolower($conn->real_escape_string($_POST['input_email']));
+    $sCVR = $conn->real_escape_string($_POST['input_company_cvr']);
+    $sPasswordInit = $_POST['input_password_init'];
+    $sPasswordConfirm = $_POST['input_password_confirm'];
+    $stmt = $conn->prepare("SELECT customer_email FROM customers WHERE customer_email = ?");
+    $stmt->bind_param("s", $sEmail);
+    $stmt->execute();
+    $data = $stmt->get_result();
+    $convertedData = $data->fetch_object();
+    //echo $convertedData->customer_email;
+    if (isset($convertedData->customer_email)) {
+        $errorEmail = "<p style='color:red'>Your email was stolen sucker</p>";
+    }
+    $stmt = $conn->prepare("SELECT customer_cvr FROM customers WHERE customer_cvr = ?");
+    $stmt->bind_param("s", $sCVR);
+    $stmt->execute();
+    $data = $stmt->get_result();
+    $convertedData = $data->fetch_object();
+    //echo $convertedData->customer_cvr;
+    if (isset($convertedData->customer_cvr)) {
+        $errorCvr = "<p style='color:red'>Your company was already fo shizzle registered</p>";
+    }
+    if ($sPasswordInit !== $sPasswordConfirm) {
+        $errorPass = "<p style='color:red'> Your big dumb head can't spell for shitz</p>";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
