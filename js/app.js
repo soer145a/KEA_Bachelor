@@ -57,11 +57,47 @@ function inputValidate() {
   }
 }
 console.log("x");
+function gatherProductData() {
+    let addOnFields = document.querySelectorAll(".addOn");
+    let returnObject = [];
+    addOnFields.forEach(addon => {
+        let dataField = {
+            name: addon.name,
+            isChecked: addon.checked
+        }
+        returnObject.push(dataField);
+    });
+    return returnObject;
+}
 async function addToBasket(productNmbr) {
-  console.log(productNmbr);
-  let connection = await fetch(
-    `API/add-product-to-basket.php?productNmbr=${productNmbr}`
-  );
-  let data = await connection.json();
-  console.log(data);
+    let addOns = gatherProductData();
+    console.log(addOns);
+    console.log(productNmbr);
+    let postBody = {
+        addonData: addOns,
+        productID: productNmbr
+    }
+    
+    postData("API/add-product-to-basket.php", postBody).then(data => (
+        informationHandler(data)
+    ));
+}
+function informationHandler(returnData) {
+   console.log(returnData); 
+}
+async function postData(url = '', data = {}) {
+    const response = await fetch(url, {
+        name: 'body',
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache', 
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify(data)
+    });
+    return response.json();
 }

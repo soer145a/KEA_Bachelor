@@ -43,19 +43,19 @@
     <div id="addOns">
         <label>
             <p>New 3D model of dress/design/style:</p>
-            <input type="checkbox" name="" id="">
+            <input type="checkbox" class="addOn" name="new3DModels">
         </label>
         <label>
             <p>Adding specific accessories (jewellery, shoes, veils, etc.):</p>
-            <input type="checkbox" name="" id="">
+            <input type="checkbox" class="addOn" name="additionalAccesories">
         </label>
         <label>
             <p>Price subject to requirements:</p>
-            <input type="checkbox" name="" id="">
+            <input type="checkbox" class="addOn" name="priceAltering">
         </label>
         <label>
             <p>Guidance tool for taking measurements:</p>
-            <input type="checkbox" name="" id="">
+            <input type="checkbox" class="addOn" name="meassurementTool">
         </label>
     </div>
 </body>
