@@ -67,7 +67,7 @@ if ($inputFields != 7) {
         <label>
             <p>Contact - Email:</p>
             <input class="form__input" oninput="inputValidate()" data-validate="email" type="email" name="input_email" placeholder="example@email.com">
-            <!-- <?= $errorEmail ?> -->
+            <?= $errorEmail ?>
         </label>
         <label>
             <p>Company - Name:</p>
@@ -76,7 +76,7 @@ if ($inputFields != 7) {
         <label>
             <p>Company - CVR:</p>
             <input class="form__input" oninput="inputValidate()" data-validate="cvr" type="text" name="input_company_cvr" placeholder="12345678">
-            <!-- <?= $errorCvr ?> -->
+            <?= $errorCvr ?>
         </label>
         <label>
             <p>Password: ( No special characters )</p>
@@ -85,10 +85,10 @@ if ($inputFields != 7) {
         <label>
             <p>Confirm Password:</p>
             <input class="form__input" oninput="inputValidate()" data-validate="password" type="password" name="input_password_confirm" placeholder="MyStr0ng.PW-example">
-            <!--  <?= $errorPass ?> -->
+            <?= $errorPass ?>
         </label>
         <button class="form__btn" type="submit">Sign up</button>
-        <!--       <p><?= $errorMsg ?></p> -->
+        <p><?= $errorMsg ?></p>
     </form>
 </body>
 
