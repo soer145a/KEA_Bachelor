@@ -49,46 +49,49 @@ if ($inputFields != 7) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/app.css">
     <title>Sign Up</title>
 </head>
 
 <body>
     <h1>Sign Up</h1>
-    <form method="post">
+    <form class="form" method="post" onsubmit="return inputValidate()">
         <label>
             <p>Contact - First Name:</p>
-            <input type="text" name="input_first_name" value="SAM">
+            <input class="form__input" oninput="inputValidate()" data-validate="string" type="text" name="input_first_name" placeholder="John">
         </label>
         <label>
             <p>Contact - Last Name:</p>
-            <input type="text" name="input_last_name" value="UEL">
+            <input class="form__input" oninput="inputValidate()" data-validate="string" type="text" name="input_last_name" placeholder="Doe">
         </label>
         <label>
             <p>Contact - Email:</p>
-            <input type="email" name="input_email" value="sam@uel.dk">
+            <input class="form__input" oninput="inputValidate()" data-validate="email" type="email" name="input_email" placeholder="example@email.com">
             <?= $errorEmail ?>
         </label>
         <label>
             <p>Company - Name:</p>
-            <input type="text" name="input_company_name" value="SAMS's bar">
+            <input class="form__input" oninput="inputValidate()" data-validate="string" type="text" name="input_company_name" placeholder="JohnDoe A/S">
         </label>
         <label>
-            <p>Company - CVR: ( Skriv kun talene )</p>
-            <input type="text" name="input_company_cvr" value="12399">
+            <p>Company - CVR:</p>
+            <input class="form__input" oninput="inputValidate()" data-validate="cvr" type="text" name="input_company_cvr" placeholder="12345678">
             <?= $errorCvr ?>
         </label>
         <label>
             <p>Password: ( No special characters )</p>
-            <input type="password" name="input_password_init" value="XXBAJER">
+            <input class="form__input" oninput="inputValidate()" data-validate="password" type="password" name="input_password_init" placeholder="MyStr0ng.PW-example">
         </label>
         <label>
             <p>Confirm Password:</p>
-            <input type="password" name="input_password_confirm" value="XXBAJER">
+            <input class="form__input" oninput="inputValidate()" data-validate="password" type="password" name="input_password_confirm" placeholder="MyStr0ng.PW-example">
             <?= $errorPass ?>
         </label>
-        <input type="submit" value="Sign up!">
+        <button class="form__btn" type="submit">Sign up</button>
         <p><?= $errorMsg ?></p>
     </form>
 </body>
+
+<script src="js/app.js"></script>
 
 </html>

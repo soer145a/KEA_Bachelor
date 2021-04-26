@@ -24,23 +24,22 @@ function inputValidate() {
         }
         break;
 
-      // case 'integer':
+      case "cvr":
+        inputData = inputsToValidate[i].value;
+        let regCvr = /^(\d){8}$/;
 
-      //     let iData = parseInt(inputsToValidate[i].value);
+        if (!regCvr.test(inputData)) {
+          inputsToValidate[i].classList.add("invalid");
+        }
+        break;
 
-      //     if (/^\d+$/.test(iData) === false) {
-      //         inputsToValidate[i].classList.add('invalid');
-      //         break;
-      //     }
+      case "string":
+        inputData = inputsToValidate[i].value;
 
-      //     let minLength = parseInt(inputsToValidate[i].getAttribute('data-min'));
-      //     let maxLength = parseInt(inputsToValidate[i].getAttribute('data-max'));
-
-      //     if (iData < minLength || iData > maxLength) {
-      //         inputsToValidate[i].classList.add('invalid');
-      //     }
-
-      //     break;
+        if (inputData.length < 1) {
+          inputsToValidate[i].classList.add("invalid");
+        }
+        break;
 
       case "email":
         inputData = inputsToValidate[i].value;
