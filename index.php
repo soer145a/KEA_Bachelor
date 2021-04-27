@@ -23,6 +23,7 @@
     ?>
     <a href="login.php">login</a>
     <a href="signup.php">signup</a>
+    <a href="profile.php">Profile</a>
     <div id="buyOptions">
         <div class="buyCard">
             <h2>Buy Option1</h2>
@@ -60,4 +61,5 @@
     </div>
 </body>
 <script src="js/app.js"></script>
+
 </html>
