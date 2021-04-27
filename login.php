@@ -50,7 +50,7 @@ if (isset($_POST['customer_email']) && isset($_POST['customer_password'])) {
         </label>
         <label>
             <p>Password (Must contain 6-30 characters, one uppercase character, one lowercase character, one numeric character and one special character):</p>
-            <input class="form__input" oninput="inputValidate()" type="password" placeholder="MyStr0ng.PW-example" data-validate="password" name="customer_password">
+            <input class="form__input" type="password" placeholder="MyStr0ng.PW-example" name="customer_password">
         </label>
         <?= $errorMess ?>
         <br>
