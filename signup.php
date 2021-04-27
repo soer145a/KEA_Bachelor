@@ -1,7 +1,7 @@
 <?php
 session_start();
 if(isset($_SESSION['basketObj'])){
-    //echo "YOU HAVE BOUGHT SOMETHING";
+    echo json_encode($_SESSION['basketObj']);
 }
 $inputFields = 0;
 $errorMsg = "";
@@ -50,24 +50,9 @@ if ($inputFields != 7) {
     if($denySubmitionFlag){
         echo "You can not submit to database";
     }else{
-        //echo "you good homie";
-        # Our new data
-        print_r($_POST);
-        $data = $_POST;
-        # Create a connection
-        $url = './API/add-customer-to-database.php';
-        $ch = curl_init($url);
-        # Form data string
-        $postString = http_build_query($data, '', '&');
-        # Setting our options
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $postString);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        # Get the response
-        $response = curl_exec($ch);
-        echo $response;
-        curl_close($ch);
-        
+        echo "you good homie";
+        $_SESSION['tempUserData'] = $_POST;
+        header("Location: payment.php");
     }
 }
 ?>
