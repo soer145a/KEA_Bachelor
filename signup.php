@@ -1,17 +1,21 @@
 <?php
 session_start();
+if(isset($_SESSION['basketObj'])){
+    //echo "YOU HAVE BOUGHT SOMETHING";
+}
 $inputFields = 0;
 $errorMsg = "";
 $errorEmail = "";
 $errorCvr = "";
 $errorPass = "";
+$denySubmitionFlag = false;
 foreach ($_POST as $key) {
     if ($key != "") {
         $inputFields++;
     }
 }
 if ($inputFields != 7) {
-    $errorMsg = "Fuck you fill out the form";
+    //$errorMsg = "Fuck you fill out the form";
 } else {
     //echo "THANKS FOR YOUR DATA FUCK FACE";
     include("DB_Connection/connection.php");
@@ -27,6 +31,7 @@ if ($inputFields != 7) {
     //echo $convertedData->customer_email;
     if (isset($convertedData->customer_email)) {
         $errorEmail = "<p style='color:red'>Your email was stolen sucker</p>";
+        $denySubmitionFlag = true;
     }
     $stmt = $conn->prepare("SELECT customer_cvr FROM customers WHERE customer_cvr = ?");
     $stmt->bind_param("s", $sCVR);
@@ -36,9 +41,33 @@ if ($inputFields != 7) {
     //echo $convertedData->customer_cvr;
     if (isset($convertedData->customer_cvr)) {
         $errorCvr = "<p style='color:red'>Your company was already fo shizzle registered</p>";
+        $denySubmitionFlag = true;
     }
     if ($sPasswordInit !== $sPasswordConfirm) {
         $errorPass = "<p style='color:red'> Your big dumb head can't spell for shitz</p>";
+        $denySubmitionFlag = true;
+    }
+    if($denySubmitionFlag){
+        echo "You can not submit to database";
+    }else{
+        //echo "you good homie";
+        # Our new data
+        print_r($_POST);
+        $data = $_POST;
+        # Create a connection
+        $url = './API/add-customer-to-database.php';
+        $ch = curl_init($url);
+        # Form data string
+        $postString = http_build_query($data, '', '&');
+        # Setting our options
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postString);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        # Get the response
+        $response = curl_exec($ch);
+        echo $response;
+        curl_close($ch);
+        
     }
 }
 ?>
@@ -91,7 +120,5 @@ if ($inputFields != 7) {
         <p><?= $errorMsg ?></p>
     </form>
 </body>
-
 <script src="js/app.js"></script>
-
 </html>
