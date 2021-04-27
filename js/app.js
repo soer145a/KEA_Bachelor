@@ -76,13 +76,13 @@ async function addToBasket(productNmbr) {
         addonData: addOns,
         productID: productNmbr
     }
-    
     postData("API/add-product-to-basket.php", postBody).then(data => (
         informationHandler(data)
     ));
 }
 function informationHandler(returnData) {
-   console.log(returnData); 
+    //console.log(returnData);
+    window.location.href = document.location + "signup.php";
 }
 async function postData(url = '', data = {}) {
     const response = await fetch(url, {
