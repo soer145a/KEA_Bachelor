@@ -8,7 +8,9 @@ $header = headerComp();
 $sql = "SELECT * FROM products";
 $result = $conn->query($sql);
 $productCards = "";
+
 while ($row = $result->fetch_object()) {
+
     if (isset($_SESSION['cart'])) {
         $productIdsArray = array_column($_SESSION['cart'], 'product_id');
         if (in_array($row->product_id, $productIdsArray)) {
@@ -20,6 +22,7 @@ while ($row = $result->fetch_object()) {
         $productCards = $productCards . productComp($row->product_price, $row->product_name, $row->product_id, false);
     }
 }
+
 ?>
 
 

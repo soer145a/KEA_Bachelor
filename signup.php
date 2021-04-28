@@ -1,8 +1,6 @@
 <?php
 session_start();
-if (isset($_SESSION['basketObj'])) {
-    echo json_encode($_SESSION['basketObj']);
-}
+
 $inputFields = 0;
 $errorMsg = "";
 $errorEmail = "";

@@ -13,3 +13,7 @@ h1 {
 a {
     margin-right: 10px;
 }
+
+#paypal-button-container {
+    max-width: 100px;
+}
