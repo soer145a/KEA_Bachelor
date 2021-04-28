@@ -19,6 +19,23 @@ include_once("header.php");
 
 <body>
     <h1>Initial Page</h1>
+    <?php
+    session_start();
+    if (isset($_SESSION['loginStatus'])) {
+        $firstName = $_SESSION['customer_first_name'];
+        $lastName = $_SESSION['customer_last_name'];
+        echo "<p>Hi $firstName $lastName</p> <br>
+        <a href='profile.php'>Profile</a> <br>
+        <a href='logout.php'>Logout</a>
+        ";
+    } else {
+        echo "<a href='login.php'>login</a>
+        <a href='signup.php'>signup</a>
+        ";
+    }
+    ?>
+
+
     <div id="buyOptions">
         <div class="buyCard">
             <h2>Buy Option1</h2>

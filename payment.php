@@ -1,6 +1,18 @@
 <?php
 session_start();
-echo json_encode($_SESSION['tempUserData'])."<br>".json_encode($_SESSION['basketObj']);
+$auth = true;
+if(!isset($_SESSION['tempUserData'])){
+    echo "You need to fill out the user signup form";
+    $auth = false;
+}
+if(!isset($_SESSION['basketObj'])){
+    echo "No products in basket";
+    $auth = false;
+}
+if($auth){
+    echo "ready to pay";
+    header("Location: API/payment-handler.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

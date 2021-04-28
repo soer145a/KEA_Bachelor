@@ -19,7 +19,9 @@ if ($inputFields != 7) {
 } else {
     //echo "THANKS FOR YOUR DATA FUCK FACE";
     include("DB_Connection/connection.php");
+    
     $sEmail = strtolower($conn->real_escape_string($_POST['input_email']));
+    
     $sCVR = $conn->real_escape_string($_POST['input_company_cvr']);
     $sPasswordInit = $_POST['input_password_init'];
     $sPasswordConfirm = $_POST['input_password_confirm'];
@@ -51,7 +53,14 @@ if ($inputFields != 7) {
         echo "You can not submit to database";
     }else{
         echo "you good homie";
-        $_SESSION['tempUserData'] = $_POST;
+        $tempUserData = new stdClass();
+        $tempUserData->uEmail = $sEmail;
+        $tempUserData->uCvr = $sCVR;
+        $tempUserData->uFirstName = $_POST['input_first_name'];
+        $tempUserData->uLastName = $_POST['input_last_name'];
+        $tempUserData->uCompanyName = $_POST['input_company_name'];
+        $tempUserData->uPassword = $sPasswordConfirm;
+        $_SESSION['tempUserData'] = $tempUserData;
         header("Location: payment.php");
     }
 }
