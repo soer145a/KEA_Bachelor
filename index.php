@@ -30,13 +30,13 @@ include_once("header.php");
             <h2>Buy Option2</h2>
             <p>sample text</p>
             <!--   <button onclick="addToBasket(2)">Buy me</button> -->
-            <div id="paypal-button-container"></div>
+
         </div>
         <div class="buyCard">
             <h2>Buy Option3</h2>
             <p>sample text</p>
             <!--  <button onclick="addToBasket(3)">Buy me</button> -->
-            <div id="paypal-button-container"></div>
+
         </div>
     </div>
     <div id="addOns">
