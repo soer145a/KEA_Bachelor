@@ -1,3 +1,11 @@
+<?php
+include_once("DB_Connection/connection.php");
+include_once("header.php");
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,34 +19,24 @@
 
 <body>
     <h1>Initial Page</h1>
-    <?php
-    session_start();
-    if (isset($_SESSION['loginStatus'])) {
-        $firstName = $_SESSION['customer_first_name'];
-        $lastName = $_SESSION['customer_last_name'];
-        echo "Hi $firstName $lastName";
-    } else {
-        echo "fuck you";
-    }
-    ?>
-    <a href="login.php">login</a>
-    <a href="signup.php">signup</a>
-    <a href="profile.php">Profile</a>
     <div id="buyOptions">
         <div class="buyCard">
             <h2>Buy Option1</h2>
             <p>sample text</p>
-            <button onclick="addToBasket(1)">Buy me</button>
+            <!-- <button onclick="addToBasket(1)">Buy me</button> -->
+            <div id="paypal-button-container"></div>
         </div>
         <div class="buyCard">
             <h2>Buy Option2</h2>
             <p>sample text</p>
-            <button onclick="addToBasket(2)">Buy me</button>
+            <!--   <button onclick="addToBasket(2)">Buy me</button> -->
+            <div id="paypal-button-container"></div>
         </div>
         <div class="buyCard">
             <h2>Buy Option3</h2>
             <p>sample text</p>
-            <button onclick="addToBasket(3)">Buy me</button>
+            <!--  <button onclick="addToBasket(3)">Buy me</button> -->
+            <div id="paypal-button-container"></div>
         </div>
     </div>
     <div id="addOns">
@@ -61,5 +59,27 @@
     </div>
 </body>
 <script src="js/app.js"></script>
-
-</html>
+<script src="https://www.paypal.com/sdk/js?client-id=ASc0sohSJuv9IX6ovw_EQxA0uGoiQO5YxX2U7u9qnfZGwovsZ6Tylr1Arf0XOCAshoqqX8ApS3nkYpGy&currency=EUR">
+</script>
+<script>
+    paypal.Buttons({
+        style: {
+            color: 'blue',
+            shape: 'pill'
+        },
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: '100'
+                    }
+                }]
+            });
+        },
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                alert('Transaction completed by ' + details.payer.name.given_name);
+            });
+        }
+    }).render('#paypal-button-container');
+</script>

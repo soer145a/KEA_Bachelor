@@ -5,3 +5,7 @@ h1 {
 .invalid {
     border: 1px solid red;
 }
+
+.buyCard {
+    max-width: 100px;
+}
