@@ -8,9 +8,26 @@ include("../DB_Connection/connection.php");
 foreach ($_SESSION['tempUserData'] as $key) {
     echo "$key <br>";
 }
+foreach ($_SESSION['basketObj'] as $key) {
+    echo json_encode($key)."<br>";
+}
+$dbFirstName = $conn->real_escape_string($_SESSION['tempUserData']->uFirstName);
+echo $dbFirstName;
+$dbLastName = $conn->real_escape_string($_SESSION['tempUserData']->uLastName);
+echo $dbLastName;
+$dbEmail = $conn->real_escape_string($_SESSION['tempUserData']->uEmail);
+echo $dbEmail;
+$dbCompanyName = $conn->real_escape_string($_SESSION['tempUserData']->uCompanyName);
+echo $dbCompanyName;
+$dbCVR = $conn->real_escape_string($_SESSION['tempUserData']->uCvr);
+echo $dbCVR;
+echo $_SESSION['tempUserData']->uPassword;
+$hashedPassword = password_hash($_SESSION['tempUserData']->uPassword,PASSWORD_DEFAULT);
+echo $hashedPassword;
+$apiKey = bin2hex(random_bytes(32));
+echo $apiKey;
+$embed = "<iframe src='https://purplescout.placeholder.dk/key' frameborder='0'></iframe>";
 
-/* $stmt = $conn->prepare("INSERT INTO customers VALUES (customer_first_name, customer_last_name, customer_company_name, customer_email, customer_password, customer_cvr) VALUES (?,?,?,?,?,?)");
-$stmt->bind_param("s", $sEmail);
+$stmt = $conn->prepare("INSERT INTO customers (customer_id ,customer_first_name, customer_last_name, customer_company_name,api_key,embed_link, customer_email, customer_password, customer_cvr) VALUES ( null,?,?,?,?,?,?,?,?)");
+$stmt->bind_param("ssssssss", $dbFirstName, $dbLastName, $dbCompanyName,$apiKey,$embed, $dbEmail, $hashedPassword, $dbCVR);
 $stmt->execute();
-$data = $stmt->get_result();
-$convertedData = $data->fetch_object(); */
