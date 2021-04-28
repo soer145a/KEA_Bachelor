@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(isset($_SESSION['basketObj'])){
+if (isset($_SESSION['basketObj'])) {
     echo json_encode($_SESSION['basketObj']);
 }
 $inputFields = 0;
@@ -19,9 +19,9 @@ if ($inputFields != 7) {
 } else {
     //echo "THANKS FOR YOUR DATA FUCK FACE";
     include("DB_Connection/connection.php");
-    
+
     $sEmail = strtolower($conn->real_escape_string($_POST['input_email']));
-    
+
     $sCVR = $conn->real_escape_string($_POST['input_company_cvr']);
     $sPasswordInit = $_POST['input_password_init'];
     $sPasswordConfirm = $_POST['input_password_confirm'];
@@ -49,9 +49,9 @@ if ($inputFields != 7) {
         $errorPass = "<p style='color:red'> Your big dumb head can't spell for shitz</p>";
         $denySubmitionFlag = true;
     }
-    if($denySubmitionFlag){
+    if ($denySubmitionFlag) {
         echo "You can not submit to database";
-    }else{
+    } else {
         echo "you good homie";
         $tempUserData = new stdClass();
         $tempUserData->uEmail = $sEmail;
@@ -115,4 +115,5 @@ if ($inputFields != 7) {
     </form>
 </body>
 <script src="js/app.js"></script>
+
 </html>

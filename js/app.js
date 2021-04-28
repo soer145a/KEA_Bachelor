@@ -68,18 +68,7 @@ function gatherProductData() {
   });
   return returnObject;
 }
-async function addToBasket(productNmbr) {
-  let addOns = gatherProductData();
-  console.log(addOns);
-  console.log(productNmbr);
-  let postBody = {
-    addonData: addOns,
-    productID: productNmbr,
-  };
-  postData("API/add-product-to-basket.php", postBody).then((data) =>
-    informationHandler(data)
-  );
-}
+
 function informationHandler(returnData) {
   //console.log(returnData);
   window.location.href = document.location + "signup.php";

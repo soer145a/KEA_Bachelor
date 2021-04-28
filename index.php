@@ -1,8 +1,25 @@
 <?php
+session_start();
 include_once("DB_Connection/connection.php");
-include_once("header.php");
+include_once("Components/product.php");
+include_once("Components/header.php");
+$header = headerComp();
 
-
+$sql = "SELECT * FROM products";
+$result = $conn->query($sql);
+$productCards = "";
+while ($row = $result->fetch_object()) {
+    if (isset($_SESSION['cart'])) {
+        $productIdsArray = array_column($_SESSION['cart'], 'product_id');
+        if (in_array($row->product_id, $productIdsArray)) {
+            $productCards = $productCards . productComp($row->product_price, $row->product_name, $row->product_id, true);
+        } else {
+            $productCards = $productCards . productComp($row->product_price, $row->product_name, $row->product_id, false);
+        }
+    } else {
+        $productCards = $productCards . productComp($row->product_price, $row->product_name, $row->product_id, false);
+    }
+}
 ?>
 
 
@@ -18,43 +35,10 @@ include_once("header.php");
 </head>
 
 <body>
+    <div><?= $header ?></div>
     <h1>Initial Page</h1>
-    <?php
-    session_start();
-    if (isset($_SESSION['loginStatus'])) {
-        $firstName = $_SESSION['customer_first_name'];
-        $lastName = $_SESSION['customer_last_name'];
-        echo "<p>Hi $firstName $lastName</p> <br>
-        <a href='profile.php'>Profile</a> <br>
-        <a href='logout.php'>Logout</a>
-        ";
-    } else {
-        echo "<a href='login.php'>login</a>
-        <a href='signup.php'>signup</a>
-        ";
-    }
-    ?>
-
-
     <div id="buyOptions">
-        <div class="buyCard">
-            <h2>Buy Option1</h2>
-            <p>sample text</p>
-            <!-- <button onclick="addToBasket(1)">Buy me</button> -->
-            <div id="paypal-button-container"></div>
-        </div>
-        <div class="buyCard">
-            <h2>Buy Option2</h2>
-            <p>sample text</p>
-            <!--   <button onclick="addToBasket(2)">Buy me</button> -->
-
-        </div>
-        <div class="buyCard">
-            <h2>Buy Option3</h2>
-            <p>sample text</p>
-            <!--  <button onclick="addToBasket(3)">Buy me</button> -->
-
-        </div>
+        <?= $productCards ?>
     </div>
     <div id="addOns">
         <label>
@@ -76,27 +60,3 @@ include_once("header.php");
     </div>
 </body>
 <script src="js/app.js"></script>
-<script src="https://www.paypal.com/sdk/js?client-id=ASc0sohSJuv9IX6ovw_EQxA0uGoiQO5YxX2U7u9qnfZGwovsZ6Tylr1Arf0XOCAshoqqX8ApS3nkYpGy&currency=EUR">
-</script>
-<script>
-    paypal.Buttons({
-        style: {
-            color: 'blue',
-            shape: 'pill'
-        },
-        createOrder: function(data, actions) {
-            return actions.order.create({
-                purchase_units: [{
-                    amount: {
-                        value: '100'
-                    }
-                }]
-            });
-        },
-        onApprove: function(data, actions) {
-            return actions.order.capture().then(function(details) {
-                alert('Transaction completed by ' + details.payer.name.given_name);
-            });
-        }
-    }).render('#paypal-button-container');
-</script>

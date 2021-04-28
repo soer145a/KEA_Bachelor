@@ -9,3 +9,7 @@ h1 {
 .buyCard {
     max-width: 100px;
 }
+
+a {
+    margin-right: 10px;
+}
