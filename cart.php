@@ -54,9 +54,25 @@ if (isset($_SESSION['cart'])) {
             });
         },
         onApprove: function(data, actions) {
-            return actions.order.capture().then(function(details) {
-                console.log(details);
-                /* window.location.replace('http://localhost:8080/KEA_Bachelor/signup.php'); */
+            return actions.order.capture().then(function(PurchaseDetails) {
+
+                console.log(PurchaseDetails);
+
+                let customerData = document.createElement('form');
+                let postData = document.createElement('input');
+                postData.value = JSON.stringify(PurchaseDetails);
+                customerData.appendChild(postData);
+                customerData.setAttribute('method', 'post');
+                postData.setAttribute('type', 'hidden');
+                postData.setAttribute('name', 'postData')
+                customerData.setAttribute('action', 'signup.php');
+                document.body.append(customerData);
+
+
+                customerData.submit();
+
+
+
             });
         }
     }).render('#paypal-button-container');

@@ -1,17 +1,36 @@
 <?php
 session_start();
 
+if (isset($_POST['postData'])) {
+    $customerData = json_decode($_POST['postData']);
+
+    $payerDetails = $customerData->payer;
+    $addressDetails = $customerData->purchase_units[0];
+
+    $customerEmail = $customerData->payer->email_address;
+    $customerFirstName = $customerData->payer->name->given_name;
+    $customerLastName = $customerData->payer->name->surname;
+
+    $customerStreet = $customerData->purchase_units[0]->shipping->address->address_line_1;
+    $customerCountry = $customerData->purchase_units[0]->shipping->address->admin_area_1;
+    $customerCity = str_replace('\uFFFD', 'ø', $customerData->purchase_units[0]->shipping->address->admin_area_2);
+    $customerPostCode = $customerData->purchase_units[0]->shipping->address->postal_code;
+    $customerCountryCode = $customerData->purchase_units[0]->shipping->address->country_code;
+
+    echo $customerCity;
+}
+
 $inputFields = 0;
 $errorMsg = "";
 $errorEmail = "";
 $errorCvr = "";
 $errorPass = "";
 $denySubmitionFlag = false;
-foreach ($_POST as $key) {
+/* foreach ($_POST as $key) {
     if ($key != "") {
         $inputFields++;
     }
-}
+} */
 if ($inputFields != 7) {
     //$errorMsg = "Fuck you fill out the form";
 } else {
