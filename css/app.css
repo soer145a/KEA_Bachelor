@@ -5,3 +5,15 @@ h1 {
 .invalid {
     border: 1px solid red;
 }
+
+.buyCard {
+    max-width: 100px;
+}
+
+a {
+    margin-right: 10px;
+}
+
+#paypal-button-container {
+    max-width: 100px;
+}

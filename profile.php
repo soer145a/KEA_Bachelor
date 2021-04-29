@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['loginStatus']) || !$_SESSION['loginStatus']) {
+if (!isset($_SESSION['loginStatus'])) {
     header('Location: login.php');
 } else {
     $firstName = $_SESSION['customer_first_name'];
