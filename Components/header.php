@@ -24,7 +24,7 @@ function headerComp()
         <a href='login.php'>login</a>
         <a href='signup.php'>signup</a>
         <a href='cart.php'>Cart</a>
-        <a href='empty-cart.php'>Empty cart</a>
+        <a href='API/empty-cart.php'>Empty cart</a>
         ";
     }
     if (isset($_SESSION['cart'])) {
