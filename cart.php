@@ -18,70 +18,7 @@ if (isset($_SESSION['cart'])) {
     $productCards = "<strong>Nothing in cart</strong>";
 }
 
-//signup form post starts here
-
-$inputFields = 0;
-$errorMsg = "";
-$errorEmail = "";
-$errorCvr = "";
-$errorPass = "";
-$denySubmitionFlag = false;
-foreach ($_POST as $key) {
-    if ($key != "") {
-        $inputFields++;
-    }
-}
-if ($inputFields != 7) {
-    //$errorMsg = "Fuck you fill out the form";
-} else {
-    //echo "THANKS FOR YOUR DATA FUCK FACE"; 
-
-    $sEmail = strtolower($conn->real_escape_string($_POST['input_email']));
-    $sCVR = $_POST['input_company_cvr'];
-    $sPasswordInit = $_POST['input_password_init'];
-    $sPasswordConfirm = $_POST['input_password_confirm'];
-    $stmt = $conn->prepare("SELECT customer_email FROM customers WHERE customer_email = ?");
-    $stmt->bind_param("s", $sEmail);
-    $stmt->execute();
-    $data = $stmt->get_result();
-    $convertedData = $data->fetch_object();
-    //echo $convertedData->customer_email;
-    if (isset($convertedData->customer_email)) {
-        $errorEmail = "<p style='color:red'>Your email was stolen sucker</p>";
-        $denySubmitionFlag = true;
-    }
-    $stmt = $conn->prepare("SELECT customer_cvr FROM customers WHERE customer_cvr = ?");
-    $stmt->bind_param("s", $sCVR);
-    $stmt->execute();
-    $data = $stmt->get_result();
-    $convertedData = $data->fetch_object();
-    //echo $convertedData->customer_cvr;
-    if (isset($convertedData->customer_cvr)) {
-        $errorCvr = "<p style='color:red'>Your company was already fo shizzle registered</p>";
-        $denySubmitionFlag = true;
-    }
-    if ($sPasswordInit !== $sPasswordConfirm) {
-        $errorPass = "<p style='color:red'> Your big dumb head can't spell for shitz</p>";
-        $denySubmitionFlag = true;
-    }
-    if ($denySubmitionFlag) {
-        echo "You can not submit to database";
-    } else {
-        echo "you good homie";
-        $tempUserData = new stdClass();
-        $tempUserData->uEmail = $sEmail;
-        $tempUserData->uCvr = $sCVR;
-        $tempUserData->uFirstName = $_POST['input_first_name'];
-        $tempUserData->uLastName = $_POST['input_last_name'];
-        $tempUserData->uCompanyName = $_POST['input_company_name'];
-        $tempUserData->uPassword = $sPasswordConfirm;
-        $_SESSION['tempUserData'] = $tempUserData;
-        header('Location: index.php');
-    }
-}
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -115,7 +52,7 @@ if ($inputFields != 7) {
             <label>
                 <p>Contact - Email:</p>
                 <input class="form__input" oninput="inputValidate(); printBtn();" data-validate="email" type="email" name="input_email" placeholder="example@email.com">
-                <?= $errorEmail ?>
+
             </label>
             <label>
                 <p>Company - Name:</p>
@@ -124,7 +61,7 @@ if ($inputFields != 7) {
             <label>
                 <p>Company - CVR:</p>
                 <input class="form__input" oninput="inputValidate(); printBtn();" data-validate="cvr" type="text" name="input_company_cvr" placeholder="12345678">
-                <?= $errorCvr ?>
+
             </label>
             <label>
                 <p>Password: ( No special characters )</p>
@@ -133,7 +70,7 @@ if ($inputFields != 7) {
             <label>
                 <p>Confirm Password:</p>
                 <input class="form__input" oninput="inputValidate(); printBtn();" data-validate="password" type="password" name="input_password_confirm" placeholder="MyStr0ng.PW-example">
-                <?= $errorPass ?>
+
             </label>
             <div class="form__btnContainer">
 
