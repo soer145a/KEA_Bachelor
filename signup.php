@@ -1,11 +1,20 @@
 <?php
 session_start();
 
+$customerEmail = "";
+$customerFirstName = "";
+$customerLastName = "";
+
+$customerStreet = "";
+$customerCountry = "";
+$customerCity = "";
+$customerPostCode = "";
+$customerCountryCode = "";
+
 if (isset($_POST['postData'])) {
     $customerData = json_decode($_POST['postData']);
 
     $payerDetails = $customerData->payer;
-    $addressDetails = $customerData->purchase_units[0];
 
     $customerEmail = $customerData->payer->email_address;
     $customerFirstName = $customerData->payer->name->given_name;
@@ -16,8 +25,6 @@ if (isset($_POST['postData'])) {
     $customerCity = str_replace('\uFFFD', 'ø', $customerData->purchase_units[0]->shipping->address->admin_area_2);
     $customerPostCode = $customerData->purchase_units[0]->shipping->address->postal_code;
     $customerCountryCode = $customerData->purchase_units[0]->shipping->address->country_code;
-
-    echo $customerCity;
 }
 
 $inputFields = 0;
@@ -26,11 +33,11 @@ $errorEmail = "";
 $errorCvr = "";
 $errorPass = "";
 $denySubmitionFlag = false;
-/* foreach ($_POST as $key) {
+foreach ($_POST as $key) {
     if ($key != "") {
         $inputFields++;
     }
-} */
+}
 if ($inputFields != 7) {
     //$errorMsg = "Fuck you fill out the form";
 } else {
@@ -98,15 +105,15 @@ if ($inputFields != 7) {
     <form class="form" method="post" onsubmit="return inputValidate()">
         <label>
             <p>Contact - First Name:</p>
-            <input class="form__input" oninput="inputValidate()" data-validate="string" type="text" name="input_first_name" placeholder="John">
+            <input class="form__input" oninput="inputValidate()" value="<?= $customerFirstName ?>" data-validate="string" type="text" name="input_first_name" placeholder="John">
         </label>
         <label>
             <p>Contact - Last Name:</p>
-            <input class="form__input" oninput="inputValidate()" data-validate="string" type="text" name="input_last_name" placeholder="Doe">
+            <input class="form__input" oninput="inputValidate()" value="<?= $customerLastName ?>" data-validate="string" type="text" name="input_last_name" placeholder="Doe">
         </label>
         <label>
             <p>Contact - Email:</p>
-            <input class="form__input" oninput="inputValidate()" data-validate="email" type="email" name="input_email" placeholder="example@email.com">
+            <input class="form__input" oninput="inputValidate()" value="<?= $customerEmail ?>" data-validate="email" type="email" name="input_email" placeholder="example@email.com">
             <?= $errorEmail ?>
         </label>
         <label>
