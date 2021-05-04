@@ -11,16 +11,32 @@ function inputValidate() {
 
   for (let i = 0; i < inputsToValidate.length; i++) {
     inputsToValidate[i].classList.remove("invalid");
+    inputsToValidate[i].classList.remove("valid");
 
     let validationType = inputsToValidate[i].getAttribute("data-validate");
 
     switch (validationType) {
       case "password":
         inputData = inputsToValidate[i].value;
-        let regPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{6,30}$/;
+
         //Must contain 6-30 characters, one uppercase character, one lowercase character, one numeric character and one special character. Eg.: MyStr0ng.PW-example
-        if (!regPassword.test(inputData)) {
-          inputsToValidate[i].classList.add("invalid");
+        let regPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{6,30}$/;
+
+        if (inputsToValidate[i].name !== "input_password_confirm") {
+          if (!regPassword.test(inputData)) {
+            inputsToValidate[i].classList.add("invalid");
+          } else {
+            inputsToValidate[i].classList.add("valid");
+          }
+        } else {
+          if (
+            inputsToValidate[i].value ===
+            document.getElementsByName("input_password_init")[0].value
+          ) {
+            inputsToValidate[i].classList.add("valid");
+          } else {
+            inputsToValidate[i].classList.add("invalid");
+          }
         }
         break;
 
@@ -30,6 +46,8 @@ function inputValidate() {
 
         if (!regCvr.test(inputData)) {
           inputsToValidate[i].classList.add("invalid");
+        } else {
+          inputsToValidate[i].classList.add("valid");
         }
         break;
 
@@ -38,6 +56,8 @@ function inputValidate() {
 
         if (inputData.length < 1) {
           inputsToValidate[i].classList.add("invalid");
+        } else {
+          inputsToValidate[i].classList.add("valid");
         }
         break;
 
@@ -47,6 +67,8 @@ function inputValidate() {
 
         if (!regEmail.test(inputData)) {
           inputsToValidate[i].classList.add("invalid");
+        } else {
+          inputsToValidate[i].classList.add("valid");
         }
         break;
     }
