@@ -101,6 +101,9 @@ function informationHandler(returnData) {
   //console.log(returnData);
   window.location.href = document.location + "signup.php";
 }
+async function addProductToCustomer() {
+  console.log("Cross-call-function");
+}
 async function postData(url = "", data = {}) {
   const response = await fetch(url, {
     name: "body",

@@ -83,33 +83,41 @@ if (isset($_SESSION['cart'])) {
 <script src="https://www.paypal.com/sdk/js?client-id=ASc0sohSJuv9IX6ovw_EQxA0uGoiQO5YxX2U7u9qnfZGwovsZ6Tylr1Arf0XOCAshoqqX8ApS3nkYpGy&currency=EUR&disable-funding=credit,card">
 </script>
 <script>
-    function printBtn() {
-        btnContainer = document.getElementsByClassName("form__btnContainer")[0];
-        if (document.querySelectorAll(".valid").length !== 7) {
-            btnContainer.innerHTML = "<p>What would cause you not to fill out all the fields in the form?</p>";
-        } else {
-            console.log("It does work");
-            btnContainer.innerHTML = "<div id='paypal-button-container'></div>";
-            paypal.Buttons({
-                style: {
-                    color: 'blue',
-                    shape: 'pill',
-                },
-                createOrder: function(data, actions) {
-                    return actions.order.create({
-                        purchase_units: [{
-                            amount: {
-                                value: <?= $totalPrice ?>
-                            }
-                        }]
-                    });
-                },
-                onApprove: function(data, actions) {
-                    return actions.order.capture().then(function(PurchaseDetails) {
-                        document.getElementsByClassName('signUpForm')[0].submit();
-                    });
-                }
-            }).render('#paypal-button-container');
+    paypal.Buttons({
+        style: {
+            color: 'blue',
+            shape: 'pill'
+        },
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: <?= $totalPrice ?>
+                    }
+                }]
+            });
+        },
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(PurchaseDetails) {
+
+                console.log(PurchaseDetails);
+                addProductToCustomer();
+                /* let customerData = document.createElement('form');
+                let postData = document.createElement('input');
+                postData.value = JSON.stringify(PurchaseDetails);
+                customerData.appendChild(postData);
+                customerData.setAttribute('method', 'post');
+                postData.setAttribute('type', 'hidden');
+                postData.setAttribute('name', 'postData')
+                customerData.setAttribute('action', 'signup.php');
+                document.body.append(customerData);
+
+
+                customerData.submit(); */
+
+
+
+            });
         }
     }
 </script>
