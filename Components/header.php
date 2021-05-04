@@ -22,7 +22,6 @@ function headerComp()
             "
         <a href='index.php'>Front page</a>
         <a href='login.php'>login</a>
-        <a href='signup.php'>signup</a>
         <a href='cart.php'>Cart</a>
         <a href='API/empty-cart.php'>Empty cart</a>
         ";

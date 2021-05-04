@@ -57,8 +57,8 @@ if (isset($_SESSION['cart'])) {
             return actions.order.capture().then(function(PurchaseDetails) {
 
                 console.log(PurchaseDetails);
-
-                let customerData = document.createElement('form');
+                addProductToCustomer();
+                /* let customerData = document.createElement('form');
                 let postData = document.createElement('input');
                 postData.value = JSON.stringify(PurchaseDetails);
                 customerData.appendChild(postData);
@@ -69,7 +69,7 @@ if (isset($_SESSION['cart'])) {
                 document.body.append(customerData);
 
 
-                customerData.submit();
+                customerData.submit(); */
 
 
 
