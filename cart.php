@@ -75,7 +75,7 @@ if (isset($_SESSION['cart'])) {
             <div class="form__btnContainer">
 
             </div>
-            <p><?= $errorMsg ?></p>
+
         </form>
     </div>
 </body>
