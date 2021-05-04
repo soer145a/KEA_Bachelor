@@ -1,28 +1,25 @@
 <?php
 session_start();
-//echo "starting the payment";
+echo "starting the submission";
 include("../DB_Connection/connection.php");
-
+echo json_encode($_POST['input_first_name']);
 //$sql = "INSERT INTO customers VALUES (customer_first_name, customer_last_name, customer_company_name, customer_email, customer_password, customer_cvr) VALUES ('John', 'Doe', 'john@example.com')";
 //$result = $conn->query();
-foreach ($_SESSION['tempUserData'] as $key) {
-    //echo "$key <br>";
-}
-foreach ($_SESSION['basketObj'] as $key) {
+foreach ($_SESSION['cart'] as $key) {
     echo json_encode($key)."<br>";
 }
-$dbFirstName = $conn->real_escape_string($_SESSION['tempUserData']->uFirstName);
+$dbFirstName = $conn->real_escape_string($_POST['input_first_name']);
 //echo $dbFirstName;
-$dbLastName = $conn->real_escape_string($_SESSION['tempUserData']->uLastName);
+$dbLastName = $conn->real_escape_string($_POST['input_last_name']);
 //echo $dbLastName;
-$dbEmail = $conn->real_escape_string($_SESSION['tempUserData']->uEmail);
+$dbEmail = $conn->real_escape_string($_POST['input_email']);
 //echo $dbEmail;
-$dbCompanyName = $conn->real_escape_string($_SESSION['tempUserData']->uCompanyName);
+$dbCompanyName = $conn->real_escape_string($_POST['input_company_name']);
 //echo $dbCompanyName;
-$dbCVR = $conn->real_escape_string($_SESSION['tempUserData']->uCvr);
+$dbCVR = $conn->real_escape_string($_POST['input_company_name']);
 //echo $dbCVR;
 //echo $_SESSION['tempUserData']->uPassword;
-$hashedPassword = password_hash($_SESSION['tempUserData']->uPassword,PASSWORD_DEFAULT);
+$hashedPassword = password_hash($_POST['input_password_confirm'],PASSWORD_DEFAULT);
 //echo $hashedPassword;
 $apiKey = bin2hex(random_bytes(32));
 //echo $apiKey;

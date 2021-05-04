@@ -17,7 +17,7 @@ if (isset($_SESSION['cart'])) {
 } else {
     $productCards = "<strong>Nothing in cart</strong>";
 }
-
+echo json_encode($_POST);
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +40,7 @@ if (isset($_SESSION['cart'])) {
     </div>
     <div>
         <h1>Sign Up</h1>
-        <form class="form signUpForm" method="post" onsubmit="return inputValidate()">
+        <form class="form signUpForm" method="post" action="API/payment-handler.php" onsubmit="return inputValidate()">
             <label>
                 <p>Contact - First Name:</p>
                 <input class="form__input" oninput="inputValidate(); printBtn();" data-validate="string" type="text" name="input_first_name" placeholder="John">
