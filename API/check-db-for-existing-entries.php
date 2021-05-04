@@ -2,11 +2,15 @@
 
 //signup form post starts here
 
-$_POST;
+
+if (isset($_POST)) {
+    echo $_POST[0]->body;
+} else {
+    echo "Post is not set";
+}
 
 
-
-$sEmail = strtolower($conn->real_escape_string($_POST['input_email']));
+/* $sEmail = strtolower($conn->real_escape_string($_POST['input_email']));
 $sCVR = $_POST['input_company_cvr'];
 $sPasswordInit = $_POST['input_password_init'];
 $sPasswordConfirm = $_POST['input_password_confirm'];
@@ -47,4 +51,4 @@ if ($denySubmitionFlag) {
     $tempUserData->uPassword = $sPasswordConfirm;
     $_SESSION['tempUserData'] = $tempUserData;
     header('Location: index.php');
-}
+} */

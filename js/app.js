@@ -47,12 +47,11 @@ function inputValidate() {
         if (!regCvr.test(inputData)) {
           inputsToValidate[i].classList.add("invalid");
         } else {
-          let cvrInputValue = { cvr: inputsToValidate[i].value };
-          const response = postData(
+          let cvrInputValue = { cvr: inputData };
+          postData(
             "API/check-db-for-existing-entries.php",
             cvrInputValue
-          );
-
+          ).then((response) => console.log(response));
           inputsToValidate[i].classList.add("valid");
         }
         break;
@@ -117,5 +116,5 @@ async function postData(url = "", data = {}) {
     referrerPolicy: "no-referrer",
     body: JSON.stringify(data),
   });
-  return response.json();
+  return response;
 }

@@ -75,7 +75,7 @@ echo json_encode($_POST);
             <div class="form__btnContainer">
 
             </div>
-            <p><?= $errorMsg ?></p>
+
         </form>
     </div>
 </body>
