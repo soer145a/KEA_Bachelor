@@ -50,9 +50,24 @@ if (isset($_SESSION['cart'])) {
                 <input class="form__input" oninput="inputValidate(); printBtn();" data-validate="string" type="text" name="input_last_name" placeholder="Doe">
             </label>
             <label>
+                <p>Company - Street:</p>
+                <input class="form__input" oninput="inputValidate(); printBtn();" data-validate="string" type="text" name="input_company_street" placeholder="John Doe Lane 35A">
+            </label>
+            <label>
+                <p>Company - Postcode:</p>
+                <input class="form__input" oninput="inputValidate(); printBtn();" data-validate="string" type="text" name="input_company_Postcode" placeholder="SW1W 0NY">
+            </label>
+            <label>
+                <p>Company - City:</p>
+                <input class="form__input" oninput="inputValidate(); printBtn();" data-validate="string" type="text" name="input_company_city" placeholder="London">
+            </label>
+            <label>
+                <p>Company - country:</p>
+                <input class="form__input" oninput="inputValidate(); printBtn();" data-validate="string" type="text" name="input_company_country" placeholder="England">
+            </label>
+            <label>
                 <p>Contact - Email:</p>
                 <input class="form__input" oninput="inputValidate(); printBtn();" data-validate="email" type="email" name="input_email" placeholder="example@email.com">
-
             </label>
             <label>
                 <p>Company - Name:</p>
@@ -70,12 +85,10 @@ if (isset($_SESSION['cart'])) {
             <label>
                 <p>Confirm Password:</p>
                 <input class="form__input" oninput="inputValidate(); printBtn();" data-validate="password" type="password" name="input_password_confirm" placeholder="MyStr0ng.PW-example">
-
             </label>
+            <div class="errorMessage"></div>
             <div class="form__btnContainer">
-
             </div>
-
         </form>
     </div>
 </body>
