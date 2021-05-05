@@ -6,17 +6,77 @@ include("DB_Connection/connection.php");
 $header = headerComp();
 
 //productcards being printet starts here
-
+$content = "";
 $productCards = "";
 $totalPrice = 0;
 if (isset($_SESSION['cart'])) {
     foreach ($_SESSION['cart'] as $product) {
         $totalPrice =  $totalPrice + (int)$product['product_price'];
-        $productCards = $productCards . productComp($product['product_price'], $product['product_name'], $product['product_id'], true);
+        $productCards = $productCards . productComp($product['product_price'], $product['product_name'], '', $product['product_id'], true);
     }
 } else {
     $productCards = "<strong>Nothing in cart</strong>";
 }
+if (!isset($_SESSION['loginStatus'])) {
+    $content = '<div>
+    <h1>Sign Up</h1> <a href="login.php">Already a customer? - login here</a>
+    <form class="form signUpForm" method="post" action="API/payment-handler.php">
+        <label>
+            <p>Contact - First Name:</p>
+            <input class="form__input" oninput="inputValidate(); printBtnValidate();" data-validate="string" type="text" name="input_first_name" placeholder="John">
+        </label>
+        <label>
+            <p>Contact - Last Name:</p>
+            <input class="form__input" oninput="inputValidate(); printBtnValidate();" data-validate="string" type="text" name="input_last_name" placeholder="Doe">
+        </label>
+        <label>
+            <p>Company - Street:</p>
+            <input class="form__input" oninput="inputValidate(); printBtnValidate();" data-validate="string" type="text" name="input_company_street" placeholder="John Doe Lane 35A">
+        </label>
+        <label>
+            <p>Company - Postcode:</p>
+            <input class="form__input" oninput="inputValidate(); printBtnValidate();" data-validate="string" type="text" name="input_company_Postcode" placeholder="SW1W 0NY">
+        </label>
+        <label>
+            <p>Company - City:</p>
+            <input class="form__input" oninput="inputValidate(); printBtnValidate();" data-validate="string" type="text" name="input_company_city" placeholder="London">
+        </label>
+        <label>
+            <p>Company - country:</p>
+            <input class="form__input" oninput="inputValidate(); printBtnValidate();" data-validate="string" type="text" name="input_company_country" placeholder="England">
+        </label>
+        <label>
+            <p>Contact - Email:</p>
+            <input class="form__input" oninput="inputValidate(); printBtnValidate();" data-validate="email" type="email" name="input_email" placeholder="example@email.com">
+        </label>
+        <label>
+            <p>Company - Name:</p>
+            <input class="form__input" oninput="inputValidate(); printBtnValidate();" data-validate="string" type="text" name="input_company_name" placeholder="JohnDoe A/S">
+        </label>
+        <label>
+            <p>Company - CVR:</p>
+            <input class="form__input" oninput="inputValidate(); printBtnValidate();" data-validate="cvr" type="text" name="input_company_cvr" placeholder="12345678">
+
+        </label>
+        <label>
+            <p>Password: ( No special characters )</p>
+            <input class="form__input" oninput="inputValidate(); printBtnValidate();" data-validate="password" type="password" name="input_password_init" placeholder="MyStr0ng.PW-example">
+        </label>
+        <label>
+            <p>Confirm Password:</p>
+            <input class="form__input" oninput="inputValidate(); printBtnValidate();" data-validate="password" type="password" name="input_password_confirm" placeholder="MyStr0ng.PW-example">
+        </label>
+        <div class="errorMessage"></div>
+        <div class="form__btnContainer">
+        </div>
+    </form>
+</div>';
+    $loggedIn = false;
+} else {
+    $loggedIn = true;
+    $content = '<div id="paypal-button-container"></div>';
+}
+
 //echo json_encode($_POST);
 ?>
 
@@ -38,65 +98,36 @@ if (isset($_SESSION['cart'])) {
         <?= $productCards ?>
         <?= "Total: " . $totalPrice . " Eur" ?>
     </div>
-    <div>
-        <h1>Sign Up</h1>
-        <form class="form signUpForm" method="post" action="API/payment-handler.php" onsubmit="return inputValidate()">
-            <label>
-                <p>Contact - First Name:</p>
-                <input class="form__input" oninput="inputValidate(); printBtn();" data-validate="string" type="text" name="input_first_name" placeholder="John">
-            </label>
-            <label>
-                <p>Contact - Last Name:</p>
-                <input class="form__input" oninput="inputValidate(); printBtn();" data-validate="string" type="text" name="input_last_name" placeholder="Doe">
-            </label>
-            <label>
-                <p>Company - Street:</p>
-                <input class="form__input" oninput="inputValidate(); printBtn();" data-validate="string" type="text" name="input_company_street" placeholder="John Doe Lane 35A">
-            </label>
-            <label>
-                <p>Company - Postcode:</p>
-                <input class="form__input" oninput="inputValidate(); printBtn();" data-validate="string" type="text" name="input_company_Postcode" placeholder="SW1W 0NY">
-            </label>
-            <label>
-                <p>Company - City:</p>
-                <input class="form__input" oninput="inputValidate(); printBtn();" data-validate="string" type="text" name="input_company_city" placeholder="London">
-            </label>
-            <label>
-                <p>Company - country:</p>
-                <input class="form__input" oninput="inputValidate(); printBtn();" data-validate="string" type="text" name="input_company_country" placeholder="England">
-            </label>
-            <label>
-                <p>Contact - Email:</p>
-                <input class="form__input" oninput="inputValidate(); printBtn();" data-validate="email" type="email" name="input_email" placeholder="example@email.com">
-            </label>
-            <label>
-                <p>Company - Name:</p>
-                <input class="form__input" oninput="inputValidate(); printBtn();" data-validate="string" type="text" name="input_company_name" placeholder="JohnDoe A/S">
-            </label>
-            <label>
-                <p>Company - CVR:</p>
-                <input class="form__input" oninput="inputValidate(); printBtn();" data-validate="cvr" type="text" name="input_company_cvr" placeholder="12345678">
-
-            </label>
-            <label>
-                <p>Password: ( No special characters )</p>
-                <input class="form__input" oninput="inputValidate(); printBtn();" data-validate="password" type="password" name="input_password_init" placeholder="MyStr0ng.PW-example">
-            </label>
-            <label>
-                <p>Confirm Password:</p>
-                <input class="form__input" oninput="inputValidate(); printBtn();" data-validate="password" type="password" name="input_password_confirm" placeholder="MyStr0ng.PW-example">
-            </label>
-            <div class="errorMessage"></div>
-            <div class="form__btnContainer">
-            </div>
-        </form>
-    </div>
+    <?= $content ?>
 </body>
 <script src="js/app.js"></script>
 <script src="https://www.paypal.com/sdk/js?client-id=ASc0sohSJuv9IX6ovw_EQxA0uGoiQO5YxX2U7u9qnfZGwovsZ6Tylr1Arf0XOCAshoqqX8ApS3nkYpGy&currency=EUR&disable-funding=credit,card">
 </script>
 <script>
-    function printBtn() {
+    if (<?= $loggedIn ?>) {
+        paypal.Buttons({
+            style: {
+                color: 'blue',
+                shape: 'pill',
+            },
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: <?= $totalPrice ?>
+                        }
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(PurchaseDetails) {
+
+                });
+            }
+        }).render('#paypal-button-container');
+    }
+
+    function printBtnValidate() {
         btnContainer = document.getElementsByClassName("form__btnContainer")[0];
         if (document.querySelectorAll(".valid").length !== 7) {
             btnContainer.innerHTML = "<p>What would cause you not to fill out all the fields in the form?</p>";
