@@ -4,7 +4,7 @@
 
 
 if (isset($_POST)) {
-    echo $_POST[0]->body;
+    echo $_POST[0]->bodyz;
 } else {
     echo "Post is not set";
 }

@@ -51,7 +51,7 @@ function inputValidate() {
           postData(
             "API/check-db-for-existing-entries.php",
             cvrInputValue
-          ).then((response) => console.log(response));
+          ).then(data => {console.log(data)});
           inputsToValidate[i].classList.add("valid");
         }
         break;

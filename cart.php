@@ -17,7 +17,7 @@ if (isset($_SESSION['cart'])) {
 } else {
     $productCards = "<strong>Nothing in cart</strong>";
 }
-echo json_encode($_POST);
+//echo json_encode($_POST);
 ?>
 
 <!DOCTYPE html>
