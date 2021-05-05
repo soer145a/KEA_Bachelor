@@ -14,12 +14,12 @@ while ($row = $result->fetch_object()) {
     if (isset($_SESSION['cart'])) {
         $productIdsArray = array_column($_SESSION['cart'], 'product_id');
         if (in_array($row->product_id, $productIdsArray)) {
-            $productCards = $productCards . productComp($row->product_price, $row->product_name, $row->product_id, true);
+            $productCards = $productCards . productComp($row->product_price, $row->product_name, $row->product_description, $row->product_id, true);
         } else {
-            $productCards = $productCards . productComp($row->product_price, $row->product_name, $row->product_id, false);
+            $productCards = $productCards . productComp($row->product_price, $row->product_name, $row->product_description, $row->product_id, false);
         }
     } else {
-        $productCards = $productCards . productComp($row->product_price, $row->product_name, $row->product_id, false);
+        $productCards = $productCards . productComp($row->product_price, $row->product_name, $row->product_description, $row->product_id, false);
     }
 }
 

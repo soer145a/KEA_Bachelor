@@ -1,6 +1,11 @@
 <?php
 session_start();
 $errorMess = "";
+
+if (isset($_SESSION['loginStatus'])) {
+    header('Location: profile.php');
+}
+
 if (isset($_POST['customer_email']) && isset($_POST['customer_password'])) {
     //echo $_POST['customer_email']." ".$_POST['customer_password'];
     if ($_POST['customer_email'] != "" && $_POST['customer_password'] != "") {
