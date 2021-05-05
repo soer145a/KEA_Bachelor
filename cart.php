@@ -77,8 +77,6 @@ if (!isset($_SESSION['loginStatus'])) {
     $content = '<div id="paypal-button-container"></div>';
 }
 
-
-
 //echo json_encode($_POST);
 ?>
 
@@ -128,7 +126,6 @@ if (!isset($_SESSION['loginStatus'])) {
             }
         }).render('#paypal-button-container');
     }
-
 
     function printBtnValidate() {
         btnContainer = document.getElementsByClassName("form__btnContainer")[0];
