@@ -30,7 +30,7 @@ $stmt = $conn->prepare("INSERT INTO customers (customer_id ,customer_first_name,
 $stmt->bind_param("ssssssss", $dbFirstName, $dbLastName, $dbCompanyName,$apiKey,$embed, $dbEmail, $hashedPassword, $dbCVR);
 
 $stmt->execute();
-$userID =  $stmt->insert_id;
+$userID = $stmt->insert_id;
 
 //echo "sucess";
 $i = 0;
@@ -48,3 +48,5 @@ $subAuto = 0;
 $stmt_2 = $conn->prepare("INSERT INTO customer_products (customer_products_id ,customer_id, product_id, subscription_start,subscription_total_length, subscription_end, subscription_remaining, subscription_active, subscription_autorenew) VALUES ( null,?,?,?,?,?,?,?,?)");
 $stmt_2->bind_param("iiiiiiii", $userID, $product_id,$currentDate,$subLen,$subEnd,$subRemaining,$subActive,$subAuto);
 $stmt_2->execute();
+
+header("Location: ../MAILER/send-mail.php");
