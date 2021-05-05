@@ -18,7 +18,8 @@ function inputValidate() {
     switch (validationType) {
       case "password":
         inputData = inputsToValidate[i].value;
-
+        document.getElementsByClassName("errorMessage")[0].innerHTML =
+          "<strong></strong>";
         //Must contain 6-30 characters, one uppercase character, one lowercase character, one numeric character and one special character. Eg.: MyStr0ng.PW-example
         let regPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{6,30}$/;
 
@@ -36,23 +37,31 @@ function inputValidate() {
             inputsToValidate[i].classList.add("valid");
           } else {
             inputsToValidate[i].classList.add("invalid");
+            document.getElementsByClassName("errorMessage")[0].innerHTML =
+              "<strong>The passwords don't match</strong>";
           }
         }
         break;
 
       case "cvr":
+        document.getElementsByClassName("errorMessage")[0].innerHTML = "";
         inputData = inputsToValidate[i].value;
         let regCvr = /^(\d){8}$/;
 
         if (!regCvr.test(inputData)) {
           inputsToValidate[i].classList.add("invalid");
         } else {
-          let cvrInputValue = { cvr: inputData };
-          postData(
-            "API/check-db-for-existing-entries.php",
-            cvrInputValue
-          ).then(data => {console.log(data)});
-          inputsToValidate[i].classList.add("valid");
+          postData("API/check-db-for-existing-entries.php", {
+            customer_cvr: inputData,
+          }).then((response) => {
+            if (!response.dataExists) {
+              inputsToValidate[i].classList.add("valid");
+            } else {
+              inputsToValidate[i].classList.add("invalid");
+              document.getElementsByClassName("errorMessage")[0].innerHTML =
+                "<strong>This cvr already exists</strong>";
+            }
+          });
         }
         break;
 
@@ -67,13 +76,24 @@ function inputValidate() {
         break;
 
       case "email":
+        document.getElementsByClassName("errorMessage")[0].innerHTML = "";
         inputData = inputsToValidate[i].value;
         let regEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
         if (!regEmail.test(inputData)) {
           inputsToValidate[i].classList.add("invalid");
         } else {
-          inputsToValidate[i].classList.add("valid");
+          postData("API/check-db-for-existing-entries.php", {
+            customer_email: inputData,
+          }).then((response) => {
+            if (!response.dataExists) {
+              inputsToValidate[i].classList.add("valid");
+            } else {
+              inputsToValidate[i].classList.add("invalid");
+              document.getElementsByClassName("errorMessage")[0].innerHTML =
+                "<strong>This email already exists</strong>";
+            }
+          });
         }
         break;
     }
@@ -103,9 +123,9 @@ function informationHandler(returnData) {
 async function addProductToCustomer() {
   console.log("Cross-call-function");
 }
+
 async function postData(url = "", data = {}) {
   const response = await fetch(url, {
-    name: "body",
     method: "POST",
     mode: "cors",
     cache: "no-cache",
@@ -116,5 +136,6 @@ async function postData(url = "", data = {}) {
     referrerPolicy: "no-referrer",
     body: JSON.stringify(data),
   });
-  return response;
+
+  return response.json();
 }
