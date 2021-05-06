@@ -56,7 +56,6 @@ if (!isset($_SESSION['loginStatus'])) {
         <label>
             <p>Company - CVR:</p>
             <input class="form__input" oninput="inputValidate(); printBtnValidate();" data-validate="cvr" type="text" name="input_company_cvr" placeholder="12345678">
-
         </label>
         <label>
             <p>Password: ( No special characters )</p>
@@ -71,10 +70,10 @@ if (!isset($_SESSION['loginStatus'])) {
         </div>
     </form>
 </div>';
-    $loggedIn = false;
+    $loggedIn = 'false';
 } else {
-    $loggedIn = true;
-    $content = '<div id="paypal-button-container"></div>';
+    $loggedIn = 'true';
+    $content = "<div id='paypal-button-container'></div>";
 }
 
 //echo json_encode($_POST);
@@ -121,15 +120,16 @@ if (!isset($_SESSION['loginStatus'])) {
             },
             onApprove: function(data, actions) {
                 return actions.order.capture().then(function(PurchaseDetails) {
-
+                    document.getElementsByClassName('signUpForm')[0].submit();
                 });
             }
         }).render('#paypal-button-container');
     }
 
     function printBtnValidate() {
+        console.log("Fire");
         btnContainer = document.getElementsByClassName("form__btnContainer")[0];
-        if (document.querySelectorAll(".valid").length !== 7) {
+        if (document.querySelectorAll(".valid").length !== 11) {
             btnContainer.innerHTML = "<p>What would cause you not to fill out all the fields in the form?</p>";
         } else {
             console.log("It does work");

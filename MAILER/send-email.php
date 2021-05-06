@@ -13,8 +13,18 @@ require 'SMTP.php';
 
 // Load Composer's autoloader
 //require 'vendor/autoload.php';
-
+$userSubmittedData = json_decode($_SESSION['postData']);
+$email = $userSubmittedData->input_email;
+$fName = $userSubmittedData->input_first_name;
+$lName = $userSubmittedData->input_last_name;
+$emailContent = file_get_contents("email.php");
+   /* $emailContent = str_replace("::USERNAME::",$UN,$emailContent);
+    */ 
 // Instantiation and passing `true` enables exceptions
+$name = "$fName $lName";
+$emailContent = str_replace("::USERNAME::",$name, $emailContent);
+$emailContent = str_replace("::KEY::",$_SESSION['key'], $emailContent);
+//echo $emailContent;
 $mail = new PHPMailer(true);
 
 try {
@@ -34,7 +44,7 @@ try {
     $UN = $_GET['displayName']; */ 
     //Recipients
     $mail->setFrom('Mirtual@purplescout.com', 'Mirtual');
-    $mail->addAddress("soren.remboll@gmail.com", "Søren Rembøll");     // Add a recipient
+    $mail->addAddress("$email", "Søren Rembøll");     // Add a recipient
     //$mail->addAddress('ellen@example.com');               // Name is optional
     $mail->addReplyTo('Mirtual@purplescout.com', 'Information');
     //$mail->addCC('cc@example.com');
@@ -44,9 +54,6 @@ try {
    // $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
    // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
 
-   $emailContent = file_get_contents("email.php");
-   /* $emailContent = str_replace("::USERNAME::",$UN,$emailContent);
-   $emailContent = str_replace("::KEY::",$key, $emailContent); */ 
     // Content
     $mail->isHTML(true);                                  // Set email format to HTML
     $mail->Subject = "Mirtual Activation";
@@ -54,7 +61,7 @@ try {
     //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
     $mail->send();
-    //header("Location: ../passwordWait.php");
+    header("Location: ../awaitConfirm.php");
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }

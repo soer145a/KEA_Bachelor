@@ -25,15 +25,20 @@ $apiKey = bin2hex(random_bytes(32));
 //echo $apiKey;
 $embed = "<iframe src='https://purplescout.placeholder.dk/key' frameborder='0'></iframe>";
 
-$stmt = $conn->prepare("INSERT INTO customers (customer_id ,customer_first_name, customer_last_name, customer_company_name,api_key,embed_link, customer_email, customer_password, customer_cvr,customer_city,customer_address,customer_country,customer_postcode,customer_phone) VALUES ( null,?,?,?,?,?,?,?,?,null,null,null,null,null)");
+$dbCompanyStreet = $conn->real_escape_string($_POST['input_company_street']);
+$dbCompanyPostcode = $conn->real_escape_string($_POST['input_company_Postcode']);
+$dbCompanyCity = $conn->real_escape_string($_POST['input_company_city']);
+$dbCompanyCountry = $conn->real_escape_string($_POST['input_company_country']);
 
-$stmt->bind_param("ssssssss", $dbFirstName, $dbLastName, $dbCompanyName, $apiKey, $embed, $dbEmail, $hashedPassword, $dbCVR);
+$stmt = $conn->prepare("INSERT INTO customers (customer_id ,customer_first_name, customer_last_name, customer_company_name,api_key,embed_link, customer_email, customer_password, customer_cvr,customer_city,customer_address,customer_country,customer_postcode,customer_phone, customer_confirm_code, customer_confirmed) VALUES ( null,?,?,?,?,?,?,?,?,?,?,?,?,null,?,?)");
+$i = 0;
+$stmt->bind_param("ssssssssssssii", $dbFirstName, $dbLastName, $dbCompanyName, $apiKey, $embed, $dbEmail, $hashedPassword, $dbCVR, $dbCompanyCity, $dbCompanyStreet, $dbCompanyCountry, $dbCompanyPostcode ,$apiKey,$i);
 
 $stmt->execute();
 $userID = $stmt->insert_id;
 
 //echo "sucess";
-$i = 0;
+
 $currentDate = time();
 $sql = "SELECT * FROM subscriptions WHERE subscription_id = \"$subscription_id\"";
 $result = $conn->query($sql);
@@ -48,5 +53,8 @@ $subAuto = 0;
 $stmt_2 = $conn->prepare("INSERT INTO customer_products (customer_products_id ,customer_id, product_id, subscription_start,subscription_total_length, subscription_end, subscription_remaining, subscription_active, subscription_autorenew) VALUES ( null,?,?,?,?,?,?,?,?)");
 $stmt_2->bind_param("iiiiiiii", $userID, $product_id, $currentDate, $subLen, $subEnd, $subRemaining, $subActive, $subAuto);
 $stmt_2->execute();
-
-header("Location: ../MAILER/send-mail.php");
+$_SESSION['key'] = $apiKey;
+echo json_encode($_POST);
+$_SESSION['postData'] = json_encode($_POST);
+echo json_encode($_SESSION);
+header("Location: ../MAILER/send-email.php");
