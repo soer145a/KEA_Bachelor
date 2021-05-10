@@ -69,8 +69,18 @@ $stmt_2->bind_param("iiiiiiii", $customerId, $product_id, $currentDate, $subLen,
 $stmt_2->execute();
 
 $_SESSION['key'] = $apiKey;
+<<<<<<< HEAD
 
 /* echo json_encode($_POST);
 echo json_encode($_SESSION); */
 
 header("Location: ../MAILER/send-email.php");
+=======
+$_SESSION['postData'] = json_encode($_POST);
+
+$stmt_3 = $conn->prepare("INSERT INTO invoices (product_id, customer_id, invoice_date, subscription_id, invoice_modifier ) VALUES(null, ?,?,?,?,?)");
+$stmt_3->bind_param("iiiiiiii", $userID, $product_id, $currentDate, $subLen, $subEnd, $subRemaining, $subActive, $subAuto);
+$stmt_3->execute();
+
+header("Location: ../MAILER/send-email.php");
+>>>>>>> e556d8de48cc90598592359b574b1abafa5f4bf3

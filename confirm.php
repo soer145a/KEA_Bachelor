@@ -1,9 +1,8 @@
 <?php
 $key = $_GET['key'];
-echo $key;
 include_once("DB_Connection/connection.php");
-$stmt = $conn->prepare("UPDATE customers SET customer_confirmed = 1 WHERE ");
-$stmt->bind_param("");
+$sql = "UPDATE `customers` SET `customer_confirmed` = 1 WHERE `customers`.`customer_confirm_code` = \"$key\"";
+$stmt = $conn->query($sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
