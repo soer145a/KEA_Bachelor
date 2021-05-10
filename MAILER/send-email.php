@@ -70,10 +70,15 @@ try {
     $mail->addReplyTo('Mirtual@purplescout.com', 'Information');
 
     // Attachments
-    // $mailConfirm->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
-    // $mailConfirm->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+    // $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+    // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
 
     // Content
+    //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+    $mail->isHTML(true);                                  // Set email format to HTML
+    $mail->Subject = "Mirtual order";
+    $mail->Body    = $emailContentOrder;
+    $mail->send();
 
     if (!isset($_SESSION['loginStatus'])) {
         $mail->isHTML(true);                                  // Set email format to HTML
@@ -81,13 +86,8 @@ try {
         $mail->Body    = $emailContentConfirm;
         $mail->send();
     }
-    //$mailConfirm->AltBody = 'This is the body in plain text for non-HTML mail clients';
-    $mail->isHTML(true);                                  // Set email format to HTML
-    $mail->Subject = "Mirtual order";
-    $mail->Body    = $emailContentOrder;
-    $mail->send();
 
-    echo "<script>window.location.assign(window.location.protocol + '/KEA_Bachelor/awaitConfirm.php');</script>";
+    echo "<script>window.location.assign(window.location.protocol + '/KEA_Bachelor/confirmOrder.php');</script>";
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mailConfirm->ErrorInfo}";
 }

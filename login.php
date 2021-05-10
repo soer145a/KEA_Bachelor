@@ -1,6 +1,8 @@
 <?php
 session_start();
 $errorMess = "";
+include_once("Components/header.php");
+$header = headerComp();
 
 if (isset($_SESSION['loginStatus'])) {
     header('Location: profile.php');
@@ -19,13 +21,13 @@ if (isset($_POST['customer_email']) && isset($_POST['customer_password'])) {
             $row = $result->fetch_object();
             $db_password = $row->customer_password;
             if (password_verify($password, $db_password)) {
-                if($row->customer_confirmed == 1){
-                $_SESSION['loginStatus'] = true;
-                $_SESSION['customer_id'] = $row->customer_id;
-                $_SESSION['customer_first_name'] = $row->customer_first_name;
-                $_SESSION['customer_last_name'] = $row->customer_last_name;
-                header('Location: index.php');
-                }else{
+                if ($row->customer_confirmed == 1) {
+                    $_SESSION['loginStatus'] = true;
+                    $_SESSION['customer_id'] = $row->customer_id;
+                    $_SESSION['customer_first_name'] = $row->customer_first_name;
+                    $_SESSION['customer_last_name'] = $row->customer_last_name;
+                    header('Location: index.php');
+                } else {
                     $errorMess = "<p style='color:red'> ERROR - You have not confirmed yo account</p>";
                 }
             } else {
@@ -51,6 +53,7 @@ if (isset($_POST['customer_email']) && isset($_POST['customer_password'])) {
 </head>
 
 <body>
+    <div><?= $header ?></div>
     <h1>Login</h1>
     <form class="form" method="post" onsubmit="return inputValidate()">
         <label>
