@@ -32,7 +32,7 @@ $dbCompanyCountry = $conn->real_escape_string($_POST['input_company_country']);
 
 $stmt = $conn->prepare("INSERT INTO customers (customer_id ,customer_first_name, customer_last_name, customer_company_name,api_key,embed_link, customer_email, customer_password, customer_cvr,customer_city,customer_address,customer_country,customer_postcode,customer_phone, customer_confirm_code, customer_confirmed) VALUES ( null,?,?,?,?,?,?,?,?,?,?,?,?,null,?,?)");
 $i = 0;
-$stmt->bind_param("ssssssssssssii", $dbFirstName, $dbLastName, $dbCompanyName, $apiKey, $embed, $dbEmail, $hashedPassword, $dbCVR, $dbCompanyCity, $dbCompanyStreet, $dbCompanyCountry, $dbCompanyPostcode ,$apiKey,$i);
+$stmt->bind_param("sssssssssssssi", $dbFirstName, $dbLastName, $dbCompanyName, $apiKey, $embed, $dbEmail, $hashedPassword, $dbCVR, $dbCompanyCity, $dbCompanyStreet, $dbCompanyCountry, $dbCompanyPostcode ,$apiKey,$i);
 
 $stmt->execute();
 $userID = $stmt->insert_id;
@@ -54,7 +54,10 @@ $stmt_2 = $conn->prepare("INSERT INTO customer_products (customer_products_id ,c
 $stmt_2->bind_param("iiiiiiii", $userID, $product_id, $currentDate, $subLen, $subEnd, $subRemaining, $subActive, $subAuto);
 $stmt_2->execute();
 $_SESSION['key'] = $apiKey;
-echo json_encode($_POST);
 $_SESSION['postData'] = json_encode($_POST);
-echo json_encode($_SESSION);
+
+$stmt_3 = $conn->prepare("INSERT INTO invoices (product_id, customer_id, invoice_date, subscription_id, invoice_modifier ) VALUES(null, ?,?,?,?,?)");
+$stmt_3->bind_param("iiiiiiii", $userID, $product_id, $currentDate, $subLen, $subEnd, $subRemaining, $subActive, $subAuto);
+$stmt_3->execute();
+
 header("Location: ../MAILER/send-email.php");
