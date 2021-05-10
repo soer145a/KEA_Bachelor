@@ -32,14 +32,14 @@ if (!isset($_SESSION['loginStatus'])) {
         <label>
             <p>Company - Street:</p>
             <input class="form__input" oninput="inputValidate(); printBtnValidate();" data-validate="string" type="text" name="input_company_street" placeholder="John Doe Lane 35A">
+        </label>        
+        <label>
+            <p>Company - City:</p>
+            <input class="form__input" oninput="inputValidate(); printBtnValidate();" data-validate="string" type="text" name="input_company_city" placeholder="London">
         </label>
         <label>
             <p>Company - Postcode:</p>
             <input class="form__input" oninput="inputValidate(); printBtnValidate();" data-validate="string" type="text" name="input_company_Postcode" placeholder="SW1W 0NY">
-        </label>
-        <label>
-            <p>Company - City:</p>
-            <input class="form__input" oninput="inputValidate(); printBtnValidate();" data-validate="string" type="text" name="input_company_city" placeholder="London">
         </label>
         <label>
             <p>Company - country:</p>
@@ -48,6 +48,10 @@ if (!isset($_SESSION['loginStatus'])) {
         <label>
             <p>Contact - Email:</p>
             <input class="form__input" oninput="inputValidate(); printBtnValidate();" data-validate="email" type="email" name="input_email" placeholder="example@email.com">
+        </label>
+        <label>
+            <p>Contact - Phone:</p>
+            <input class="form__input" oninput="inputValidate(); printBtnValidate();" data-validate="phone" type="text" name="input_phone" placeholder="+4511223344">
         </label>
         <label>
             <p>Company - Name:</p>
@@ -120,7 +124,7 @@ if (!isset($_SESSION['loginStatus'])) {
             },
             onApprove: function(data, actions) {
                 return actions.order.capture().then(function(PurchaseDetails) {
-                    document.getElementsByClassName('signUpForm')[0].submit();
+                    window.location.assign(window.location.protocol + "/KEA_Bachelor/API/payment-handler.php");
                 });
             }
         }).render('#paypal-button-container');
@@ -129,7 +133,7 @@ if (!isset($_SESSION['loginStatus'])) {
     function printBtnValidate() {
         console.log("Fire");
         btnContainer = document.getElementsByClassName("form__btnContainer")[0];
-        if (document.querySelectorAll(".valid").length !== 11) {
+        if (document.querySelectorAll(".valid").length !== 12) {
             btnContainer.innerHTML = "<p>What would cause you not to fill out all the fields in the form?</p>";
         } else {
             console.log("It does work");

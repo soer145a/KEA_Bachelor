@@ -1,5 +1,9 @@
 <?php
 session_start();
+
+include_once("Components/header.php");
+$header = headerComp();
+
 if (!isset($_SESSION['loginStatus'])) {
     header('Location: login.php');
 } else {
@@ -11,7 +15,9 @@ if (!isset($_SESSION['loginStatus'])) {
     $sql = "SELECT * FROM customers WHERE customer_id = \"$customerId\"";
     $result = $conn->query($sql);
     $row = $result->fetch_object();
-    $embedLink = $row->embed_link;
+    $charsToReplace = array("<", ">");
+    $replaceWith = array("&lt;", "&gt;");
+    $embedLink = str_replace($charsToReplace, $replaceWith, $row->embed_link);
     $apiKey = $row->api_key;
 }
 
@@ -30,17 +36,15 @@ if (!isset($_SESSION['loginStatus'])) {
 </head>
 
 <body>
+    <div><?= $header ?></div>
     <h1>Welcome <?= $firstName, " ", $lastName ?></h1>
 
     <p>Embed link:</p>
     <pre><code class="html"><?= $embedLink ?></code></pre>
 
-
     <p>API Key:</p>
     <pre><code class="html"><?= $apiKey ?></code></pre>
-
     <div class="customerInfoContainer">
-
     </div>
 
 

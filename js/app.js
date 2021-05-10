@@ -75,6 +75,17 @@ function inputValidate() {
         }
         break;
 
+      case "phone":
+        inputData = inputsToValidate[i].value;
+        let regPhone = /^\+(?:[0-9]●?){6,16}[0-9]$/;
+
+        if (!regPhone.test(inputData)) {
+          inputsToValidate[i].classList.add("invalid");
+        } else {
+          inputsToValidate[i].classList.add("valid");
+        }
+        break;
+
       case "email":
         document.getElementsByClassName("errorMessage")[0].innerHTML = "";
         inputData = inputsToValidate[i].value;

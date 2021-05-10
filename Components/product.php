@@ -10,6 +10,7 @@ function productComp($productPrice, $productName, $productDescription, $productI
         <form method='post' action='API/add-product-to-cart.php'>
         <h2>$productName</h2>
         <p>Price: $productPrice</p>
+        <p>$productDescription</p>
         <button type='submit' disabled name='add_to_cart'>Already in cart</button>
         <input type='hidden' name='product_id' value='$productId'></input>
         <input type='hidden' name='product_price' value='$productPrice'></input>
