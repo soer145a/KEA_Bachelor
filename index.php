@@ -2,6 +2,8 @@
 session_start();
 include_once("DB_Connection/connection.php");
 include_once("Components/product.php");
+include_once("Components/head.php")
+$head = headComp();
 include_once("Components/header.php");
 $header = headerComp();
 
@@ -29,12 +31,15 @@ while ($row = $result->fetch_object()) {
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<!-- <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MainPage</title>
     <link rel="stylesheet" href="css/app.css">
+</head> -->
+<head> 
+<?= $head; ?>
 </head>
 
 <body>
