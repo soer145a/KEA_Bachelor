@@ -56,7 +56,7 @@ $stmt_2->execute();
 $_SESSION['key'] = $apiKey;
 $_SESSION['postData'] = json_encode($_POST);
 
-$stmt_3 = $conn->prepare("INSERT INTO invoices (product_id, customer_id, invoice_date, subscription_id, invoice_modifier ) VALUES(null, ?,?,?,?,?)");
+$stmt_3 = $conn->prepare("INSERT INTO invoices (invoice_id ,product_id, customer_id, invoice_date, subscription_id, invoice_modifier ) VALUES(null, ?,?,?,?,?)");
 $stmt_3->bind_param("iiiiiiii", $userID, $product_id, $currentDate, $subLen, $subEnd, $subRemaining, $subActive, $subAuto);
 $stmt_3->execute();
 
