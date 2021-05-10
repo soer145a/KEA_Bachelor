@@ -70,13 +70,8 @@ $stmt_2->execute();
 
 $_SESSION['key'] = $apiKey;
 
-<<<<<<< HEAD
 $stmt_3 = $conn->prepare("INSERT INTO invoices (invoice_id ,product_id, customer_id, invoice_date, subscription_id, invoice_modifier ) VALUES(null, ?,?,?,?,?)");
 $stmt_3->bind_param("iiiiiiii", $userID, $product_id, $currentDate, $subLen, $subEnd, $subRemaining, $subActive, $subAuto);
 $stmt_3->execute();
-=======
-/* echo json_encode($_POST);
-echo json_encode($_SESSION); */
->>>>>>> 54a59e89811f23f9f76cdf88f6a718dd11f2a91c
 
 header("Location: ../MAILER/send-email.php");
