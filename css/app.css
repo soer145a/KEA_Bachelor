@@ -19,7 +19,10 @@ h1 {
     border: 2px solid green;
 }
 
-.buyCard {
+.productCard {
+    max-width: 300px;
+}
+.addOnCard {
     max-width: 300px;
 }
 

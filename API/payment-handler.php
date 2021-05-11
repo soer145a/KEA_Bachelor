@@ -6,7 +6,7 @@ include("../DB_Connection/connection.php");
 //$sql = "INSERT INTO customers VALUES (customer_first_name, customer_last_name, customer_company_name, customer_email, customer_password, customer_cvr) VALUES ('John', 'Doe', 'john@example.com')";
 //$result = $conn->query();
 
-$product_id = $_SESSION['cart'][0]['product_id'];
+$product_id = $_SESSION['cartProducts'][0]['product_id'];
 $subscription_id = 1;
 
 if (!isset($_SESSION['loginStatus'])) {

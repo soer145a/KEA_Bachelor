@@ -3,7 +3,7 @@
 
 function headerComp()
 {
-
+    $cartCount = 0;
     if (isset($_SESSION['loginStatus'])) {
 
         $firstName = $_SESSION['customer_first_name'];
@@ -26,14 +26,16 @@ function headerComp()
         <a href='API/empty-cart.php'>Empty cart</a>
         ";
     }
-    if (isset($_SESSION['cart'])) {
-        $count = count($_SESSION['cart']);
-        $cartCount = "<p>You have $count products in your cart</p>";
-    } else {
-        $cartCount = "<p>You have 0 products in your cart</p>";
+    if (isset($_SESSION['cartProducts'])) {
+
+        $cartCount = $cartCount + count($_SESSION['cartProducts']);
+    }
+    if (isset($_SESSION['cartAddOns'])) {
+
+        $cartCount = $cartCount + count($_SESSION['cartAddOns']);
     }
 
-    $headerContent = $headerLinks . $cartCount;
+    $headerContent = $headerLinks . "<p>You have $cartCount products in your cart</p>";
 
-    echo $headerContent;
+    return $headerContent;
 }
