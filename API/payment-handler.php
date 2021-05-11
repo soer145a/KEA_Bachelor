@@ -85,4 +85,4 @@ foreach ($cart as $product) {
     $stmt_4->bind_param("ii", $invoiceID, $product_id);
     $stmt_4->execute();
 }
-//header("Location: ../MAILER/send-email.php");
+header("Location: ../MAILER/send-email.php");
