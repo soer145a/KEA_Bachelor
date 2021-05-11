@@ -37,7 +37,6 @@ if (!isset($_SESSION['loginStatus'])) {
     $stmt = $conn->prepare("INSERT INTO customers (customer_id ,customer_first_name, customer_last_name, customer_company_name, api_key, embed_link, customer_email, customer_password, customer_cvr,customer_city,customer_address,customer_country,customer_postcode,customer_phone, customer_confirm_code, customer_confirmed) VALUES ( null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
     $i = 0;
     $stmt->bind_param("sssssssssssssii", $dbFirstName, $dbLastName, $dbCompanyName, $apiKey, $embed, $dbEmail, $hashedPassword, $dbCVR, $dbCompanyCity, $dbCompanyStreet, $dbCompanyCountry, $dbCompanyPostcode, $dbPhone, $apiKey, $i);
-
     $stmt->execute();
     $customerId = $stmt->insert_id;
     $_SESSION['postData'] = json_encode($_POST);

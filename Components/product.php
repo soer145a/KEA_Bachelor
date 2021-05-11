@@ -11,10 +11,7 @@ function productComp($productPrice, $productName, $productDescription, $productI
         <h2>$productName</h2>
         <p>Price: $productPrice</p>
         <p>$productDescription</p>
-        <button type='submit' disabled name='add_to_cart'>Already in cart</button>
-        <input type='hidden' name='product_id' value='$productId'></input>
-        <input type='hidden' name='product_price' value='$productPrice'></input>
-        <input type='hidden' name='product_name' value='$productName'></input>
+        <input type='submit' readonly disabled name='add_to_cart' value='Already in cart'></input>
         </form>
         </div>
         ";
@@ -25,10 +22,8 @@ function productComp($productPrice, $productName, $productDescription, $productI
         <h2>$productName</h2>
         <p>Price: $productPrice</p>
         <p>$productDescription</p>
-        <button type='submit' name='add_to_cart'>Add to cart</button>
-        <input type='hidden' name='product_id' value='$productId'></input>
-        <input type='hidden' name='product_price' value='$productPrice'></input>
-        <input type='hidden' name='product_name' value='$productName'></input>
+        <input type='submit' readonly name='add_to_cart' value='Add to cart'></input>
+        <input type='hidden' readonly name='product_id' value='$productId'></input>
         </form>
         </div>
         ";

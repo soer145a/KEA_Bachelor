@@ -16,13 +16,11 @@ unset($_SESSION['key']);
 include_once("Components/header.php");
 $header = headerComp();
 
-
 if (!isset($_SESSION['loginStatus'])) {
     $message = "Thanks for your order, we have sent you an email with a link to confirm your email address";
 } else {
     $message = "Thanks for your order";
 }
-
 
 ?>
 
