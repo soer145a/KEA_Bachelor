@@ -33,7 +33,6 @@ function headerComp()
         $cartCount = "<p>You have 0 products in your cart</p>";
     }
 
-
     $headerContent = $headerLinks . $cartCount;
 
     echo $headerContent;

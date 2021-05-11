@@ -5,6 +5,7 @@ include_once("Components/product.php");
 include_once("Components/head.php");
 $head = headComp();
 include_once("Components/header.php");
+$head = headComp();
 $header = headerComp();
 
 $sql = "SELECT * FROM products";
@@ -38,8 +39,9 @@ while ($row = $result->fetch_object()) {
     <title>MainPage</title>
     <link rel="stylesheet" href="css/app.css">
 </head> -->
-<head> 
-<?= $head; ?>
+
+<head>
+    <?= $head; ?>
 </head>
 
 <body>
