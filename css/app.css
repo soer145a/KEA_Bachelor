@@ -30,3 +30,9 @@ a {
 #paypal-button-container {
     max-width: 100px;
 }
+.hidden{
+    display: none;
+}
+.shown{
+    display: block;
+}
