@@ -4,9 +4,10 @@ echo "starting the submission";
 include("../DB_Connection/connection.php");
 //echo json_encode($_POST['input_first_name']);
 //$sql = "INSERT INTO customers VALUES (customer_first_name, customer_last_name, customer_company_name, customer_email, customer_password, customer_cvr) VALUES ('John', 'Doe', 'john@example.com')";
-//$result = $conn->query();
-
-$product_id = $_SESSION['cart'][0]['product_id'];
+//$result = $conn->query();'
+$cart = $_SESSION['cart'];
+echo json_encode($_SESSION['cart']);
+//$product_id = $_SESSION['cart'][0]['product_id'];
 $subscription_id = 1;
 
 if (!isset($_SESSION['loginStatus'])) {
@@ -36,7 +37,7 @@ if (!isset($_SESSION['loginStatus'])) {
 
     $stmt = $conn->prepare("INSERT INTO customers (customer_id ,customer_first_name, customer_last_name, customer_company_name, api_key, embed_link, customer_email, customer_password, customer_cvr,customer_city,customer_address,customer_country,customer_postcode,customer_phone, customer_confirm_code, customer_confirmed) VALUES ( null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
     $i = 0;
-    $stmt->bind_param("sssssssssssssii", $dbFirstName, $dbLastName, $dbCompanyName, $apiKey, $embed, $dbEmail, $hashedPassword, $dbCVR, $dbCompanyCity, $dbCompanyStreet, $dbCompanyCountry, $dbCompanyPostcode, $dbPhone, $apiKey, $i);
+    $stmt->bind_param("ssssssssssssssi", $dbFirstName, $dbLastName, $dbCompanyName, $apiKey, $embed, $dbEmail, $hashedPassword, $dbCVR, $dbCompanyCity, $dbCompanyStreet, $dbCompanyCountry, $dbCompanyPostcode, $dbPhone, $apiKey, $i);
 
     $stmt->execute();
     $customerId = $stmt->insert_id;
@@ -52,26 +53,36 @@ if (!isset($_SESSION['loginStatus'])) {
 }
 
 //echo "sucess";
+foreach ($cart as $product) {
+    $product_id = $product['product_id'];
+    $currentDate = time();
+    $sql = "SELECT * FROM subscriptions WHERE subscription_id = \"$subscription_id\"";
+    $result = $conn->query($sql);
+    $row = $result->fetch_object();
+    $subLen = $row->subscription_length;
+    $subEnd = $currentDate + $subLen;
+    //echo $subEnd;
+    $subRemaining = $subEnd - $currentDate;
+    $subActive = 1;
+    $subAuto = 0;
+    $stmt_2 = $conn->prepare("INSERT INTO customer_products (customer_products_id ,customer_id, product_id, subscription_start,subscription_total_length, subscription_end, subscription_remaining, subscription_active, subscription_autorenew) VALUES ( null,?,?,?,?,?,?,?,?)");
+    $stmt_2->bind_param("iiiiiiii", $customerId, $product_id, $currentDate, $subLen, $subEnd, $subRemaining, $subActive, $subAuto);
+    $stmt_2->execute();
+    $licenseID = $stmt_2->insert_id;
+    $_SESSION['key'] = $apiKey;
+    $invoiceModifier = "";
 
-$currentDate = time();
-$sql = "SELECT * FROM subscriptions WHERE subscription_id = \"$subscription_id\"";
-$result = $conn->query($sql);
-$row = $result->fetch_object();
-$subLen = $row->subscription_length;
-$subEnd = $currentDate + $subLen;
-//echo $subEnd;
-$subRemaining = $subEnd - $currentDate;
-echo $subRemaining;
-$subActive = 1;
-$subAuto = 0;
-$stmt_2 = $conn->prepare("INSERT INTO customer_products (customer_products_id ,customer_id, product_id, subscription_start,subscription_total_length, subscription_end, subscription_remaining, subscription_active, subscription_autorenew) VALUES ( null,?,?,?,?,?,?,?,?)");
-$stmt_2->bind_param("iiiiiiii", $customerId, $product_id, $currentDate, $subLen, $subEnd, $subRemaining, $subActive, $subAuto);
-$stmt_2->execute();
-
-$_SESSION['key'] = $apiKey;
-
-$stmt_3 = $conn->prepare("INSERT INTO invoices (invoice_id ,product_id, customer_id, invoice_date, subscription_id, invoice_modifier ) VALUES(null, ?,?,?,?,?)");
-$stmt_3->bind_param("iiiiiiii", $userID, $product_id, $currentDate, $subLen, $subEnd, $subRemaining, $subActive, $subAuto);
+    
+}
+$stmt_3 = $conn->prepare("INSERT INTO invoice (invoice_id , customer_id, invoice_date, subscription_id, invoice_modifier ) VALUES(null, ?,?,?,?)");
+$stmt_3->bind_param("iiis", $customerId, $currentDate, $licenseID, $invoiceModifier );
 $stmt_3->execute();
+$invoiceID = $stmt_3->insert_id;
 
-header("Location: ../MAILER/send-email.php");
+foreach ($cart as $product) {
+    $product_id = $product['product_id'];
+    $stmt_4 = $conn->prepare("INSERT INTO invoice_product (invoice_id ,product_id) VALUES(?,?)");
+    $stmt_4->bind_param("ii", $invoiceID, $product_id);
+    $stmt_4->execute();
+}
+//header("Location: ../MAILER/send-email.php");
