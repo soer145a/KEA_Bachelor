@@ -4,6 +4,7 @@ include_once("DB_Connection/connection.php");
 include_once("Components/product.php");
 include_once("Components/addOn.php");
 include_once("Components/head.php");
+$head = headComp();
 include_once("Components/header.php");
 $head = headComp();
 $header = headerComp();
