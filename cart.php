@@ -3,20 +3,31 @@ session_start();
 include_once("Components/product.php");
 include_once("Components/header.php");
 include("DB_Connection/connection.php");
+include_once("Components/addOn.php");
 $header = headerComp();
 
 //productcards being printet starts here
 $content = "";
 $productCards = "";
+$addOnCards = "";
 $totalPrice = 0;
-if (isset($_SESSION['cart'])) {
-    foreach ($_SESSION['cart'] as $product) {
-        $totalPrice =  $totalPrice + (int)$product['product_price'];
+if (isset($_SESSION['cartProducts'])) {
+    foreach ($_SESSION['cartProducts'] as $product) {
+        $totalPrice =  $totalPrice + (float)$product['product_price'];
         $productCards = $productCards . productComp($product['product_price'], $product['product_name'], '', $product['product_id'], true);
     }
 } else {
-    $productCards = "<strong>Nothing in cart</strong>";
+    $productCards = "<strong>No products in cart</strong>";
 }
+if (isset($_SESSION['cartAddOns'])) {
+    foreach ($_SESSION['cartAddOns'] as $addOn) {
+        $totalPrice =  $totalPrice + (float)$addOn['addon_price'];
+        $addOnCards = $addOnCards . $addOn['addon_amount'] . 'x ' . addOnComp($addOn['addon_price'], $addOn['addon_name'], '', $addOn['addon_id']);
+    }
+} else {
+    $addOnCards = "<strong>No addons in cart</strong>";
+}
+
 if (!isset($_SESSION['loginStatus'])) {
     $content = '<div>
     <h1>Sign Up</h1> <a href="login.php">Already a customer? - login here</a>
@@ -98,7 +109,10 @@ if (!isset($_SESSION['loginStatus'])) {
     <div><?= $header ?></div>
     <div>
         <h1>Cart</h1>
+        <p>products</p>
         <?= $productCards ?>
+        <p>add-ons</p>
+        <?= $addOnCards ?>
         <?= "Total: " . $totalPrice . " Eur" ?>
     </div>
     <?= $content ?>

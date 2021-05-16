@@ -4,10 +4,9 @@ echo "starting the submission";
 include("../DB_Connection/connection.php");
 //echo json_encode($_POST['input_first_name']);
 //$sql = "INSERT INTO customers VALUES (customer_first_name, customer_last_name, customer_company_name, customer_email, customer_password, customer_cvr) VALUES ('John', 'Doe', 'john@example.com')";
-//$result = $conn->query();'
-$cart = $_SESSION['cart'];
-echo json_encode($_SESSION['cart']);
-//$product_id = $_SESSION['cart'][0]['product_id'];
+//$result = $conn->query();
+
+$product_id = $_SESSION['cartProducts'][0]['product_id'];
 $subscription_id = 1;
 
 if (!isset($_SESSION['loginStatus'])) {
@@ -71,11 +70,9 @@ foreach ($cart as $product) {
     $licenseID = $stmt_2->insert_id;
     $_SESSION['key'] = $apiKey;
     $invoiceModifier = "";
-
-    
 }
 $stmt_3 = $conn->prepare("INSERT INTO invoice (invoice_id , customer_id, invoice_date, subscription_id, invoice_modifier ) VALUES(null, ?,?,?,?)");
-$stmt_3->bind_param("iiis", $customerId, $currentDate, $licenseID, $invoiceModifier );
+$stmt_3->bind_param("iiis", $customerId, $currentDate, $licenseID, $invoiceModifier);
 $stmt_3->execute();
 $invoiceID = $stmt_3->insert_id;
 

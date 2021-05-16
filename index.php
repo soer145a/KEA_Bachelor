@@ -2,28 +2,37 @@
 session_start();
 include_once("DB_Connection/connection.php");
 include_once("Components/product.php");
+include_once("Components/addOn.php");
 include_once("Components/head.php");
 $head = headComp();
 include_once("Components/header.php");
 $head = headComp();
 $header = headerComp();
 
-$sql = "SELECT * FROM products";
-$result = $conn->query($sql);
+$productSql = "SELECT * FROM products";
+$productResult = $conn->query($productSql);
 $productCards = "";
 
-while ($row = $result->fetch_object()) {
+while ($productRow = $productResult->fetch_object()) {
 
-    if (isset($_SESSION['cart'])) {
-        $productIdsArray = array_column($_SESSION['cart'], 'product_id');
-        if (in_array($row->product_id, $productIdsArray)) {
-            $productCards = $productCards . productComp($row->product_price, $row->product_name, $row->product_description, $row->product_id, true);
+    if (isset($_SESSION['cartProducts'])) {
+        $productIdsArray = array_column($_SESSION['cartProducts'], 'product_id');
+        if (in_array($productRow->product_id, $productIdsArray)) {
+            $productCards = $productCards . productComp($productRow->product_price, $productRow->product_name, $productRow->product_description, $productRow->product_id, true);
         } else {
-            $productCards = $productCards . productComp($row->product_price, $row->product_name, $row->product_description, $row->product_id, false);
+            $productCards = $productCards . productComp($productRow->product_price, $productRow->product_name, $productRow->product_description, $productRow->product_id, false);
         }
     } else {
-        $productCards = $productCards . productComp($row->product_price, $row->product_name, $row->product_description, $row->product_id, false);
+        $productCards = $productCards . productComp($productRow->product_price, $productRow->product_name, $productRow->product_description, $productRow->product_id, false);
     }
+}
+
+$addOnSql = "SELECT * FROM addons";
+$addOnResult = $conn->query($addOnSql);
+$addOnCards = "";
+
+while ($addOnRow = $addOnResult->fetch_object()) {
+    $addOnCards = $addOnCards . addOnComp($addOnRow->addon_price, $addOnRow->addon_name, $addOnRow->addon_description, $addOnRow->addon_id);
 }
 
 ?>
@@ -47,26 +56,14 @@ while ($row = $result->fetch_object()) {
 <body>
     <div><?= $header ?></div>
     <h1>Initial Page</h1>
-    <div id="buyOptions">
+    <div id="products">
+        <p>products</p>
         <?= $productCards ?>
     </div>
-    <div id="addOns">
-        <label>
-            <p>New 3D model of dress/design/style:</p>
-            <input type="checkbox" class="addOn" name="new3DModels">
-        </label>
-        <label>
-            <p>Adding specific accessories (jewellery, shoes, veils, etc.):</p>
-            <input type="checkbox" class="addOn" name="additionalAccesories">
-        </label>
-        <label>
-            <p>Price subject to requirements:</p>
-            <input type="checkbox" class="addOn" name="priceAltering">
-        </label>
-        <label>
-            <p>Guidance tool for taking measurements:</p>
-            <input type="checkbox" class="addOn" name="meassurementTool">
-        </label>
+    <div id="products">
+        <p>add ons</p>
+        <?= $addOnCards ?>
     </div>
+
 </body>
 <script src="js/app.js"></script>
