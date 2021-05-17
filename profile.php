@@ -1,25 +1,25 @@
 <?php
-session_start();
+    session_start();
 
-include_once("Components/header.php");
-$header = headerComp();
+    include_once("Components/header.php");
+    $header = headerComp();
 
-if (!isset($_SESSION['loginStatus'])) {
-    header('Location: login.php');
-} else {
-    $firstName = $_SESSION['customer_first_name'];
-    $lastName = $_SESSION['customer_last_name'];
-    $customerId = $_SESSION['customer_id'];
-    include("DB_Connection/connection.php");
+    if (!isset($_SESSION['loginStatus'])) {
+        header('Location: login.php');
+    } else {
+        $firstName = $_SESSION['customer_first_name'];
+        $lastName = $_SESSION['customer_last_name'];
+        $customerId = $_SESSION['customer_id'];
+        include("DB_Connection/connection.php");
 
-    $sql = "SELECT * FROM customers WHERE customer_id = \"$customerId\"";
-    $result = $conn->query($sql);
-    $row = $result->fetch_object();
-    $charsToReplace = array("<", ">");
-    $replaceWith = array("&lt;", "&gt;");
-    $embedLink = str_replace($charsToReplace, $replaceWith, $row->embed_link);
-    $apiKey = $row->api_key;
-}
+        $sql = "SELECT * FROM customers WHERE customer_id = \"$customerId\"";
+        $result = $conn->query($sql);
+        $row = $result->fetch_object();
+        $charsToReplace = array("<", ">");
+        $replaceWith = array("&lt;", "&gt;");
+        $embedLink = str_replace($charsToReplace, $replaceWith, $row->embed_link);
+        $apiKey = $row->api_key;
+    }
 
 
 ?>
@@ -45,11 +45,34 @@ if (!isset($_SESSION['loginStatus'])) {
     <p>API Key:</p>
     <pre><code class="html"><?= $apiKey ?></code></pre>
     <div class="customerInfoContainer">
+        <?php
+            $profileInfo = "";
+            $sql = "SELECT * FROM customer_products LEFT JOIN products ON customer_products.product_id  = products.product_id";
+            $results = $conn->query($sql);
+            while($row = $results->fetch_object()){
+                echo json_encode($row);
+
+                $profileInfoCard ="
+                <div class='profileCard active or not'>
+                <h1>product name</h1>
+                <p>product description</p>
+                <div class='subInfo'>
+                    <p>Start date || End date</p>
+                    <p>Total days</p>
+                    <p>Days remaining</p>
+                </div>
+            </div>
+                ";
+                $profileInfo = $profileInfo.$profileInfoCard;
+            }
+            echo $profileInfo;
+        ?>
     </div>
+    
     <p>Alter the company data</p>
     <button onclick="showUpdateForm()">Click here to update</button>
     <form method="post"action="API/update-customer-data.php" class="hidden" id="updateDataForm">
-    <label>
+        <label>
             <p>Contact - First Name:</p>
             <input class="form__input" oninput="inputValidateProfile();" data-validate="string" type="text" name="input_first_name" placeholder="John">
         </label>
