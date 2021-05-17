@@ -13,9 +13,9 @@
         <link rel="stylesheet" href="css/stylereset.css" />
         <link rel="stylesheet" href="css/app.css" />
         <link rel="stylesheet" href="css/navigation.css" />
+        <link rel="stylesheet" href="css/section_intro.css" />
     </head>
     <body>
-<<<<<<< HEAD
         <header class="container-full-width">
             <nav class="layout-container navigation-contatiner navigation">
                 <img
@@ -24,38 +24,78 @@
                     alt="brand logo"
                 />
                 <div class="navigation--wrapper">
-                    <div class="navigation-hamburger">
+                    <div class="navigation-hamburger js-toggleNavigation">
                         <span class="navigation-hamburger__line"></span>
                         <span class="navigation-hamburger__line"></span>
                         <span class="navigation-hamburger__line"></span>
                     </div>
-                    <div class="navigation-bar__list"></div>
+                    <div
+                        class="
+                            navigation-list-wrapper
+                            navigation-list-wrapper--hidden
+                        "
+                    >
+                        <ul class="navigation-list">
+                            <li class="navigation-list__item">
+                                <a href="#" class="navigation-list__item-link"
+                                    >Home</a
+                                >
+                            </li>
+                            <li class="navigation-list__item">
+                                <a href="#" class="navigation-list__item-link"
+                                    >Profile</a
+                                >
+                            </li>
+                            <li class="navigation-list__item">
+                                <a href="#" class="navigation-list__item-link"
+                                    >Cart</a
+                                >
+                            </li>
+                            <li class="navigation-list__item">
+                                <a href="#" class="navigation-list__item-link"
+                                    >Logout/Login</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </nav>
         </header>
         <main class="container-full-width">
-            <section>
+            <section id="intro">
+                <div class="layout-container intro">
+                    <h1 class="intro-heading">
+                        Elevate your customers experience with Mirtual - the
+                        virtual mirror.
+                    </h1>
+                    <div class="video-container">
+                        <div class="explainer-video">
+                            <img
+                                class="explainer-video__thumbnail"
+                                alt=" explainer video"
+                            />
+                            <span class="play-button-circle">
+                                <span class="play-button-triangle"></span>
+                            </span>
+                        </div>
+
+                        <span class="background-sphere"></span>
+                    </div>
+                </div>
+            </section>
+            <section id="use-case" class="use-case">
                 <div class="layout-container">section 1</div>
             </section>
-            <section class="intro">
+            <section id="technologies" class="technologies">
                 <div class="layout-container">section 1</div>
             </section>
-            <section class="use-case">
-                <div class="layout-container">section 1</div>
-            </section>
-            <section class="technologies">
-                <div class="layout-container">section 1</div>
-            </section>
-            <section class="solutions">
+            <section id="solutions" class="solutions">
                 <div class="layout-container">section 1</div>
             </section>
         </main>
         <footer class="container-full-width">
             <div class="layout-container"></div>
         </footer>
-=======
-        <header>HEj</header>
-        
->>>>>>> 31f9597f1fb22fbe647dc885abbdbdece411a547
     </body>
+    <script src="js/app.js"></script>
 </html>

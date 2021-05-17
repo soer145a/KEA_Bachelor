@@ -27,7 +27,7 @@ $boughtAddons = "";
 
 if (!isset($_SESSION['loginStatus'])) {
     $emailContentConfirm = str_replace("::USERNAME::", $name, $emailContentConfirm);
-    $emailContentConfirm = str_replace("::KEY::", $_SESSION['confirmCode'], $emailContentConfirm);
+    $emailContentConfirm = str_replace("::confirmCode::", $_SESSION['confirmCode'], $emailContentConfirm);
 }
 
 foreach ($_SESSION['cartProducts'] as $product) {
@@ -36,8 +36,9 @@ foreach ($_SESSION['cartProducts'] as $product) {
 }
 foreach ($_SESSION['cartAddOns'] as $addon) {
     $addonName = $addon['addon_name'];
-    $boughtAddons = $boughtAddons . $addon['addon_amount'] . "x" . $addonName . ", ";
-    $totalPrice =  $totalPrice + (float)$product['addon_price'];
+    $addonTotalprice = (float)$addon['addon_price'] * (float)$addon['addon_amount'];
+    $boughtAddons = $boughtAddons . $addon['addon_amount'] . " x " . $addonName . ", ";
+    $totalPrice =  $totalPrice + $addonTotalprice;
 }
 
 $emailContentOrder = str_replace("::USERNAME::", $name, $emailContentOrder);
@@ -70,7 +71,7 @@ try {
 
 
     /* $EM = $_GET['email'];
-    $key = $_GET['confirmCode'];
+    $confirmCode = $_GET['confirmCode'];
     $UN = $_GET['displayName']; */
     //Recipients
     $mail->setFrom('Mirtual@purplescout.com', 'Mirtual');

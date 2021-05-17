@@ -6,9 +6,10 @@ include("../DB_Connection/connection.php");
 //$sql = "INSERT INTO customers VALUES (customer_first_name, customer_last_name, customer_company_name, customer_email, customer_password, customer_cvr) VALUES ('John', 'Doe', 'john@example.com')";
 //$result = $conn->query();
 
-$subscription_id = 1;
 $cartProducts = $_SESSION['cartProducts'];
 $cartAddOns = $_SESSION['cartAddOns'];
+$embed = "<iframe src='https://purplescout.placeholder.dk/key' frameborder='0'></iframe>";
+$apiKey = bin2hex(random_bytes(32));
 
 if (!isset($_SESSION['loginStatus'])) {
     $dbFirstName = $conn->real_escape_string($_POST['input_first_name']);
@@ -27,8 +28,7 @@ if (!isset($_SESSION['loginStatus'])) {
     $hashedPassword = password_hash($_POST['input_password_confirm'], PASSWORD_DEFAULT);
     //echo $hashedPassword;
     $confirmCode = bin2hex(random_bytes(32));
-    //echo $confirmCode;
-    $embed = "<iframe src='https://purplescout.placeholder.dk/key' frameborder='0'></iframe>";
+    //echo $confirmCode;    
 
     $dbCompanyStreet = $conn->real_escape_string($_POST['input_company_street']);
     $dbCompanyPostcode = $conn->real_escape_string($_POST['input_company_Postcode']);
@@ -53,36 +53,32 @@ if (!isset($_SESSION['loginStatus'])) {
     $_SESSION['postData'] = json_encode($postData);
 }
 
+$currentDate = time();
+$stmt_3 = $conn->prepare("INSERT INTO orders (order_id , customer_id, order_date ) VALUES(null,?,?)");
+$stmt_3->bind_param("ii", $customerId, $currentDate);
+$stmt_3->execute();
+$orderId = $stmt_3->insert_id;
+
 //echo "sucess";
 foreach ($cartProducts as $product) {
     $product_id = $product['product_id'];
-    $currentDate = time();
     $subscription_id = $product['subscription_id'];
+    $product_price = $product['product_price'];
     $sql = "SELECT * FROM subscriptions WHERE subscription_id = \"$subscription_id\"";
     $result = $conn->query($sql);
     $row = $result->fetch_object();
     $subLen = $row->subscription_length;
     $subEnd = $currentDate + $subLen;
     //echo $subEnd;
-    $subRemaining = $subEnd - $currentDate;
     $subActive = 1;
-    $subAuto = 0;
-    $stmt_2 = $conn->prepare("INSERT INTO customer_products (customer_products_id ,customer_id, product_id, subscription_start,subscription_total_length, subscription_end, subscription_remaining, subscription_active, subscription_autorenew) VALUES ( null,?,?,?,?,?,?,?,?)");
-    $stmt_2->bind_param("iiiiiiii", $customerId, $product_id, $currentDate, $subLen, $subEnd, $subRemaining, $subActive, $subAuto);
+    $subAuto = 1;
+    $stmt_2 = $conn->prepare("INSERT INTO customer_products (customer_products_id ,customer_id, product_id, subscription_start, subscription_total_length, subscription_end, subscription_active, subscription_autorenew, api_key, embed_link) VALUES ( null,?,?,?,?,?,?,?,?,?)");
+    $stmt_2->bind_param("iiiiiiiss", $customerId, $product_id, $currentDate, $subLen, $subEnd, $subActive, $subAuto, $apiKey, $embed);
     $stmt_2->execute();
     $licenseID = $stmt_2->insert_id;
-    $invoiceModifier = "";
-}
 
-$stmt_3 = $conn->prepare("INSERT INTO invoice (invoice_id , customer_id, invoice_date, subscription_id, invoice_modifier ) VALUES(null,?,?,?,?)");
-$stmt_3->bind_param("iiis", $customerId, $currentDate, $licenseID, $invoiceModifier);
-$stmt_3->execute();
-$invoiceID = $stmt_3->insert_id;
-
-foreach ($cartProducts as $product) {
-    $product_id = $product['product_id'];
-    $stmt_4 = $conn->prepare("INSERT INTO invoice_product (invoice_id, product_id) VALUES(?,?)");
-    $stmt_4->bind_param("ii", $invoiceID, $product_id);
+    $stmt_4 = $conn->prepare("INSERT INTO order_products (order_products_id, order_id, product_id, payed_price) VALUES(null,?,?,?)");
+    $stmt_4->bind_param("iii", $orderId, $product_id, $product_price);
     $stmt_4->execute();
     $stmt_4->insert_id;
 }
@@ -90,16 +86,19 @@ foreach ($cartProducts as $product) {
 foreach ($cartAddOns as $addOn) {
     $addOn_id = $addOn['addon_id'];
     $addOn_amount = $addOn['addon_amount'];
+    $addOn_price = $addOn['addon_price'];
+    $payed_price = (float)$addOn_price * (float)$addOn_amount;
 
-    $stmt_5 = $conn->prepare("INSERT INTO customer_addon (customer_addon_id, customer_id, addon_id, addon_amount) VALUES ( null,?,?,?)");
+    $stmt_5 = $conn->prepare("INSERT INTO customer_addons (customer_addon_id, customer_id, addon_id, addon_amount) VALUES ( null,?,?,?)");
     $stmt_5->bind_param("iii", $customerId, $addOn_id, $addOn_amount);
     $stmt_5->execute();
-    $customerAddonId = $stmt_5->insert_id;
+    $stmt_5->insert_id;
 
-    $stmt_6 = $conn->prepare("INSERT INTO invoice_customer_addons (invoice_customer_addon_id, customer_addon_id) VALUES(null,?)");
-    $stmt_6->bind_param("ii", $customerAddonId);
+    $stmt_6 = $conn->prepare("INSERT INTO order_addons (order_addons_id, order_id, addon_id, payed_price, addon_amount) VALUES(null,?,?,?,?)");
+    $stmt_6->bind_param("iiss", $orderId, $addOn_id, $payed_price, $addOn_amount);
     $stmt_6->execute();
     $stmt_6->insert_id;
 }
 
-header("Location: ../MAILER/send-email.php");
+
+/* header("Location: ../MAILER/send-email.php"); */
