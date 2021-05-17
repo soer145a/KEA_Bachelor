@@ -27,7 +27,7 @@ $boughtAddons = "";
 
 if (!isset($_SESSION['loginStatus'])) {
     $emailContentConfirm = str_replace("::USERNAME::", $name, $emailContentConfirm);
-    $emailContentConfirm = str_replace("::KEY::", $_SESSION['key'], $emailContentConfirm);
+    $emailContentConfirm = str_replace("::KEY::", $_SESSION['confirmCode'], $emailContentConfirm);
 }
 
 foreach ($_SESSION['cartProducts'] as $product) {
@@ -70,7 +70,7 @@ try {
 
 
     /* $EM = $_GET['email'];
-    $key = $_GET['key'];
+    $key = $_GET['confirmCode'];
     $UN = $_GET['displayName']; */
     //Recipients
     $mail->setFrom('Mirtual@purplescout.com', 'Mirtual');

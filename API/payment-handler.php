@@ -26,8 +26,8 @@ if (!isset($_SESSION['loginStatus'])) {
     //echo $_SESSION['tempUserData']->uPassword;
     $hashedPassword = password_hash($_POST['input_password_confirm'], PASSWORD_DEFAULT);
     //echo $hashedPassword;
-    $apiKey = bin2hex(random_bytes(32));
-    //echo $apiKey;
+    $confirmCode = bin2hex(random_bytes(32));
+    //echo $confirmCode;
     $embed = "<iframe src='https://purplescout.placeholder.dk/key' frameborder='0'></iframe>";
 
     $dbCompanyStreet = $conn->real_escape_string($_POST['input_company_street']);
@@ -35,14 +35,14 @@ if (!isset($_SESSION['loginStatus'])) {
     $dbCompanyCity = $conn->real_escape_string($_POST['input_company_city']);
     $dbCompanyCountry = $conn->real_escape_string($_POST['input_company_country']);
 
-    $stmt = $conn->prepare("INSERT INTO customers (customer_id ,customer_first_name, customer_last_name, customer_company_name, api_key, embed_link, customer_email, customer_password, customer_cvr,customer_city,customer_address,customer_country,customer_postcode,customer_phone, customer_confirm_code, customer_confirmed) VALUES ( null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+    $stmt = $conn->prepare("INSERT INTO customers (customer_id ,customer_first_name, customer_last_name, customer_company_name, customer_email, customer_password, customer_cvr, customer_city, customer_address, customer_country,customer_postcode,customer_phone, customer_confirm_code, customer_confirmed) VALUES ( null,?,?,?,?,?,?,?,?,?,?,?,?,?)");
     $i = 0;
-    $stmt->bind_param("ssssssssssssssi", $dbFirstName, $dbLastName, $dbCompanyName, $apiKey, $embed, $dbEmail, $hashedPassword, $dbCVR, $dbCompanyCity, $dbCompanyStreet, $dbCompanyCountry, $dbCompanyPostcode, $dbPhone, $apiKey, $i);
+    $stmt->bind_param("ssssssssssssi", $dbFirstName, $dbLastName, $dbCompanyName, $dbEmail, $hashedPassword, $dbCVR, $dbCompanyCity, $dbCompanyStreet, $dbCompanyCountry, $dbCompanyPostcode, $dbPhone, $confirmCode, $i);
 
     $stmt->execute();
     $customerId = $stmt->insert_id;
     $_SESSION['postData'] = json_encode($_POST);
-    $_SESSION['key'] = $apiKey;
+    $_SESSION['confirmCode'] = $confirmCode;
 } else {
     $customerId = $_SESSION['customer_id'];
     $sql = "SELECT * FROM customers WHERE customer_id = \"$customerId\"";
