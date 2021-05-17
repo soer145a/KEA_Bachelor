@@ -7,7 +7,6 @@ include("../DB_Connection/connection.php");
 //$result = $conn->query();
 
 $product_id = $_SESSION['cartProducts'][0]['product_id'];
-$subscription_id = 1;
 
 if (!isset($_SESSION['loginStatus'])) {
     $dbFirstName = $conn->real_escape_string($_POST['input_first_name']);
@@ -55,6 +54,7 @@ if (!isset($_SESSION['loginStatus'])) {
 foreach ($cart as $product) {
     $product_id = $product['product_id'];
     $currentDate = time();
+    $subscription_id = $product['subscription_id'];
     $sql = "SELECT * FROM subscriptions WHERE subscription_id = \"$subscription_id\"";
     $result = $conn->query($sql);
     $row = $result->fetch_object();
