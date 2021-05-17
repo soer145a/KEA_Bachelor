@@ -5,6 +5,7 @@
 
     <p>Here's your order details yada yada</p>
     <p>You have bought: ::ORDERPRODUCT::</p>
+    <p>Addons: ::ORDERADDONS::</p>
     <p>Cost: ::ORDERPRICE:: Euro</p>
 
 </div>
