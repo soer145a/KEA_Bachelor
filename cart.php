@@ -21,10 +21,10 @@ if (isset($_SESSION['cartProducts'])) {
     $productCards = "<strong>No products in cart</strong>";
 }
 if (isset($_SESSION['cartAddOns'])) {
-    foreach ($_SESSION['cartAddOns'] as $addOn) {
-        $addonTotalprice = (float)$addOn['addon_price'] * (float)$addOn['addon_amount'];
+    foreach ($_SESSION['cartAddOns'] as $addon) {
+        $addonTotalprice = (float)$addon['addon_price'] * (float)$addon['addon_amount'];
         $totalPrice =  $totalPrice + $addonTotalprice;
-        $addOnCards = $addOnCards . $addOn['addon_amount'] . 'x ' . addOnComp($addOn['addon_price'], $addOn['addon_name'], '', $addOn['addon_id']);
+        $addOnCards = $addOnCards . $addon['addon_amount'] . ' x ' . addOnComp($addon['addon_price'], $addon['addon_name'], '', $addon['addon_id']);
     }
 } else {
     $addOnCards = "<strong>No addons in cart</strong>";

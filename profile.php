@@ -3,6 +3,9 @@ session_start();
 
 include_once("Components/header.php");
 $header = headerComp();
+$embedLink = "";
+$apiKey = "";
+
 
 if (!isset($_SESSION['loginStatus'])) {
     header('Location: login.php');
@@ -12,13 +15,13 @@ if (!isset($_SESSION['loginStatus'])) {
     $customerId = $_SESSION['customer_id'];
     include("DB_Connection/connection.php");
 
-    $sql = "SELECT * FROM customers WHERE customer_id = \"$customerId\"";
+    /*  $sql = "SELECT * FROM customers WHERE customer_id = \"$customerId\"";
     $result = $conn->query($sql);
     $row = $result->fetch_object();
     $charsToReplace = array("<", ">");
     $replaceWith = array("&lt;", "&gt;");
     $embedLink = str_replace($charsToReplace, $replaceWith, $row->embed_link);
-    $apiKey = $row->api_key;
+    $apiKey = $row->api_key; */
 }
 
 
@@ -48,8 +51,8 @@ if (!isset($_SESSION['loginStatus'])) {
     </div>
     <p>Alter the company data</p>
     <button onclick="showUpdateForm()">Click here to update</button>
-    <form method="post"action="API/update-customer-data.php" class="hidden" id="updateDataForm">
-    <label>
+    <form method="post" action="API/update-customer-data.php" class="hidden" id="updateDataForm">
+        <label>
             <p>Contact - First Name:</p>
             <input class="form__input" oninput="inputValidateProfile();" data-validate="string" type="text" name="input_first_name" placeholder="John">
         </label>
@@ -60,7 +63,7 @@ if (!isset($_SESSION['loginStatus'])) {
         <label>
             <p>Company - Street:</p>
             <input class="form__input" oninput="inputValidateProfile();" data-validate="string" type="text" name="input_company_street" placeholder="John Doe Lane 35A">
-        </label>        
+        </label>
         <label>
             <p>Company - City:</p>
             <input class="form__input" oninput="inputValidateProfile()" data-validate="string" type="text" name="input_company_city" placeholder="London">
