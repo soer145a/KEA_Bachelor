@@ -2,14 +2,21 @@
 session_start();
 $productName = "";
 $totalPrice = 0;
-if (isset($_SESSION['cart'])) {
-    foreach ($_SESSION['cart'] as $product) {
-        $productName = $product['product_name'] . ", " .  $productName;
-        $totalPrice =  $totalPrice + (int)$product['product_price'];
-    }
+$boughtAddons = "";
+
+foreach ($_SESSION['cartProducts'] as $product) {
+    $productName = $product['product_name'] . ", " .  $productName;
+    $totalPrice =  $totalPrice + (float)$product['product_price'];
+}
+foreach ($_SESSION['cartAddOns'] as $addon) {
+    $addonName = $addon['addon_name'];
+    $addonTotalprice = (float)$addon['addon_price'] * (float)$addon['addon_amount'];
+    $boughtAddons = $boughtAddons . $addon['addon_amount'] . " x " . $addonName . ", ";
+    $totalPrice =  $totalPrice + $addonTotalprice;
 }
 
-unset($_SESSION['cart']);
+unset($_SESSION['cartProducts']);
+unset($_SESSION['cartAddOns']);
 unset($_SESSION['postData']);
 unset($_SESSION['confirmCode']);
 
@@ -38,6 +45,7 @@ if (!isset($_SESSION['loginStatus'])) {
     <div><?= $header ?></div>
     <h1><?= $message ?></h1>
     <p>You have bought: <?= $productName ?></p>
+    <p>Addons: <?= $boughtAddons ?></p>
     <p>Price: <?= $totalPrice ?></p>
 </body>
 
