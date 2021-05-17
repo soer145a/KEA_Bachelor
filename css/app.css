@@ -92,3 +92,18 @@ footer {
 .shown {
     display: block;
 }
+.customerInfoContainer{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+.profileCard{
+    border: 2px solid black;
+    margin: 20px;
+    width: 300px;
+}
+.subActive{
+    background-color: green;
+}
+.subInactive{
+    background-color: red;
+}
