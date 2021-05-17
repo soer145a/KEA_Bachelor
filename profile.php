@@ -42,11 +42,12 @@ $apiKey = "";
     <div><?= $header ?></div>
     <h1>Welcome <?= $firstName, " ", $lastName ?></h1>
 
-    <p>Embed link:</p>
+    <!-- <p>Embed link:</p>
     <pre><code class="html"><?= $embedLink ?></code></pre>
 
     <p>API Key:</p>
     <pre><code class="html"><?= $apiKey ?></code></pre>
+     -->
     <div class="customerInfoContainer">
         <?php
             $profileInfo = "";
