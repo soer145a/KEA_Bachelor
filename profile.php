@@ -48,7 +48,7 @@ if (!isset($_SESSION['loginStatus'])) {
     </div>
     <p>Alter the company data</p>
     <button onclick="showUpdateForm()">Click here to update</button>
-    <form action="API/update-customer-data.php" class="hidden" id="updateDataForm">
+    <form method="post"action="API/update-customer-data.php" class="hidden" id="updateDataForm">
     <label>
             <p>Contact - First Name:</p>
             <input class="form__input" oninput="inputValidateProfile();" data-validate="string" type="text" name="input_first_name" placeholder="John">

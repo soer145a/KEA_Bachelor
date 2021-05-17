@@ -6,8 +6,9 @@ include("../DB_Connection/connection.php");
 //$sql = "INSERT INTO customers VALUES (customer_first_name, customer_last_name, customer_company_name, customer_email, customer_password, customer_cvr) VALUES ('John', 'Doe', 'john@example.com')";
 //$result = $conn->query();
 
-$product_id = $_SESSION['cartProducts'][0]['product_id'];
 $subscription_id = 1;
+$cartProducts = $_SESSION['cartProducts'];
+$cartAddOns = $_SESSION['cartAddOns'];
 
 if (!isset($_SESSION['loginStatus'])) {
     $dbFirstName = $conn->real_escape_string($_POST['input_first_name']);
@@ -41,6 +42,7 @@ if (!isset($_SESSION['loginStatus'])) {
     $stmt->execute();
     $customerId = $stmt->insert_id;
     $_SESSION['postData'] = json_encode($_POST);
+    $_SESSION['key'] = $apiKey;
 } else {
     $customerId = $_SESSION['customer_id'];
     $sql = "SELECT * FROM customers WHERE customer_id = \"$customerId\"";
@@ -52,7 +54,7 @@ if (!isset($_SESSION['loginStatus'])) {
 }
 
 //echo "sucess";
-foreach ($cart as $product) {
+foreach ($cartProducts as $product) {
     $product_id = $product['product_id'];
     $currentDate = time();
     $sql = "SELECT * FROM subscriptions WHERE subscription_id = \"$subscription_id\"";
@@ -68,18 +70,35 @@ foreach ($cart as $product) {
     $stmt_2->bind_param("iiiiiiii", $customerId, $product_id, $currentDate, $subLen, $subEnd, $subRemaining, $subActive, $subAuto);
     $stmt_2->execute();
     $licenseID = $stmt_2->insert_id;
-    $_SESSION['key'] = $apiKey;
     $invoiceModifier = "";
 }
-$stmt_3 = $conn->prepare("INSERT INTO invoice (invoice_id , customer_id, invoice_date, subscription_id, invoice_modifier ) VALUES(null, ?,?,?,?)");
+
+$stmt_3 = $conn->prepare("INSERT INTO invoice (invoice_id , customer_id, invoice_date, subscription_id, invoice_modifier ) VALUES(null,?,?,?,?)");
 $stmt_3->bind_param("iiis", $customerId, $currentDate, $licenseID, $invoiceModifier);
 $stmt_3->execute();
 $invoiceID = $stmt_3->insert_id;
 
-foreach ($cart as $product) {
+foreach ($cartProducts as $product) {
     $product_id = $product['product_id'];
-    $stmt_4 = $conn->prepare("INSERT INTO invoice_product (invoice_id ,product_id) VALUES(?,?)");
+    $stmt_4 = $conn->prepare("INSERT INTO invoice_product (invoice_id, product_id) VALUES(?,?)");
     $stmt_4->bind_param("ii", $invoiceID, $product_id);
     $stmt_4->execute();
+    $stmt_4->insert_id;
 }
+
+foreach ($cartAddOns as $addOn) {
+    $addOn_id = $addOn['addon_id'];
+    $addOn_amount = $addOn['addon_amount'];
+
+    $stmt_5 = $conn->prepare("INSERT INTO customer_addon (customer_addon_id, customer_id, addon_id, addon_amount) VALUES ( null,?,?,?)");
+    $stmt_5->bind_param("iii", $customerId, $addOn_id, $addOn_amount);
+    $stmt_5->execute();
+    $customerAddonId = $stmt_5->insert_id;
+
+    $stmt_6 = $conn->prepare("INSERT INTO invoice_customer_addons (invoice_customer_addon_id, customer_addon_id) VALUES(null,?)");
+    $stmt_6->bind_param("ii", $customerAddonId);
+    $stmt_6->execute();
+    $stmt_6->insert_id;
+}
+
 header("Location: ../MAILER/send-email.php");

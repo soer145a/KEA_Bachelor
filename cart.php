@@ -11,6 +11,7 @@ $content = "";
 $productCards = "";
 $addOnCards = "";
 $totalPrice = 0;
+
 if (isset($_SESSION['cartProducts'])) {
     foreach ($_SESSION['cartProducts'] as $product) {
         $totalPrice =  $totalPrice + (float)$product['product_price'];
@@ -21,7 +22,8 @@ if (isset($_SESSION['cartProducts'])) {
 }
 if (isset($_SESSION['cartAddOns'])) {
     foreach ($_SESSION['cartAddOns'] as $addOn) {
-        $totalPrice =  $totalPrice + (float)$addOn['addon_price'];
+        $addonTotalprice = (float)$addOn['addon_price'] * (float)$addOn['addon_amount'];
+        $totalPrice =  $totalPrice + $addonTotalprice;
         $addOnCards = $addOnCards . $addOn['addon_amount'] . 'x ' . addOnComp($addOn['addon_price'], $addOn['addon_name'], '', $addOn['addon_id']);
     }
 } else {
