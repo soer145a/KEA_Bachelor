@@ -12,12 +12,12 @@ if (isset($_POST)) {
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
-        $respons = array("dataExists" => true, "sql" => $sql, "num-rows" => $result->num_rows);
+        $response = array("dataExists" => true, "sql" => $sql, "num-rows" => $result->num_rows);
     } else {
-        $respons = array("dataExists" => false, "sql" => $sql, "num-rows" => $result->num_rows);
+        $response = array("dataExists" => false, "sql" => $sql, "num-rows" => $result->num_rows);
     }
 } else {
-    $respons = array("error" => true, "sql" => $sql, "num-rows" => $result->num_rows);
+    $response = array("error" => true, "sql" => $sql, "num-rows" => $result->num_rows);
 }
 
-echo json_encode($respons);
+echo json_encode($response);

@@ -1,11 +1,67 @@
-/* General styling */
+/* Variables */
+:root {
+    --font-headings: "'Asap Condensed', sans-serif";
+    --font-paragraphs: "'Poppins', sans-serif";
 
-* {
-    margin: 0;
-    padding: 0;
+    --purple-dark: rgba(80, 53, 116, 1);
+    --purple-light: rgba(175, 141, 214, 1);
+    --yellow: rgba(237, 234, 62, 1);
+    --cyan: rgba(3, 244, 212, 1);
+    --black: rgba(0, 0, 0, 1);
+    --black-80: rgba(0, 0, 0, 0.8);
+    --black-60: rgba(0, 0, 0, 0.6);
+    --black-40: rgba(0, 0, 0, 0.4);
+    --black-20: rgba(0, 0, 0, 0.2);
+    --white: rgba(255, 255, 255, 1);
 }
 
 /* Typography */
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-family: var(--font-headings);
+    font-weight: 500;
+}
+
+a,
+p {
+    font-family: var(--font-paragraphs);
+    font-weight: 400;
+}
+
+/* GENERAL STYLING */
+
+* {
+    box-sizing: border-box;
+}
+
+.container-full-width {
+    width: 100%;
+}
+
+.layout-container {
+    max-width: 1272px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+header {
+    background-color: var(--purple-dark);
+    height: 80px;
+}
+
+main {
+    background-color: rgba(255, 255, 255, 0.6);
+    height: auto;
+}
+footer {
+    background-color: var(--purple-dark);
+    height: 150px;
+}
+
+/*  */
 
 h1 {
     color: green;
@@ -33,9 +89,9 @@ a {
 #paypal-button-container {
     max-width: 100px;
 }
-.hidden{
+.hidden {
     display: none;
 }
-.shown{
+.shown {
     display: block;
 }

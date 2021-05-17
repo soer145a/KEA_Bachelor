@@ -11,7 +11,7 @@ if (isset($_SESSION['cart'])) {
 
 unset($_SESSION['cart']);
 unset($_SESSION['postData']);
-unset($_SESSION['key']);
+unset($_SESSION['confirmCode']);
 
 include_once("Components/header.php");
 $header = headerComp();

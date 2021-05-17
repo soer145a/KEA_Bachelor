@@ -1,0 +1,46 @@
+.navigation-contatiner {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.navigation__logo {
+    max-width: 150px;
+}
+
+.navigation--wrapper {
+    margin-left: auto;
+}
+
+/* Hamburger */
+
+.navigation-hamburger {
+    position: relative;
+    width: 42px;
+    height: 42px;
+    /* display: flex;
+    justify-content: center;
+    flex-direction: column; */
+}
+
+.navigation-hamburger__line {
+    position: absolute;
+    display: block;
+    height: 5px;
+    width: 100%;
+    border-radius: 50px;
+    background-color: var(--yellow);
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.navigation-hamburger__line:nth-of-type(1) {
+    top: 0;
+    transform: translateY(100%);
+}
+
+.navigation-hamburger__line:nth-of-type(3) {
+    top: initial;
+    bottom: 0;
+    transform: translateY(-100%);
+}
