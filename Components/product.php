@@ -4,16 +4,24 @@
 
 function productComp($productPrice, $productName, $productDescription, $productId, $inCart)
 {
+    
     include("DB_Connection/connection.php");
 $sql = "SELECT * FROM subscriptions";
 $results = $conn->query($sql);
 $subHtml = "";
+$firstFlag = true;
 while($row = $results->fetch_object()){
-    echo json_encode($row);
+    
+    //echo json_encode($row);
     $subId = $row->subscription_id;
     $subName = $row->subscription_name;
-    $radioButton = "<input type='radio' id='sub' name='sub' value='$subId'>
-    <label for='sub'>$subName</label>";
+    if($firstFlag){
+        $radioButton = "<label><input type='radio' checked id='$subId' name='sub' value='$subId'>$subName</label>";
+    }else{
+        $radioButton = "<label><input type='radio' id='$subId' name='sub' value='$subId'>$subName</label>";
+    }
+    $firstFlag = false;
+    
     $subHtml = $subHtml.$radioButton;
 }
     if ($inCart) {

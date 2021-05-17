@@ -4,7 +4,8 @@ include("../DB_Connection/connection.php");
 
 
 if (isset($_POST['add_product_to_cart'])) {
-
+    $subID = $_POST['sub'];
+    echo $subID;
     $productId = $_POST['product_id'];
     $sql = "SELECT * FROM products WHERE product_id = \"$productId\"";
     $result = $conn->query($sql);
@@ -18,7 +19,8 @@ if (isset($_POST['add_product_to_cart'])) {
         $productArray = array(
             'product_id' => $productId,
             'product_name' => $productName,
-            'product_price' => $productPrice
+            'product_price' => $productPrice,
+            'subscription_id' => $subID
         );
         $_SESSION['cartProducts'][$count] = $productArray;
     } else {
@@ -26,7 +28,8 @@ if (isset($_POST['add_product_to_cart'])) {
         $productArray = array(
             'product_id' => $productId,
             'product_name' => $productName,
-            'product_price' => $productPrice
+            'product_price' => $productPrice,
+            'subscription_id' => $subID
         );
         $_SESSION['cartProducts'][0] = $productArray;
     }
