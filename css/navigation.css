@@ -4,6 +4,10 @@
     align-items: center;
 }
 
+.navigation {
+    position: relative;
+}
+
 .navigation__logo {
     max-width: 150px;
 }
@@ -18,9 +22,7 @@
     position: relative;
     width: 42px;
     height: 42px;
-    /* display: flex;
-    justify-content: center;
-    flex-direction: column; */
+    cursor: pointer;
 }
 
 .navigation-hamburger__line {
@@ -44,3 +46,101 @@
     bottom: 0;
     transform: translateY(-100%);
 }
+
+/* Navigation List */
+
+.navigation-list-wrapper {
+    position: absolute;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 80px);
+    background-color: khaki;
+}
+
+.navigation-list-wrapper--hidden {
+    display: none;
+}
+.navigation-list {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: 25% 0;
+    margin-right: 16px;
+}
+.navigation-list__item {
+    margin: 1.5rem 0;
+    margin-left: auto;
+}
+
+.navigation-list__item-link {
+    font-size: 2rem;
+    text-decoration: none;
+    color: var(--black-80);
+    text-transform: uppercase;
+}
+
+/* MOBILE - Orientation Landscape */
+
+@media screen and (min-width: 667px) {
+    .navigation-list-wrapper {
+        overflow: scroll;
+    }
+    .navigation-list {
+        flex-direction: column;
+        justify-content: center;
+        margin: 0;
+        padding: 3rem 0;
+    }
+    .navigation-list__item {
+        margin-left: 0;
+    }
+
+    .navigation-list__item-link {
+        display: block;
+        text-align: center;
+        width: 500px;
+        margin: 0 auto;
+    }
+}
+
+/* TABLET - Orientation Portrait */
+
+@media screen and (min-width: 667px) {
+}
+
+/* TABLET - Orientation Landscape */
+
+/* DESKTOP - Orientation Landscape */
+
+@media screen and (min-width: 1024px) {
+    .navigation-hamburger {
+        display: none;
+    }
+
+    .navigation-list-wrapper {
+        display: block !important;
+        position: initial;
+        height: initial;
+        background-color: initial;
+    }
+
+    .navigation-list {
+        flex-direction: row;
+        padding: 0;
+        justify-content: space-between;
+        width: 450px;
+    }
+
+    .navigation-list__item {
+        text-align: initial;
+
+        margin: 0;
+    }
+
+    .navigation-list__item-link {
+        width: auto;
+        font-size: 1.5rem;
+        color: var(--white);
+    }
+} ;

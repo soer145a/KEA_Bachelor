@@ -1,0 +1,36 @@
+#intro {
+    background-color: var(--purple-light);
+    height: calc(100vh - 80px);
+}
+
+.intro {
+    padding-top: 2.5rem;
+}
+
+.intro-heading {
+    color: white;
+}
+
+.video-container {
+    position: relative;
+    margin-top: 2rem;
+}
+.explainer-video {
+    width: 100%;
+    border-radius: 30px;
+    position: relative;
+    z-index: 2;
+}
+
+.background-sphere {
+    position: absolute;
+    top: -50%;
+    transform: translateY(25%);
+    right: -25%;
+    height: 305px;
+    width: 305px;
+    display: block;
+    background-color: white;
+    opacity: 0.6;
+    border-radius: 50%;
+}
