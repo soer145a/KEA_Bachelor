@@ -63,20 +63,25 @@ foreach ($cartProducts as $product) {
     $subLen = $row->subscription_length;
     $subEnd = $currentDate + $subLen;
     //echo $subEnd;
-    $subRemaining = $subEnd - $currentDate;
     $subActive = 1;
-    $subAuto = 0;
-    $stmt_2 = $conn->prepare("INSERT INTO customer_products (customer_products_id ,customer_id, product_id, subscription_start,subscription_total_length, subscription_end, subscription_remaining, subscription_active, subscription_autorenew) VALUES ( null,?,?,?,?,?,?,?,?)");
-    $stmt_2->bind_param("iiiiiiii", $customerId, $product_id, $currentDate, $subLen, $subEnd, $subRemaining, $subActive, $subAuto);
+    $subAuto = 1;
+    $stmt_2 = $conn->prepare("INSERT INTO customer_products (customer_products_id ,customer_id, product_id, subscription_start, subscription_total_length, subscription_end, subscription_active, subscription_autorenew) VALUES ( null,?,?,?,?,?,?,?)");
+    $stmt_2->bind_param("iiiiiii", $customerId, $product_id, $currentDate, $subLen, $subEnd, $subActive, $subAuto);
     $stmt_2->execute();
-    $licenseID = $stmt_2->insert_id;
-    $invoiceModifier = "";
+    $licenseID = $stmt_2->insert_id;    
+
+    if (!$invoiceID) {
+        $stmt_3 = $conn->prepare("INSERT INTO orders (order_id , customer_id, order_date, subscription_id ) VALUES(null,?,?,?)");
+        $stmt_3->bind_param("iii", $customerId, $currentDate, $licenseID);
+        $stmt_3->execute();
+        $invoiceID = $stmt_3->insert_id;
+    }
+    else {
+
+    }
 }
 
-$stmt_3 = $conn->prepare("INSERT INTO invoice (invoice_id , customer_id, invoice_date, subscription_id, invoice_modifier ) VALUES(null,?,?,?,?)");
-$stmt_3->bind_param("iiis", $customerId, $currentDate, $licenseID, $invoiceModifier);
-$stmt_3->execute();
-$invoiceID = $stmt_3->insert_id;
+
 
 foreach ($cartProducts as $product) {
     $product_id = $product['product_id'];
