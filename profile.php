@@ -49,17 +49,33 @@
             $profileInfo = "";
             $sql = "SELECT * FROM customer_products LEFT JOIN products ON customer_products.product_id  = products.product_id";
             $results = $conn->query($sql);
+            
             while($row = $results->fetch_object()){
-                echo json_encode($row);
+                //echo json_encode($row);
+                if($row->subscription_active){
+                    $subActive = "subActive";
+                }else{
+                    $subActive = "subInactive";
+                }
+                $dt = new DateTime("@$row->subscription_start"); 
+                $subStart = $dt->format('Y-m-d');
+                $dt = new DateTime("@$row->subscription_end");
+                $subEnd = $dt->format('Y-m-d');
+                $reduceTotalAmount = $row->subscription_end - time();
+                //echo $reduceTotalAmount/86400;
+                $totalDaysRemaining = round($reduceTotalAmount/86400);
+                $totalDays = round($row->subscription_total_length/86400);
 
+                $productDesc = $row->product_description;
+                $productName = $row->product_name;
                 $profileInfoCard ="
-                <div class='profileCard active or not'>
-                <h1>product name</h1>
-                <p>product description</p>
+                <div class='profileCard $subActive'>
+                <h1>$productName</h1>
+                <p>$productDesc</p>
                 <div class='subInfo'>
-                    <p>Start date || End date</p>
-                    <p>Total days</p>
-                    <p>Days remaining</p>
+                    <p>FROM: $subStart || TO: $subEnd</p>
+                    <p>Total days: $totalDays</p>
+                    <p>$totalDaysRemaining days left</p>
                 </div>
             </div>
                 ";
