@@ -57,6 +57,7 @@ if (!isset($_SESSION['loginStatus'])) {
 foreach ($cartProducts as $product) {
     $product_id = $product['product_id'];
     $currentDate = time();
+    $subscription_id = $product['subscription_id'];
     $sql = "SELECT * FROM subscriptions WHERE subscription_id = \"$subscription_id\"";
     $result = $conn->query($sql);
     $row = $result->fetch_object();
