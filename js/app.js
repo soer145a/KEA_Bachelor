@@ -152,14 +152,22 @@ function gatherProductData() {
   });
   return returnObject;
 }
+function showDeleteOption() {
+  console.log("Ready to delete!");
+  document.querySelector("#deleteModal").classList.remove("hidden");
+  document.querySelector("#deleteModal").classList.add("shown");
+}
+function cancelDeletion() {
+  document.querySelector("#deleteModal").classList.add("hidden");
+  document.querySelector("#deleteModal").classList.remove("shown");
+}
+function showDeleteOption2() {
+  document.querySelector("#deleteModal").classList.add("hidden");
+  document.querySelector("#deleteModal").classList.remove("shown");
+  document.querySelector("#deleteModalTotal").classList.remove("hidden");
+  document.querySelector("#deleteModalTotal").classList.add("shown");
+}
 
-function informationHandler(returnData) {
-  //console.log(returnData);
-  window.location.href = document.location + "signup.php";
-}
-async function addProductToCustomer() {
-  console.log("Cross-call-function");
-}
 
 async function postData(url = "", data = {}) {
   const response = await fetch(url, {

@@ -1,7 +1,7 @@
 <?php
 session_start();
 $customerConfirmCode = $_GET['confirmCode'];
-echo $customerConfirmCode;
+//echo $customerConfirmCode;
 include_once("DB_Connection/connection.php");
 $sql = "UPDATE customers SET customer_confirmed = 1 WHERE customer_confirm_code = \"$customerConfirmCode\"";
 $result = $conn->query($sql);
