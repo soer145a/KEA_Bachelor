@@ -9,7 +9,7 @@ include("../DB_Connection/connection.php");
 $cartProducts = $_SESSION['cartProducts'];
 $cartAddOns = $_SESSION['cartAddOns'];
 $embed = "<iframe src='https://purplescout.placeholder.dk/key' frameborder='0'></iframe>";
-$apiKey = bin2hex(random_bytes(32));
+
 
 if (!isset($_SESSION['loginStatus'])) {
     $dbFirstName = $conn->real_escape_string($_POST['input_first_name']);
@@ -61,6 +61,7 @@ $orderId = $stmt_2->insert_id;
 
 //echo "sucess";
 foreach ($cartProducts as $product) {
+    $apiKey = bin2hex(random_bytes(32));
     $product_id = $product['product_id'];
     $subscription_id = $product['subscription_id'];
     $product_price = $product['product_price'];
@@ -115,6 +116,5 @@ foreach ($cartAddOns as $addOn) {
     $stmt_7->execute();
     $stmt_7->insert_id;
 }
-
 
 header("Location: ../MAILER/send-email.php");
