@@ -1,5 +1,5 @@
 <?php
-    session_start();
+session_start();
 
 include_once("Components/header.php");
 $header = headerComp();
@@ -7,13 +7,13 @@ $embedLink = "";
 $apiKey = "";
 
 
-    if (!isset($_SESSION['loginStatus'])) {
-        header('Location: login.php');
-    } else {
-        $firstName = $_SESSION['customer_first_name'];
-        $lastName = $_SESSION['customer_last_name'];
-        $customerId = $_SESSION['customer_id'];
-        include("DB_Connection/connection.php");
+if (!isset($_SESSION['loginStatus'])) {
+    header('Location: login.php');
+} else {
+    $firstName = $_SESSION['customer_first_name'];
+    $lastName = $_SESSION['customer_last_name'];
+    $customerId = $_SESSION['customer_id'];
+    include("DB_Connection/connection.php");
 
     /*  $sql = "SELECT * FROM customers WHERE customer_id = \"$customerId\"";
     $result = $conn->query($sql);
@@ -49,45 +49,45 @@ $apiKey = "";
     <pre><code class="html"><?= $apiKey ?></code></pre>
     <div class="customerInfoContainer">
         <?php
-            $profileInfo = "";
-            $sql = "SELECT * FROM customer_products LEFT JOIN products ON customer_products.product_id  = products.product_id";
-            $results = $conn->query($sql);
-            
-            while($row = $results->fetch_object()){
-                //echo json_encode($row);
-                if($row->subscription_active){
-                    $subActive = "subActive";
-                }else{
-                    $subActive = "subInactive";
-                }
-                $dt = new DateTime("@$row->subscription_start"); 
-                $subStart = $dt->format('Y-m-d');
-                $dt = new DateTime("@$row->subscription_end");
-                $subEnd = $dt->format('Y-m-d');
-                $reduceTotalAmount = $row->subscription_end - time();
-                //echo $reduceTotalAmount/86400;
-                $totalDaysRemaining = round($reduceTotalAmount/86400);
-                $totalDays = round($row->subscription_total_length/86400);
+        $profileInfo = "";
+        $sql = "SELECT * FROM customer_products LEFT JOIN products ON customer_products.product_id  = products.product_id";
+        $results = $conn->query($sql);
 
-                $productDesc = $row->product_description;
-                $productName = $row->product_name;
-                $profileInfoCard ="
-                <div class='profileCard $subActive'>
-                <h1>$productName</h1>
-                <p>$productDesc</p>
-                <div class='subInfo'>
-                    <p>FROM: $subStart || TO: $subEnd</p>
-                    <p>Total days: $totalDays</p>
-                    <p>$totalDaysRemaining days left</p>
-                </div>
-            </div>
-                ";
-                $profileInfo = $profileInfo.$profileInfoCard;
+        while ($row = $results->fetch_object()) {
+            //echo json_encode($row);
+            if ($row->subscription_active) {
+                $subActive = "subActive";
+            } else {
+                $subActive = "subInactive";
             }
-            echo $profileInfo;
+            $dt = new DateTime("@$row->subscription_start");
+            $subStart = $dt->format('Y-m-d');
+            $dt = new DateTime("@$row->subscription_end");
+            $subEnd = $dt->format('Y-m-d');
+            $reduceTotalAmount = $row->subscription_end - time(); 
+            //echo $reduceTotalAmount/86400;
+            $totalDaysRemaining = round($reduceTotalAmount / 86400);
+            $totalDays = round($row->subscription_total_length / 86400);
+
+            $productDesc = $row->product_description;
+            $productName = $row->product_name;
+            $profileInfoCard = "
+                <div class='profileCard $subActive'>
+                    <h1>$productName</h1>
+                    <p>$productDesc</p>
+                    <div class='subInfo'>
+                        <p>FROM: $subStart || TO: $subEnd</p>
+                        <p>Total days: $totalDays</p>
+                        <p>$totalDaysRemaining days left</p>
+                    </div>
+                </div>
+                ";
+            $profileInfo = $profileInfo . $profileInfoCard;
+        }
+        echo $profileInfo;
         ?>
     </div>
-    
+
     <p>Alter the company data</p>
     <button onclick="showUpdateForm()">Click here to update</button>
     <form method="post" action="API/update-customer-data.php" class="hidden" id="updateDataForm">

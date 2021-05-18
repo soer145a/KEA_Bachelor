@@ -116,5 +116,4 @@ foreach ($cartAddOns as $addOn) {
     $stmt_7->insert_id;
 }
 
-
 header("Location: ../MAILER/send-email.php");
