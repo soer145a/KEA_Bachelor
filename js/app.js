@@ -183,6 +183,12 @@ function showUpdateForm() {
   form.classList.add("shown");
 }
 
+async function toggleAutoRenew(subID) {
+    console.log(subID);
+    fetch(`API/update-autorenewal.php?subID=${subID}`).then(response => response.text()).then(data => location.reload());
+    
+}
+
 // Top Navigation -- Hamburger
 
 function toggleMobileNavigation() {
