@@ -48,8 +48,6 @@ $apiKey = "";
     <div><?= $header ?></div>
     <h1>Welcome <?= $firstName, " ", $lastName ?></h1>
 
-    <!-- 
-     -->
     <div class="customerInfoContainer">
         <?php
         $profileInfo = "";
@@ -157,6 +155,24 @@ $apiKey = "";
             <button onclick="editInfo('Company cvr: ', '<?= $customerCvr ?>', 'cvr', 'customer_cvr')">Edit</button>
         </div>
     </div>
+    <div>
+        <p>Edit password</p>
+        <form class="form" method="post" onsubmit="return inputValidate();" action="API/update-customer-data.php">
+
+            <p>New password:</p>
+            <input class="form__input" oninput="inputValidate()" data-validate="password" type="password" name="input_password_init" placeholder="MyStr0ng.PW-example">
+
+            <p>Confirm new password:</p>
+            <input class="form__input" oninput="inputValidate()" data-validate="password" type="password" name="input_password_confirm" placeholder="MyStr0ng.PW-example">
+
+            <p>Old password:</p>
+            <input class="form__input" oninput="inputValidate()" data-validate="password" type="password" name="customer_password" placeholder="MyStr0ng.PW-example">
+
+            <button class="form__btn" type="submit">Change password</button>
+            <div class="errorMessage">
+        </form>
+    </div>
+
 
 </body>
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>

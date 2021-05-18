@@ -27,6 +27,8 @@ function inputValidate() {
           if (!regPassword.test(inputData)) {
             inputsToValidate[i].classList.add("invalid");
             inputsToValidate[i].classList.remove("valid");
+            document.getElementsByClassName("errorMessage")[0].innerHTML =
+              "<strong>The password has to be strong</strong>";
           } else {
             inputsToValidate[i].classList.add("valid");
             inputsToValidate[i].classList.remove("invalid");
