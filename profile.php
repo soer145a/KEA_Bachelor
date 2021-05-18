@@ -42,11 +42,8 @@ if (!isset($_SESSION['loginStatus'])) {
     <div><?= $header ?></div>
     <h1>Welcome <?= $firstName, " ", $lastName ?></h1>
 
-    <p>Embed link:</p>
-    <pre><code class="html"><?= $embedLink ?></code></pre>
-
-    <p>API Key:</p>
-    <pre><code class="html"><?= $apiKey ?></code></pre>
+    <!-- 
+     -->
     <div class="customerInfoContainer">
         <?php
         $profileInfo = "";
@@ -60,11 +57,17 @@ if (!isset($_SESSION['loginStatus'])) {
             } else {
                 $subActive = "subInactive";
             }
+
+            $charsToReplace = array("<", ">");
+            $replaceWith = array("&lt;", "&gt;");
+            $embedLink = str_replace($charsToReplace, $replaceWith, $row->embed_link);
+            $apiKey = $row->api_key;
+
             $dt = new DateTime("@$row->subscription_start");
             $subStart = $dt->format('Y-m-d');
             $dt = new DateTime("@$row->subscription_end");
             $subEnd = $dt->format('Y-m-d');
-            $reduceTotalAmount = $row->subscription_end - time(); 
+            $reduceTotalAmount = $row->subscription_end - time();
             //echo $reduceTotalAmount/86400;
             $totalDaysRemaining = round($reduceTotalAmount / 86400);
             $totalDays = round($row->subscription_total_length / 86400);
@@ -81,6 +84,12 @@ if (!isset($_SESSION['loginStatus'])) {
                         <p>$totalDaysRemaining days left</p>
                     </div>
                 </div>
+                <p>Embed link:</p>
+                <pre><code class='html'> $embedLink</code></pre>
+
+                <p>API Key:</p>
+                <pre><code class='html'>$apiKey</code></pre>
+            </div>
                 ";
             $profileInfo = $profileInfo . $profileInfoCard;
         }
