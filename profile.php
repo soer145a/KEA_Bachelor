@@ -72,6 +72,16 @@ $apiKey = "";
                 $totalDaysRemaining = round($reduceTotalAmount/86400);
                 $totalDays = round($row->subscription_total_length/86400);
 
+                $subID = $row->customer_products_id;
+
+                if($row->subscription_autorenew){
+                    $autoRenew = "On";
+                    $buttonToggle = "Off";
+                }else{
+                    $autoRenew = "Off";
+                    $buttonToggle = "On";
+                }
+
                 $productDesc = $row->product_description;
                 $productName = $row->product_name;
                 $profileInfoCard ="
@@ -88,6 +98,8 @@ $apiKey = "";
 
                 <p>API Key:</p>
                 <pre><code class='html'>$apiKey</code></pre>
+                <p>Auto renew subscription: <span><b>$autoRenew</b></span></p>
+                <button onclick='toggleAutoRenew($subID)'>Switch Autorenew $buttonToggle</button>
             </div>
                 ";
                 $profileInfo = $profileInfo.$profileInfoCard;
