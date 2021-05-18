@@ -18,8 +18,7 @@ function inputValidate() {
     switch (validationType) {
       case "password":
         inputData = inputsToValidate[i].value;
-        document.getElementsByClassName("errorMessage")[0].innerHTML =
-          "<strong></strong>";
+        document.getElementsByClassName("errorMessage")[0].innerHTML = "";
         //Must contain 6-30 characters, one uppercase character, one lowercase character, one numeric character and one special character. Eg.: MyStr0ng.PW-example
         let regPassword =
           /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{6,30}$/;
@@ -184,9 +183,10 @@ function showUpdateForm() {
 }
 
 async function toggleAutoRenew(subID) {
-    console.log(subID);
-    fetch(`API/update-autorenewal.php?subID=${subID}`).then(response => response.text()).then(data => location.reload());
-    
+  console.log(subID);
+  fetch(`API/update-autorenewal.php?subID=${subID}`)
+    .then((response) => response.text())
+    .then((data) => location.reload());
 }
 
 // Top Navigation -- Hamburger
