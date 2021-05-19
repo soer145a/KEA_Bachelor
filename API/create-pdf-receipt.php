@@ -25,8 +25,12 @@ $receipt = new FPDF();
 $receipt->AddPage();
 $receipt->Image('../Assets/logo.png', 10, 6);
 $receipt->SetFont("Arial", "B", 20);
-
 $receipt->Text(190, 10, "Mirtual");
+$receipt->Output();
+
+
+
+
 
 /* if (!isset($_SESSION['loginStatus'])) {
     $emailContentConfirm = str_replace("::USERNAME::", $name, $emailContentConfirm);

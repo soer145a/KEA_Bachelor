@@ -50,11 +50,11 @@ $apiKey = "";
     <div id="deleteModal" class="shown">
         <h1>Are you sure you want to delete your data?</h1>
         <p>You are about to delete every data we have regarding your product and your orders. <br>
-        Going foward with this, there will be no recovering this information, and your product and licens removed from your account.</p>
+            Going foward with this, there will be no recovering this information, and your product and licens removed from your account.</p>
         <div id="customerInfo">
             <p>You will be deleting:</p>
             <ul>
-            <?php
+                <?php
                 include("DB_Connection/connection.php");
                 $sql = "SELECT count(*) FROM `customer_products` WHERE `customer_id` = \"$customerId\"";
                 $results = $conn->query($sql);
@@ -65,23 +65,23 @@ $apiKey = "";
                 $results = $conn->query($sql);
                 $row = $results->fetch_assoc();
                 $amount = $row['addon_amount'];
-                
+
                 echo "<li> $amount orders in our database</li>";
                 $sql = "SELECT count(*) FROM `orders` WHERE `customer_id` = \"$customerId\"";
                 $results = $conn->query($sql);
                 $row = $results->fetch_assoc();
                 $amount = $row['count(*)'];
                 echo "<li> $amount orders in our database</li>";
-            ?>
+                ?>
             </ul>
-            
+
         </div>
         <button onclick="cancelDeletion()">Cancel</button>
         <button onclick="showDeleteOption2()">Continue</button>
     </div>
     <div id="deleteModalTotal" class="hidden">
         <h1>Current information</h1>
-        
+
     </div>
     <div class="customerInfoContainer">
         <?php
