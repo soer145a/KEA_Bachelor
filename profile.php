@@ -28,24 +28,21 @@ if (!isset($_SESSION['loginStatus'])) {
 if (isset($_POST['confirmPassword'])) {
 
     $password = $conn->real_escape_string($_POST['confirmPassword']);
-        $sql = "SELECT * FROM customers WHERE customer_id = \" $customerId \"";
-        $result = $conn->query($sql);
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_object();
-            //echo json_encode($row);
-            $db_password = $row->customer_password;
-            if (password_verify($password, $db_password)) {
-                header("Location: API/deleteUserInformation.php");
-            } else {
-                $errorMess = "<p style='color:red'> ERROR - You don' fuckd up kiddo</p>";
-                $showFlag = true;
-            }
+    $sql = "SELECT * FROM customers WHERE customer_id = \" $customerId \"";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_object();
+        //echo json_encode($row);
+        $db_password = $row->customer_password;
+        if (password_verify($password, $db_password)) {
+            header("Location: API/deleteUserInformation.php");
         } else {
             $errorMess = "<p style='color:red'> ERROR - You don' fuckd up kiddo</p>";
             $showFlag = true;
         }
     } else {
         $errorMess = "<p style='color:red'> ERROR - You don' fuckd up kiddo</p>";
+        $showFlag = true;
     }
 }
 
@@ -100,25 +97,31 @@ $apiKey = "";
                 echo "<li> $amount orders in our database</li>";
                 ?>
             </ul>
-            
+
         </div>
         <button onclick="cancelDeletion()">Cancel</button>
         <button onclick="showDeleteOption2()">I Understand</button>
     </div>
-    <div id="deleteModalTotal" class="<?php if($showFlag){echo "shown";}else{echo "hidden";} ?>">
+    <div id="deleteModalTotal" class="<?php if ($showFlag) {
+                                            echo "shown";
+                                        } else {
+                                            echo "hidden";
+                                        } ?>">
         <h1>Enter password</h1>
         <p>By entering your password, your account will be deleted.</p>
         <form method="post">
-               <label><p>Password:</p>
-                    <input type="password" name="password" oninput="checkPassword()" id="pass1">
-               </label>
-               <label><p>Confirm Password:</p>
-                    <input type="password" name="confirmPassword" oninput="checkPassword()" id="pass2">
-               </label>
-               
-               <?= "<input type='hidden' name='userID' value='$customerId'>"?>
-               <?=$errorMess?>
-               <button disabled id="deleteButton">DELETE MY ACOUNT</button>
+            <label>
+                <p>Password:</p>
+                <input type="password" name="password" oninput="checkPassword()" id="pass1">
+            </label>
+            <label>
+                <p>Confirm Password:</p>
+                <input type="password" name="confirmPassword" oninput="checkPassword()" id="pass2">
+            </label>
+
+            <?= "<input type='hidden' name='userID' value='$customerId'>" ?>
+            <?= $errorMess ?>
+            <button disabled id="deleteButton">DELETE MY ACOUNT</button>
         </form>
 
     </div>

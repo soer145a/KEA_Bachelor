@@ -2,6 +2,7 @@
 session_start();
 echo "starting the submission";
 include("../DB_Connection/connection.php");
+include("./create-pdf-receipt.php");
 //echo json_encode($_POST['input_first_name']);
 //$sql = "INSERT INTO customers VALUES (customer_first_name, customer_last_name, customer_company_name, customer_email, customer_password, customer_cvr) VALUES ('John', 'Doe', 'john@example.com')";
 //$result = $conn->query();
@@ -41,6 +42,7 @@ if (!isset($_SESSION['loginStatus'])) {
 
     $stmt->execute();
     $customerId = $stmt->insert_id;
+    $_SESSION['customer_id'] = $customerId;
     $_SESSION['postData'] = json_encode($_POST);
     $_SESSION['confirmCode'] = $confirmCode;
 } else {
@@ -48,8 +50,16 @@ if (!isset($_SESSION['loginStatus'])) {
     $sql = "SELECT * FROM customers WHERE customer_id = \"$customerId\"";
     $result = $conn->query($sql);
     $row = $result->fetch_object();
-    $customerEmail = $row->customer_email;
-    $postData = array("input_email" => $customerEmail, "input_first_name" => $_SESSION['customer_first_name'], "input_last_name" =>  $_SESSION['customer_last_name']);
+    $postData = array(
+        "input_company_name" => $row->customer_company_name,
+        "input_company_street" => $row->customer_address,
+        "input_company_city" => $row->customer_city,
+        "input_company_Postcode" => $row->customer_postcode,
+        "input_company_cvr" => $row->customer_cvr,
+        "input_email" => $row->customer_email,
+        "input_first_name" => $row->customer_first_name,
+        "input_last_name" =>  $row->customer_last_name
+    );
     $_SESSION['postData'] = json_encode($postData);
 }
 
@@ -58,6 +68,8 @@ $stmt_2 = $conn->prepare("INSERT INTO orders (order_id , customer_id, order_date
 $stmt_2->bind_param("ii", $customerId, $currentDate);
 $stmt_2->execute();
 $orderId = $stmt_2->insert_id;
+$_SESSION['orderId'] = $orderId;
+createReceipt($currentDate);
 
 //echo "sucess";
 foreach ($cartProducts as $product) {
@@ -116,5 +128,6 @@ foreach ($cartAddOns as $addOn) {
     $stmt_7->execute();
     $stmt_7->insert_id;
 }
+
 
 header("Location: ../MAILER/send-email.php");

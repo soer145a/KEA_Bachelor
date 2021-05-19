@@ -6,7 +6,7 @@ $sql = "DELETE FROM customer_addons WHERE customer_id = \"$customerID\"";
 $conn->query($sql);
 $sql = "DELETE FROM customer_products WHERE customer_id = \"$customerID\"";
 $conn->query($sql);
-$sql = "SELECT*  FROM orders WHERE customer_id = \"$customerID\"";
+$sql = "SELECT * FROM orders WHERE customer_id = \"$customerID\"";
 $results = $conn->query($sql);
 while ($row = $results->fetch_assoc()) {
     //echo json_encode($row);
