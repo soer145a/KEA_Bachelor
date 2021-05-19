@@ -4,6 +4,10 @@
     align-items: center;
 }
 
+.no-scroll {
+    position: fixed;
+}
+
 .navigation {
     position: relative;
 }
@@ -51,11 +55,13 @@
 
 .navigation-list-wrapper {
     position: absolute;
+    z-index: 100;
     top: 80px;
     left: 0;
     width: 100%;
     height: calc(100vh - 80px);
     background-color: khaki;
+    overflow: scroll;
 }
 
 .navigation-list-wrapper--hidden {
@@ -78,6 +84,10 @@
     text-decoration: none;
     color: var(--black-80);
     text-transform: uppercase;
+}
+
+.navigation-list__item-link:hover {
+    color: var(--yellow);
 }
 
 /* MOBILE - Orientation Landscape */
@@ -113,7 +123,7 @@
 
 /* DESKTOP - Orientation Landscape */
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 1023px) {
     .navigation-hamburger {
         display: none;
     }
@@ -129,18 +139,18 @@
         flex-direction: row;
         padding: 0;
         justify-content: space-between;
-        width: 450px;
+        width: 100%;
     }
 
     .navigation-list__item {
         text-align: initial;
-
         margin: 0;
+        margin-left: 1rem;
     }
 
     .navigation-list__item-link {
         width: auto;
-        font-size: 1.5rem;
+        font-size: 0.8rem;
         color: var(--white);
     }
 } ;
