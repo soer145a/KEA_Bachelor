@@ -75,7 +75,7 @@ if (!isset($_SESSION['loginStatus'])) {
             <input class="form__input" oninput="inputValidate(); printBtnValidate();" data-validate="cvr" type="text" name="input_company_cvr" placeholder="12345678">
         </label>
         <label>
-            <p>Password: ( No special characters )</p>
+            <p>Password:</p>
             <input class="form__input" oninput="inputValidate(); printBtnValidate();" data-validate="password" type="password" name="input_password_init" placeholder="MyStr0ng.PW-example">
         </label>
         <label>

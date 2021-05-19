@@ -55,10 +55,10 @@ if (isset($_POST['customer_email']) && isset($_POST['customer_password'])) {
 <body>
     <div><?= $header ?></div>
     <h1>Login</h1>
-    <form class="form" method="post" onsubmit="return inputValidate()">
+    <form class="form" method="post">
         <label>
             <p>Email:</p>
-            <input class="form__input" oninput="inputValidate()" type="email" placeholder="example@email.com" data-validate="email" name="customer_email">
+            <input class="form__input" oninput="" type="email" placeholder="example@email.com" data-validate="email" name="customer_email">
         </label>
         <label>
             <p>Password (Must contain 6-30 characters, one uppercase character, one lowercase character, one numeric character and one special character):</p>

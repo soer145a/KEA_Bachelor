@@ -1,29 +1,35 @@
 <?php
 session_start();
 
+if (!isset($_SESSION['loginStatus'])) {
+    header('Location: login.php');
+} else {
+    $customerId = $_SESSION['customer_id'];
+    include("DB_Connection/connection.php");
+
+    $sql = "SELECT * FROM customers WHERE customer_id = \"$customerId\"";
+    $result = $conn->query($sql);
+    $row = $result->fetch_object();
+    $firstName = $row->customer_first_name;
+    $lastName = $row->customer_last_name;
+    $customerCompName = $row->customer_company_name;
+    $customerEmail = $row->customer_email;
+    $customerCvr = $row->customer_cvr;
+    $customerCity = $row->customer_city;
+    $customerStreet = $row->customer_address;
+    $customerCountry = $row->customer_country;
+    $customerPostCode = $row->customer_postcode;
+    $customerPhone = $row->customer_phone;
+
+    $_SESSION['customer_first_name'] = $firstName;
+    $_SESSION['customer_last_name'] = $lastName;
+}
+
+
 include_once("Components/header.php");
 $header = headerComp();
 $embedLink = "";
 $apiKey = "";
-
-
-if (!isset($_SESSION['loginStatus'])) {
-    header('Location: login.php');
-} else {
-    $firstName = $_SESSION['customer_first_name'];
-    $lastName = $_SESSION['customer_last_name'];
-    $customerId = $_SESSION['customer_id'];
-    include("DB_Connection/connection.php");
-
-    /*  $sql = "SELECT * FROM customers WHERE customer_id = \"$customerId\"";
-    $result = $conn->query($sql);
-    $row = $result->fetch_object();
-    $charsToReplace = array("<", ">");
-    $replaceWith = array("&lt;", "&gt;");
-    $embedLink = str_replace($charsToReplace, $replaceWith, $row->embed_link);
-    $apiKey = $row->api_key; */
-}
-
 
 ?>
 <!DOCTYPE html>
@@ -41,62 +47,168 @@ if (!isset($_SESSION['loginStatus'])) {
 <body>
     <div><?= $header ?></div>
     <h1>Welcome <?= $firstName, " ", $lastName ?></h1>
-
-    <p>Embed link:</p>
-    <pre><code class="html"><?= $embedLink ?></code></pre>
-
-    <p>API Key:</p>
-    <pre><code class="html"><?= $apiKey ?></code></pre>
-    <div class="customerInfoContainer">
-    </div>
-    <p>Alter the company data</p>
-    <button onclick="showUpdateForm()">Click here to update</button>
-    <form method="post" action="API/update-customer-data.php" class="hidden" id="updateDataForm">
-        <label>
-            <p>Contact - First Name:</p>
-            <input class="form__input" oninput="inputValidateProfile();" data-validate="string" type="text" name="input_first_name" placeholder="John">
-        </label>
-        <label>
-            <p>Contact - Last Name:</p>
-            <input class="form__input" oninput="inputValidateProfile();" data-validate="string" type="text" name="input_last_name" placeholder="Doe">
-        </label>
-        <label>
-            <p>Company - Street:</p>
-            <input class="form__input" oninput="inputValidateProfile();" data-validate="string" type="text" name="input_company_street" placeholder="John Doe Lane 35A">
-        </label>
-        <label>
-            <p>Company - City:</p>
-            <input class="form__input" oninput="inputValidateProfile()" data-validate="string" type="text" name="input_company_city" placeholder="London">
-        </label>
-        <label>
-            <p>Company - Postcode:</p>
-            <input class="form__input" oninput="inputValidateProfile();" data-validate="string" type="text" name="input_company_Postcode" placeholder="SW1W 0NY">
-        </label>
-        <label>
-            <p>Company - country:</p>
-            <input class="form__input" oninput="inputValidateProfile();" data-validate="string" type="text" name="input_company_country" placeholder="England">
-        </label>
-        <label>
-            <p>Contact - Email:</p>
-            <input class="form__input" oninput="inputValidateProfile();" data-validate="email" type="email" name="input_email" placeholder="example@email.com">
-        </label>
-        <label>
-            <p>Contact - Phone:</p>
-            <input class="form__input" oninput="inputValidateProfile();" data-validate="phone" type="text" name="input_phone" placeholder="+4511223344">
-        </label>
-        <label>
-            <p>Company - Name:</p>
-            <input class="form__input" oninput="inputValidateProfile();" data-validate="string" type="text" name="input_company_name" placeholder="JohnDoe A/S">
-        </label>
-        <label>
-            <p>Company - CVR:</p>
-            <input class="form__input" oninput="inputValidateProfile();" data-validate="cvr" type="text" name="input_company_cvr" placeholder="12345678">
-        </label>
-        <div class="errorMessage"></div>
-        <div class="form__btnContainer">
-            <button>UPDATE YOUR DATA</button>
+    <button onclick="showDeleteOption()">Delete my account</button>
+    <div id="deleteModal" class="shown">
+        <h1>Are you sure you want to delete your data?</h1>
+        <p>You are about to delete every data we have regarding your product and your orders. <br>
+        Going foward with this, there will be no recovering this information, and your product and licens removed from your account.</p>
+        <div id="customerInfo">
+            <p>You will be deleting:</p>
+            <ul>
+            <?php
+                include("DB_Connection/connection.php");
+                $sql = "SELECT count(*) FROM `customer_products` WHERE `customer_id` = \"$customerId\"";
+                $results = $conn->query($sql);
+                $row = $results->fetch_assoc();
+                $amount = $row['count(*)'];
+                echo "<li> $amount products with active licences</li>";
+                $sql = "SELECT * FROM `customer_addons` LEFT JOIN products ON customer_addons.addon_id  = addons.addon_id  WHERE `customer_id` = \"$customerId\"";
+                $results = $conn->query($sql);
+                $row = $results->fetch_assoc();
+                $amount = $row['addon_amount'];
+                
+                echo "<li> $amount orders in our database</li>";
+                $sql = "SELECT count(*) FROM `orders` WHERE `customer_id` = \"$customerId\"";
+                $results = $conn->query($sql);
+                $row = $results->fetch_assoc();
+                $amount = $row['count(*)'];
+                echo "<li> $amount orders in our database</li>";
+            ?>
+            </ul>
+            
         </div>
-    </form>
+        <button onclick="cancelDeletion()">Cancel</button>
+        <button onclick="showDeleteOption2()">Continue</button>
+    </div>
+    <div id="deleteModalTotal" class="hidden">
+        <h1>Current information</h1>
+        
+    </div>
+    <div class="customerInfoContainer">
+        <?php
+        $profileInfo = "";
+        $sql = "SELECT * FROM customer_products LEFT JOIN products ON customer_products.product_id  = products.product_id";
+        $results = $conn->query($sql);
+
+        while ($row = $results->fetch_object()) {
+            //echo json_encode($row);
+            if ($row->subscription_active) {
+                $subActive = "subActive";
+            } else {
+                $subActive = "subInactive";
+            }
+
+            $charsToReplace = array("<", ">");
+            $replaceWith = array("&lt;", "&gt;");
+            $embedLink = str_replace($charsToReplace, $replaceWith, $row->embed_link);
+            $apiKey = $row->api_key;
+
+            $dt = new DateTime("@$row->subscription_start");
+            $subStart = $dt->format('Y-m-d');
+            $dt = new DateTime("@$row->subscription_end");
+            $subEnd = $dt->format('Y-m-d');
+            $reduceTotalAmount = $row->subscription_end - time();
+            //echo $reduceTotalAmount/86400;
+            $totalDaysRemaining = round($reduceTotalAmount / 86400);
+            $totalDays = round($row->subscription_total_length / 86400);
+
+            $subID = $row->customer_products_id;
+
+            if ($row->subscription_autorenew) {
+                $autoRenew = "On";
+                $buttonToggle = "Off";
+            } else {
+                $autoRenew = "Off";
+                $buttonToggle = "On";
+            }
+
+            $productDesc = $row->product_description;
+            $productName = $row->product_name;
+            $profileInfoCard = "
+                <div class='profileCard $subActive'>
+                    <h1>$productName</h1>
+                    <p>$productDesc</p>
+                    <div class='subInfo'>
+                        <p>FROM: $subStart || TO: $subEnd</p>
+                        <p>Total days: $totalDays</p>
+                        <p>$totalDaysRemaining days left</p>
+                    </div>
+                
+                <p>Embed link:</p>
+                <pre><code class='html'> $embedLink</code></pre>
+
+                <p>API Key:</p>
+                <pre><code class='html'>$apiKey</code></pre>
+                <p>Auto renew subscription: <span><b>$autoRenew</b></span></p>
+                <button onclick='toggleAutoRenew($subID)'>Switch Autorenew $buttonToggle</button>
+            </div>
+                ";
+            $profileInfo = $profileInfo . $profileInfoCard;
+        }
+        echo $profileInfo;
+        ?>
+    </div>
+
+    <div>
+        <div>
+            <p>Firstname: <?= $firstName ?></p>
+            <button onclick="editInfo('Firstname: ', '<?= $firstName ?>', 'string', 'customer_first_name')">Edit</button>
+        </div>
+        <div>
+            <p>Lastname: <?= $lastName ?></p>
+            <button onclick="editInfo('Lastname: ', '<?= $lastName ?>', 'string', 'customer_last_name')">Edit</button>
+        </div>
+        <div>
+            <p>Street: <?= $customerStreet ?></p>
+            <button onclick="editInfo('Street: ', '<?= $customerStreet ?>', 'string', 'customer_address')">Edit</button>
+        </div>
+        <div>
+            <p>City: <?= $customerCity ?></p>
+            <button onclick="editInfo('City: ', '<?= $customerCity ?>', 'string', 'customer_city')">Edit</button>
+        </div>
+        <div>
+            <p>Postcode: <?= $customerPostCode ?></p>
+            <button onclick="editInfo('Postcode: ', '<?= $customerPostCode ?>', 'string', 'customer_postcode')">Edit</button>
+        </div>
+        <div>
+            <p>Country: <?= $customerCountry ?></p>
+            <button onclick="editInfo('Country: ', '<?= $customerCountry ?>', 'string', 'customer_country')">Edit</button>
+        </div>
+        <div>
+            <p>Email: <?= $customerEmail ?></p>
+            <button onclick="editInfo('Email: ', '<?= $customerEmail ?>', 'email', 'customer_email')">Edit</button>
+        </div>
+        <div>
+            <p>Phone: <?= $customerPhone ?></p>
+            <button onclick="editInfo('Phone: ', '<?= $customerPhone ?>', 'phone', 'customer_phone')">Edit</button>
+        </div>
+        <div>
+            <p>Company name: <?= $customerCompName ?></p>
+            <button onclick="editInfo('Company name: ', '<?= $customerCompName ?>', 'string', 'customer_company_name')">Edit</button>
+        </div>
+        <div>
+            <p>Company cvr: <?= $customerCvr ?></p>
+            <button onclick="editInfo('Company cvr: ', '<?= $customerCvr ?>', 'cvr', 'customer_cvr')">Edit</button>
+        </div>
+    </div>
+    <div>
+        <p>Edit password</p>
+        <form class="form" method="post" onsubmit="return inputValidate();" action="API/update-customer-data.php">
+
+            <p>New password:</p>
+            <input class="form__input" oninput="inputValidate()" data-validate="password" type="password" name="input_password_init" placeholder="MyStr0ng.PW-example">
+
+            <p>Confirm new password:</p>
+            <input class="form__input" oninput="inputValidate()" data-validate="password" type="password" name="input_password_confirm" placeholder="MyStr0ng.PW-example">
+
+            <p>Old password:</p>
+            <input class="form__input" oninput="inputValidate()" data-validate="password" type="password" name="customer_password" placeholder="MyStr0ng.PW-example">
+
+            <button class="form__btn" type="submit">Change password</button>
+            <div class="errorMessage">
+        </form>
+    </div>
+
 
 </body>
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>

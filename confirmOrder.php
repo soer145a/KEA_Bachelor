@@ -4,16 +4,22 @@ $productName = "";
 $totalPrice = 0;
 $boughtAddons = "";
 
-foreach ($_SESSION['cartProducts'] as $product) {
-    $productName = $product['product_name'] . ", " .  $productName;
-    $totalPrice =  $totalPrice + (float)$product['product_price'];
+if (isset($_SESSION['cartProducts'])) {
+    foreach ($_SESSION['cartProducts'] as $product) {
+        $productName = $product['product_name'] . ", " .  $productName;
+        $totalPrice =  $totalPrice + (float)$product['product_price'];
+    }
 }
-foreach ($_SESSION['cartAddOns'] as $addon) {
-    $addonName = $addon['addon_name'];
-    $addonTotalprice = (float)$addon['addon_price'] * (float)$addon['addon_amount'];
-    $boughtAddons = $boughtAddons . $addon['addon_amount'] . " x " . $addonName . ", ";
-    $totalPrice =  $totalPrice + $addonTotalprice;
+if (isset($_SESSION['cartAddOns'])) {
+    foreach ($_SESSION['cartAddOns'] as $addon) {
+        $addonName = $addon['addon_name'];
+        $addonTotalprice = (float)$addon['addon_price'] * (float)$addon['addon_amount'];
+        $boughtAddons = $boughtAddons . $addon['addon_amount'] . " x " . $addonName . ", ";
+        $totalPrice =  $totalPrice + $addonTotalprice;
+    }
 }
+
+
 
 unset($_SESSION['cartProducts']);
 unset($_SESSION['cartAddOns']);

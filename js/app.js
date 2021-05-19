@@ -13,16 +13,13 @@ function inputValidate() {
     }
 
     for (let i = 0; i < inputsToValidate.length; i++) {
-        inputsToValidate[i].classList.remove("invalid");
-        inputsToValidate[i].classList.remove("valid");
-
         let validationType = inputsToValidate[i].getAttribute("data-validate");
 
         switch (validationType) {
             case "password":
                 inputData = inputsToValidate[i].value;
                 document.getElementsByClassName("errorMessage")[0].innerHTML =
-                    "<strong></strong>";
+                    "";
                 //Must contain 6-30 characters, one uppercase character, one lowercase character, one numeric character and one special character. Eg.: MyStr0ng.PW-example
                 let regPassword =
                     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{6,30}$/;
@@ -30,8 +27,14 @@ function inputValidate() {
                 if (inputsToValidate[i].name !== "input_password_confirm") {
                     if (!regPassword.test(inputData)) {
                         inputsToValidate[i].classList.add("invalid");
+                        inputsToValidate[i].classList.remove("valid");
+                        document.getElementsByClassName(
+                            "errorMessage"
+                        )[0].innerHTML =
+                            "<strong>The password has to be strong</strong>";
                     } else {
                         inputsToValidate[i].classList.add("valid");
+                        inputsToValidate[i].classList.remove("invalid");
                     }
                 } else {
                     if (
@@ -40,8 +43,10 @@ function inputValidate() {
                             .value
                     ) {
                         inputsToValidate[i].classList.add("valid");
+                        inputsToValidate[i].classList.remove("invalid");
                     } else {
                         inputsToValidate[i].classList.add("invalid");
+                        inputsToValidate[i].classList.remove("valid");
                         document.getElementsByClassName(
                             "errorMessage"
                         )[0].innerHTML =
@@ -58,14 +63,17 @@ function inputValidate() {
 
                 if (!regCvr.test(inputData)) {
                     inputsToValidate[i].classList.add("invalid");
+                    inputsToValidate[i].classList.remove("valid");
                 } else {
                     postData("API/check-db-for-existing-entries.php", {
                         customer_cvr: inputData,
                     }).then((response) => {
                         if (!response.dataExists) {
                             inputsToValidate[i].classList.add("valid");
+                            inputsToValidate[i].classList.remove("invalid");
                         } else {
                             inputsToValidate[i].classList.add("invalid");
+                            inputsToValidate[i].classList.remove("valid");
                             document.getElementsByClassName(
                                 "errorMessage"
                             )[0].innerHTML =
@@ -80,8 +88,10 @@ function inputValidate() {
 
                 if (inputData.length < 1) {
                     inputsToValidate[i].classList.add("invalid");
+                    inputsToValidate[i].classList.remove("valid");
                 } else {
                     inputsToValidate[i].classList.add("valid");
+                    inputsToValidate[i].classList.remove("invalid");
                 }
                 break;
 
@@ -91,12 +101,15 @@ function inputValidate() {
 
                 if (!regPhone.test(inputData)) {
                     inputsToValidate[i].classList.add("invalid");
+                    inputsToValidate[i].classList.remove("valid");
                 } else {
                     inputsToValidate[i].classList.add("valid");
+                    inputsToValidate[i].classList.remove("invalid");
                 }
                 break;
 
             case "email":
+                console.log("checking email");
                 document.getElementsByClassName("errorMessage")[0].innerHTML =
                     "";
                 inputData = inputsToValidate[i].value;
@@ -104,6 +117,7 @@ function inputValidate() {
                     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
                 if (!regEmail.test(inputData)) {
+                    inputsToValidate[i].classList.remove("valid");
                     inputsToValidate[i].classList.add("invalid");
                 } else {
                     postData("API/check-db-for-existing-entries.php", {
@@ -111,8 +125,13 @@ function inputValidate() {
                     }).then((response) => {
                         if (!response.dataExists) {
                             inputsToValidate[i].classList.add("valid");
+                            inputsToValidate[i].classList.remove("invalid");
                         } else {
+                            console.log("setting email class to invalid");
+                            inputsToValidate[i].classList.remove("valid");
                             inputsToValidate[i].classList.add("invalid");
+
+                            console.log(inputsToValidate[i].classList);
                             document.getElementsByClassName(
                                 "errorMessage"
                             )[0].innerHTML =
@@ -124,9 +143,14 @@ function inputValidate() {
         }
     }
     if (event.type == "submit") {
-        return formToValidate.querySelectorAll(".invalid").length
-            ? false
-            : true;
+        console.log(formToValidate.querySelectorAll(".invalid").length);
+        if (formToValidate.querySelectorAll(".invalid").length > 0) {
+            document.getElementsByClassName("errorMessage")[0].innerHTML =
+                "<strong>A field is not valid</strong>";
+            return false;
+        } else {
+            return true;
+        }
     }
 }
 
@@ -142,13 +166,20 @@ function gatherProductData() {
     });
     return returnObject;
 }
-
-function informationHandler(returnData) {
-    //console.log(returnData);
-    window.location.href = document.location + "signup.php";
+function showDeleteOption() {
+    console.log("Ready to delete!");
+    document.querySelector("#deleteModal").classList.remove("hidden");
+    document.querySelector("#deleteModal").classList.add("shown");
 }
-async function addProductToCustomer() {
-    console.log("Cross-call-function");
+function cancelDeletion() {
+    document.querySelector("#deleteModal").classList.add("hidden");
+    document.querySelector("#deleteModal").classList.remove("shown");
+}
+function showDeleteOption2() {
+    document.querySelector("#deleteModal").classList.add("hidden");
+    document.querySelector("#deleteModal").classList.remove("shown");
+    document.querySelector("#deleteModalTotal").classList.remove("hidden");
+    document.querySelector("#deleteModalTotal").classList.add("shown");
 }
 
 async function postData(url = "", data = {}) {
@@ -171,108 +202,12 @@ function showUpdateForm() {
     form.classList.remove("hidden");
     form.classList.add("shown");
 }
-function inputValidateProfile() {
-    let inputData;
-    let inputsToValidate = [];
 
-    if (event.type == "submit") {
-        formToValidate = event.target;
-        inputsToValidate = formToValidate.querySelectorAll("[data-validate]");
-    } else {
-        inputsToValidate = [event.target];
-    }
-
-    for (let i = 0; i < inputsToValidate.length; i++) {
-        inputsToValidate[i].classList.remove("invalid");
-        inputsToValidate[i].classList.remove("valid");
-
-        let validationType = inputsToValidate[i].getAttribute("data-validate");
-
-        switch (validationType) {
-            case "password":
-                inputData = inputsToValidate[i].value;
-                document.getElementsByClassName("errorMessage")[0].innerHTML =
-                    "<strong></strong>";
-                //Must contain 6-30 characters, one uppercase character, one lowercase character, one numeric character and one special character. Eg.: MyStr0ng.PW-example
-                let regPassword =
-                    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{6,30}$/;
-
-                if (inputsToValidate[i].name !== "input_password_confirm") {
-                    if (!regPassword.test(inputData)) {
-                        inputsToValidate[i].classList.add("invalid");
-                    } else {
-                        inputsToValidate[i].classList.add("valid");
-                    }
-                } else {
-                    if (
-                        inputsToValidate[i].value ===
-                        document.getElementsByName("input_password_init")[0]
-                            .value
-                    ) {
-                        inputsToValidate[i].classList.add("valid");
-                    } else {
-                        inputsToValidate[i].classList.add("invalid");
-                        document.getElementsByClassName(
-                            "errorMessage"
-                        )[0].innerHTML =
-                            "<strong>The passwords don't match</strong>";
-                    }
-                }
-                break;
-
-            case "cvr":
-                document.getElementsByClassName("errorMessage")[0].innerHTML =
-                    "";
-                inputData = inputsToValidate[i].value;
-                let regCvr = /^(\d){8}$/;
-
-                if (!regCvr.test(inputData)) {
-                    inputsToValidate[i].classList.add("invalid");
-                } else {
-                    inputsToValidate[i].classList.add("valid");
-                }
-                break;
-            case "string":
-                inputData = inputsToValidate[i].value;
-
-                if (inputData.length < 1) {
-                    inputsToValidate[i].classList.add("invalid");
-                } else {
-                    inputsToValidate[i].classList.add("valid");
-                }
-                break;
-
-            case "phone":
-                inputData = inputsToValidate[i].value;
-                let regPhone = /^\+(?:[0-9]●?){6,16}[0-9]$/;
-
-                if (!regPhone.test(inputData)) {
-                    inputsToValidate[i].classList.add("invalid");
-                } else {
-                    inputsToValidate[i].classList.add("valid");
-                }
-                break;
-
-            case "email":
-                document.getElementsByClassName("errorMessage")[0].innerHTML =
-                    "";
-                inputData = inputsToValidate[i].value;
-                let regEmail =
-                    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-                if (!regEmail.test(inputData)) {
-                    inputsToValidate[i].classList.add("invalid");
-                } else {
-                    inputsToValidate[i].classList.add("valid");
-                }
-                break;
-        }
-    }
-    if (event.type == "submit") {
-        return formToValidate.querySelectorAll(".invalid").length
-            ? false
-            : true;
-    }
+async function toggleAutoRenew(subID) {
+    console.log(subID);
+    fetch(`API/update-autorenewal.php?subID=${subID}`)
+        .then((response) => response.text())
+        .then((data) => location.reload());
 }
 
 // Top Navigation -- Hamburger
@@ -282,11 +217,70 @@ function toggleMobileNavigation() {
         document
             .querySelector(".js-toggleNavigation")
             .addEventListener("click", () => {
-                //Toggle hide class on navigation
                 document
-                    .querySelector(".navigation-list-wrapper")
-                    .classList.toggle("navigation-list-wrapper--hidden");
-                document.body.classList.toggle("no-scroll");
+                    .querySelector(".js-toggleNavigation")
+                    .addEventListener("click", () => {
+                        //Toggle hide class on navigation
+                        document
+                            .querySelector(".navigation-list-wrapper")
+                            .classList.toggle(
+                                "navigation-list-wrapper--hidden"
+                            );
+                        document.body.classList.toggle("no-scroll");
+                    });
             });
     }
+}
+
+function editInfo(text, value, type, postName) {
+    let container = event.target.parentElement;
+    container.innerHTML =
+        '<form method="post" onsubmit="return inputValidate();" action="API/update-customer-data.php"><input class="form__input" oninput="inputValidate();" data-validate="' +
+        type +
+        '"type="text" name="' +
+        postName +
+        '" value="' +
+        value +
+        '"><button type="submit">Update</button><div class="errorMessage"></div></form><button onclick="cancelEdit(' +
+        "'" +
+        text +
+        "'" +
+        ", " +
+        "'" +
+        value +
+        "'" +
+        ", " +
+        "'" +
+        type +
+        "'" +
+        ", " +
+        "'" +
+        postName +
+        "'" +
+        ')">Cancel</button>';
+}
+
+function cancelEdit(text, value, type, postName) {
+    let container = event.target.parentElement;
+    container.innerHTML =
+        "<p>" +
+        text +
+        value +
+        '</p><button onclick="editInfo(' +
+        "'" +
+        text +
+        "'" +
+        ", " +
+        "'" +
+        value +
+        "'" +
+        ", " +
+        "'" +
+        type +
+        "'" +
+        ", " +
+        "'" +
+        postName +
+        "'" +
+        ')">Edit</button>';
 }
