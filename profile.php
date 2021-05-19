@@ -25,8 +25,8 @@ if (!isset($_SESSION['loginStatus'])) {
     $_SESSION['customer_first_name'] = $firstName;
     $_SESSION['customer_last_name'] = $lastName;
 }
-if(isset($_POST['confirmPassword'])){
-    
+if (isset($_POST['confirmPassword'])) {
+
     $password = $conn->real_escape_string($_POST['confirmPassword']);
         $sql = "SELECT * FROM customers WHERE customer_id = \" $customerId \"";
         $result = $conn->query($sql);
@@ -44,6 +44,9 @@ if(isset($_POST['confirmPassword'])){
             $errorMess = "<p style='color:red'> ERROR - You don' fuckd up kiddo</p>";
             $showFlag = true;
         }
+    } else {
+        $errorMess = "<p style='color:red'> ERROR - You don' fuckd up kiddo</p>";
+    }
 }
 
 include_once("Components/header.php");
@@ -71,11 +74,11 @@ $apiKey = "";
     <div id="deleteModal" class="hidden">
         <h1>Are you sure you want to delete your data?</h1>
         <p>You are about to delete every data we have regarding your product and your orders. <br>
-        Going foward with this, there will be no recovering this information, and your product and licens' will be removed from your account.</p>
+            Going foward with this, there will be no recovering this information, and your product and licenses will be removed from your account.</p>
         <div id="customerInfo">
             <p>You will be deleting:</p>
             <ul>
-            <?php
+                <?php
                 include("DB_Connection/connection.php");
                 $sql = "SELECT count(*) FROM `customer_products` WHERE `customer_id` = \"$customerId\"";
                 $results = $conn->query($sql);
@@ -84,18 +87,18 @@ $apiKey = "";
                 echo "<li> $amount products with active licences</li>";
                 $sql = "SELECT * FROM customer_addons LEFT JOIN addons ON customer_addons.addon_id  = addons.addon_id  WHERE `customer_id` = \"$customerId\"";
                 $results = $conn->query($sql);
-                while($row = $results->fetch_assoc()){
+                while ($row = $results->fetch_assoc()) {
                     $amount = $row['addon_amount'];
                     $name = $row['addon_name'];
                     echo "<li> $amount $name's in our database</li>";
                 }
-                
+
                 $sql = "SELECT count(*) FROM `orders` WHERE `customer_id` = \"$customerId\"";
                 $results = $conn->query($sql);
                 $row = $results->fetch_assoc();
                 $amount = $row['count(*)'];
                 echo "<li> $amount orders in our database</li>";
-            ?>
+                ?>
             </ul>
             
         </div>
@@ -117,7 +120,7 @@ $apiKey = "";
                <?=$errorMess?>
                <button disabled id="deleteButton">DELETE MY ACOUNT</button>
         </form>
-        
+
     </div>
     <div class="customerInfoContainer">
         <?php
