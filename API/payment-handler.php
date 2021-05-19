@@ -8,7 +8,7 @@ include("../DB_Connection/connection.php");
 
 $cartProducts = $_SESSION['cartProducts'];
 $cartAddOns = $_SESSION['cartAddOns'];
-$embed = "<iframe src='https://purplescout.placeholder.dk/key' frameborder='0'></iframe>";
+$embed = "<iframe src='http://127.0.0.1/KEA_Bachelor/deploys/product.php?key=INSERT KEY HERE' frameborder='0'></iframe>";
 
 
 if (!isset($_SESSION['loginStatus'])) {

@@ -186,6 +186,7 @@ $apiKey = "";
                 ";
                 $profileInfo = $profileInfo . $profileInfoCard;
             }
+
         }
         echo $profileInfo;
         ?>
