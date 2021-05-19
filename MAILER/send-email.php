@@ -14,9 +14,11 @@ require 'SMTP.php';
 // Load Composer's autoloader
 //require 'vendor/autoload.php';
 $userSubmittedData = json_decode($_SESSION['postData']);
+
 $email = $userSubmittedData->input_email;
 $fName = $userSubmittedData->input_first_name;
 $lName = $userSubmittedData->input_last_name;
+
 $emailContentOrder = file_get_contents("orderEmail.php");
 $emailContentConfirm = file_get_contents("confirmEmail.php");
 $name = "$fName $lName";
