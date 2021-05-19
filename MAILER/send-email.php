@@ -14,6 +14,8 @@ require 'SMTP.php';
 // Load Composer's autoloader
 //require 'vendor/autoload.php';
 $userSubmittedData = json_decode($_SESSION['postData']);
+$customerId = $_SESSION['customer_id'];
+$orderId = $_SESSION['orderId'];
 
 $email = $userSubmittedData->input_email;
 $fName = $userSubmittedData->input_first_name;
@@ -49,11 +51,9 @@ $emailContentOrder = str_replace("::ORDERADDONS::", $boughtAddons, $emailContent
 $emailContentOrder = str_replace("::ORDERPRICE::", $totalPrice, $emailContentOrder);
 
 
-
 /* $emailContent = str_replace("::USERNAME::",$UN,$emailContent);
     */
 // Instantiation and passing `true` enables exceptions
-
 
 //echo $emailContent;
 $mail = new PHPMailer(true);
@@ -71,7 +71,6 @@ try {
     $mail->SMTPSecure = 'tls';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
     $mail->Port       = 587;                                    // TCP port to connect to
 
-
     /* $EM = $_GET['email'];
     $confirmCode = $_GET['confirmCode'];
     $UN = $_GET['displayName']; */
@@ -81,24 +80,27 @@ try {
     $mail->addReplyTo('Mirtual@purplescout.com', 'Information');
 
     // Attachments
-    // $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
     // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
 
     // Content
     //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+    $mail->addAttachment("../Customer-receipts/$customerId-$orderId.pdf");
     $mail->isHTML(true);                                  // Set email format to HTML
     $mail->Subject = "Mirtual order";
-    $mail->Body    = $emailContentOrder;
+    $mail->Body = $emailContentOrder;
     $mail->send();
 
     if (!isset($_SESSION['loginStatus'])) {
+        $mail->clearAttachments();
         $mail->isHTML(true);                                  // Set email format to HTML
         $mail->Subject = "Mirtual Activation";
         $mail->Body    = $emailContentConfirm;
         $mail->send();
     }
 
+
+
     echo "<script>window.location.assign(window.location.protocol + '/KEA_Bachelor/confirmOrder.php');</script>";
 } catch (Exception $e) {
-    echo "Message could not be sent. Mailer Error: {$mailConfirm->ErrorInfo}";
+    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }

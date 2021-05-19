@@ -1,6 +1,7 @@
 <?php
 session_start();
 $errorMess = "";
+$showFlag = false;
 if (!isset($_SESSION['loginStatus'])) {
     header('Location: login.php');
 } else {
@@ -24,26 +25,23 @@ if (!isset($_SESSION['loginStatus'])) {
     $_SESSION['customer_first_name'] = $firstName;
     $_SESSION['customer_last_name'] = $lastName;
 }
-if(isset($_POST['confirmPassword'])){
-    
+if (isset($_POST['confirmPassword'])) {
+
     $password = $conn->real_escape_string($_POST['confirmPassword']);
-        $sql = "SELECT * FROM customers WHERE customer_id = \" $customerId \"";
-        $result = $conn->query($sql);
-        if ($result->num_rows > 0) {
-            
-            $row = $result->fetch_object();
-            echo json_encode($row);
-            $db_password = $row->customer_password;
-            if (password_verify($password, $db_password)) {
-                $errorMess = "YES";
-            } else {
-                $errorMess = "<p style='color:red'> ERROR - You don' fuckd up kiddo</p>";
-            }
+    $sql = "SELECT * FROM customers WHERE customer_id = \" $customerId \"";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_object();
+        //echo json_encode($row);
+        $db_password = $row->customer_password;
+        if (password_verify($password, $db_password)) {
+            header("Location: API/deleteUserInformation.php");
         } else {
             $errorMess = "<p style='color:red'> ERROR - You don' fuckd up kiddo</p>";
+            $showFlag = true;
         }
+    }
 }
-
 include_once("Components/header.php");
 $header = headerComp();
 $embedLink = "";
@@ -69,11 +67,11 @@ $apiKey = "";
     <div id="deleteModal" class="hidden">
         <h1>Are you sure you want to delete your data?</h1>
         <p>You are about to delete every data we have regarding your product and your orders. <br>
-        Going foward with this, there will be no recovering this information, and your product and licens' will be removed from your account.</p>
+            Going foward with this, there will be no recovering this information, and your product and licenses will be removed from your account.</p>
         <div id="customerInfo">
             <p>You will be deleting:</p>
             <ul>
-            <?php
+                <?php
                 include("DB_Connection/connection.php");
                 $sql = "SELECT count(*) FROM `customer_products` WHERE `customer_id` = \"$customerId\"";
                 $results = $conn->query($sql);
@@ -82,39 +80,47 @@ $apiKey = "";
                 echo "<li> $amount products with active licences</li>";
                 $sql = "SELECT * FROM customer_addons LEFT JOIN addons ON customer_addons.addon_id  = addons.addon_id  WHERE `customer_id` = \"$customerId\"";
                 $results = $conn->query($sql);
-                while($row = $results->fetch_assoc()){
+                while ($row = $results->fetch_assoc()) {
                     $amount = $row['addon_amount'];
                     $name = $row['addon_name'];
                     echo "<li> $amount $name's in our database</li>";
                 }
-                
+
                 $sql = "SELECT count(*) FROM `orders` WHERE `customer_id` = \"$customerId\"";
                 $results = $conn->query($sql);
                 $row = $results->fetch_assoc();
                 $amount = $row['count(*)'];
                 echo "<li> $amount orders in our database</li>";
-            ?>
+                ?>
             </ul>
-            <?=$errorMess?>
+
         </div>
         <button onclick="cancelDeletion()">Cancel</button>
         <button onclick="showDeleteOption2()">I Understand</button>
     </div>
-    <div id="deleteModalTotal" class="shown">
+    <div id="deleteModalTotal" class="<?php if ($showFlag) {
+                                            echo "shown";
+                                        } else {
+                                            echo "hidden";
+                                        } ?>">
         <h1>Enter password</h1>
         <p>By entering your password, your account will be deleted.</p>
         <form method="post">
-               <label><p>Password:</p>
-                    <input type="password" name="password" oninput="checkPassword()" id="pass1">
-               </label>
-               <label><p>Confirm Password:</p>
-                    <input type="password" name="confirmPassword" oninput="checkPassword()" id="pass2">
-               </label>
-               
-               <?= "<input type='hidden' name='userID' value='$customerId'>"?>
-               <button disabled id="deleteButton">DELETE MY ACOUNT</button>
+            <label>
+                <p>Password:</p>
+                <input type="password" name="password" oninput="checkPassword()" id="pass1">
+            </label>
+            <label>
+                <p>Confirm Password:</p>
+                <input type="password" name="confirmPassword" oninput="checkPassword()" id="pass2">
+            </label>
+
+            <?= "<input type='hidden' name='userID' value='$customerId'>" ?>
+            <?= $errorMess ?>
+            <button disabled id="deleteButton">DELETE MY ACOUNT</button>
         </form>
-        
+        <button onclick="removeDeleteModals()">Cancel</button>
+
     </div>
     <div class="customerInfoContainer">
         <?php
@@ -124,17 +130,12 @@ $apiKey = "";
 
         while ($row = $results->fetch_object()) {
             //echo json_encode($row);
-            if ($row->subscription_active) {
-                $subActive = "subActive";
-            } else {
-                $subActive = "subInactive";
-            }
 
             $charsToReplace = array("<", ">");
             $replaceWith = array("&lt;", "&gt;");
             $embedLink = str_replace($charsToReplace, $replaceWith, $row->embed_link);
             $apiKey = $row->api_key;
-
+            $rowKey = $row->customer_products_id;
             $dt = new DateTime("@$row->subscription_start");
             $subStart = $dt->format('Y-m-d');
             $dt = new DateTime("@$row->subscription_end");
@@ -142,6 +143,14 @@ $apiKey = "";
             $reduceTotalAmount = $row->subscription_end - time();
             //echo $reduceTotalAmount/86400;
             $totalDaysRemaining = round($reduceTotalAmount / 86400);
+
+            if ($totalDaysRemaining < 0) {
+                $sql = "UPDATE customer_products SET subscription_active = 0 WHERE customer_products_id = \"$rowKey\"";
+                $conn->query($sql);
+                $row->subscription_active = 0;
+                $totalDaysRemaining = 0;
+            }
+
             $totalDays = round($row->subscription_total_length / 86400);
 
             $subID = $row->customer_products_id;
@@ -156,8 +165,10 @@ $apiKey = "";
 
             $productDesc = $row->product_description;
             $productName = $row->product_name;
-            $profileInfoCard = "
-                <div class='profileCard $subActive'>
+
+            if ($row->subscription_active) {
+                $profileInfoCard = "
+                <div class='profileCard'>
                     <h1>$productName</h1>
                     <p>$productDesc</p>
                     <div class='subInfo'>
@@ -175,7 +186,8 @@ $apiKey = "";
                 <button onclick='toggleAutoRenew($subID)'>Switch Autorenew $buttonToggle</button>
             </div>
                 ";
-            $profileInfo = $profileInfo . $profileInfoCard;
+                $profileInfo = $profileInfo . $profileInfoCard;
+            }
         }
         echo $profileInfo;
         ?>
