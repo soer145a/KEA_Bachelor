@@ -10,7 +10,6 @@ use PHPMailer\PHPMailer\Exception;
 require 'Exception.php';
 require 'PHPMailer.php';
 require 'SMTP.php';
-require '../CREATEPDF/fpdf.php';
 
 // Load Composer's autoloader
 //require 'vendor/autoload.php';
@@ -20,15 +19,6 @@ $email = $userSubmittedData->input_email;
 $fName = $userSubmittedData->input_first_name;
 $lName = $userSubmittedData->input_last_name;
 
-$phone = $userSubmittedData->input_phone;
-$companyName = $userSubmittedData->input_company_name;
-$cvr = $userSubmittedData->input_company_cvr;
-$street = $userSubmittedData->input_company_street;
-$postCode = $userSubmittedData->input_company_Postcode;
-$city = $userSubmittedData->input_company_city;
-$country = $userSubmittedData->input_company_country;
-
-
 $emailContentOrder = file_get_contents("orderEmail.php");
 $emailContentConfirm = file_get_contents("confirmEmail.php");
 $name = "$fName $lName";
@@ -36,13 +26,6 @@ $totalPrice = 0;
 $productName = "";
 $addonName = "";
 $boughtAddons = "";
-
-$receipt = new FPDF();
-$receipt->AddPage();
-$receipt->Image('../Assets/logo.png', )
-$receipt->SetFont("Arial", "B", 20);
-
-$receipt->Text(190,10,"Mirtual");
 
 if (!isset($_SESSION['loginStatus'])) {
     $emailContentConfirm = str_replace("::USERNAME::", $name, $emailContentConfirm);
