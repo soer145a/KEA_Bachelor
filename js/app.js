@@ -189,7 +189,10 @@ function checkPassword() {
     document.querySelector("#deleteButton").removeAttribute("disabled");
   }
 }
-
+function removeDeleteModals() {
+  document.querySelector("#deleteModalTotal").classList.add("hidden");
+  document.querySelector("#deleteModalTotal").classList.remove("shown");
+}
 async function postData(url = "", data = {}) {
     const response = await fetch(url, {
         method: "POST",

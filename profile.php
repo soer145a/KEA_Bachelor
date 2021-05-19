@@ -44,10 +44,7 @@ if (isset($_POST['confirmPassword'])) {
             $errorMess = "<p style='color:red'> ERROR - You don' fuckd up kiddo</p>";
             $showFlag = true;
         }
-    } else {
-        $errorMess = "<p style='color:red'> ERROR - You don' fuckd up kiddo</p>";
     }
-}
 
 include_once("Components/header.php");
 $header = headerComp();
@@ -120,6 +117,7 @@ $apiKey = "";
                <?=$errorMess?>
                <button disabled id="deleteButton">DELETE MY ACOUNT</button>
         </form>
+        <button onclick="removeDeleteModals()">Cancel</button>
 
     </div>
     <div class="customerInfoContainer">
@@ -130,17 +128,12 @@ $apiKey = "";
 
         while ($row = $results->fetch_object()) {
             //echo json_encode($row);
-            if ($row->subscription_active) {
-                $subActive = "subActive";
-            } else {
-                $subActive = "subInactive";
-            }
-
+            
             $charsToReplace = array("<", ">");
             $replaceWith = array("&lt;", "&gt;");
             $embedLink = str_replace($charsToReplace, $replaceWith, $row->embed_link);
             $apiKey = $row->api_key;
-
+            $rowKey = $row->customer_products_id;
             $dt = new DateTime("@$row->subscription_start");
             $subStart = $dt->format('Y-m-d');
             $dt = new DateTime("@$row->subscription_end");
@@ -148,6 +141,14 @@ $apiKey = "";
             $reduceTotalAmount = $row->subscription_end - time();
             //echo $reduceTotalAmount/86400;
             $totalDaysRemaining = round($reduceTotalAmount / 86400);
+            
+            if($totalDaysRemaining < 0){
+                $sql = "UPDATE customer_products SET subscription_active = 0 WHERE customer_products_id = \"$rowKey\"";
+                $conn->query($sql);
+                $row->subscription_active = 0;
+                $totalDaysRemaining = 0;
+            }
+            
             $totalDays = round($row->subscription_total_length / 86400);
 
             $subID = $row->customer_products_id;
@@ -162,8 +163,10 @@ $apiKey = "";
 
             $productDesc = $row->product_description;
             $productName = $row->product_name;
-            $profileInfoCard = "
-                <div class='profileCard $subActive'>
+
+            if ($row->subscription_active) {
+                $profileInfoCard = "
+                <div class='profileCard'>
                     <h1>$productName</h1>
                     <p>$productDesc</p>
                     <div class='subInfo'>
@@ -181,7 +184,8 @@ $apiKey = "";
                 <button onclick='toggleAutoRenew($subID)'>Switch Autorenew $buttonToggle</button>
             </div>
                 ";
-            $profileInfo = $profileInfo . $profileInfoCard;
+                $profileInfo = $profileInfo . $profileInfoCard;
+            }
         }
         echo $profileInfo;
         ?>
