@@ -5,6 +5,7 @@
 
     --purple-dark: rgba(80, 53, 116, 1);
     --purple-light: rgba(175, 141, 214, 1);
+    --purple-grey: rgba(203, 194, 212, 1);
     --yellow: rgba(237, 234, 62, 1);
     --cyan: rgba(3, 244, 212, 1);
     --black: rgba(0, 0, 0, 1);
@@ -136,18 +137,18 @@ img {
 .shown {
     display: block;
 }
-.customerInfoContainer{
+.customerInfoContainer {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
 }
-.profileCard{
+.profileCard {
     border: 2px solid black;
     margin: 20px;
     width: 300px;
 }
-.subActive{
+.subActive {
     background-color: green;
 }
-.subInactive{
+.subInactive {
     background-color: red;
 }

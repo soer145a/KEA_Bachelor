@@ -29,12 +29,18 @@
     left: -2rem;
 }
 
+.slider-container {
+    position: relative;
+}
+
 .slider {
     display: flex;
     flex-direction: row;
     overflow: scroll;
     justify-content: space-between;
     scroll-snap-type: y mandatory;
+    border-radius: 20px;
+    scroll-behavior: smooth;
 }
 
 .card {
@@ -50,10 +56,13 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background-image: url("../Assets/images/product-1.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
     overflow: hidden;
+}
+
+.card--image {
+    position: absolute;
+    top: 0;
+    z-index: 2;
 }
 
 .card:nth-of-type(2) {
@@ -62,6 +71,7 @@
 
 .card--overlay {
     position: absolute;
+    z-index: 2;
     top: 0;
     left: 0;
     display: block;
@@ -76,7 +86,7 @@
 
 .card--title {
     position: relative;
-    z-index: 1;
+    z-index: 3;
     text-align: center;
     margin-top: 70%;
     font-size: 3rem;
@@ -85,7 +95,7 @@
 
 .card--button {
     position: relative;
-    z-index: 1;
+    z-index: 3;
     text-align: center;
     margin-top: 10%;
     width: 160px;
@@ -97,4 +107,28 @@
     color: var(--white);
     text-transform: uppercase;
     letter-spacing: 1px;
+}
+
+.slider-dots {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    bottom: -7%;
+    z-index: 2;
+}
+
+.slider-dots__dot-element {
+    display: block;
+    width: 30px;
+    height: 30px;
+    margin: 12px;
+    background-color: var(--purple-grey);
+    border: 2px solid var(--white);
+    border-radius: 100%;
+}
+
+.slider-dots__dot-element--active {
+    background-color: var(--purple-light);
 }
