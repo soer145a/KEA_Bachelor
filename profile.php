@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+$errorMess = "";
 if (!isset($_SESSION['loginStatus'])) {
     header('Location: login.php');
 } else {
@@ -23,6 +23,25 @@ if (!isset($_SESSION['loginStatus'])) {
 
     $_SESSION['customer_first_name'] = $firstName;
     $_SESSION['customer_last_name'] = $lastName;
+}
+if (isset($_POST['confirmPassword'])) {
+
+    $password = $conn->real_escape_string($_POST['confirmPassword']);
+    $sql = "SELECT * FROM customers WHERE customer_id = \" $customerId \"";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+
+        $row = $result->fetch_object();
+        echo json_encode($row);
+        $db_password = $row->customer_password;
+        if (password_verify($password, $db_password)) {
+            $errorMess = "YES";
+        } else {
+            $errorMess = "<p style='color:red'> ERROR - You don' fuckd up kiddo</p>";
+        }
+    } else {
+        $errorMess = "<p style='color:red'> ERROR - You don' fuckd up kiddo</p>";
+    }
 }
 
 include_once("Components/header.php");
@@ -47,10 +66,10 @@ $apiKey = "";
     <div><?= $header ?></div>
     <h1>Welcome <?= $firstName, " ", $lastName ?></h1>
     <button onclick="showDeleteOption()">Delete my account</button>
-    <div id="deleteModal" class="shown">
+    <div id="deleteModal" class="hidden">
         <h1>Are you sure you want to delete your data?</h1>
         <p>You are about to delete every data we have regarding your product and your orders. <br>
-            Going foward with this, there will be no recovering this information, and your product and licens removed from your account.</p>
+            Going foward with this, there will be no recovering this information, and your product and licenses will be removed from your account.</p>
         <div id="customerInfo">
             <p>You will be deleting:</p>
             <ul>
@@ -61,12 +80,14 @@ $apiKey = "";
                 $row = $results->fetch_assoc();
                 $amount = $row['count(*)'];
                 echo "<li> $amount products with active licences</li>";
-                $sql = "SELECT * FROM `customer_addons` LEFT JOIN products ON customer_addons.addon_id  = addons.addon_id  WHERE `customer_id` = \"$customerId\"";
+                $sql = "SELECT * FROM customer_addons LEFT JOIN addons ON customer_addons.addon_id  = addons.addon_id  WHERE `customer_id` = \"$customerId\"";
                 $results = $conn->query($sql);
-                $row = $results->fetch_assoc();
-                $amount = $row['addon_amount'];
+                while ($row = $results->fetch_assoc()) {
+                    $amount = $row['addon_amount'];
+                    $name = $row['addon_name'];
+                    echo "<li> $amount $name's in our database</li>";
+                }
 
-                echo "<li> $amount orders in our database</li>";
                 $sql = "SELECT count(*) FROM `orders` WHERE `customer_id` = \"$customerId\"";
                 $results = $conn->query($sql);
                 $row = $results->fetch_assoc();
@@ -74,13 +95,27 @@ $apiKey = "";
                 echo "<li> $amount orders in our database</li>";
                 ?>
             </ul>
-
+            <?= $errorMess ?>
         </div>
         <button onclick="cancelDeletion()">Cancel</button>
-        <button onclick="showDeleteOption2()">Continue</button>
+        <button onclick="showDeleteOption2()">I Understand</button>
     </div>
-    <div id="deleteModalTotal" class="hidden">
-        <h1>Current information</h1>
+    <div id="deleteModalTotal" class="shown">
+        <h1>Enter password</h1>
+        <p>By entering your password, your account will be deleted.</p>
+        <form method="post">
+            <label>
+                <p>Password:</p>
+                <input type="password" name="password" oninput="checkPassword()" id="pass1">
+            </label>
+            <label>
+                <p>Confirm Password:</p>
+                <input type="password" name="confirmPassword" oninput="checkPassword()" id="pass2">
+            </label>
+
+            <?= "<input type='hidden' name='userID' value='$customerId'>" ?>
+            <button disabled id="deleteButton">DELETE MY ACOUNT</button>
+        </form>
 
     </div>
     <div class="customerInfoContainer">

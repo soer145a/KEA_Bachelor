@@ -181,6 +181,14 @@ function showDeleteOption2() {
     document.querySelector("#deleteModalTotal").classList.remove("hidden");
     document.querySelector("#deleteModalTotal").classList.add("shown");
 }
+function checkPassword() {
+  let pass1 = document.querySelector("#pass1").value;
+  let pass2 = document.querySelector("#pass2").value;
+  console.log(pass1, pass2);
+  if (pass1 == pass2) {
+    document.querySelector("#deleteButton").removeAttribute("disabled");
+  }
+}
 
 async function postData(url = "", data = {}) {
     const response = await fetch(url, {
