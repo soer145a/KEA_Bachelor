@@ -25,7 +25,6 @@ if (!isset($_SESSION['loginStatus'])) {
     $_SESSION['customer_last_name'] = $lastName;
 }
 
-
 include_once("Components/header.php");
 $header = headerComp();
 $embedLink = "";
