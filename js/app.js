@@ -282,9 +282,11 @@ function toggleMobileNavigation() {
         document
             .querySelector(".js-toggleNavigation")
             .addEventListener("click", () => {
+                //Toggle hide class on navigation
                 document
                     .querySelector(".navigation-list-wrapper")
                     .classList.toggle("navigation-list-wrapper--hidden");
+                document.body.classList.toggle("no-scroll");
             });
     }
 }

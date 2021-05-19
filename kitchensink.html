@@ -14,15 +14,19 @@
         <link rel="stylesheet" href="css/app.css" />
         <link rel="stylesheet" href="css/navigation.css" />
         <link rel="stylesheet" href="css/section_intro.css" />
+        <link rel="stylesheet" href="css/section_use_case.css" />
+        <link rel="stylesheet" href="css/section_technologies.css" />
     </head>
     <body>
         <header class="container-full-width">
             <nav class="layout-container navigation-contatiner navigation">
-                <img
-                    class="navigation__logo"
-                    src="./Assets/logo.png"
-                    alt="brand logo"
-                />
+                <a href="#intro"
+                    ><img
+                        class="navigation__logo"
+                        src="./Assets/logo.png"
+                        alt="brand logo"
+                /></a>
+
                 <div class="navigation--wrapper">
                     <div class="navigation-hamburger js-toggleNavigation">
                         <span class="navigation-hamburger__line"></span>
@@ -39,6 +43,27 @@
                             <li class="navigation-list__item">
                                 <a href="#" class="navigation-list__item-link"
                                     >Home</a
+                                >
+                            </li>
+                            <li class="navigation-list__item">
+                                <a
+                                    href="#use-case"
+                                    class="navigation-list__item-link"
+                                    >Use Cases</a
+                                >
+                            </li>
+                            <li class="navigation-list__item">
+                                <a
+                                    href="#technologies"
+                                    class="navigation-list__item-link"
+                                    >Technologies</a
+                                >
+                            </li>
+                            <li class="navigation-list__item">
+                                <a
+                                    href="#solutions"
+                                    class="navigation-list__item-link"
+                                    >Solutions</a
                                 >
                             </li>
                             <li class="navigation-list__item">
@@ -78,16 +103,79 @@
                                 <span class="play-button-triangle"></span>
                             </span>
                         </div>
-
-                        <span class="background-sphere"></span>
+                    </div>
+                    <span class="background-sphere"></span>
+                </div>
+            </section>
+            <section id="use-case">
+                <div class="layout-container use-case">
+                    <span class="background-sphere"></span>
+                    <h3 class="section-subheader">Use case</h3>
+                    <h2 class="section-header">Live Preview</h2>
+                    <p class="section-paragraph">
+                        Mirtual is a virtual mirror app that allows you to try
+                        on clothes using augmented reality. Mirtual uses a
+                        camera for it to function and allows customers to
+                        virtually try on clothes without a changing room or in
+                        the comfort of their home.
+                    </p>
+                    <p class="section-paragraph">
+                        Mirtual can help boutiques selling clothes to reach out
+                        to a wider consumer base, without being restricted to
+                        their home country.
+                    </p>
+                    <p class="section-paragraph">
+                        Each solution is branded individually and includes an AR
+                        view of the uploaded styles, and provides a
+                        follow-through for the purchase.
+                    </p>
+                    <div class="image-container">
+                        <div class="image-wrapper">
+                            <img
+                                src="./Assets/images/use-case.jpg"
+                                alt="live preview of clothes in front of in-store screen"
+                            />
+                        </div>
+                        <span class="background-block"></span>
                     </div>
                 </div>
             </section>
-            <section id="use-case" class="use-case">
-                <div class="layout-container">section 1</div>
-            </section>
-            <section id="technologies" class="technologies">
-                <div class="layout-container">section 1</div>
+            <section id="technologies">
+                <div class="layout-container technologies">
+                    <div class="text-container">
+                        <span class="background-block"></span>
+                        <div class="text-wrapper">
+                            <h3 class="section-subheader">Technologies</h3>
+                            <h2 class="section-header">Choose a product</h2>
+                            <p class="section-paragraph">
+                                Lorem ipsum dolor sit amet, consectetur
+                                adipiscing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua.
+                                Fusce id velit ut tortor pretium. Pharetra magna
+                                ac placerat vestibulum lectus.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="slider-container">
+                        <div class="slider">
+                            <div class="card">
+                                <span class="card--overlay"></span>
+                                <h4 class="card--title">In-Store Kiosk</h4>
+                                <button class="card--button">Learn more</button>
+                            </div>
+                            <div class="card">
+                                <span class="card--overlay"></span>
+                                <h4 class="card--title">In-Store Kiosk</h4>
+                                <button class="card--button">Learn more</button>
+                            </div>
+                            <div class="card">
+                                <span class="card--overlay"></span>
+                                <h4 class="card--title">In-Store Kiosk</h4>
+                                <button class="card--button">Learn more</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
             <section id="solutions" class="solutions">
                 <div class="layout-container">section 1</div>

@@ -1,0 +1,39 @@
+#use-case {
+    height: auto;
+    overflow: hidden;
+    padding: 1rem 0 2rem;
+}
+
+.use-case {
+    position: relative;
+}
+
+.image-container {
+    position: relative;
+    margin: 3rem 0 2rem 0;
+}
+
+.use-case .background-block {
+    width: 100%;
+    display: block;
+    background-color: var(--yellow);
+    height: calc(100% + 10px);
+    position: absolute;
+    top: -5px;
+    right: -15%;
+    border-radius: 20px;
+    opacity: 80%;
+    z-index: -1;
+    box-shadow: 0 0 0 1rem var(--yellow);
+}
+.use-case .background-sphere {
+    position: absolute;
+    top: -10%;
+    left: -10%;
+    width: 45vw;
+    height: 45vw;
+    background-color: var(--cyan);
+    border-radius: 100%;
+    opacity: 0.4;
+    z-index: -1;
+}

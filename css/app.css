@@ -20,7 +20,8 @@ h1,
 h2,
 h3,
 h4,
-h5 {
+h5,
+button {
     font-family: var(--font-headings);
     font-weight: 500;
 }
@@ -30,8 +31,39 @@ h1 {
     line-height: 44px;
 }
 
-a,
+h2 {
+    font-size: 2.5rem;
+}
+
+h3 {
+    font-size: 1.8rem;
+    color: var(--purple-light);
+}
+
+.section-header {
+    margin-bottom: 1.5rem;
+    letter-spacing: 1px;
+}
+
+.section-subheader {
+    line-height: 40px;
+    font-size: 1.25rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.section-paragraph {
+    margin-bottom: 1rem;
+    line-height: 25px;
+}
+
 p {
+    color: var(--black-80);
+}
+
+a,
+p,
+button {
     font-family: var(--font-paragraphs);
     font-weight: 400;
 }
@@ -55,15 +87,27 @@ p {
 header {
     background-color: var(--purple-dark);
     height: 80px;
+    position: fixed;
+    z-index: 9999;
 }
 
 main {
     background-color: rgba(255, 255, 255, 0.6);
     height: auto;
+    padding-top: 80px;
 }
 footer {
     background-color: var(--purple-dark);
     height: 150px;
+}
+
+img {
+    width: 100%;
+}
+
+.image-wrapper {
+    border-radius: 20px;
+    overflow: hidden;
 }
 
 /*  */
