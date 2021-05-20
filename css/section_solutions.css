@@ -1,0 +1,15 @@
+.solutions {
+    position: relative;
+}
+
+.solutions .background-sphere {
+    position: absolute;
+    top: -20%;
+    left: -75%;
+    width: 600px;
+    height: 600px;
+    background-color: var(--purple-dark);
+    border-radius: 100%;
+    opacity: 0.4;
+    z-index: -1;
+}

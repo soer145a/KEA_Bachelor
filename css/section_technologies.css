@@ -1,10 +1,11 @@
 #technologies {
     background-color: var(--yellow);
     height: auto;
-    padding-bottom: 4rem;
+    /* padding-bottom: 4rem; */
 }
 
 .technologies {
+    position: relative;
 }
 
 .text-container {
@@ -15,18 +16,20 @@
 .technologies .text-wrapper {
     padding: 1rem 2rem 1rem 0;
     position: relative;
+    max-width: 800px;
 }
 .technologies .background-block {
     display: block;
-    width: calc(100% + 2rem);
-    height: calc(100% - 2rem);
+    width: calc(100% + 16px);
+    max-width: 1200px;
+    height: calc(50% - 2rem);
     margin-top: 1rem;
     background-color: var(--white);
     opacity: 40%;
     border-radius: 20px;
     position: absolute;
     top: 0;
-    left: -2rem;
+    left: -32px;
 }
 
 .slider-container {
@@ -131,4 +134,11 @@
 
 .slider-dots__dot-element--active {
     background-color: var(--purple-light);
+}
+
+.section-image {
+    height: 300px;
+    object-fit: cover;
+    object-position: 0 0;
+    border-radius: 20px 20px 0 0;
 }

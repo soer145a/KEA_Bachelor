@@ -6,10 +6,9 @@
 }
 
 .intro {
-    padding-top: 2rem;
     height: 100%;
-    padding-bottom: 20%;
     position: relative;
+    padding-top: 32px;
 }
 
 .intro-heading {

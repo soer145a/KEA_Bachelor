@@ -21,8 +21,7 @@ h1,
 h2,
 h3,
 h4,
-h5,
-button {
+h5 {
     font-family: var(--font-headings);
     font-weight: 500;
 }
@@ -41,9 +40,23 @@ h3 {
     color: var(--purple-light);
 }
 
+h4 {
+    font-weight: bold;
+    font-size: 1rem;
+    color: var(--purple-dark);
+}
+
+ul,
+li {
+    font-family: var(--font-paragraphs);
+    line-height: 25px;
+    color: var(--black-80);
+}
+
 .section-header {
     margin-bottom: 1.5rem;
     letter-spacing: 1px;
+    color: var(--purple-dark);
 }
 
 .section-subheader {
@@ -95,11 +108,18 @@ header {
 main {
     background-color: rgba(255, 255, 255, 0.6);
     height: auto;
-    padding-top: 80px;
+    /* padding-top: 80px; */
 }
 footer {
     background-color: var(--purple-dark);
     height: 150px;
+}
+
+/* section:not(section:nth-of-type(1)) {
+    padding: 100px 0;
+} */
+section {
+    padding: 80px 0 50px 0;
 }
 
 img {
