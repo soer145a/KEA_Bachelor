@@ -46,11 +46,26 @@ h4 {
     color: var(--purple-dark);
 }
 
-ul,
-li {
+ul {
     font-family: var(--font-paragraphs);
     line-height: 25px;
     color: var(--black-80);
+    list-style-type: none;
+    list-style-position: inside;
+}
+
+li {
+    position: relative;
+    margin-left: 32px;
+}
+
+li::before {
+    position: absolute;
+    content: "\2022";
+    color: var(--purple-dark);
+    font-weight: bold;
+    display: inline-block;
+    left: -16px;
 }
 
 .section-header {
@@ -106,7 +121,6 @@ header {
 }
 
 main {
-    background-color: rgba(255, 255, 255, 0.6);
     height: auto;
     /* padding-top: 80px; */
 }

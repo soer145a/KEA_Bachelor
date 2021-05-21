@@ -34,6 +34,7 @@
 
 .slider-container {
     position: relative;
+    margin-bottom: 2rem;
 }
 
 .slider {
@@ -62,7 +63,7 @@
     overflow: hidden;
 }
 
-.card--image {
+.card__image {
     position: absolute;
     top: 0;
     z-index: 2;
@@ -72,7 +73,7 @@
     margin: 0 1rem;
 }
 
-.card--overlay {
+.card__overlay {
     position: absolute;
     z-index: 2;
     top: 0;
@@ -87,7 +88,7 @@
     );
 }
 
-.card--title {
+.card__title {
     position: relative;
     z-index: 3;
     text-align: center;
@@ -96,7 +97,7 @@
     color: var(--white);
 }
 
-.card--button {
+.card__button {
     position: relative;
     z-index: 3;
     text-align: center;
@@ -110,6 +111,11 @@
     color: var(--white);
     text-transform: uppercase;
     letter-spacing: 1px;
+}
+
+.card__link {
+    text-decoration: none;
+    color: var(--white);
 }
 
 .slider-dots {

@@ -1,15 +1,64 @@
+#solutions {
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+}
 .solutions {
     position: relative;
 }
 
+.solutions .product {
+    position: relative;
+    margin-top: 80px;
+}
+
 .solutions .background-sphere {
     position: absolute;
-    top: -20%;
-    left: -75%;
+    top: 0;
     width: 600px;
     height: 600px;
-    background-color: var(--purple-dark);
+
     border-radius: 100%;
     opacity: 0.4;
+    z-index: -2;
+}
+
+.background-sphere--top {
+    top: -80px !important;
+}
+
+.background-sphere--left {
+    left: -100%;
+}
+.background-sphere--right {
+    right: -100%;
+}
+
+.background-sphere--purple {
+    background-color: var(--purple-dark);
+}
+.background-sphere--yellow {
+    background-color: var(--yellow);
+}
+.background-sphere--cyan {
+    background-color: var(--cyan);
+}
+
+.text-container__background-block {
+    position: absolute;
+    top: 0;
+    left: -16px;
+    width: calc(100% + 32px);
+    height: 100%;
+    background-color: var(--white);
     z-index: -1;
+}
+
+.solutions .text-container {
+    position: relative;
+}
+
+.product-link {
+    position: absolute;
+    top: 0;
 }
