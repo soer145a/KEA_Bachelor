@@ -32,8 +32,16 @@
     left: -10%;
     width: 45vw;
     height: 45vw;
+    max-width: 200px;
+    max-height: 200px;
+
     background-color: var(--cyan);
     border-radius: 100%;
     opacity: 0.4;
     z-index: -1;
 }
+
+/* media queries */
+
+@media screen and (min-width: 1023px) {
+} ;

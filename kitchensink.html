@@ -17,6 +17,8 @@
         <link rel="stylesheet" href="css/section_use_case.css" />
         <link rel="stylesheet" href="css/section_technologies.css" />
         <link rel="stylesheet" href="css/section_solutions.css" />
+        <link rel="stylesheet" href="css/section_contact.css" />
+        <link rel="stylesheet" href="css/media_queries.css" />
     </head>
     <body>
         <header class="container-full-width">
@@ -163,26 +165,30 @@
                         <div class="slider">
                             <div id="card-1" class="card">
                                 <img
-                                    class="card--image"
+                                    class="card__image"
                                     src="./Assets/images/product-1.jpg"
                                     alt=""
                                 />
-                                <span class="card--overlay"></span>
-                                <h4 class="card--title">In-Store Kiosk</h4>
-                                <button class="card--button">
-                                    <a href="#product-1">Learn more</a>
+                                <span class="card__overlay"></span>
+                                <h4 class="card__title">In-Store Kiosk</h4>
+                                <button class="card__button">
+                                    <a class="card__link" href="#product-1"
+                                        >Learn more</a
+                                    >
                                 </button>
                             </div>
                             <div id="card-2" class="card">
                                 <img
-                                    class="card--image"
+                                    class="card__image"
                                     src="./Assets/images/product-2.jpg"
                                     alt=""
                                 />
-                                <span class="card--overlay"></span>
-                                <h4 class="card--title">Mobile Devices</h4>
-                                <button class="card--button">
-                                    <a href="#product-2">Learn more</a>
+                                <span class="card__overlay"></span>
+                                <h4 class="card__title">Mobile Devices</h4>
+                                <button class="card__button">
+                                    <a class="card__link" href="#product-2"
+                                        >Learn more</a
+                                    >
                                 </button>
                             </div>
                             <div id="card-3" class="card">
@@ -252,6 +258,108 @@
                             <span
                                 class="text-container__background-block"
                             ></span>
+
+                            <div class="text-wrapper product-description">
+                                <p class="section-paragraph">
+                                    Free up space otherwise occupied by changing
+                                    rooms. With an in-store kiosk your customers
+                                    can try out clothes without having to strip
+                                    down first.
+                                </p>
+                                <p class="section-paragraph">
+                                    We will provide the hardware and software
+                                    needed to get it up and running in your
+                                    store all at the one-time price of £2900.
+                                </p>
+                            </div>
+
+                            <div class="product-fees">
+                                <h4 class="section-paragraph">
+                                    The fee includes the following:
+                                </h4>
+                                <ul class="product-fee__list">
+                                    <li class="product-fee__list-item">
+                                        An in-kiosk monitor, with built-in
+                                        hardware
+                                    </li>
+                                    <li class="product-fee__list-item">
+                                        Company branding on the software
+                                    </li>
+                                    <li class="product-fee__list-item">
+                                        Company’s description
+                                    </li>
+                                    <li class="product-fee__list-item">
+                                        Contact details
+                                    </li>
+                                    <li class="product-fee__list-item">
+                                        AR view of 3 clothing items
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="dropdown-container">
+                                <div class="dropdown">
+                                    <span class="dropdown__label"
+                                        >Why do I need a subscription?</span
+                                    >
+                                    <span
+                                        class="dropdown__button"
+                                        data-btnid="0"
+                                        >Choose a subscription length</span
+                                    >
+                                    <div
+                                        class="
+                                            dropdown-list-container
+                                            dropdown-list-container--hidden
+                                        "
+                                        data-listid="0"
+                                    >
+                                        <div class="dropdown__list">
+                                            <span
+                                                class="dropdown__list-item"
+                                                data-value="0"
+                                                >1 month - €29.99/month</span
+                                            >
+                                            <span
+                                                class="dropdown__list-item"
+                                                data-value="1"
+                                                >6 month - €19.99/month</span
+                                            >
+                                            <span
+                                                class="dropdown__list-item"
+                                                data-value="2"
+                                                >12 month - €9.99/month</span
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="add-to-cart">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="product-2"></div>
+                    <div class="product">
+                        <span
+                            class="
+                                background-sphere
+                                background-sphere--left
+                                background-sphere--top
+                                background-sphere--purple
+                            "
+                        ></span>
+                        <div class="text-wrapper">
+                            <h3 class="section-subheader">Solution</h3>
+                            <h2 class="section-header">In-store Kiosk</h2>
+                            <img
+                                class="section-image"
+                                src="./Assets/images/product-2.jpg"
+                                alt="In-kiosk stand"
+                            />
+                        </div>
+                        <div class="text-container">
+                            <span
+                                class="text-container__background-block"
+                            ></span>
                             <div class="text-wrapper">
                                 <p class="section-paragraph">
                                     Free up space otherwise occupied by changing
@@ -267,66 +375,65 @@
                                 <h4 class="section-paragraph">
                                     The fee includes the following:
                                 </h4>
-                                <ul>
-                                    <li>
+                                <ul class="product-fee__list">
+                                    <li class="product-fee__list-item">
                                         An in-kiosk monitor, with built-in
                                         hardware
                                     </li>
-                                    <li>Company branding on the software</li>
-                                    <li>Company’s description</li>
-                                    <li>Contact details</li>
-                                    <li>AR view of 3 clothing items</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="product-2"></div>
-                    <div class="product">
-                        <span
-                            class="
-                                background-sphere
-                                background-sphere--right
-                                background-sphere--yellow
-                            "
-                        ></span>
-                        <div class="text-wrapper">
-                            <h3 class="section-subheader">Solution</h3>
-                            <h2 class="section-header">Mobile Devices</h2>
-                            <img
-                                class="section-image"
-                                src="./Assets/images/product-2.jpg"
-                                alt="In-kiosk stand"
-                            />
-                        </div>
-                        <div class="text-container">
-                            <span
-                                class="text-container__background-block"
-                            ></span>
-                            <div class="text-wrapper text-wrapper--padding">
-                                <p class="section-paragraph">
-                                    Free up space otherwise occupied by changing
-                                    rooms. With an in-store kiosk your customers
-                                    can try out clothes without having to strip
-                                    down first.
-                                </p>
-                                <p class="section-paragraph">
-                                    We will provide the hardware and software
-                                    needed to get it up and running in your
-                                    store all at the one-time price of £2900.
-                                </p>
-                                <h4 class="section-paragraph">
-                                    The fee includes the following:
-                                </h4>
-                                <ul>
-                                    <li>
-                                        An in-kiosk monitor, with built-in
-                                        hardware
+                                    <li class="product-fee__list-item">
+                                        Company branding on the software
                                     </li>
-                                    <li>Company branding on the software</li>
-                                    <li>Company’s description</li>
-                                    <li>Contact details</li>
-                                    <li>AR view of 3 clothing items</li>
+                                    <li class="product-fee__list-item">
+                                        Company’s description
+                                    </li>
+                                    <li class="product-fee__list-item">
+                                        Contact details
+                                    </li>
+                                    <li class="product-fee__list-item">
+                                        AR view of 3 clothing items
+                                    </li>
                                 </ul>
+                                <div class="dropdown-container">
+                                    <div class="dropdown">
+                                        <span class="dropdown__label"
+                                            >Why do I need a subscription?</span
+                                        >
+                                        <span
+                                            class="dropdown__button"
+                                            data-btnid="1"
+                                            >Choose a subscription length</span
+                                        >
+                                        <div
+                                            class="
+                                                dropdown-list-container
+                                                dropdown-list-container--hidden
+                                            "
+                                            data-listid="1"
+                                        >
+                                            <div class="dropdown__list">
+                                                <span
+                                                    class="dropdown__list-item"
+                                                    data-value="0"
+                                                    >1 month -
+                                                    €29.99/month</span
+                                                >
+                                                <span
+                                                    class="dropdown__list-item"
+                                                    data-value="1"
+                                                    >6 month -
+                                                    €19.99/month</span
+                                                >
+                                                <span
+                                                    class="dropdown__list-item"
+                                                    data-value="2"
+                                                    >12 month -
+                                                    €9.99/month</span
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="add-to-cart">Add to Cart</button>
                             </div>
                         </div>
                     </div>
@@ -336,23 +443,24 @@
                             class="
                                 background-sphere
                                 background-sphere--left
-                                background-sphere--cyan
+                                background-sphere--top
+                                background-sphere--purple
                             "
                         ></span>
                         <div class="text-wrapper">
                             <h3 class="section-subheader">Solution</h3>
-                            <h2 class="section-header">Mobile Devices</h2>
+                            <h2 class="section-header">In-store Kiosk</h2>
                             <img
                                 class="section-image"
                                 src="./Assets/images/product-3.png"
-                                alt="webcam"
+                                alt="In-kiosk stand"
                             />
                         </div>
                         <div class="text-container">
                             <span
                                 class="text-container__background-block"
                             ></span>
-                            <div class="text-wrapper text-wrapper--padding">
+                            <div class="text-wrapper">
                                 <p class="section-paragraph">
                                     Free up space otherwise occupied by changing
                                     rooms. With an in-store kiosk your customers
@@ -367,22 +475,115 @@
                                 <h4 class="section-paragraph">
                                     The fee includes the following:
                                 </h4>
-                                <ul>
-                                    <li>
+                                <ul class="product-fee__list">
+                                    <li class="product-fee__list-item">
                                         An in-kiosk monitor, with built-in
                                         hardware
                                     </li>
-                                    <li>Company branding on the software</li>
-                                    <li>Company’s description</li>
-                                    <li>Contact details</li>
-                                    <li>AR view of 3 clothing items</li>
+                                    <li class="product-fee__list-item">
+                                        Company branding on the software
+                                    </li>
+                                    <li class="product-fee__list-item">
+                                        Company’s description
+                                    </li>
+                                    <li class="product-fee__list-item">
+                                        Contact details
+                                    </li>
+                                    <li class="product-fee__list-item">
+                                        AR view of 3 clothing items
+                                    </li>
                                 </ul>
+                                <div class="dropdown-container">
+                                    <div class="dropdown">
+                                        <span class="dropdown__label"
+                                            >Why do I need a subscription?</span
+                                        >
+                                        <span
+                                            class="dropdown__button"
+                                            data-btnid="2"
+                                            >Choose a subscription length</span
+                                        >
+                                        <div
+                                            class="
+                                                dropdown-list-container
+                                                dropdown-list-container--hidden
+                                            "
+                                            data-listid="2"
+                                        >
+                                            <div class="dropdown__list">
+                                                <span
+                                                    class="dropdown__list-item"
+                                                    data-value="0"
+                                                    >1 month -
+                                                    €29.99/month</span
+                                                >
+                                                <span
+                                                    class="dropdown__list-item"
+                                                    data-value="1"
+                                                    >6 month -
+                                                    €19.99/month</span
+                                                >
+                                                <span
+                                                    class="dropdown__list-item"
+                                                    data-value="2"
+                                                    >12 month -
+                                                    €9.99/month</span
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="add-to-cart">Add to Cart</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-            <section id="contact"></section>
+            <section id="contact">
+                <div class="layout-container contact">
+                    <h2 class="section-header">Contact Us</h2>
+                    <p class="section-paragraph">
+                        Got a question? We’d love to hear from you. Send us a
+                        message and we’ll resond as soon as possible.
+                    </p>
+                    <div class="form-container">
+                        <form class="contact-form" action="">
+                            <label
+                                class="contact-form__label"
+                                for="contact-form__name"
+                                >Name</label
+                            >
+                            <input
+                                class="contact-form__input"
+                                type="text"
+                                id="contact-form__name"
+                                name="contact-form__name"
+                            />
+                            <label
+                                class="contact-form__label"
+                                for="contact-form__email"
+                                >Email</label
+                            >
+                            <input
+                                class="contact-form__input"
+                                type="text"
+                                id="contact-form__email"
+                                name="contact-form__email"
+                            />
+                            <label
+                                class="contact-form__label"
+                                for="contact-form__message"
+                                >Message</label
+                            >
+                            <textarea
+                                class="contact-form__textarea"
+                                id="contact-form__message"
+                                name="contact-form__message"
+                            ></textarea>
+                        </form>
+                    </div>
+                </div>
+            </section>
         </main>
         <footer class="container-full-width">
             <div class="layout-container"></div>

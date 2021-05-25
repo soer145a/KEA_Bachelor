@@ -23,6 +23,16 @@
     z-index: -2;
 }
 
+.section-image {
+    height: 300px;
+    object-fit: cover;
+    object-position: 0 0;
+    border-radius: 20px 20px 0 0;
+    margin: 0 auto;
+    display: block;
+    max-width: 500px;
+}
+
 .background-sphere--top {
     top: -80px !important;
 }
@@ -61,4 +71,106 @@
 .product-link {
     position: absolute;
     top: 0;
+}
+
+.product-fee__list {
+    font-family: var(--font-paragraphs);
+    line-height: 25px;
+    color: var(--black-80);
+    list-style-type: none;
+    list-style-position: inside;
+}
+
+.product-fee__list-item {
+    position: relative;
+    margin-left: 32px;
+}
+.product-fee__list-item::before {
+    position: absolute;
+    content: "\2022";
+    color: var(--purple-dark);
+    font-weight: bold;
+    display: inline-block;
+    left: -16px;
+}
+
+.dropdown {
+    font-family: var(--font-paragraphs);
+    position: relative;
+}
+
+.dropdown__label {
+    font-size: 0.8rem;
+    color: var(--purple-dark);
+    display: flex;
+    height: 40px;
+    align-items: center;
+    justify-content: end;
+}
+
+.dropdown__button {
+    display: flex;
+    height: 40px;
+    justify-content: end;
+    color: var(--purple-dark);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.dropdown__button::after {
+    content: "";
+    margin-left: 1rem;
+    width: 10px;
+    height: 10px;
+    border-bottom: 2px solid;
+    border-right: 2px solid;
+    border-color: var(--purple-dark);
+    transform: rotate(45deg);
+}
+
+.dropdown-list-container {
+    position: relative;
+    display: flex;
+    justify-content: end;
+    border-bottom: 2px solid var(--purple-dark);
+    margin-bottom: 1.5rem;
+}
+
+.dropdown__list {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.dropdown-list-container--hidden {
+    display: none;
+}
+
+.dropdown__list-item {
+    display: flex;
+    height: 40px;
+    justify-content: end;
+    align-items: center;
+    cursor: pointer;
+}
+
+.dropdown__list-item:hover {
+    background-color: var(--purple-dark);
+    color: var(--white);
+}
+
+.add-to-cart {
+    margin: 0 auto;
+    display: block;
+    border: 0;
+    width: 160px;
+    height: 60px;
+    border-radius: 20px;
+    background-color: var(--yellow);
+    text-transform: uppercase;
+    color: var(--purple-dark);
+    font-weight: bold;
+    letter-spacing: 1px;
 }

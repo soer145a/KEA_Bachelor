@@ -1,0 +1,181 @@
+/* MOBILE - Orientation Landscape */
+
+@media screen and (min-width: 380px) {
+    .slider-dots {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 667px) {
+    .intro-heading {
+        padding-top: 5%;
+    }
+
+    .explainer-video {
+        height: 367px;
+        padding: 0;
+    }
+    .navigation-list-wrapper {
+        overflow: scroll;
+    }
+    .navigation-list {
+        flex-direction: column;
+        justify-content: center;
+        margin: 0;
+        padding: 3rem 0;
+    }
+    .navigation-list__item {
+        margin-left: 0;
+    }
+
+    .navigation-list__item-link {
+        display: block;
+        text-align: center;
+        width: 500px;
+        margin: 0 auto;
+    }
+    .solutions .text-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .solutions .product-description {
+        flex-basis: 50%;
+        padding-right: 16px;
+    }
+
+    .solutions .product-fees {
+        flex-basis: 50%;
+    }
+
+    .solutions .dropdown-container {
+        flex-grow: 1;
+    }
+}
+
+/* @media screen and (min-width: 667px) and (orientation: Landscape) {
+    .intro {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 0;
+    }
+
+    .intro-heading {
+        flex-basis: 48%;
+        text-align: left;
+    }
+    .video-container {
+        flex-basis: 52%;
+    }
+} */
+
+/* TABLET - Orientation Portrait */
+
+/* Tablet */
+@media screen and (min-width: 768px) {
+    #intro {
+        height: 100vh;
+    }
+
+    /* .intro {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    .intro-heading {
+        flex-basis: 48%;
+        text-align: initial;
+        margin: 0;
+    }
+     */
+}
+
+/* DESKTOP - Orientation Landscape */
+
+@media screen and (min-width: 1023px) {
+    #intro {
+        height: 100vh;
+    }
+
+    .intro {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .intro-heading {
+        font-size: 4rem;
+        max-width: 395px;
+        line-height: 65px;
+    }
+
+    .video-container {
+        flex-basis: 50%;
+        height: auto;
+    }
+
+    .explainer-video {
+        margin: 0;
+        margin-left: auto;
+    }
+
+    .navigation-hamburger {
+        display: none;
+    }
+
+    .navigation-list-wrapper {
+        display: block !important;
+        position: initial;
+        height: initial;
+        background-color: initial;
+    }
+
+    .navigation-list {
+        flex-direction: row;
+        padding: 0;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .navigation-list__item {
+        text-align: initial;
+        margin: 0;
+        margin-left: 1rem;
+    }
+
+    .navigation-list__item-link {
+        width: auto;
+        font-size: 0.8rem;
+        color: var(--white);
+    }
+
+    /* SECTION - USE CASE */
+    .use-case {
+        display: flex;
+    }
+
+    .use-case .text-wrapper {
+        flex-basis: 50%;
+        padding-right: 32px;
+    }
+    .use-case .image-container {
+        flex-basis: 50%;
+    }
+
+    .use-case .background-sphere {
+        top: -20%;
+        left: -5%;
+    }
+}
+/* Mobile */
+
+@media screen and (min-width: 1023px) and (orientation: Landscape) {
+}

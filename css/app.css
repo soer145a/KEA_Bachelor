@@ -46,28 +46,6 @@ h4 {
     color: var(--purple-dark);
 }
 
-ul {
-    font-family: var(--font-paragraphs);
-    line-height: 25px;
-    color: var(--black-80);
-    list-style-type: none;
-    list-style-position: inside;
-}
-
-li {
-    position: relative;
-    margin-left: 32px;
-}
-
-li::before {
-    position: absolute;
-    content: "\2022";
-    color: var(--purple-dark);
-    font-weight: bold;
-    display: inline-block;
-    left: -16px;
-}
-
 .section-header {
     margin-bottom: 1.5rem;
     letter-spacing: 1px;
@@ -92,7 +70,11 @@ p {
 
 a,
 p,
-button {
+button,
+form,
+label,
+input,
+textarea {
     font-family: var(--font-paragraphs);
     font-weight: 400;
 }
