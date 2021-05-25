@@ -15,9 +15,12 @@
 .solutions .background-sphere {
     position: absolute;
     top: 0;
-    width: 600px;
-    height: 600px;
-
+    width: 100vw;
+    height: 100vw;
+    max-width: 800px;
+    max-height: 800px;
+    min-width: 600px;
+    min-height: 600px;
     border-radius: 100%;
     opacity: 0.4;
     z-index: -2;
@@ -38,10 +41,19 @@
 }
 
 .background-sphere--left {
-    left: -100%;
+    left: -300px;
 }
 .background-sphere--right {
-    right: -100%;
+    right: -300px;
+}
+
+.place-right {
+    order: 2;
+}
+
+.place-right > .section-subheader,
+.place-right > .section-header {
+    text-align: right;
 }
 
 .background-sphere--purple {
@@ -71,6 +83,10 @@
 .product-link {
     position: absolute;
     top: 0;
+}
+
+.product-fees {
+    margin-bottom: 32px;
 }
 
 .product-fee__list {

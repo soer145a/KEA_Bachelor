@@ -1,6 +1,10 @@
 #contact {
     background-color: var(--purple-light);
 }
+.section-container {
+    max-width: 1024px;
+    margin: 0 auto;
+}
 
 .contact .section-header,
 .contact .section-paragraph {
