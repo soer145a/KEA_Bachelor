@@ -74,9 +74,15 @@ button,
 form,
 label,
 input,
-textarea {
+textarea,
+address {
     font-family: var(--font-paragraphs);
     font-weight: 400;
+}
+
+button:hover {
+    transform: scale(1.05);
+    transition: 0.2s;
 }
 
 /* GENERAL STYLING */
@@ -108,7 +114,7 @@ main {
 }
 footer {
     background-color: var(--purple-dark);
-    height: 150px;
+    height: auto;
 }
 
 /* section:not(section:nth-of-type(1)) {

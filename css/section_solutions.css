@@ -57,7 +57,7 @@
 }
 
 .background-sphere--purple {
-    background-color: var(--purple-dark);
+    background-color: var(--purple-grey);
 }
 .background-sphere--yellow {
     background-color: var(--yellow);
@@ -183,7 +183,7 @@
     border: 0;
     width: 160px;
     height: 60px;
-    border-radius: 20px;
+    border-radius: 10px;
     background-color: var(--yellow);
     text-transform: uppercase;
     color: var(--purple-dark);

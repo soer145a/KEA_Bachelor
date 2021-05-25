@@ -114,6 +114,10 @@
         padding-right: 0;
         padding-left: 32px;
     }
+
+    .footer {
+        justify-content: center;
+    }
     /* .intro {
         display: flex;
         flex-direction: row;

@@ -18,6 +18,7 @@
         <link rel="stylesheet" href="css/section_technologies.css" />
         <link rel="stylesheet" href="css/section_solutions.css" />
         <link rel="stylesheet" href="css/section_contact.css" />
+        <link rel="stylesheet" href="css/footer.css" />
         <link rel="stylesheet" href="css/media_queries.css" />
     </head>
     <body>
@@ -342,12 +343,12 @@
                         <span
                             class="
                                 background-sphere
-                                background-sphere--left
+                                background-sphere--right
                                 background-sphere--top
-                                background-sphere--purple
+                                background-sphere--yellow
                             "
                         ></span>
-                        <div class="text-wrapper">
+                        <div class="text-wrapper place-right">
                             <h3 class="section-subheader">Solution</h3>
                             <h2 class="section-header">In-store Kiosk</h2>
                             <img
@@ -446,7 +447,7 @@
                                 background-sphere
                                 background-sphere--left
                                 background-sphere--top
-                                background-sphere--purple
+                                background-sphere--cyan
                             "
                         ></span>
                         <div class="text-wrapper">
@@ -585,6 +586,9 @@
                                     id="contact-form__message"
                                     name="contact-form__message"
                                 ></textarea>
+                                <button class="contact-form__button">
+                                    Send Message
+                                </button>
                             </form>
                         </div>
                     </div>
@@ -592,7 +596,37 @@
             </section>
         </main>
         <footer class="container-full-width">
-            <div class="layout-container"></div>
+            <div class="layout-container footer">
+                <div class="address address-container">
+                    <h3 class="address__header">Mirtual</h3>
+                    <address class="section-paragraph address__information">
+                        Njalsgade 21G, 3rd fl.
+                        <br />
+                        2300 København S
+                        <br />
+                        Denmark
+                        <br />
+                        <a class="address__telephone" href="tel:+4526744609"
+                            >+45 2674 4609</a
+                        >
+                        <br />
+                        <a
+                            class="address__email"
+                            href="mail:mailto:contact@mirtual.dk"
+                            >contact@mirtual.dk</a
+                        >
+                    </address>
+                </div>
+                <div class="about about-container">
+                    <h3 class="address__header">About</h3>
+                    <p class="section-paragraph">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Animi tempore nam, quos, quam exercitationem eum aut
+                        quia adipisci possimus deleniti quibusdam, autem est
+                        consequatur facere maiores qui asperiores sint dolorum!
+                    </p>
+                </div>
+            </div>
         </footer>
     </body>
     <script src="js/app.js"></script>
