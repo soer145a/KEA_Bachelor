@@ -33,7 +33,7 @@ function toggleDropdown() {
             console.log(button);
             button.addEventListener("click", () => {
                 aDropdownlistElements.forEach((list) => {
-                    if (button.dataset.btnid === list.dataset.listid) {
+                    if (button.dataset.buttonid === list.dataset.listid) {
                         list.classList.toggle(
                             "dropdown-list-container--hidden"
                         );
@@ -49,7 +49,15 @@ function dropdownSelector() {
     if (document.querySelector(".dropdown__list-item") !== null) {
         aDropdownItems = document.querySelectorAll(".dropdown__list-item");
         for (let i = 0; i < aDropdownItems.length; i++) {
+            //remove active class from all items
+
             aDropdownItems[i].addEventListener("click", () => {
+                for (let i = 0; i < aDropdownItems.length; i++) {
+                    aDropdownItems[i].classList.remove(
+                        "dropdown__list-item--active"
+                    );
+                }
+
                 clickedItem(aDropdownItems[i]);
             });
         }
@@ -57,13 +65,29 @@ function dropdownSelector() {
 }
 
 function clickedItem(item) {
-    if (localStorage.length < 0) {
-        console.log(item);
-    }
-    localStorage.setItem("chosenItem", item.dataset.value);
-    let selectedElement = item;
-    let dropdownButton = document.querySelector(".dropdown__button");
-    dropdownButton.textContent = selectedElement.textContent;
+    let aDropdownButtons = document.querySelectorAll(".dropdown__button");
+    aDropdownButtons.forEach((button) => {
+        if (button.dataset.buttonid === item.dataset.buttonid) {
+            if (button.dataset.productid === item.dataset.productid) {
+                //Reset button and remove product id dataset
+                button.removeAttribute("data-productid");
+                //remove active class from the clicked product item.
+                item.classList.remove("dropdown__list-item--active");
+                //Update text on dropdown button
+                button.textContent = "Choose a subscription length";
+            } else if (
+                button.dataset.productid === undefined ||
+                button.dataset.productid !== item.dataset.productid
+            ) {
+                //toogle active class
+                item.classList.add("dropdown__list-item--active");
+                //update text on dropdown button
+                button.textContent = item.textContent;
+                //Create or update dataset attribute
+                button.setAttribute("data-productid", item.dataset.productid);
+            }
+        }
+    });
 }
 
 // function scrollToItem(itemPosition, numItems, scroller) {

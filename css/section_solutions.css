@@ -177,6 +177,16 @@
     color: var(--white);
 }
 
+.dropdown__list-item--active {
+    color: var(--black-40);
+}
+
+.dropdown__list-item--active::before {
+    content: "\2713 ";
+    color: var(--green);
+    margin-right: 16px;
+}
+
 .add-to-cart {
     margin: 0 auto;
     display: block;
