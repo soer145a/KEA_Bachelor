@@ -10,16 +10,20 @@ function productsComp($conn)
     $subscriptionSql = 'SELECT * FROM subscriptions';
     $subscriptionResult = $conn->query($subscriptionSql);
     $productsContent = "";
-    $subscriptionList = "";
-
+    $aSubscription = [];
     $counter = "0";
 
+    while ($subscriptionRow = $subscriptionResult->fetch_object()) {
+        array_push($aSubscription, $subscriptionRow);
+    }
+    // echo json_encode($aSubscription);
+
+
     while ($productRow = $productResult->fetch_object()) {
-        while ($subscriptionRow = $subscriptionResult->fetch_object()) {
-
-            $subscriptionList = $subscriptionList . "<span class='dropdown__list-item' data-subscriptionid='$subscriptionRow->subscription_id' data-buttonid='$counter'>$subscriptionRow->subscription_name - €$subscriptionRow->subscription_price/month</span>";
+        $subscriptionList = "";
+        foreach ($aSubscription as $sub) {
+            $subscriptionList = $subscriptionList . "<span class='dropdown__list-item' data-subscriptionid='$sub->subscription_id' data-buttonid='$counter'>$sub->subscription_name - €$sub->subscription_price/month</span>";
         }
-
 
         switch ($productRow->product_id) {
             case 1:
@@ -48,7 +52,7 @@ function productsComp($conn)
                       <p class='section-paragraph'>
                           We will provide the hardware and software
                           needed to get it up and running in your
-                          store all at the one-time price of $productRow->product_price.
+                          store all at the one-time price of €$productRow->product_price.
                       </p>
                   </div>
 
@@ -78,6 +82,7 @@ function productsComp($conn)
 
                   <div class='dropdown-container'>
                       <div class='dropdown'>
+                          <span class='dialog-box dialog-box--hidden' data-buttonid='$counter'>You have to choose a subscription lenght.</span>
                           <span class='dropdown__label'>Why do I need a subscription?</span>
                           <span class='dropdown__button' data-buttonid='$counter'>Choose a subscription length</span>
                           <div class='
@@ -90,7 +95,7 @@ function productsComp($conn)
                                 </div>
                           </div>
                       </div>
-                      <button class='add-to-cart'>Add to Cart</button>
+                      <button class='add-to-cart' onclick='addToCart($productRow->product_id, $counter)' >Add to Cart</button>
                   </div>
               </div>
           </div>";
@@ -123,7 +128,7 @@ function productsComp($conn)
                         <p class='section-paragraph'>
                             We will provide the hardware and software
                             needed to get it up and running in your
-                            store all at the one-time price of $productRow->product_price.
+                            store all at the one-time price of €$productRow->product_price.
                         </p>
                     </div>
   
@@ -152,23 +157,24 @@ function productsComp($conn)
                     </div>
   
                     <div class='dropdown-container'>
-                        <div class='dropdown'>
-                            <span class='dropdown__label'>Why do I need a subscription?</span>
-                            <span class='dropdown__button' data-buttonid='$counter'>Choose a subscription length</span>
-                            <div class='
-                                        dropdown-list-container
-                                        dropdown-list-container--hidden
-                                    ' data-listid='$counter'>
-                                    
-                                    <div class='dropdown__list'>
-                                    $subscriptionList
-                                  </div>
-                            </div>
-                        </div>
-                        <button class='add-to-cart'>Add to Cart</button>
-                    </div>
-                </div>
-            </div>";
+                      <div class='dropdown'>
+                      <span class='dialog-box dialog-box--hidden' data-buttonid='$counter'>You have to choose a subscription lenght.</span>
+                          <span class='dropdown__label'>Why do I need a subscription?</span>
+                          <span class='dropdown__button' data-buttonid='$counter'>Choose a subscription length</span>
+                          <div class='
+                                      dropdown-list-container
+                                      dropdown-list-container--hidden
+                                  ' data-listid='$counter'>
+                                  
+                                  <div class='dropdown__list'>
+                                  $subscriptionList
+                                </div>
+                          </div>
+                      </div>
+                      <button class='add-to-cart' onclick='addToCart($productRow->product_id, $counter)' >Add to Cart</button>
+                  </div>
+              </div>
+          </div>";
                 break;
             case 3:
                 $productsContent = $productsContent . "<div id='product-3'></div>
@@ -198,7 +204,7 @@ function productsComp($conn)
                         <p class='section-paragraph'>
                             We will provide the hardware and software
                             needed to get it up and running in your
-                            store all at the one-time price of $productRow->product_price.
+                            store all at the one-time price of €$productRow->product_price.
                         </p>
                     </div>
   
@@ -227,23 +233,24 @@ function productsComp($conn)
                     </div>
   
                     <div class='dropdown-container'>
-                        <div class='dropdown'>
-                            <span class='dropdown__label'>Why do I need a subscription?</span>
-                            <span class='dropdown__button' data-buttonid='$counter'>Choose a subscription length</span>
-                            <div class='
-                                        dropdown-list-container
-                                        dropdown-list-container--hidden
-                                    ' data-listid='$counter'>
-                                    
-                                    <div class='dropdown__list'>
-                                    $subscriptionList
-                                  </div>
-                            </div>
-                        </div>
-                        <button class='add-to-cart'>Add to Cart</button>
-                    </div>
-                </div>
-            </div>";
+                      <div class='dropdown'>
+                      <span class='dialog-box dialog-box--hidden' data-buttonid='$counter'>You have to choose a subscription lenght.</span>
+                          <span class='dropdown__label'>Why do I need a subscription?</span>
+                          <span class='dropdown__button' data-buttonid='$counter'>Choose a subscription length</span>
+                          <div class='
+                                      dropdown-list-container
+                                      dropdown-list-container--hidden
+                                  ' data-listid='$counter'>
+                                  
+                                  <div class='dropdown__list'>
+                                  $subscriptionList
+                                </div>
+                          </div>
+                      </div>
+                      <button class='add-to-cart' onclick='addToCart($productRow->product_id, $counter)' >Add to Cart</button>
+                  </div>
+              </div>
+          </div>";
         }
         $counter++;
     }

@@ -158,7 +158,49 @@ while ($addOnRow = $addOnResult->fetch_object()) {
             </div>
         </section>
 
+        <section id="miscellaneous">
+            <div class="layout-container miscellaneous">
+                <div class="text-container">
+                    <div class="text-wrapper">
+                        <h3 class="section-subheader">Miscellaneous</h3>
+                        <h2 class="section-header">Add-ons</h2>
+                        <p class="section-paragraph">
+                            Lorem ipsum dolor sit amet, consectetur
+                            adipiscing elit, sed do eiusmod tempor
+                            incididunt ut labore et dolore magna aliqua.
+                            Fusce id velit ut tortor pretium. Pharetra magna
+                            ac placerat vestibulum lectus.
+                        </p>
+                    </div>
 
+                </div>
+                <div class="addon-container">
+                    <div class="addon-wrapper">
+                        <img class="addon-image" src="./Assets/images/3d-model.png" alt="3d model of shirt">
+                        <div class="text-wrapper">
+                            <h3 class="section-subheader">3D models</h3>
+                            <form action="" class="addon-form">
+                                <label class="addon-form__label" for="3d-models">Choose extra models:</label>
+                                <input class="addon-form__input" type="number" min="1" value="1" name="" id="3d-models">
+                                <button class="addon-form__button add-to-cart">Add to Cart</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="addon-wrapper">
+                        <img class="addon-image" src="./Assets/images/variations.png" alt="shirt varitions">
+                        <div class="text-wrapper">
+                            <h3 class="section-subheader">3D Variations</h3>
+                            <form action="" class="addon-form">
+                                <label class="addon-form__label" for="model-variations">Choose extra variations of your models:</label>
+                                <input class="addon-form__input" type="number" min="1" value="1" name="" id="model-variations">
+                                <button class="addon-form__button add-to-cart">Add to Cart</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
         <section id="contact">
             <div class="layout-container contact">
                 <div class="section-container">

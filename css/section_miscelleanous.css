@@ -1,0 +1,43 @@
+#miscellaneous {
+    background-color: var(--cyan-40);
+}
+
+.addon-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.addon-wrapper {
+    margin-bottom: 4rem;
+}
+
+.addon-image {
+    max-width: 400px;
+}
+
+.addon-form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: 400px;
+}
+
+.addon-form__label {
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+.addon-form__input {
+    border: none;
+    padding: 0;
+    padding-right: 16px;
+    height: 50px;
+    border-radius: 10px;
+    width: 48%;
+    text-align: right;
+}
+
+.addon-form__button {
+    width: 48%;
+}
