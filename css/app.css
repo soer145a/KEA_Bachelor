@@ -8,7 +8,9 @@
     --purple-grey: rgba(203, 194, 212, 1);
     --yellow: rgba(237, 234, 62, 1);
     --cyan: rgba(3, 244, 212, 1);
-    --green: rgb(100, 202, 41);
+    --cyan-40: rgba(3, 244, 212, 0.4);
+    --green: rgba(100, 202, 41, 1);
+    --red: rgba(237, 38, 41, 1);
     --black: rgba(0, 0, 0, 1);
     --black-80: rgba(0, 0, 0, 0.8);
     --black-60: rgba(0, 0, 0, 0.6);
@@ -63,6 +65,7 @@ h4 {
 .section-paragraph {
     margin-bottom: 1rem;
     line-height: 25px;
+    max-width: 60ch;
 }
 
 p {
@@ -84,6 +87,18 @@ address {
 button:hover {
     transform: scale(1.05);
     transition: 0.2s;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
 }
 
 /* GENERAL STYLING */

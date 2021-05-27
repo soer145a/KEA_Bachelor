@@ -5,7 +5,7 @@ function headerComp()
 {
     $cartCount = 0;
     if (isset($_SESSION['loginStatus'])) {
-        $loginLink =
+        $loginLink = 
             "<a href='logout.php' class='navigation-list__item-link'>Logout</a>";
     } else {
         $loginLink =
@@ -20,8 +20,8 @@ function headerComp()
         $cartCount = $cartCount + count($_SESSION['cartAddOns']);
     }
 
-    $headerContent =
-        "<header class='container-full-width'>
+    $headerContent = 
+    "<header class='container-full-width'>
         <nav class='layout-container navigation-contatiner navigation'>
             <a href='#intro'
                 ><img
@@ -74,8 +74,8 @@ function headerComp()
                             >
                         </li>
                         <li class='navigation-list__item'>
-                            <a href='cart.php' class='navigation-list__item-link'
-                                >Cart<span class='cart-counter'>$cartCount</span></a
+                            <a href='#' class='navigation-list__item-link'
+                                >Cart<span>$cartCount</span></a
                             >
                         </li>
                         <li class='navigation-list__item'>
@@ -89,3 +89,5 @@ function headerComp()
 
     return $headerContent;
 }
+
+

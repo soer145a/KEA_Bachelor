@@ -4,27 +4,18 @@ include_once("DB_Connection/connection.php");
 include_once("Components/product.php");
 include_once("Components/addOn.php");
 include_once("Components/head.php");
-$head = headComp();
 include_once("Components/header.php");
+include_once("Components/products.php");
+include_once("Components/footer.php");
 $head = headComp();
 $header = headerComp();
+$products = productsComp($conn);
+$footer = footerComp();
 
 $productSql = "SELECT * FROM products";
 $productResult = $conn->query($productSql);
-$productCards = "";
 
 while ($productRow = $productResult->fetch_object()) {
-
-    if (isset($_SESSION['cartProducts'])) {
-        $productIdsArray = array_column($_SESSION['cartProducts'], 'product_id');
-        if (in_array($productRow->product_id, $productIdsArray)) {
-            $productCards = $productCards . productComp($productRow->product_price, $productRow->product_name, $productRow->product_description, $productRow->product_id, true);
-        } else {
-            $productCards = $productCards . productComp($productRow->product_price, $productRow->product_name, $productRow->product_description, $productRow->product_id, false);
-        }
-    } else {
-        $productCards = $productCards . productComp($productRow->product_price, $productRow->product_name, $productRow->product_description, $productRow->product_id, false);
-    }
 }
 
 $addOnSql = "SELECT * FROM addons";
@@ -41,29 +32,211 @@ while ($addOnRow = $addOnResult->fetch_object()) {
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MainPage</title>
-    <link rel="stylesheet" href="css/app.css">
-</head> -->
-
 <head>
     <?= $head; ?>
 </head>
 
 <body>
-    <div><?= $header ?></div>
-    <h1>Initial Page</h1>
-    <div id="products">
+    <?= $header ?>
+    <main class="container-full-width">
+        <section id="intro">
+            <div class="layout-container intro">
+                <h1 class="intro-heading">
+                    Elevate your customers experience with Mirtual - the
+                    virtual mirror.
+                </h1>
+                <div class="video-container">
+                    <div class="explainer-video">
+                        <img class="explainer-video__thumbnail" alt=" explainer video" />
+                        <span class="play-button-circle">
+                            <span class="play-button-triangle"></span>
+                        </span>
+                    </div>
+                </div>
+                <span class="background-sphere"></span>
+            </div>
+        </section>
+        <section id="use-case">
+            <div class="layout-container use-case">
+                <span class="background-sphere"></span>
+                <div class="text-wrapper">
+                    <h3 class="section-subheader">Use case</h3>
+                    <h2 class="section-header">Live Preview</h2>
+                    <p class="section-paragraph">
+                        Mirtual is a virtual mirror app that allows you to
+                        try on clothes using augmented reality. Mirtual uses
+                        a camera for it to function and allows customers to
+                        virtually try on clothes without a changing room or
+                        in the comfort of their home.
+                    </p>
+                    <p class="section-paragraph">
+                        Mirtual can help boutiques selling clothes to reach
+                        out to a wider consumer base, without being
+                        restricted to their home country.
+                    </p>
+                    <p class="section-paragraph">
+                        Each solution is branded individually and includes
+                        an AR view of the uploaded styles, and provides a
+                        follow-through for the purchase.
+                    </p>
+                </div>
+                <div class="image-container">
+                    <div class="image-wrapper">
+                        <img src="./Assets/images/use-case.jpg" alt="live preview of clothes in front of in-store screen" />
+                    </div>
+                    <span class="background-block"></span>
+                </div>
+            </div>
+        </section>
+
+        <section id="technologies">
+            <div class="layout-container technologies">
+                <span class="background-block"></span>
+                <div class="text-container">
+                    <div class="text-wrapper">
+                        <h3 class="section-subheader">Technologies</h3>
+                        <h2 class="section-header">Choose a product</h2>
+                        <p class="section-paragraph">
+                            Lorem ipsum dolor sit amet, consectetur
+                            adipiscing elit, sed do eiusmod tempor
+                            incididunt ut labore et dolore magna aliqua.
+                            Fusce id velit ut tortor pretium. Pharetra magna
+                            ac placerat vestibulum lectus.
+                        </p>
+                    </div>
+                </div>
+                <div class="slider-container">
+                    <div class="slider">
+                        <div id="card-1" class="card">
+                            <img class="card__image" src="./Assets/images/product-1.jpg" alt="" />
+                            <span class="card__overlay"></span>
+                            <h4 class="card__title">In-Store Kiosk</h4>
+                            <button class="card__button">
+                                <a class="card__link" href="#product-1">Learn more</a>
+                            </button>
+                        </div>
+                        <div id="card-2" class="card">
+                            <img class="card__image" src="./Assets/images/product-2.jpg" alt="" />
+                            <span class="card__overlay"></span>
+                            <h4 class="card__title">Mobile Devices</h4>
+                            <button class="card__button">
+                                <a class="card__link" href="#product-2">Learn more</a>
+                            </button>
+                        </div>
+                        <div id="card-3" class="card">
+                            <img class="card__image" src="./Assets/images/product-3.png" alt="" />
+                            <span class="card__overlay"></span>
+                            <h4 class="card__title">Webcam</h4>
+                            <button class="card__button">
+                                <a class="card__link" href="#product-3">Learn more</a>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="slider-dots">
+                        <a href="#card-1" class="
+                                    slider-dots__dot-element
+                                    slider-dots__dot-element--active
+                                    js-carousel-button
+                                "></a>
+                        <a href="#card-2" class="
+                                    slider-dots__dot-element
+                                    js-carousel-button
+                                "></a>
+                        <a href="#card-3" class="
+                                    slider-dots__dot-element
+                                    js-carousel-button
+                                "></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="solutions">
+            <div id="product-1" class="product-link"></div>
+            <div class="layout-container solutions">
+                <?= $products ?>
+            </div>
+        </section>
+
+        <section id="miscellaneous">
+            <div class="layout-container miscellaneous">
+                <div class="text-container">
+                    <div class="text-wrapper">
+                        <h3 class="section-subheader">Miscellaneous</h3>
+                        <h2 class="section-header">Add-ons</h2>
+                        <p class="section-paragraph">
+                            Lorem ipsum dolor sit amet, consectetur
+                            adipiscing elit, sed do eiusmod tempor
+                            incididunt ut labore et dolore magna aliqua.
+                            Fusce id velit ut tortor pretium. Pharetra magna
+                            ac placerat vestibulum lectus.
+                        </p>
+                    </div>
+
+                </div>
+                <div class="addon-container">
+                    <div class="addon-wrapper">
+                        <img class="addon-image" src="./Assets/images/3d-model.png" alt="3d model of shirt">
+                        <div class="text-wrapper">
+                            <h3 class="section-subheader">3D models</h3>
+                            <form action="" class="addon-form">
+                                <label class="addon-form__label" for="3d-models">Choose extra models:</label>
+                                <input class="addon-form__input" type="number" min="1" value="1" name="" id="3d-models">
+                                <button class="addon-form__button add-to-cart">Add to Cart</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="addon-wrapper">
+                        <img class="addon-image" src="./Assets/images/variations.png" alt="shirt varitions">
+                        <div class="text-wrapper">
+                            <h3 class="section-subheader">3D Variations</h3>
+                            <form action="" class="addon-form">
+                                <label class="addon-form__label" for="model-variations">Choose extra variations of your models:</label>
+                                <input class="addon-form__input" type="number" min="1" value="1" name="" id="model-variations">
+                                <button class="addon-form__button add-to-cart">Add to Cart</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <section id="contact">
+            <div class="layout-container contact">
+                <div class="section-container">
+                    <h2 class="section-header">Contact Us</h2>
+                    <p class="section-paragraph">
+                        Got a question? We’d love to hear from you. Send us
+                        a message and we’ll resond as soon as possible.
+                    </p>
+                    <div class="form-container">
+                        <form class="contact-form" action="">
+                            <label class="contact-form__label" for="contact-form__name">Name</label>
+                            <input class="contact-form__input" type="text" id="contact-form__name" name="contact-form__name" />
+                            <label class="contact-form__label" for="contact-form__email">Email</label>
+                            <input class="contact-form__input" type="text" id="contact-form__email" name="contact-form__email" />
+                            <label class="contact-form__label" for="contact-form__message">Message</label>
+                            <textarea class="contact-form__textarea" id="contact-form__message" name="contact-form__message"></textarea>
+                            <button class="contact-form__button">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- <div id="products">
         <p>products</p>
-        <?= $productCards ?>
+        
     </div>
     <div id="products">
         <p>add ons</p>
-        <?= $addOnCards ?>
-    </div>
-
+        
+    </div> -->
+    <?= $footer ?>
 </body>
 <script src="js/app.js"></script>
+<script src="js/helper.js"></script>
+
+</html>

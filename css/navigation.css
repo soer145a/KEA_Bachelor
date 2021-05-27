@@ -68,7 +68,6 @@
     display: none;
 }
 .navigation-list {
-    position: relative;
     display: flex;
     flex-direction: column;
     margin: 25% 0;
@@ -80,6 +79,7 @@
 }
 
 .navigation-list__item-link {
+    position: relative;
     font-size: 2rem;
     text-decoration: none;
     color: var(--black-80);
@@ -88,4 +88,20 @@
 
 .navigation-list__item-link:hover {
     color: var(--yellow);
+}
+
+.cart-counter {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-color: var(--red);
+    color: var(--white);
+    z-index: 9000;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: -10px;
+    right: -10px;
+    font-size: 0.7rem;
 }

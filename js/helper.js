@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     updateSliderButton();
     toggleDropdown();
-    dropdownSelector();
+    itemSelector();
 });
 
 function updateSliderButton() {
@@ -22,6 +22,15 @@ function updateSliderButton() {
     }
 }
 
+function toggleDialogBox() {
+    let aDialogBoxes = document.querySelectorAll(".dialog-box");
+    for (let i = 0; i < aDialogBoxes.length; i++) {
+        if (!aDialogBoxes[i].classList.contains("dialog-box--hidden")) {
+            aDialogBoxes[i].classList.add("dialog-box--hidden");
+        }
+    }
+}
+
 function toggleDropdown() {
     if (document.querySelector(".dropdown") !== null) {
         let aDropdownBtnElements =
@@ -30,8 +39,9 @@ function toggleDropdown() {
             ".dropdown-list-container"
         );
         aDropdownBtnElements.forEach((button) => {
-            console.log(button);
             button.addEventListener("click", () => {
+                //Reset all dialog boxes
+
                 aDropdownlistElements.forEach((list) => {
                     if (button.dataset.buttonid === list.dataset.listid) {
                         list.classList.toggle(
@@ -44,20 +54,22 @@ function toggleDropdown() {
     }
 }
 
-function dropdownSelector() {
+function itemSelector() {
     let aDropdownItems = "";
     if (document.querySelector(".dropdown__list-item") !== null) {
         aDropdownItems = document.querySelectorAll(".dropdown__list-item");
         for (let i = 0; i < aDropdownItems.length; i++) {
             //remove active class from all items
 
-            aDropdownItems[i].addEventListener("click", () => {
-                for (let i = 0; i < aDropdownItems.length; i++) {
-                    aDropdownItems[i].classList.remove(
-                        "dropdown__list-item--active"
-                    );
-                }
-
+            aDropdownItems[i].addEventListener("click", (e) => {
+                let aChildrenNodes = Array.from(
+                    aDropdownItems[i].parentElement.children
+                );
+                aChildrenNodes.forEach((child) => {
+                    //remove class
+                    child.classList.remove("dropdown__list-item--active");
+                });
+                toggleDialogBox();
                 clickedItem(aDropdownItems[i]);
             });
         }
@@ -68,26 +80,73 @@ function clickedItem(item) {
     let aDropdownButtons = document.querySelectorAll(".dropdown__button");
     aDropdownButtons.forEach((button) => {
         if (button.dataset.buttonid === item.dataset.buttonid) {
-            if (button.dataset.productid === item.dataset.productid) {
-                //Reset button and remove product id dataset
-                button.removeAttribute("data-productid");
-                //remove active class from the clicked product item.
-                item.classList.remove("dropdown__list-item--active");
-                //Update text on dropdown button
-                button.textContent = "Choose a subscription length";
-            } else if (
-                button.dataset.productid === undefined ||
-                button.dataset.productid !== item.dataset.productid
+            if (
+                button.dataset.subscriptionid === undefined ||
+                button.dataset.subscriptionid !== item.dataset.subscriptionid
             ) {
                 //toogle active class
                 item.classList.add("dropdown__list-item--active");
                 //update text on dropdown button
                 button.textContent = item.textContent;
                 //Create or update dataset attribute
-                button.setAttribute("data-productid", item.dataset.productid);
+                button.setAttribute(
+                    "data-subscriptionid",
+                    item.dataset.subscriptionid
+                );
+            } else if (
+                button.dataset.subscriptionid === item.dataset.subscriptionid
+            ) {
+                //Reset button and remove product id dataset
+                button.removeAttribute("data-subscriptionid");
+                //remove active class from the clicked product item.
+                item.classList.remove("dropdown__list-item--active");
+                //Update text on dropdown button
+                button.textContent = "Choose a subscription length";
             }
         }
     });
+}
+
+function addToCart(productId, buttonId) {
+    let aSubscriptionItems = document.querySelectorAll(".dropdown__list-item");
+    let subChosen = false;
+    let chosenSubscription = undefined;
+
+    for (let i = 0; i < aSubscriptionItems.length; i++) {
+        if (
+            parseInt(aSubscriptionItems[i].dataset.buttonid) === buttonId &&
+            aSubscriptionItems[i].classList.contains(
+                "dropdown__list-item--active"
+            )
+        ) {
+            subChosen = true;
+            chosenSubscription = aSubscriptionItems[i].dataset.subscriptionid;
+        }
+    }
+
+    if (!subChosen) {
+        let aDialogBoxes = document.querySelectorAll(".dialog-box");
+        for (let i = 0; i < aDialogBoxes.length; i++) {
+            if (parseInt(aDialogBoxes[i].dataset.buttonid) === buttonId) {
+                aDialogBoxes[i].classList.remove("dialog-box--hidden");
+            }
+        }
+    } else {
+        //Add to cart
+        postData("API/add-product-to-cart.php", {
+            product_id: productId,
+            sub: chosenSubscription,
+        });
+        updateCartCounter();
+    }
+}
+
+function updateCartCounter() {
+    let eCartCounter = document.querySelector(".cart-counter");
+
+    let counter = parseInt(eCartCounter.textContent);
+
+    eCartCounter.textContent = counter + 1;
 }
 
 // function scrollToItem(itemPosition, numItems, scroller) {
