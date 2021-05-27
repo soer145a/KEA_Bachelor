@@ -1,7 +1,6 @@
 <?php
 session_start();
 include_once("DB_Connection/connection.php");
-include_once("Components/product.php");
 include_once("Components/addOn.php");
 include_once("Components/head.php");
 include_once("Components/header.php");
@@ -11,23 +10,10 @@ $head = headComp();
 $header = headerComp();
 $products = productsComp($conn);
 $footer = footerComp();
+$addOns = addOnsComp($conn);
 
-$productSql = "SELECT * FROM products";
-$productResult = $conn->query($productSql);
-
-while ($productRow = $productResult->fetch_object()) {
-}
-
-$addOnSql = "SELECT * FROM addons";
-$addOnResult = $conn->query($addOnSql);
-$addOnCards = "";
-
-while ($addOnRow = $addOnResult->fetch_object()) {
-    $addOnCards = $addOnCards . addOnComp($addOnRow->addon_price, $addOnRow->addon_name, $addOnRow->addon_description, $addOnRow->addon_id);
-}
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -174,31 +160,11 @@ while ($addOnRow = $addOnResult->fetch_object()) {
                     </div>
 
                 </div>
-                <div class="addon-container">
-                    <div class="addon-wrapper">
-                        <img class="addon-image" src="./Assets/images/3d-model.png" alt="3d model of shirt">
-                        <div class="text-wrapper">
-                            <h3 class="section-subheader">3D models</h3>
-                            <form action="" class="addon-form">
-                                <label class="addon-form__label" for="3d-models">Choose extra models:</label>
-                                <input class="addon-form__input" type="number" min="1" value="1" name="" id="3d-models">
-                                <button class="addon-form__button add-to-cart">Add to Cart</button>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="addon-wrapper">
-                        <img class="addon-image" src="./Assets/images/variations.png" alt="shirt varitions">
-                        <div class="text-wrapper">
-                            <h3 class="section-subheader">3D Variations</h3>
-                            <form action="" class="addon-form">
-                                <label class="addon-form__label" for="model-variations">Choose extra variations of your models:</label>
-                                <input class="addon-form__input" type="number" min="1" value="1" name="" id="model-variations">
-                                <button class="addon-form__button add-to-cart">Add to Cart</button>
-                            </form>
-                        </div>
-                    </div>
+                <div class='addon-container'>
 
+                    <?= $addOns ?>
                 </div>
+
             </div>
         </section>
         <section id="contact">
