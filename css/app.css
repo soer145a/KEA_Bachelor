@@ -24,7 +24,8 @@ h1,
 h2,
 h3,
 h4,
-h5 {
+h5,
+th {
     font-family: var(--font-headings);
     font-weight: 500;
 }
@@ -38,7 +39,8 @@ h2 {
     font-size: 2.5rem;
 }
 
-h3 {
+h3,
+th {
     font-size: 1.8rem;
     color: var(--purple-light);
 }
@@ -79,14 +81,44 @@ form,
 label,
 input,
 textarea,
-address {
+address,
+td {
     font-family: var(--font-paragraphs);
     font-weight: 400;
+}
+
+input {
+    padding: 0;
+    border: none;
+    border-radius: 10px;
+    height: 50px;
+    text-indent: 16px;
 }
 
 button:hover {
     transform: scale(1.05);
     transition: 0.2s;
+}
+
+.button {
+    margin: 0 auto;
+    display: block;
+    border: 0;
+    width: 160px;
+    height: 60px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.button--yellow {
+    background-color: var(--yellow);
+    color: var(--purple-dark);
+}
+.button--purple {
+    background-color: var(--purple-light);
+    color: var(--white);
 }
 
 /* Chrome, Safari, Edge, Opera */

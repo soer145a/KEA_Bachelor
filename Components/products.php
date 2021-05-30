@@ -95,7 +95,7 @@ function productsComp($conn)
                                 </div>
                           </div>
                       </div>
-                      <button class='add-to-cart' onclick='addToCart($productRow->product_id, $counter)' >Add to Cart</button>
+                      <button class='button button--yellow' onclick='addToCart($productRow->product_id, $counter)' >Add to Cart</button>
                   </div>
               </div>
           </div>";
@@ -171,7 +171,7 @@ function productsComp($conn)
                                 </div>
                           </div>
                       </div>
-                      <button class='add-to-cart' onclick='addToCart($productRow->product_id, $counter)' >Add to Cart</button>
+                      <button class='button button--yellow' onclick='addToCart($productRow->product_id, $counter)' >Add to Cart</button>
                   </div>
               </div>
           </div>";
@@ -247,7 +247,7 @@ function productsComp($conn)
                                 </div>
                           </div>
                       </div>
-                      <button class='add-to-cart' onclick='addToCart($productRow->product_id, $counter)' >Add to Cart</button>
+                      <button class='button button--yellow' onclick='addToCart($productRow->product_id, $counter)' >Add to Cart</button>
                   </div>
               </div>
           </div>";

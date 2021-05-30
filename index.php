@@ -182,7 +182,7 @@ while ($addOnRow = $addOnResult->fetch_object()) {
                             <form action="" class="addon-form">
                                 <label class="addon-form__label" for="3d-models">Choose extra models:</label>
                                 <input class="addon-form__input" type="number" min="1" value="1" name="" id="3d-models">
-                                <button class="addon-form__button add-to-cart">Add to Cart</button>
+                                <button class="addon-form__button button button--yellow">Add to Cart</button>
                             </form>
                         </div>
                     </div>
@@ -193,7 +193,7 @@ while ($addOnRow = $addOnResult->fetch_object()) {
                             <form action="" class="addon-form">
                                 <label class="addon-form__label" for="model-variations">Choose extra variations of your models:</label>
                                 <input class="addon-form__input" type="number" min="1" value="1" name="" id="model-variations">
-                                <button class="addon-form__button add-to-cart">Add to Cart</button>
+                                <button class="addon-form__button button button--yellow">Add to Cart</button>
                             </form>
                         </div>
                     </div>
