@@ -1,7 +1,6 @@
 <?php
 session_start();
 include_once("DB_Connection/connection.php");
-include_once("Components/product.php");
 include_once("Components/addOn.php");
 include_once("Components/head.php");
 include_once("Components/header.php");
@@ -11,23 +10,10 @@ $head = headComp();
 $header = headerComp();
 $products = productsComp($conn);
 $footer = footerComp();
+$addOns = addOnsComp($conn);
 
-$productSql = "SELECT * FROM products";
-$productResult = $conn->query($productSql);
-
-while ($productRow = $productResult->fetch_object()) {
-}
-
-$addOnSql = "SELECT * FROM addons";
-$addOnResult = $conn->query($addOnSql);
-$addOnCards = "";
-
-while ($addOnRow = $addOnResult->fetch_object()) {
-    $addOnCards = $addOnCards . addOnComp($addOnRow->addon_price, $addOnRow->addon_name, $addOnRow->addon_description, $addOnRow->addon_id);
-}
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -174,6 +160,7 @@ while ($addOnRow = $addOnResult->fetch_object()) {
                     </div>
 
                 </div>
+<<<<<<< HEAD
                 <div class="addon-container">
                     <div class="addon-wrapper">
                         <img class="addon-image" src="./Assets/images/3d-model.png" alt="3d model of shirt">
@@ -197,8 +184,13 @@ while ($addOnRow = $addOnResult->fetch_object()) {
                             </form>
                         </div>
                     </div>
+=======
+                <div class='addon-container'>
+>>>>>>> 51eb7067c51fb8da6fadcc4e307323b75a6b1c07
 
+                    <?= $addOns ?>
                 </div>
+
             </div>
         </section>
         <section id="contact">

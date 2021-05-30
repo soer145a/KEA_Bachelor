@@ -2,11 +2,12 @@
 session_start();
 include("../DB_Connection/connection.php");
 
+$_POST = json_decode(file_get_contents("php://input"), true); //make json object an assoc array
 
-if (isset($_POST['add_addon_to_cart'])) {
+if (isset($_POST['addon_id'])) {
 
     $addOnId = $_POST['addon_id'];
-    $addOnAmount = $_POST['amount_of_addon'];
+    $addOnAmount = $_POST['addon_amount'];
     $sql = "SELECT * FROM addons WHERE addon_id = \"$addOnId\"";
     $result = $conn->query($sql);
     $row = $result->fetch_object();
@@ -51,4 +52,6 @@ if (isset($_POST['add_addon_to_cart'])) {
     }
 }
 
-header('Location: ../index.php');
+$response = array("error" => false);
+
+echo json_encode($response);

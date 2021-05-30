@@ -1,8 +1,8 @@
 /* Variables */
+
 :root {
     --font-headings: "Asap Condensed", sans-serif;
     --font-paragraphs: "Poppins", sans-serif;
-
     --purple-dark: rgba(80, 53, 116, 1);
     --purple-light: rgba(175, 141, 214, 1);
     --purple-grey: rgba(203, 194, 212, 1);
@@ -20,12 +20,17 @@
 }
 
 /* Typography */
+<<<<<<< HEAD
 h1,
 h2,
 h3,
 h4,
 h5,
 th {
+=======
+
+h1, h2, h3, h4, h5 {
+>>>>>>> 51eb7067c51fb8da6fadcc4e307323b75a6b1c07
     font-family: var(--font-headings);
     font-weight: 500;
 }
@@ -74,6 +79,7 @@ p {
     color: var(--black-80);
 }
 
+<<<<<<< HEAD
 a,
 p,
 button,
@@ -83,6 +89,9 @@ input,
 textarea,
 address,
 td {
+=======
+a, p, button, form, label, input, textarea, address {
+>>>>>>> 51eb7067c51fb8da6fadcc4e307323b75a6b1c07
     font-family: var(--font-paragraphs);
     font-weight: 400;
 }
@@ -122,13 +131,14 @@ button:hover {
 }
 
 /* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
+
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
 /* Firefox */
+
 input[type="number"] {
     -moz-appearance: textfield;
 }
@@ -160,6 +170,7 @@ main {
     height: auto;
     /* padding-top: 80px; */
 }
+
 footer {
     background-color: var(--purple-dark);
     height: auto;
@@ -168,6 +179,7 @@ footer {
 /* section:not(section:nth-of-type(1)) {
     padding: 100px 0;
 } */
+
 section {
     padding: 80px 0 50px 0;
 }
@@ -194,6 +206,7 @@ img {
 .productCard {
     max-width: 300px;
 }
+
 .addOnCard {
     max-width: 300px;
 }
@@ -201,24 +214,30 @@ img {
 #paypal-button-container {
     max-width: 100px;
 }
+
 .hidden {
     display: none;
 }
+
 .shown {
     display: block;
 }
+
 .customerInfoContainer {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
 }
+
 .profileCard {
     border: 2px solid black;
     margin: 20px;
     width: 300px;
 }
+
 .subActive {
     background-color: green;
 }
+
 .subInactive {
     background-color: red;
 }

@@ -1,21 +1,44 @@
 <?php
 
 
-function addOnComp($addOnPrice, $addOnName, $addOnDescription, $addOnId)
+function addOnsComp($conn)
 {
+    $addOnSql = 'SELECT * FROM addons';
+    $addOnResult = $conn->query($addOnSql);
 
-    $addOnCard = "
-        <div class='addOnCard'>
-            <form method='post' action='API/add-addon-to-cart.php'>
-                <h2>$addOnName</h2>
-                <p>Price: $addOnPrice</p>
-                <p>$addOnDescription</p>
-                <input type='number' name='amount_of_addon' value='1' min='1'></input>
-                <input type='submit' readonly name='add_addon_to_cart' value='Add to cart'></input>
-                <input type='hidden' readonly name='addon_id' value='$addOnId'></input>
-            </form>
-        </div>
-        ";
+    while ($addOnRow = $addOnResult->fetch_object()) {
 
-    return $addOnCard;
+        switch ($addOnRow->addon_id) {
+            case 1:
+                $addOn1 = "<div class='addon-wrapper'>
+                <img class='addon-image' src='./Assets/images/3d-model.png' alt='3d model of shirt'>
+                <div class='text-wrapper'>
+                    <div class='addon-form'>
+                        <h3 class='section-subheader'>3D models</h3>
+                        <label class='addon-form__label' for='3d-models'>Choose extra models for €$addOnRow->addon_price each:</label>
+                        <input class='addon-form__input addon-form__input_$addOnRow->addon_id' type='number' value='1' id='3d-models'>
+                        <button onclick='addAddOnToCart($addOnRow->addon_id)' class='addon-form__button add-to-cart'>Add to Cart</button>
+                    </div>
+                </div>
+            </div>";
+                break;
+            case 2:
+                $addOn2 = "<div class='addon-wrapper'>
+                <img class='addon-image' src='./Assets/images/variations.png' alt='shirt varitions'>
+                <div class='text-wrapper'>
+                    <div class='addon-form'>
+                        <h3 class='section-subheader'>3D Variations</h3>
+                        <label class='addon-form__label' for='model-variations'>Choose extra model variations for €$addOnRow->addon_price each:</label>
+                        <input class='addon-form__input addon-form__input_$addOnRow->addon_id' type='number' value='1' id='model-variations'>
+                        <button onclick='addAddOnToCart($addOnRow->addon_id)' class='addon-form__button add-to-cart'>Add to Cart</button>
+                    </div>
+                </div>
+            </div>";
+                break;
+        }
+    }
+
+    $addOnsComp = $addOn1 . $addOn2;
+
+    return $addOnsComp;
 }
