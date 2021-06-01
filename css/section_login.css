@@ -15,6 +15,7 @@
     display: flex;
     flex-direction: column;
     margin: 0 auto;
+    width: 100%;
     max-width: 500px;
     border: 2px solid var(--purple-light);
     border-radius: 20px;
@@ -24,18 +25,64 @@
 .login-form__label {
     color: var(--purple-dark);
     position: relative;
+    width: auto;
+    display: flex;
+    align-items: center;
 }
-
-.login-form__label-password::after {
-    position: absolute;
-    content: "?";
-    margin: 20px;
-    width: 20px;
-    height: 20px;
-    display: block;
-    border-radius: 100%;
+.login-form__label-info-box {
     background-color: var(--purple-dark);
     color: var(--white);
+
+    position: absolute;
+    left: -34px;
+    top: -140px;
+    padding: 16px;
+    border-radius: 10px;
+    width: calc(375px - 32px);
+}
+.login-form__label-info-box--hidden {
+    display: none;
+}
+
+.login-form__label-info-box li {
+    list-style: none;
+    margin-left: 16px;
+}
+
+.login-form__label-info-box li::before {
+    content: "\2022";
+    color: var(--white);
+    font-weight: bold;
+    display: inline-block;
+    width: 8px;
+    margin-right: 8px;
+}
+
+.login-form__label-info-outer:hover + .login-form__label-info-box {
+    display: block;
+}
+
+.login-form__label-info-outer {
+    padding: 10px;
+    color: var(--white);
+}
+
+.login-form__label-info-inner {
+    position: relative;
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    cursor: pointer;
+    background-color: var(--purple-dark);
+}
+
+.login-form__label-info-inner::after {
+    content: "?";
+    position: absolute;
+    left: 6px;
+    top: 2px;
+    font-family: var(--font-paragraphs);
 }
 
 .login-form__input {

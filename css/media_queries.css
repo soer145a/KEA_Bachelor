@@ -114,6 +114,12 @@
     .footer {
         justify-content: center;
     }
+
+    .login-form__label-info-box {
+        left: 30%;
+        top: 50%;
+        transform: translateY(-50%);
+    }
 }
 
 /* DESKTOP - Orientation Landscape */

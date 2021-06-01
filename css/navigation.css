@@ -90,6 +90,10 @@
     color: var(--yellow);
 }
 
+.navigation-list-item--active {
+    color: var(--yellow);
+}
+
 .cart-counter {
     position: absolute;
     width: 15px;

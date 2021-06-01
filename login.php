@@ -64,9 +64,23 @@ if (isset($_POST['customer_email']) && isset($_POST['customer_password'])) {
 
                     <input class="login-form__input" oninput="" type="email" placeholder="example@email.com" data-validate="email" name="customer_email">
 
-                    <label class="login-form__label login-form__label-password">Password:</label>
-                    <p>(Must contain 6-30 characters, one uppercase character, one lowercase character, one numeric character and one special character)</p>
-                    <input class="login-form__input" type="password" placeholder="MyStr0ng.PW-example" name="customer_password">
+                    <label class="login-form__label">Password:
+                        <span class="login-form__label-info-outer js-toggle-infobox">
+                            <span class="login-form__label-info-inner">
+                            </span>
+                        </span>
+                        <span class="login-form__label-info-box js-toggle-infobox login-form__label-info-box--hidden">
+                            <h5 class="section-subheader label-info-box__header">The password must concist of:</h5>
+                            <ul>
+                                <li>6-30 characters</li>
+                                <li>One uppercase character</li>
+                                <li>One numeric character</li>
+                                <li>One special character.</li>
+                            </ul>
+                        </span>
+                    </label>
+
+                    <input class="login-form__input" type="password" placeholder="Type in your password" name="customer_password">
 
                     <?= $errorMess ?>
                     <br>
@@ -79,5 +93,6 @@ if (isset($_POST['customer_email']) && isset($_POST['customer_password'])) {
     <?= $footer ?>
 </body>
 <script src="js/app.js"></script>
+<script src="js/helper.js"></script>
 
 </html>

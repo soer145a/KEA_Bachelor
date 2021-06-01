@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     toggleDropdown();
     itemSelector();
     removeItemFromCart();
+    toggleInfoBox();
 });
 
 function updateSliderButton() {
@@ -174,6 +175,21 @@ function removeItemFromCart() {
                 );
             });
         }
+    }
+}
+
+function toggleInfoBox() {
+    console.log("toggleInfoBox()");
+    if (document.querySelector(".js-toggle-infobox") !== null) {
+        aToggleElements = document.querySelectorAll(".js-toggle-infobox");
+        aToggleElements.forEach((element) => {
+            element.addEventListener("click", () => {
+                const eInfobox = document.querySelector(
+                    ".login-form__label-info-box"
+                );
+                eInfobox.classList.toggle("login-form__label-info-box--hidden");
+            });
+        });
     }
 }
 
