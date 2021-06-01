@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>MainPage</title>
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Asap+Condensed:wght@400;500&family=Poppins&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="css/stylereset.css" />
+        <link rel="stylesheet" href="css/app.css" />
+        <link rel="stylesheet" href="css/navigation.css" />
+        <link rel="stylesheet" href="css/section_intro.css" />
+        <link rel="stylesheet" href="css/section_use_case.css" />
+        <link rel="stylesheet" href="css/section_technologies.css" />
+        <link rel="stylesheet" href="css/section_solutions.css" />
+        <link rel="stylesheet" href="css/section_contact.css" />
+        <link rel="stylesheet" href="css/section_cart.css" />
+        <link rel="stylesheet" href="css/footer.css" />
+        <link rel="stylesheet" href="css/media_queries.css" />
+    </head>
+    <body>
+        <header class="container-full-width">
+            <nav class="layout-container navigation-contatiner navigation">
+                <a href="#intro"
+                    ><img
+                        class="navigation__logo"
+                        src="./Assets/logo.png"
+                        alt="brand logo"
+                /></a>
+
+                <div class="navigation--wrapper">
+                    <div class="navigation-hamburger js-toggleNavigation">
+                        <span class="navigation-hamburger__line"></span>
+                        <span class="navigation-hamburger__line"></span>
+                        <span class="navigation-hamburger__line"></span>
+                    </div>
+                    <div
+                        class="
+                            navigation-list-wrapper
+                            navigation-list-wrapper--hidden
+                        "
+                    >
+                        <ul class="navigation-list">
+                            <li class="navigation-list__item">
+                                <a href="#" class="navigation-list__item-link"
+                                    >Home</a
+                                >
+                            </li>
+                            <li class="navigation-list__item">
+                                <a
+                                    href="#use-case"
+                                    class="navigation-list__item-link"
+                                    >Use Cases</a
+                                >
+                            </li>
+                            <li class="navigation-list__item">
+                                <a
+                                    href="#technologies"
+                                    class="navigation-list__item-link"
+                                    >Technologies</a
+                                >
+                            </li>
+                            <li class="navigation-list__item">
+                                <a
+                                    href="#solutions"
+                                    class="navigation-list__item-link"
+                                    >Solutions</a
+                                >
+                            </li>
+                            <li class="navigation-list__item">
+                                <a href="#" class="navigation-list__item-link"
+                                    >Profile</a
+                                >
+                            </li>
+                            <li class="navigation-list__item">
+                                <a href="#" class="navigation-list__item-link"
+                                    >Cart</a
+                                >
+                            </li>
+                            <li class="navigation-list__item">
+                                <a href="#" class="navigation-list__item-link"
+                                    >Logout/Login</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main class="container-full-width">
+            <section id="cart">
+                <div class="layout-container cart">
+                    <div class="checkout-container">
+                        <form action="" class="account-details">
+                            <h2 class="section-header">Account details</h2>
+                            <label for="account-details__name"
+                                >Company name</label
+                            >
+                            <input
+                                id="account-details__name"
+                                type="text"
+                                required
+                            />
+                            <label for="account-details__cvr"
+                                >Company CVR nr.</label
+                            >
+                            <input
+                                id="account-details__cvr"
+                                type="text"
+                                required
+                            />
+                            <label for="account-details__contact"
+                                >Contact person</label
+                            >
+                            <input
+                                id="account-details__contact"
+                                type="text"
+                                required
+                            />
+                            <label for="account-details__mail">Email</label>
+                            <input
+                                id="account-details__mail"
+                                type="email"
+                                required
+                            />
+                            <label for="account-details__password"
+                                >Password</label
+                            >
+                            <input
+                                id="account-details__password"
+                                type="password"
+                                required
+                            />
+                            <label for="account-details__confirm-password"
+                                >Confirm Password</label
+                            >
+                            <input
+                                id="account-details__confirm-password"
+                                type="password"
+                                required
+                            />
+                            <h2 class="section-header">
+                                Shipping/Billing address
+                            </h2>
+                            <label for="account-details__street-name"
+                                >Street name</label
+                            >
+                            <input
+                                id="account-details__street-name"
+                                type="text"
+                                required
+                            />
+                            <label for="account-details__city">City</label>
+                            <input
+                                id="account-details__city"
+                                type="text"
+                                required
+                            />
+                            <label for="account-details__zip-code"
+                                >Zip code</label
+                            >
+                            <input
+                                id="account-details__zip-code"
+                                type="text"
+                                required
+                            />
+                        </form>
+                        <div class="order-summary-container">
+                            <h2 class="section-header">Order summary</h2>
+                            <div class="order-summary">
+                                <table class="order-list">
+                                    <tr class="order-list__headers">
+                                        <th class="order-list__product-header">
+                                            Product
+                                        </th>
+                                        <th class="order-list__quantity-header">
+                                            Quantity
+                                        </th>
+                                        <th class="order-list__price-header">
+                                            Price
+                                        </th>
+                                    </tr>
+                                    <tr class="order-list__item">
+                                        <td class="order-list__item-name">
+                                            Product 1
+                                        </td>
+                                        <td class="order-list__item-quantity">
+                                            <span
+                                                class="
+                                                    order-list__item-remove
+                                                    js-remove-item
+                                                "
+                                            ></span>
+                                            1
+                                        </td>
+                                        <td class="order-list__item-price">
+                                            2999
+                                        </td>
+                                    </tr>
+                                    <tr class="order-list__item">
+                                        <td class="order-list__item-name">
+                                            Product 2
+                                        </td>
+                                        <td class="order-list__item-quantity">
+                                            <span
+                                                class="
+                                                    order-list__item-remove
+                                                    js-remove-item
+                                                "
+                                            ></span>
+                                            1
+                                        </td>
+                                        <td class="order-list__item-price">
+                                            299
+                                        </td>
+                                    </tr>
+                                    <tr class="order-list__empty-cart">
+                                        <td
+                                            class="empty-cart__text"
+                                            colspan="3"
+                                        >
+                                            You have don't have any products in
+                                            the cart
+                                        </td>
+                                    </tr>
+                                </table>
+                                <button
+                                    class="
+                                        order-summary__button
+                                        button button--purple
+                                    "
+                                >
+                                    Accept and Purchase
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer class="container-full-width">
+            <div class="layout-container footer">
+                <div class="address address-container">
+                    <h3 class="address__header">Mirtual</h3>
+                    <address class="section-paragraph address__information">
+                        Njalsgade 21G, 3rd fl.
+                        <br />
+                        2300 København S
+                        <br />
+                        Denmark
+                        <br />
+                        <a class="address__telephone" href="tel:+4526744609"
+                            >+45 2674 4609</a
+                        >
+                        <br />
+                        <a
+                            class="address__email"
+                            href="mail:mailto:contact@mirtual.dk"
+                            >contact@mirtual.dk</a
+                        >
+                    </address>
+                </div>
+                <div class="about about-container">
+                    <h3 class="address__header">About</h3>
+                    <p class="section-paragraph">
+                        We help companies and marketing teams use Digital
+                        Solutions, Virtual and Augmented Reality (VR/AR) to
+                        create memorable interactive experiences with customers
+                        and clients. Our unique approach enables us to
+                        communicate complex messages combined into intuitive,
+                        interactive, and personal stories that can be
+                        experienced in 3D space.
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </body>
+    <script src="js/app.js"></script>
+    <script src="js/helper.js"></script>
+</html>
