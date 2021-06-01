@@ -22,6 +22,7 @@ function headComp()
         <link rel='stylesheet' href='css/section_contact.css' />
         <link rel='stylesheet' href='css/section_cart.css' />
         <link rel='stylesheet' href='css/section_login.css' />
+        <link rel='stylesheet' href='css/section_orderConfirmation.css' />
         <link rel='stylesheet' href='css/footer.css' />
         <link rel='stylesheet' href='css/media_queries.css' />
         ";
