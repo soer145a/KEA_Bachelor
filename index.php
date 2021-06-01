@@ -7,7 +7,7 @@ include_once("Components/header.php");
 include_once("Components/products.php");
 include_once("Components/footer.php");
 $head = headComp();
-$header = headerComp();
+$header = headerComp('index');
 $products = productsComp($conn);
 $footer = footerComp();
 $addOns = addOnsComp($conn);

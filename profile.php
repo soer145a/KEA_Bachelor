@@ -43,7 +43,7 @@ if (isset($_POST['confirmPassword'])) {
     }
 }
 include_once("Components/header.php");
-$header = headerComp();
+$header = headerComp('profile');
 $embedLink = "";
 $apiKey = "";
 

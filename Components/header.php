@@ -1,16 +1,43 @@
 <?php
 
 
-function headerComp()
+function headerComp($activeLink)
 {
+
+    $indexActiveClass = '';
+    $profileActiveClass = '';
+    $cartActiveClass = '';
+    $loginActiveClass = '';
+
+    switch ($activeLink) {
+
+        case 'index':
+            $indexActiveClass = "navigation-list__item-link--active";
+            break;
+
+        case 'profile':
+            $profileActiveClass = "navigation-list__item-link--active";
+            break;
+
+        case 'cart':
+            $cartActiveClass = "navigation-list__item-link--active";
+            break;
+
+        case 'login':
+            $loginActiveClass = "navigation-list__item-link--active";
+            break;
+    }
+
     $cartCount = 0;
+
     if (isset($_SESSION['loginStatus'])) {
         $loginLink =
-            "<a href='logout.php' class='navigation-list__item-link'>Logout</a>";
+            "<a href='logout.php' class='navigation-list__item-link $loginActiveClass'>Logout</a>";
     } else {
         $loginLink =
-            "<a href='login.php' class='navigation-list__item-link'>Login</a>";
+            "<a href='login.php' class='navigation-list__item-link $loginActiveClass'>Login</a>";
     }
+
     if (isset($_SESSION['cartProducts'])) {
 
         $cartCount = $cartCount + count($_SESSION['cartProducts']);
@@ -43,38 +70,17 @@ function headerComp()
                 >
                     <ul class='navigation-list'>
                         <li class='navigation-list__item'>
-                            <a href='index.php' class='navigation-list__item-link'
+                            <a href='index.php' class='navigation-list__item-link $indexActiveClass'
                                 >Home</a
                             >
-                        </li>
+                        </li>           
                         <li class='navigation-list__item'>
-                            <a
-                                href='#use-case'
-                                class='navigation-list__item-link'
-                                >Use Cases</a
-                            >
-                        </li>
-                        <li class='navigation-list__item'>
-                            <a
-                                href='#technologies'
-                                class='navigation-list__item-link'
-                                >Technologies</a
-                            >
-                        </li>
-                        <li class='navigation-list__item'>
-                            <a
-                                href='#solutions'
-                                class='navigation-list__item-link'
-                                >Solutions</a
-                            >
-                        </li>
-                        <li class='navigation-list__item'>
-                            <a href='#' class='navigation-list__item-link'
+                            <a href='#' class='navigation-list__item-link $profileActiveClass'
                                 >Profile</a
                             >
                         </li>
                         <li class='navigation-list__item'>
-                            <a href='cart.php' class='navigation-list__item-link'
+                            <a href='cart.php' class='navigation-list__item-link $cartActiveClass'
                                 >Cart<span class='cart-counter'>$cartCount</span></a
                             >
                         </li>

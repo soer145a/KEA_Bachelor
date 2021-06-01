@@ -20,12 +20,8 @@
 }
 
 /* Typography */
-h1,
-h2,
-h3,
-h4,
-h5,
-th {
+
+h1, h2, h3, h4, h5, th {
     font-family: var(--font-headings);
     font-weight: 500;
 }
@@ -39,8 +35,7 @@ h2 {
     font-size: 2.5rem;
 }
 
-h3,
-th {
+h3, th {
     font-size: 1.8rem;
     color: var(--purple-light);
 }
@@ -74,15 +69,7 @@ p {
     color: var(--black-80);
 }
 
-a,
-p,
-button,
-form,
-label,
-input,
-textarea,
-address,
-td {
+a, p, button, form, label, input, textarea, address, td {
     font-family: var(--font-paragraphs);
     font-weight: 400;
 }
@@ -116,6 +103,7 @@ button:hover {
     background-color: var(--yellow);
     color: var(--purple-dark);
 }
+
 .button--purple {
     background-color: var(--purple-light);
     color: var(--white);
@@ -123,8 +111,7 @@ button:hover {
 
 /* Chrome, Safari, Edge, Opera */
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
@@ -184,8 +171,6 @@ img {
     border-radius: 20px;
     overflow: hidden;
 }
-
-/*  */
 
 .invalid {
     border: 2px solid red;

@@ -4,7 +4,7 @@ session_start();
 include_once("Components/header.php");
 include("DB_Connection/connection.php");
 include_once("Components/addOn.php");
-/* $header = headerComp(); */
+$header = headerComp('cart');
 
 //productcards being printet starts here
 $content = "";

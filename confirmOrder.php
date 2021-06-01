@@ -25,9 +25,6 @@ unset($_SESSION['postData']);
 unset($_SESSION['confirmCode']);
 unset($_SESSION['orderId']);
 
-include_once("Components/header.php");
-$header = headerComp();
-
 if (!isset($_SESSION['loginStatus'])) {
     $message = "Thanks for your order, we have sent you an email with a link to confirm your email address";
 } else {

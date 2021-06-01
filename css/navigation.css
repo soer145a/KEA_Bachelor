@@ -67,12 +67,14 @@
 .navigation-list-wrapper--hidden {
     display: none;
 }
+
 .navigation-list {
     display: flex;
     flex-direction: column;
     margin: 25% 0;
     margin-right: 16px;
 }
+
 .navigation-list__item {
     margin: 1.5rem 0;
     margin-left: auto;
@@ -90,7 +92,7 @@
     color: var(--yellow);
 }
 
-.navigation-list-item--active {
+.navigation-list__item .navigation-list__item-link--active {
     color: var(--yellow);
 }
 

@@ -5,7 +5,7 @@ include_once("Components/head.php");
 include_once("Components/header.php");
 include_once("Components/footer.php");
 $head = headComp();
-$header = headerComp();
+$header = headerComp('login');
 $footer = footerComp();
 
 if (isset($_SESSION['loginStatus'])) {
