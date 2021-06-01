@@ -33,9 +33,11 @@ function headerComp($activeLink)
     if (isset($_SESSION['loginStatus'])) {
         $loginLink =
             "<a href='logout.php' class='navigation-list__item-link $loginActiveClass'>Logout</a>";
+        $profileLink = "<li class='navigation-list__item'><a href='profile.php' class='navigation-list__item-link $profileActiveClass'>Profile</a></li>";
     } else {
         $loginLink =
             "<a href='login.php' class='navigation-list__item-link $loginActiveClass'>Login</a>";
+        $profileLink = '';
     }
 
     if (isset($_SESSION['cartProducts'])) {
@@ -73,19 +75,15 @@ function headerComp($activeLink)
                             <a href='index.php' class='navigation-list__item-link $indexActiveClass'
                                 >Home</a
                             >
-                        </li>           
+                        </li>   
+                        $profileLink                       
                         <li class='navigation-list__item'>
-                            <a href='#' class='navigation-list__item-link $profileActiveClass'
-                                >Profile</a
-                            >
+                            $loginLink
                         </li>
                         <li class='navigation-list__item'>
                             <a href='cart.php' class='navigation-list__item-link $cartActiveClass'
                                 >Cart<span class='cart-counter'>$cartCount</span></a
                             >
-                        </li>
-                        <li class='navigation-list__item'>
-                            $loginLink
                         </li>
                     </ul>
                 </div>

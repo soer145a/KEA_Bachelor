@@ -1,5 +1,10 @@
 <?php
 session_start();
+include_once("Components/head.php");
+include_once("Components/header.php");
+$head = headComp();
+$header = headerComp('profile');
+
 $errorMess = "";
 $showFlag = false;
 if (!isset($_SESSION['loginStatus'])) {
@@ -42,8 +47,7 @@ if (isset($_POST['confirmPassword'])) {
         }
     }
 }
-include_once("Components/header.php");
-$header = headerComp('profile');
+
 $embedLink = "";
 $apiKey = "";
 
@@ -52,16 +56,11 @@ $apiKey = "";
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/app.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/default.min.css">
-    <title>Profile page</title>
+    <?= $head ?>
 </head>
 
 <body>
-    <div><?= $header ?></div>
+    <?= $header ?>
     <h1>Welcome <?= $firstName, " ", $lastName ?></h1>
     <button onclick="showDeleteOption()">Delete my account</button>
     <div id="deleteModal" class="hidden">

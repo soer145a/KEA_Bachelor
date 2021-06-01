@@ -14,7 +14,6 @@ $addOns = addOnsComp($conn);
 
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 

@@ -2,8 +2,10 @@
 session_start();
 
 include_once("Components/header.php");
+include_once("Components/head.php");
 include("DB_Connection/connection.php");
 include_once("Components/addOn.php");
+$head = headComp();
 $header = headerComp('cart');
 
 //productcards being printet starts here
@@ -100,15 +102,11 @@ if (!isset($_SESSION['loginStatus'])) {
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart</title>
-    <link rel="stylesheet" href="css/app.css">
+    <?= $head ?>
 </head>
 
 <body>
-
+    <?= $header ?>
     <div>
         <h1>Cart</h1>
         <p>products</p>

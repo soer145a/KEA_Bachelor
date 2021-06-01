@@ -7,6 +7,9 @@ $head = headComp();
 $header = headerComp('');
 $footer = footerComp();
 
+if (!isset($_SESSION['orderId'])) {
+    header('Location: index.php');
+}
 
 $productName = "";
 $totalPrice = 0;
