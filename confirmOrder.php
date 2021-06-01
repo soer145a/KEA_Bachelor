@@ -1,5 +1,13 @@
 <?php
 session_start();
+include_once("Components/head.php");
+include_once("Components/header.php");
+include_once("Components/footer.php");
+$head = headComp();
+$header = headerComp('');
+$footer = footerComp();
+
+
 $productName = "";
 $totalPrice = 0;
 $boughtAddons = "";
@@ -37,18 +45,25 @@ if (!isset($_SESSION['loginStatus'])) {
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirmation</title>
+    <?= $head ?>
 </head>
 
 <body>
-    <div><?= $header ?></div>
-    <h1><?= $message ?></h1>
-    <p>You have bought: <?= $productName ?></p>
-    <p>Addons: <?= $boughtAddons ?></p>
-    <p>Price: <?= $totalPrice ?></p>
+    <?= $header ?>
+    <main>
+        <section id="orderConfirmation">
+            <div class="layout-container orderConfirmation">
+                <div class="order-confirmation-summary">
+                    <h1><?= $message ?></h1>
+                    <p>You have bought: <?= $productName ?></p>
+                    <p>Addons: <?= $boughtAddons ?></p>
+                    <p>Price: <?= $totalPrice ?></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <?= $footer ?>
 </body>
 
 </html>
