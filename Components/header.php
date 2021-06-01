@@ -23,7 +23,7 @@ function headerComp()
     $headerContent =
         "<header class='container-full-width'>
         <nav class='layout-container navigation-contatiner navigation'>
-            <a href='#intro'
+            <a href='index.php'
                 ><img
                     class='navigation__logo'
                     src='./Assets/logo.png'
@@ -43,7 +43,7 @@ function headerComp()
                 >
                     <ul class='navigation-list'>
                         <li class='navigation-list__item'>
-                            <a href='#' class='navigation-list__item-link'
+                            <a href='index.php' class='navigation-list__item-link'
                                 >Home</a
                             >
                         </li>

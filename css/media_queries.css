@@ -92,6 +92,25 @@
         padding-left: 32px;
     }
 
+    .checkout-container {
+        display: flex;
+        width: 100%;
+    }
+    .account-details,
+    .order-summary-container {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+    }
+
+    .account-details {
+        padding-right: 16px;
+    }
+
+    .order-summary-container {
+        padding-left: 16px;
+    }
+
     .footer {
         justify-content: center;
     }

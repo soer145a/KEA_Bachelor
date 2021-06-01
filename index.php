@@ -160,33 +160,7 @@ $addOns = addOnsComp($conn);
                     </div>
 
                 </div>
-<<<<<<< HEAD
-                <div class="addon-container">
-                    <div class="addon-wrapper">
-                        <img class="addon-image" src="./Assets/images/3d-model.png" alt="3d model of shirt">
-                        <div class="text-wrapper">
-                            <h3 class="section-subheader">3D models</h3>
-                            <form action="" class="addon-form">
-                                <label class="addon-form__label" for="3d-models">Choose extra models:</label>
-                                <input class="addon-form__input" type="number" min="1" value="1" name="" id="3d-models">
-                                <button class="addon-form__button button button--yellow">Add to Cart</button>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="addon-wrapper">
-                        <img class="addon-image" src="./Assets/images/variations.png" alt="shirt varitions">
-                        <div class="text-wrapper">
-                            <h3 class="section-subheader">3D Variations</h3>
-                            <form action="" class="addon-form">
-                                <label class="addon-form__label" for="model-variations">Choose extra variations of your models:</label>
-                                <input class="addon-form__input" type="number" min="1" value="1" name="" id="model-variations">
-                                <button class="addon-form__button button button--yellow">Add to Cart</button>
-                            </form>
-                        </div>
-                    </div>
-=======
                 <div class='addon-container'>
->>>>>>> 51eb7067c51fb8da6fadcc4e307323b75a6b1c07
 
                     <?= $addOns ?>
                 </div>

@@ -94,11 +94,7 @@ function productsComp($conn)
                                 </div>
                           </div>
                       </div>
-<<<<<<< HEAD
-                      <button class='button button--yellow' onclick='addToCart($productRow->product_id, $counter)' >Add to Cart</button>
-=======
-                      <button class='add-to-cart' onclick='addProductToCart($productRow->product_id, $counter)' >Add to Cart</button>
->>>>>>> 51eb7067c51fb8da6fadcc4e307323b75a6b1c07
+                      <button class='button button--yellow' onclick='addProductToCart($productRow->product_id, $counter)' >Add to Cart</button>
                   </div>
               </div>
           </div>";
@@ -174,11 +170,7 @@ function productsComp($conn)
                                 </div>
                           </div>
                       </div>
-<<<<<<< HEAD
-                      <button class='button button--yellow' onclick='addToCart($productRow->product_id, $counter)' >Add to Cart</button>
-=======
-                      <button class='add-to-cart' onclick='addProductToCart($productRow->product_id, $counter)' >Add to Cart</button>
->>>>>>> 51eb7067c51fb8da6fadcc4e307323b75a6b1c07
+                      <button class='button button--yellow' onclick='addProductToCart($productRow->product_id, $counter)' >Add to Cart</button>
                   </div>
               </div>
           </div>";
@@ -254,11 +246,7 @@ function productsComp($conn)
                                 </div>
                           </div>
                       </div>
-<<<<<<< HEAD
-                      <button class='button button--yellow' onclick='addToCart($productRow->product_id, $counter)' >Add to Cart</button>
-=======
-                      <button class='add-to-cart' onclick='addProductToCart($productRow->product_id, $counter)' >Add to Cart</button>
->>>>>>> 51eb7067c51fb8da6fadcc4e307323b75a6b1c07
+                      <button class='button button--yellow' onclick='addProductToCart($productRow->product_id, $counter)' >Add to Cart</button>
                   </div>
               </div>
           </div>";

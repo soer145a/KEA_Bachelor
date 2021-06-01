@@ -20,17 +20,12 @@
 }
 
 /* Typography */
-<<<<<<< HEAD
 h1,
 h2,
 h3,
 h4,
 h5,
 th {
-=======
-
-h1, h2, h3, h4, h5 {
->>>>>>> 51eb7067c51fb8da6fadcc4e307323b75a6b1c07
     font-family: var(--font-headings);
     font-weight: 500;
 }
@@ -79,7 +74,6 @@ p {
     color: var(--black-80);
 }
 
-<<<<<<< HEAD
 a,
 p,
 button,
@@ -89,9 +83,6 @@ input,
 textarea,
 address,
 td {
-=======
-a, p, button, form, label, input, textarea, address {
->>>>>>> 51eb7067c51fb8da6fadcc4e307323b75a6b1c07
     font-family: var(--font-paragraphs);
     font-weight: 400;
 }
@@ -132,7 +123,8 @@ button:hover {
 
 /* Chrome, Safari, Edge, Opera */
 
-input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
