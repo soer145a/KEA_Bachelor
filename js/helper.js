@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
     updateSliderButton();
     toggleDropdown();
     itemSelector();
-    removeItemFromCart();
     toggleInfoBox();
 });
 
@@ -118,7 +117,7 @@ function addAddOnToCart(addOnId) {
         addon_id: addOnId,
         addon_amount: addOnAmount,
     });
-    updateCartCounter();
+    updateCartCounter({isProduct: false, addonAmount: addOnAmount, increment: true});
 }
 
 function addProductToCart(productId, buttonId) {
@@ -151,31 +150,54 @@ function addProductToCart(productId, buttonId) {
             product_id: productId,
             sub: chosenSubscription,
         });
-        updateCartCounter();
+        updateCartCounter({isProduct: true, addonAmount: 0, increment: true})
     }
 }
 
-function updateCartCounter() {
+function updateCartCounter(object) {
     let eCartCounter = document.querySelector(".cart-counter");
 
     let counter = parseInt(eCartCounter.textContent);
 
-    eCartCounter.textContent = counter + 1;
-}
 
-function removeItemFromCart() {
-    if (document.querySelector(".js-remove-item") !== null) {
-        let aCartItems = document.querySelectorAll(".js-remove-item");
-
-        for (let i = 0; i < aCartItems.length; i++) {
-            aCartItems[i].addEventListener("click", () => {
-                console.log(
-                    "I was clicked",
-                    aCartItems[i].parentElement.parentElement.remove()
-                );
-            });
+    if(object.isProduct) {
+        if(!object.increment) {
+            //decrement counter
+            eCartCounter.textContent = counter - 1;
+        } else {
+            //increment counter
+            eCartCounter.textContent = counter + 1;
+        }
+    } else {
+        if(!object.increment) {
+            //decrement counter
+            eCartCounter.textContent = counter - parseInt(object.addonAmount);
+        } else {
+            //increment counter
+            eCartCounter.textContent = counter + parseInt(object.addonAmount);
         }
     }
+    
+    
+
+    
+}
+
+function removeItemFromCart(id, isProduct, addonAmount) {
+    updateCartCounter({isProduct: isProduct, addonAmount: addonAmount, increment: false})
+    
+
+    event.target.parentElement.parentElement.parentElement.remove()
+
+    postData("API/remove-item-from-cart.php", {
+        itemId: id,
+        isProduct: isProduct
+    }).then((res) => {
+        console.log(res)
+    })
+
+
+   
 }
 
 function toggleInfoBox() {

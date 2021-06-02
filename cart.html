@@ -95,15 +95,18 @@
             <section id="cart">
                 <div class="layout-container cart">
                     <div class="checkout-container">
-                        <form action="" class="account-details">
+                        <form action="API/payment-handler.php" method="POST" class="account-details">
                             <h2 class="section-header">Account details</h2>
                             <label for="account-details__name"
-                                >Company name</label
+                                >Company Name</label
                             >
                             <input
                                 id="account-details__name"
                                 type="text"
+                                name="input_company_name"
+                                data-validate="string"
                                 required
+                                oninput="inputValidate(); printBtnValidate();"
                             />
                             <label for="account-details__cvr"
                                 >Company CVR nr.</label
@@ -111,21 +114,55 @@
                             <input
                                 id="account-details__cvr"
                                 type="text"
+                                name="input_company_cvr"
+                                data-validate="string"
                                 required
+                                oninput="inputValidate(); printBtnValidate();"
                             />
-                            <label for="account-details__contact"
-                                >Contact person</label
-                            >
+                            <div class="account-details__contact">
+                                <h4 class="section-subheader contact__header">Contact Person</h4>
+                                <div class="contact__wrapper">
+                                    <label for="contact__firstname">Firstname</label>
+                                    <input
+                                        id="contact__firstname"
+                                        type="text"
+                                        name="input_first_name"
+                                        data-validate="string"
+                                        required
+                                        oninput="inputValidate(); printBtnValidate();"
+                                    />
+                                </div>
+                                <div class="contact__wrapper">
+                                    <label for="contact__lastname">Lastname</label>
+                                    <input
+                                        id="contact__lastname"
+                                        type="text"
+                                        name="input_last_name"
+                                        data-validate="string"
+                                        required
+                                        oninput="inputValidate(); printBtnValidate();"
+                                    />
+                                </div>
+                            </div>
+                            
+
+                            <label for="account-details__mail">Phone Number</label>
                             <input
-                                id="account-details__contact"
+                                id="account-details__mail"
                                 type="text"
+                                name="input_phone"
+                                data-validate="phone"
                                 required
+                                oninput="inputValidate(); printBtnValidate();"
                             />
                             <label for="account-details__mail">Email</label>
                             <input
                                 id="account-details__mail"
                                 type="email"
+                                name="input_email"
+                                data-validate="email"
                                 required
+                                oninput="inputValidate(); printBtnValidate();"
                             />
                             <label for="account-details__password"
                                 >Password</label
@@ -133,7 +170,10 @@
                             <input
                                 id="account-details__password"
                                 type="password"
+                                name="input_password_init"
+                                data-validate="password"
                                 required
+                                oninput="inputValidate(); printBtnValidate();"
                             />
                             <label for="account-details__confirm-password"
                                 >Confirm Password</label
@@ -141,7 +181,10 @@
                             <input
                                 id="account-details__confirm-password"
                                 type="password"
+                                name="input_password_confirm"
+                                data-validate="string"
                                 required
+                                oninput="inputValidate(); printBtnValidate();"
                             />
                             <h2 class="section-header">
                                 Shipping/Billing address
@@ -152,13 +195,17 @@
                             <input
                                 id="account-details__street-name"
                                 type="text"
+                                name="input_company_street"
                                 required
+                                oninput="inputValidate(); printBtnValidate();"
                             />
                             <label for="account-details__city">City</label>
                             <input
                                 id="account-details__city"
                                 type="text"
+                                name="input_company_city"
                                 required
+                                oninput="inputValidate(); printBtnValidate();"
                             />
                             <label for="account-details__zip-code"
                                 >Zip code</label
@@ -166,68 +213,58 @@
                             <input
                                 id="account-details__zip-code"
                                 type="text"
+                                name="input_company_Postcode"
                                 required
+                                oninput="inputValidate(); printBtnValidate();"
                             />
+                            <label for="account-details__zip-code"
+                                >Country</label
+                            >
+                            <input
+                                id="account-details__zip-code"
+                                type="text"
+                                name="input_company_country"
+                                required
+                                oninput="inputValidate(); printBtnValidate();"
+                            />
+                            <div class="errorMessage"></div>
                         </form>
                         <div class="order-summary-container">
                             <h2 class="section-header">Order summary</h2>
                             <div class="order-summary">
-                                <table class="order-list">
-                                    <tr class="order-list__headers">
-                                        <th class="order-list__product-header">
-                                            Product
-                                        </th>
-                                        <th class="order-list__quantity-header">
-                                            Quantity
-                                        </th>
-                                        <th class="order-list__price-header">
-                                            Price
-                                        </th>
-                                    </tr>
-                                    <tr class="order-list__item">
-                                        <td class="order-list__item-name">
-                                            Product 1
-                                        </td>
-                                        <td class="order-list__item-quantity">
-                                            <span
-                                                class="
-                                                    order-list__item-remove
-                                                    js-remove-item
-                                                "
-                                            ></span>
-                                            1
-                                        </td>
-                                        <td class="order-list__item-price">
-                                            2999
-                                        </td>
-                                    </tr>
-                                    <tr class="order-list__item">
-                                        <td class="order-list__item-name">
-                                            Product 2
-                                        </td>
-                                        <td class="order-list__item-quantity">
-                                            <span
-                                                class="
-                                                    order-list__item-remove
-                                                    js-remove-item
-                                                "
-                                            ></span>
-                                            1
-                                        </td>
-                                        <td class="order-list__item-price">
-                                            299
-                                        </td>
-                                    </tr>
-                                    <tr class="order-list__empty-cart">
-                                        <td
-                                            class="empty-cart__text"
-                                            colspan="3"
-                                        >
-                                            You have don't have any products in
-                                            the cart
-                                        </td>
-                                    </tr>
-                                </table>
+                                <div class="order-summary__header">
+                                    <div class="header-container">
+                                        <h5 class="header-item__product">Product</h5>
+                                        <h5 class="header-item__quantity">Quantity</h5>
+                                        <h5 class="header-item__price">Price</h5>
+                                    </div>
+                                </div>
+                                <div class="order-summary__body">
+                                    <div class="product-container">
+                                        <div class="product-row">
+                                            <div class="product-item">
+                                                <p class="product-item__name">Product 1</p>
+                                                <p class="product-item__quantity">
+                                                    <span class="product-item__delete js-remove-item"></span>
+                                                    1
+                                                </p>
+                                                <p class="product-item__price">2999</p>
+                                            </div>
+                                           
+                                            <div class="subscription-row">
+                                                <p class="subscription-row__text">Subscription - 1 month</p>
+                                                <p class="subscription-row__text subscription-row__price">10</p>
+                                            </div>
+                                        </div>
+                                        <div class="empty-cart">
+                                            <p class="empty-cart__text">
+                                                You don't have any products in
+                                                the cart
+                                            </p>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
                                 <button
                                     class="
                                         order-summary__button

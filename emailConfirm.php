@@ -1,5 +1,12 @@
 <?php
 session_start();
+include_once("Components/head.php");
+include_once("Components/header.php");
+include_once("Components/footer.php");
+$head = headComp();
+$header = headerComp('');
+$footer = footerComp();
+
 $customerConfirmCode = $_GET['confirmCode'];
 //echo $customerConfirmCode;
 include_once("DB_Connection/connection.php");
@@ -10,17 +17,24 @@ $result = $conn->query($sql);
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <?= $head ?>
 </head>
 
 <body>
-    <h1>Thanks for confirming!</h1>
-    <p>Your account is now active</p>
-    <a href="login.php">To login</a>
-    <a href="index.php">To the frontpage</a>
+    <?= $header ?>
+    <main>
+        <section id="email-confirmation">
+            <div class="layout-container email-confirmation">
+                <h1 class="section-header">We have recieved your confirmation - thank you.
+                    <br>
+                    Your account is now active.
+                </h1>
+                <a href="login.php">Go to the login page</a>
+                <a href="index.php">Go to the homepage</a>
+            </div>
+        </section>
+    </main>
+    <?= $footer ?>
 </body>
 
 </html>

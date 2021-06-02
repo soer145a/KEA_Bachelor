@@ -2,8 +2,10 @@
 session_start();
 include_once("Components/head.php");
 include_once("Components/header.php");
+include_once("Components/footer.php");
 $head = headComp();
 $header = headerComp('profile');
+$footer = footerComp();
 
 $errorMess = "";
 $showFlag = false;
@@ -252,7 +254,7 @@ $apiKey = "";
         </form>
     </div>
 
-
+    <?= $footer ?>
 </body>
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
 <script>

@@ -17,6 +17,7 @@ $boughtAddons = "";
 
 if (isset($_SESSION['cartProducts'])) {
     foreach ($_SESSION['cartProducts'] as $product) {
+
         $productName = $product['product_name'] . ", " .  $productName;
         $totalPrice =  $totalPrice + (float)$product['product_price'];
     }
@@ -37,9 +38,9 @@ unset($_SESSION['confirmCode']);
 unset($_SESSION['orderId']);
 
 if (!isset($_SESSION['loginStatus'])) {
-    $message = "Thanks for your order, we have sent you an email with a link to confirm your email address";
+    $message = "Thank you for your order! <br> We have sent you an email with a link to confirm your email address.";
 } else {
-    $message = "Thanks for your order";
+    $message = "Thank you for your order.";
 }
 
 ?>
@@ -57,7 +58,7 @@ if (!isset($_SESSION['loginStatus'])) {
         <section id="orderConfirmation">
             <div class="layout-container orderConfirmation">
                 <div class="order-confirmation-summary">
-                    <h1><?= $message ?></h1>
+                    <h1 class="section-header"><?= $message ?></h1>
                     <p>You have bought: <?= $productName ?></p>
                     <p>Addons: <?= $boughtAddons ?></p>
                     <p>Price: <?= $totalPrice ?></p>

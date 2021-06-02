@@ -142,18 +142,6 @@ function inputValidate() {
   }
 }
 
-/* function gatherProductData() {
-  let addOnFields = document.querySelectorAll(".addOn");
-  let returnObject = [];
-  addOnFields.forEach((addon) => {
-    let dataField = {
-      name: addon.name,
-      isChecked: addon.checked,
-    };
-    returnObject.push(dataField);
-  });
-  return returnObject;
-} */
 function showDeleteOption() {
   console.log("Ready to delete!");
   document.querySelector("#deleteModal").classList.remove("hidden");
