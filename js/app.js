@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   toggleMobileNavigation();
 });
-async function inputValidate() {
+function inputValidate() {
   let inputData;
   let inputsToValidate = [];
 

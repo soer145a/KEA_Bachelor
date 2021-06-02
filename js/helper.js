@@ -103,7 +103,7 @@ function clickedItem(item) {
   });
 }
 
-async function addAddOnToCart(addOnId) {
+function addAddOnToCart(addOnId) {
   let addOnAmount = document.querySelector(
     ".addon-form__input_" + addOnId
   ).value;
@@ -115,7 +115,7 @@ async function addAddOnToCart(addOnId) {
   updateCartCounter();
 }
 
-async function addProductToCart(productId, buttonId) {
+function addProductToCart(productId, buttonId) {
   let aSubscriptionItems = document.querySelectorAll(".dropdown__list-item");
   let subChosen = false;
   let chosenSubscription = undefined;
