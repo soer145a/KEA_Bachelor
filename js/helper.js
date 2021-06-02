@@ -6,106 +6,100 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function updateSliderButton() {
-    //This function sets the "active" class to the clicked element
-    if (document.querySelector(".js-carousel-button") !== null) {
-        let aSliderButtons = document.querySelectorAll(".js-carousel-button");
+  //This function sets the "active" class to the clicked element
+  if (document.querySelector(".js-carousel-button") !== null) {
+    let aSliderButtons = document.querySelectorAll(".js-carousel-button");
 
-        aSliderButtons.forEach((button) => {
-            button.addEventListener("click", () => {
-                for (let i = 0; i < aSliderButtons.length; i++) {
-                    aSliderButtons[i].classList.remove(
-                        "slider-dots__dot-element--active"
-                    );
-                }
-                button.classList.add("slider-dots__dot-element--active");
-            });
-        });
-    }
+    aSliderButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        for (let i = 0; i < aSliderButtons.length; i++) {
+          aSliderButtons[i].classList.remove(
+            "slider-dots__dot-element--active"
+          );
+        }
+        button.classList.add("slider-dots__dot-element--active");
+      });
+    });
+  }
 }
 
 function toggleDialogBox() {
-    let aDialogBoxes = document.querySelectorAll(".dialog-box");
-    for (let i = 0; i < aDialogBoxes.length; i++) {
-        if (!aDialogBoxes[i].classList.contains("dialog-box--hidden")) {
-            aDialogBoxes[i].classList.add("dialog-box--hidden");
-        }
+  let aDialogBoxes = document.querySelectorAll(".dialog-box");
+  for (let i = 0; i < aDialogBoxes.length; i++) {
+    if (!aDialogBoxes[i].classList.contains("dialog-box--hidden")) {
+      aDialogBoxes[i].classList.add("dialog-box--hidden");
     }
+  }
 }
 
 function toggleDropdown() {
-    if (document.querySelector(".dropdown") !== null) {
-        let aDropdownBtnElements =
-            document.querySelectorAll(".dropdown__button");
-        let aDropdownlistElements = document.querySelectorAll(
-            ".dropdown-list-container"
-        );
-        aDropdownBtnElements.forEach((button) => {
-            button.addEventListener("click", () => {
-                //Reset all dialog boxes
+  if (document.querySelector(".dropdown") !== null) {
+    let aDropdownBtnElements = document.querySelectorAll(".dropdown__button");
+    let aDropdownlistElements = document.querySelectorAll(
+      ".dropdown-list-container"
+    );
+    aDropdownBtnElements.forEach((button) => {
+      button.addEventListener("click", () => {
+        //Reset all dialog boxes
 
-                aDropdownlistElements.forEach((list) => {
-                    if (button.dataset.buttonid === list.dataset.listid) {
-                        list.classList.toggle(
-                            "dropdown-list-container--hidden"
-                        );
-                    }
-                });
-            });
+        aDropdownlistElements.forEach((list) => {
+          if (button.dataset.buttonid === list.dataset.listid) {
+            list.classList.toggle("dropdown-list-container--hidden");
+          }
         });
-    }
+      });
+    });
+  }
 }
 
 function itemSelector() {
-    let aDropdownItems = "";
-    if (document.querySelector(".dropdown__list-item") !== null) {
-        aDropdownItems = document.querySelectorAll(".dropdown__list-item");
-        for (let i = 0; i < aDropdownItems.length; i++) {
-            //remove active class from all items
+  let aDropdownItems = "";
+  if (document.querySelector(".dropdown__list-item") !== null) {
+    aDropdownItems = document.querySelectorAll(".dropdown__list-item");
+    for (let i = 0; i < aDropdownItems.length; i++) {
+      //remove active class from all items
 
-            aDropdownItems[i].addEventListener("click", (e) => {
-                let aChildrenNodes = Array.from(
-                    aDropdownItems[i].parentElement.children
-                );
-                aChildrenNodes.forEach((child) => {
-                    //remove class
-                    child.classList.remove("dropdown__list-item--active");
-                });
-                toggleDialogBox();
-                clickedItem(aDropdownItems[i]);
-            });
-        }
+      aDropdownItems[i].addEventListener("click", (e) => {
+        let aChildrenNodes = Array.from(
+          aDropdownItems[i].parentElement.children
+        );
+        aChildrenNodes.forEach((child) => {
+          //remove class
+          child.classList.remove("dropdown__list-item--active");
+        });
+        toggleDialogBox();
+        clickedItem(aDropdownItems[i]);
+      });
     }
+  }
 }
 
 function clickedItem(item) {
-    let aDropdownButtons = document.querySelectorAll(".dropdown__button");
-    aDropdownButtons.forEach((button) => {
-        if (button.dataset.buttonid === item.dataset.buttonid) {
-            if (
-                button.dataset.subscriptionid === undefined ||
-                button.dataset.subscriptionid !== item.dataset.subscriptionid
-            ) {
-                //toogle active class
-                item.classList.add("dropdown__list-item--active");
-                //update text on dropdown button
-                button.textContent = item.textContent;
-                //Create or update dataset attribute
-                button.setAttribute(
-                    "data-subscriptionid",
-                    item.dataset.subscriptionid
-                );
-            } else if (
-                button.dataset.subscriptionid === item.dataset.subscriptionid
-            ) {
-                //Reset button and remove product id dataset
-                button.removeAttribute("data-subscriptionid");
-                //remove active class from the clicked product item.
-                item.classList.remove("dropdown__list-item--active");
-                //Update text on dropdown button
-                button.textContent = "Choose a subscription length";
-            }
-        }
-    });
+  let aDropdownButtons = document.querySelectorAll(".dropdown__button");
+  aDropdownButtons.forEach((button) => {
+    if (button.dataset.buttonid === item.dataset.buttonid) {
+      if (
+        button.dataset.subscriptionid === undefined ||
+        button.dataset.subscriptionid !== item.dataset.subscriptionid
+      ) {
+        //toogle active class
+        item.classList.add("dropdown__list-item--active");
+        //update text on dropdown button
+        button.textContent = item.textContent;
+        //Create or update dataset attribute
+        button.setAttribute("data-subscriptionid", item.dataset.subscriptionid);
+      } else if (
+        button.dataset.subscriptionid === item.dataset.subscriptionid
+      ) {
+        //Reset button and remove product id dataset
+        button.removeAttribute("data-subscriptionid");
+        //remove active class from the clicked product item.
+        item.classList.remove("dropdown__list-item--active");
+        //Update text on dropdown button
+        button.textContent = "Choose a subscription length";
+      }
+    }
+  });
 }
 
 function addAddOnToCart(addOnId) {
@@ -121,21 +115,19 @@ function addAddOnToCart(addOnId) {
 }
 
 function addProductToCart(productId, buttonId) {
-    let aSubscriptionItems = document.querySelectorAll(".dropdown__list-item");
-    let subChosen = false;
-    let chosenSubscription = undefined;
+  let aSubscriptionItems = document.querySelectorAll(".dropdown__list-item");
+  let subChosen = false;
+  let chosenSubscription = undefined;
 
-    for (let i = 0; i < aSubscriptionItems.length; i++) {
-        if (
-            parseInt(aSubscriptionItems[i].dataset.buttonid) === buttonId &&
-            aSubscriptionItems[i].classList.contains(
-                "dropdown__list-item--active"
-            )
-        ) {
-            subChosen = true;
-            chosenSubscription = aSubscriptionItems[i].dataset.subscriptionid;
-        }
+  for (let i = 0; i < aSubscriptionItems.length; i++) {
+    if (
+      parseInt(aSubscriptionItems[i].dataset.buttonid) === buttonId &&
+      aSubscriptionItems[i].classList.contains("dropdown__list-item--active")
+    ) {
+      subChosen = true;
+      chosenSubscription = aSubscriptionItems[i].dataset.subscriptionid;
     }
+  }
 
     if (!subChosen) {
         let aDialogBoxes = document.querySelectorAll(".dialog-box");
@@ -152,12 +144,13 @@ function addProductToCart(productId, buttonId) {
         });
         updateCartCounter({isProduct: true, addonAmount: 0, increment: true})
     }
-}
+} 
+
 
 function updateCartCounter(object) {
     let eCartCounter = document.querySelector(".cart-counter");
 
-    let counter = parseInt(eCartCounter.textContent);
+  let counter = parseInt(eCartCounter.textContent);
 
 
     if(object.isProduct) {
@@ -177,9 +170,6 @@ function updateCartCounter(object) {
             eCartCounter.textContent = counter + parseInt(object.addonAmount);
         }
     }
-    
-    
-
     
 }
 
@@ -201,18 +191,16 @@ function removeItemFromCart(id, isProduct, addonAmount) {
 }
 
 function toggleInfoBox() {
-    console.log("toggleInfoBox()");
-    if (document.querySelector(".js-toggle-infobox") !== null) {
-        aToggleElements = document.querySelectorAll(".js-toggle-infobox");
-        aToggleElements.forEach((element) => {
-            element.addEventListener("click", () => {
-                const eInfobox = document.querySelector(
-                    ".login-form__label-info-box"
-                );
-                eInfobox.classList.toggle("login-form__label-info-box--hidden");
-            });
-        });
-    }
+  console.log("toggleInfoBox()");
+  if (document.querySelector(".js-toggle-infobox") !== null) {
+    aToggleElements = document.querySelectorAll(".js-toggle-infobox");
+    aToggleElements.forEach((element) => {
+      element.addEventListener("click", () => {
+        const eInfobox = document.querySelector(".login-form__label-info-box");
+        eInfobox.classList.toggle("login-form__label-info-box--hidden");
+      });
+    });
+  }
 }
 
 // function scrollToItem(itemPosition, numItems, scroller) {
