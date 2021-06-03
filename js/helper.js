@@ -127,7 +127,7 @@ function addAddOnToCart(sAddOnId) {
 function addProductToCart(productId, buttonId) {
   let aSubscriptionItems = document.querySelectorAll(".dropdown__list-item");
   let subChosen = false;
-  let chosenSubscription = undefined;
+  let sSubscriptionId = undefined;
 
   for (let i = 0; i < aSubscriptionItems.length; i++) {
     if (
@@ -135,7 +135,7 @@ function addProductToCart(productId, buttonId) {
       aSubscriptionItems[i].classList.contains("dropdown__list-item--active")
     ) {
       subChosen = true;
-      chosenSubscription = aSubscriptionItems[i].dataset.subscriptionid;
+      sSubscriptionId = aSubscriptionItems[i].dataset.subscriptionid;
     }
   }
 
@@ -150,7 +150,7 @@ function addProductToCart(productId, buttonId) {
     //Add to cart
     postData("API/add-product-to-cart.php", {
       productId: productId,
-      sub: chosenSubscription,
+      subscriptionId: sSubscriptionId,
     });
     updateCartCounter({ isProduct: true, addonAmount: 0, increment: true });
   }
@@ -192,8 +192,6 @@ function removeItemFromCart(id, isProduct, addonAmount) {
   postData("API/remove-item-from-cart.php", {
     itemId: id,
     isProduct: isProduct,
-  }).then((res) => {
-    console.log(res);
   });
 }
 

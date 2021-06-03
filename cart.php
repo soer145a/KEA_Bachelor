@@ -293,7 +293,7 @@ if (!isset($_SESSION['loginStatus'])) {
     }
 
     function printBtnValidate() {
-        console.log("Fire");
+
         console.log(document.querySelectorAll(".valid").length);
         btnContainer = document.getElementsByClassName("form__btnContainer")[0];
         if (document.querySelectorAll(".valid").length !== 12) {
@@ -317,7 +317,7 @@ if (!isset($_SESSION['loginStatus'])) {
                 },
                 onApprove: function(data, actions) {
                     return actions.order.capture().then(function(PurchaseDetails) {
-                        
+
                         document.getElementsByClassName('signUpForm')[0].submit();
                     });
                 }

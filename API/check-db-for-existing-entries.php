@@ -3,21 +3,21 @@ include_once("../DB_Connection/connection.php");
 
 $_POST = json_decode(file_get_contents("php://input"), true); //make json object an assoc array
 
-if (isset($_POST)) {
+if (isset($_POST['data'])) {
 
-    $type = key($_POST);
-    $value = $conn->real_escape_string(reset($_POST));
+    $sWhatTocheck = $_POST['whatToCheck'];
+    $sData = $_POST['data'];
 
-    $sql = "SELECT * FROM customers WHERE $type = \"$value\"";
-    $result = $conn->query($sql);
+    $sCheckSelectSql = "SELECT * FROM customers WHERE $sWhatTocheck = \"$sData\"";
+    $oCheckResult = $conn->query($sCheckSelectSql);
 
-    if ($result->num_rows > 0) {
-        $response = array("dataExists" => true, "sql" => $sql, "num-rows" => $result->num_rows);
+    if ($oCheckResult->num_rows > 0) {
+        $response = array("dataExists" => true);
     } else {
-        $response = array("dataExists" => false, "sql" => $sql, "num-rows" => $result->num_rows);
+        $response = array("dataExists" => false);
     }
 } else {
-    $response = array("error" => true, "sql" => $sql, "num-rows" => $result->num_rows);
+    $response = array("error" => true);
 }
 
 echo json_encode($response);
