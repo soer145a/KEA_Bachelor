@@ -109,6 +109,11 @@ button:hover {
     color: var(--white);
 }
 
+.button--red {
+    background-color: var(--red);
+    color: var(--white);
+}
+
 /* Chrome, Safari, Edge, Opera */
 
 input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {

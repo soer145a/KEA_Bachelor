@@ -68,13 +68,12 @@ $apiKey = "";
             <div class="layout-container profile">
                 <h1 class="section-header profile__header">Welcome <?= $firstName, " ", $lastName ?></h1>
                 <div class="profile__main">
-                    <button onclick="showDeleteOption()">Delete my account</button>
-                    <div id="deleteModal" class="hidden">
-                        <h1>Are you sure you want to delete your data?</h1>
-                        <p>You are about to delete every data we have regarding your product and your orders. <br>
+                    <div id="deleteModal" class="hidden modal--delete">
+                        <h2 class="section-header">Are you sure you want to delete your data?</h2>
+                        <p class="section-paragraph">You are about to delete every data we have regarding your product and your orders. <br>
                             Going foward with this, there will be no recovering this information, and your product and licenses will be removed from your account.</p>
                         <div id="customerInfo">
-                            <p>You will be deleting:</p>
+                            <p class="section-paragraph">You will be deleting:</p>
                             <ul>
                                 <?php
                                 include("DB_Connection/connection.php");
@@ -100,14 +99,14 @@ $apiKey = "";
                             </ul>
 
                         </div>
-                        <button onclick="cancelDeletion()">Cancel</button>
-                        <button onclick="showDeleteOption2()">I Understand</button>
+                        <button class="button button--purple" onclick="cancelDeletion()">Cancel</button>
+                        <button class="button button--red" onclick="showDeleteOption2()">I Understand</button>
                     </div>
                     <div id="deleteModalTotal" class="<?php if ($showFlag) {
                                                             echo "shown";
                                                         } else {
                                                             echo "hidden";
-                                                        } ?>">
+                                                        } ?> ">
                         <h1>Enter password</h1>
                         <p>By entering your password, your account will be deleted.</p>
                         <form method="post">
@@ -193,75 +192,112 @@ $apiKey = "";
                         echo $profileInfo;
                         ?>
                     </div>
-
                     <div class="account-information">
                         <div class="customer-information">
                             <div class="customer-information-container">
                                 <h4 class="section-subheader">Company Information</h4>
                                 <div class="customer-information-wrapper">
                                     <div class="customer-information__item customer-information__company-name">
-                                        <p><?= $customerCompName ?></p>
-                                        <button onclick="editInfo('Company name: ', '<?= $customerCompName ?>', 'string', 'customer_company_name')">Edit</button>
+                                        <p class="section-paragraph customer-information__item__text"><?= $customerCompName ?></p>
+                                        <span class="customer-information__item__icon-outer" onclick="editInfo('<?= $customerCompName ?>', 'string', 'customer_company_name')">
+                                            <span class="customer-information__item__icon-inner "></span>
+                                        </span>
                                     </div>
                                     <div class="customer-information__item customer-information__cvr">
-                                        <p>CVR: <?= $customerCvr ?></p>
-                                        <button onclick="editInfo('Company cvr: ', '<?= $customerCvr ?>', 'cvr', 'customer_cvr')">Edit</button>
+                                        <p class="section-paragraph customer-information__item__text">CVR: <?= $customerCvr ?></p>
+                                        <span class="customer-information__item__icon-outer" onclick="editInfo( '<?= $customerCvr ?>', 'cvr', 'customer_cvr')">
+                                            <span class="customer-information__item__icon-inner "></span>
+                                        </span>
                                     </div>
                                     <div class="customer-information__item customer-information__streetname">
-                                        <p><?= $customerStreet ?></p>
-                                        <button onclick="editInfo('Street: ', '<?= $customerStreet ?>', 'string', 'customer_address')">Edit</button>
+                                        <p class="section-paragraph customer-information__item__text"><?= $customerStreet ?></p>
+                                        <span class="customer-information__item__icon-outer" onclick="editInfo( '<?= $customerStreet ?>', 'string', 'customer_address')">
+                                            <span class="customer-information__item__icon-inner "></span>
+                                        </span>
                                     </div>
                                     <div class="customer-information__item customer-information__zipcode">
-                                        <p><?= $customerPostCode ?></p>
-                                        <button onclick="editInfo('Postcode: ', '<?= $customerPostCode ?>', 'string', 'customer_postcode')">Edit</button>
+                                        <p class="section-paragraph customer-information__item__text"><?= $customerPostCode ?></p>
+                                        <span class="customer-information__item__icon-outer" onclick="editInfo( '<?= $customerPostCode ?>', 'string', 'customer_postcode')">
+                                            <span class="customer-information__item__icon-inner "></span>
+                                        </span>
                                     </div>
                                     <div class="customer-information__item customer-information__city">
-                                        <p><?= $customerCity ?></p>
-                                        <button onclick="editInfo('City: ', '<?= $customerCity ?>', 'string', 'customer_city')">Edit</button>
+                                        <p class="section-paragraph customer-information__item__text"><?= $customerCity ?></p>
+                                        <span class="customer-information__item__icon-outer" onclick="editInfo('<?= $customerCity ?>', 'string', 'customer_city')">
+                                            <span class="customer-information__item__icon-inner "></span>
+                                        </span>
                                     </div>
                                     <div class="customer-information__item customer-information__country">
-                                        <p><?= $customerCountry ?></p>
-                                        <button onclick="editInfo('Country: ', '<?= $customerCountry ?>', 'string', 'customer_country')">Edit</button>
+                                        <p class="section-paragraph customer-information__item__text"><?= $customerCountry ?></p>
+                                        <span class="customer-information__item__icon-outer" onclick="editInfo('<?= $customerCountry ?>', 'string', 'customer_country')">
+                                            <span class="customer-information__item__icon-inner "></span>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
                             <div class="customer-information-container">
-                                <h4 class="section-subheader">Contanct Person</h4>
+                                <h4 class="section-subheader">Contact Person</h4>
                                 <div class="customer-information-wrapper">
                                     <div class="customer-information__item customer-information__firstname">
-                                        <p>Firstname: <?= $firstName ?></p>
-                                        <button onclick="editInfo('Firstname: ', '<?= $firstName ?>', 'string', 'customer_first_name')">Edit</button>
+                                        <p class="section-paragraph customer-information__item__text"><?= $firstName ?></p>
+                                        <span class="customer-information__item__icon-outer" onclick="editInfo('Firstname: ', '<?= $firstName ?>', 'string', 'customer_first_name')">
+                                            <span class="customer-information__item__icon-inner "></span>
+                                        </span>
                                     </div>
                                     <div class="customer-information__item customer-information__lastname">
-                                        <p>Lastname: <?= $lastName ?></p>
-                                        <button onclick="editInfo('Lastname: ', '<?= $lastName ?>', 'string', 'customer_last_name')">Edit</button>
+                                        <p class="section-paragraph customer-information__item__text"><?= $lastName ?></p>
+                                        <span class="customer-information__item__icon-outer" onclick="editInfo('Firstname: ', '<?= $lastName ?>', 'string', 'customer_first_name')">
+                                            <span class="customer-information__item__icon-inner "></span>
+                                        </span>
                                     </div>
                                     <div class="customer-information__item customer-information__email">
-                                        <p>Email: <?= $customerEmail ?></p>
-                                        <button onclick="editInfo('Email: ', '<?= $customerEmail ?>', 'email', 'customer_email')">Edit</button>
+                                        <p class="section-paragraph customer-information__item__text"><?= $customerEmail ?></p>
+                                        <span class="customer-information__item__icon-outer" onclick="editInfo('Firstname: ', '<?= $customerEmail ?>', 'string', 'customer_first_name')">
+                                            <span class="customer-information__item__icon-inner "></span>
+                                        </span>
+
                                     </div>
                                     <div class="customer-information__item customer-information__phone">
-                                        <p>Phone: <?= $customerPhone ?></p>
-                                        <button onclick="editInfo('Phone: ', '<?= $customerPhone ?>', 'phone', 'customer_phone')">Edit</button>
+                                        <p class="section-paragraph customer-information__item__text"><?= $customerPhone ?></p>
+                                        <span class="customer-information__item__icon-outer" onclick="editInfo('Firstname: ', '<?= $customerPhone ?>', 'string', 'customer_first_name')">
+                                            <span class="customer-information__item__icon-inner "></span>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
                             <div class="customer-information-container">
                                 <h4 class="section-subheader">Edit password</h4>
-                                <form class="form" method="post" onsubmit="return inputValidate();" action="API/update-customer-data.php">
-                                    <p>Old password:</p>
-                                    <input class="form__input" oninput="inputValidate()" data-validate="password" type="password" name="customer_password" placeholder="MyStr0ng.PW-example">
-
-                                    <p>New password:</p>
-                                    <input class="form__input" oninput="inputValidate()" data-validate="password" type="password" name="input_password_init" placeholder="MyStr0ng.PW-example">
-
-                                    <p>Confirm new password:</p>
-                                    <input class="form__input" oninput="inputValidate()" data-validate="password" type="password" name="input_password_confirm" placeholder="MyStr0ng.PW-example">
-
-                                    <button class="form__btn" type="submit">Change password</button>
-                                    <div class="errorMessage">
+                                <form class="customer-password-form" method="post" onsubmit="return inputValidate();" action="API/update-customer-data.php">
+                                    <div class="form-wrapper">
+                                        <label class="customer-password-form__input-label">New password: <span class="login-form__label-info-outer js-toggle-infobox">
+                                                <span class="login-form__label-info-inner">
+                                                </span>
+                                            </span>
+                                            <span class="login-form__label-info-box js-toggle-infobox login-form__label-info-box--hidden">
+                                                <h5 class="section-subheader label-info-box__header">The password must concist of:</h5>
+                                                <ul>
+                                                    <li>6-30 characters</li>
+                                                    <li>One uppercase character</li>
+                                                    <li>One numeric character</li>
+                                                    <li>One special character.</li>
+                                                </ul>
+                                            </span>
+                                        </label>
+                                        <input id="newPassword" class="customer-password-form__input" oninput="inputValidate()" data-validate="password" type="password" name="input_password_init" placeholder="New password">
+                                    </div>
+                                    <div class="form-wrapper">
+                                        <label for="confirmPassword" class="customer-password-form__input-label">Confirm new password:</label>
+                                        <input id="confirmPassword" class="customer-password-form__input" oninput="inputValidate()" data-validate="password" type="password" name="input_password_confirm" placeholder="Confirm password">
+                                    </div>
+                                    <div class="form-wrapper">
+                                        <label for="oldPassword" class="customer-password-form__input-label">Old password:</label>
+                                        <input id="oldPassword" class="customer-password-form__input" oninput="inputValidate()" data-validate="password" type="password" name="customer_password" placeholder="Type your old password">
+                                    </div>
+                                    <button class="button button--yellow customer-password-form__button" type="submit">Change password</button>
+                                    <!-- <div class="errorMessage"></div> -->
                                 </form>
                             </div>
+                            <button class="customer-information__button button button--red" onclick="showDeleteOption()">Delete account</button>
                         </div>
                     </div>
                 </div>
@@ -277,5 +313,6 @@ $apiKey = "";
     hljs.highlightAll();
 </script>
 <script src="js/app.js"></script>
+<script src="js/helper.js"></script>
 
 </html>

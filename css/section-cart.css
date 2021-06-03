@@ -1,7 +1,3 @@
-#cart {
-    /* background-color: var(--purple-light); */
-}
-
 .cart {
     padding-top: 4rem;
     padding-bottom: 4rem;
@@ -146,7 +142,7 @@
 
 .product-item__delete {
     cursor: pointer;
-    background-image: url("../Assets/icons/remove.svg");
+    background-image: url("../assets/icons/remove.svg");
     background-size: cover;
     height: 30px;
     width: 30px;

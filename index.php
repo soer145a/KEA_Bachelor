@@ -67,7 +67,7 @@ $addOns = addOnsComp($conn);
                 </div>
                 <div class="image-container">
                     <div class="image-wrapper">
-                        <img src="./Assets/images/use-case.jpg" alt="live preview of clothes in front of in-store screen" />
+                        <img src="./assets/images/use-case.jpg" alt="live preview of clothes in front of in-store screen" />
                     </div>
                     <span class="background-block"></span>
                 </div>
@@ -93,7 +93,7 @@ $addOns = addOnsComp($conn);
                 <div class="slider-container">
                     <div class="slider">
                         <div id="card-1" class="card">
-                            <img class="card__image" src="./Assets/images/product-1.jpg" alt="" />
+                            <img class="card__image" src="./assets/images/product-1.jpg" alt="" />
                             <span class="card__overlay"></span>
                             <h4 class="card__title">In-Store Kiosk</h4>
                             <button class="card__button">
@@ -101,7 +101,7 @@ $addOns = addOnsComp($conn);
                             </button>
                         </div>
                         <div id="card-2" class="card">
-                            <img class="card__image" src="./Assets/images/product-2.jpg" alt="" />
+                            <img class="card__image" src="./assets/images/product-2.jpg" alt="" />
                             <span class="card__overlay"></span>
                             <h4 class="card__title">Mobile Devices</h4>
                             <button class="card__button">
@@ -109,7 +109,7 @@ $addOns = addOnsComp($conn);
                             </button>
                         </div>
                         <div id="card-3" class="card">
-                            <img class="card__image" src="./Assets/images/product-3.png" alt="" />
+                            <img class="card__image" src="./assets/images/product-3.png" alt="" />
                             <span class="card__overlay"></span>
                             <h4 class="card__title">Webcam</h4>
                             <button class="card__button">

@@ -11,7 +11,7 @@ function addOnsComp($conn)
         switch ($addOnRow->addon_id) {
             case 1:
                 $addOn1 = "<div class='addon-wrapper'>
-                <img class='addon-image' src='./Assets/images/3d-model.png' alt='3d model of shirt'>
+                <img class='addon-image' src='./assets/images/3d-model.png' alt='3d model of shirt'>
                 <div class='text-wrapper'>
                     <div class='addon-form'>
                         <h3 class='section-subheader'>3D models</h3>
@@ -24,7 +24,7 @@ function addOnsComp($conn)
                 break;
             case 2:
                 $addOn2 = "<div class='addon-wrapper'>
-                <img class='addon-image' src='./Assets/images/variations.png' alt='shirt varitions'>
+                <img class='addon-image' src='./assets/images/variations.png' alt='shirt varitions'>
                 <div class='text-wrapper'>
                     <div class='addon-form'>
                         <h3 class='section-subheader'>3D Variations</h3>

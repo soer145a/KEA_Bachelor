@@ -132,6 +132,10 @@
         display: flex;
         flex-direction: column;
     }
+
+    .customer-information {
+        width: 49%;
+    }
 }
 
 /* DESKTOP - Orientation Landscape */

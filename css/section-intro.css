@@ -44,7 +44,7 @@
     z-index: 2;
     border-radius: 20px;
     text-indent: -9999px;
-    background-image: url("../Assets/images/video-tumbnail.jpg");
+    background-image: url("../assets/images/video-tumbnail.jpg");
     background-repeat: no-repeat;
     background-size: cover;
 }
