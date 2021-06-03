@@ -1,0 +1,32 @@
+.profile {
+    margin-top: 32px;
+    margin-bottom: 32px;
+}
+.profile__header {
+   text-align: center;
+}
+
+.account-information {
+    display: flex;
+    justify-content: space-between;
+}
+
+.customer-information {
+    width: 49%;
+}
+
+.customer-information-container {
+    border: 2px solid var(--purple-light);
+    padding: 16px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+}
+
+.customer-information-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.customer-information__item {
+    flex-basis: 50%;
+}
