@@ -1,0 +1,152 @@
+.profile {
+    margin-top: 32px;
+    margin-bottom: 32px;
+}
+
+.profile__main {
+    position: relative;
+}
+
+.modal--delete {
+    position: fixed;
+    z-index: 9000;
+    text-align: center;
+    border-radius: 10px;
+    padding: 16px;
+    background-color: var(--yellow);
+    color: var(--purple-dark);
+    left: 0;
+    margin: 0 16px;
+}
+.profile__header {
+   text-align: center;
+}
+
+.account-information {
+    display: flex;
+    justify-content: space-between;
+}
+
+.customer-information {
+    width: 100%;
+}
+
+.customer-information .customer-information__button {
+    width: 200px;
+
+}
+
+.customer-information-container {
+    border: 2px solid var(--purple-light);
+    padding: 16px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+}
+
+.customer-information-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+
+.customer-information__item {
+    flex-basis: 50%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    min-width: 260px;
+    width: 100%;
+}
+
+.customer-information__item--hidden {
+    display: none !important;
+}
+
+.customer-information-form {
+    display: flex;
+    align-items: center;
+}
+
+.customer-information-form .form__button {
+    background-color: transparent;
+    background-size: cover;
+    border: none;
+    height: 20px;
+    width: 20px;
+    margin-left: 16px;
+}
+
+.customer-information-form .form__input {
+    width: 60%;
+    border: 2px solid var(--purple-light);
+}
+
+.customer-information-form .form__button--submit {
+    background-image: url("../assets/icons/check.svg");
+}
+.customer-information-form .form__button--cancel {
+    background-image: url("../assets/icons/remove.svg");
+}
+
+.customer-information__item__text {
+    margin: 0;
+}
+
+.customer-information__item__icon-outer {
+    display: block;
+    padding: 10px;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: 32px;
+}
+
+.customer-information__item__icon-inner {
+    pointer-events: none;
+    display: block;
+    width: 20px;
+    height: 20px;
+    background-image: url("../assets/icons/pencil.svg");
+    background-size: cover;
+
+}
+
+.customer-password-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.form-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 49%;
+}
+
+.customer-password-form__input-label {
+    height: 30px;
+    position: relative;
+    width: auto;
+}
+
+.customer-password-form__input-label .login-form__label-info-outer {
+    position: absolute;
+    top: -10px;
+    left: 45%;
+    z-index: 10;
+}
+
+.customer-password-form__input-label .login-form__label-info-box {
+    left: 65%;
+    z-index: 10;
+}
+
+.customer-password-form__input {
+    margin-top: 8px;
+    margin-bottom: 32px;
+    border: 2px solid var(--purple-light);
+}
+
+.customer-password-form__button {
+    align-self: center;
+}

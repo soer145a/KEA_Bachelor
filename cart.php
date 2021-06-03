@@ -264,9 +264,7 @@ if (!isset($_SESSION['loginStatus'])) {
     <?= $footer ?>
 </body>
 <script src="js/app.js"></script>
-<script src="https://www.paypal.com/sdk/js?client-id=
-            ASc0sohSJuv9IX6ovw_EQxA0uGoiQO5YxX2U7u9qnfZGwovsZ6Tylr1Arf0XOCAshoqqX8ApS3nkYpGy&currency=
-            EUR&disable-funding=credit,card" async>
+<script src="https://www.paypal.com/sdk/js?client-id=ASc0sohSJuv9IX6ovw_EQxA0uGoiQO5YxX2U7u9qnfZGwovsZ6Tylr1Arf0XOCAshoqqX8ApS3nkYpGy&currency=EUR&disable-funding=credit,card" async>
 </script>
 <script>
     if (<?= $loggedIn ?>) {

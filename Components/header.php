@@ -56,7 +56,7 @@ function headerComp($activeLink)
             <a href='index.php'
                 ><img
                     class='navigation__logo'
-                    src='./Assets/logo.png'
+                    src='./assets/logo.png'
                     alt='brand logo'
             /></a>
             <div class='navigation--wrapper'>

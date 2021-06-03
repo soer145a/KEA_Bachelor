@@ -158,9 +158,9 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`product_id`, `product_name`, `product_price`, `product_image_url`) VALUES
-(1, 'In-store Kiosk', '2900', './Assets/images/product-1.jpg'),
-(2, 'Mobile App', '1500', './Assets/images/product-2.jpg'),
-(3, 'Webcam', '999', './Assets/images/product-3.png');
+(1, 'In-store Kiosk', '2900', './assets/images/product-1.jpg'),
+(2, 'Mobile App', '1500', './assets/images/product-2.jpg'),
+(3, 'Webcam', '999', './assets/images/product-3.png');
 
 -- --------------------------------------------------------
 

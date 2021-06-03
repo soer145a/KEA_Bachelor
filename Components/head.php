@@ -14,17 +14,18 @@ function headComp()
         <link rel='stylesheet' href='css/stylereset.css' />
         <link rel='stylesheet' href='css/app.css' />
         <link rel='stylesheet' href='css/navigation.css' />
-        <link rel='stylesheet' href='css/section_intro.css' />
-        <link rel='stylesheet' href='css/section_use_case.css' />
-        <link rel='stylesheet' href='css/section_technologies.css' />
-        <link rel='stylesheet' href='css/section_solutions.css' />
-        <link rel='stylesheet' href='css/section_miscelleanous.css' />
-        <link rel='stylesheet' href='css/section_contact.css' />
-        <link rel='stylesheet' href='css/section_cart.css' />
-        <link rel='stylesheet' href='css/section_login.css' />
-        <link rel='stylesheet' href='css/section_orderConfirmation.css' />
+        <link rel='stylesheet' href='css/section-intro.css' />
+        <link rel='stylesheet' href='css/section-use-case.css' />
+        <link rel='stylesheet' href='css/section-technologies.css' />
+        <link rel='stylesheet' href='css/section-solutions.css' />
+        <link rel='stylesheet' href='css/section-miscelleanous.css' />
+        <link rel='stylesheet' href='css/section-contact.css' />
+        <link rel='stylesheet' href='css/section-cart.css' />
+        <link rel='stylesheet' href='css/section-login.css' />
+        <link rel='stylesheet' href='css/section-profile.css' />
+        <link rel='stylesheet' href='css/section-order-confirmation.css' />
         <link rel='stylesheet' href='css/footer.css' />
-        <link rel='stylesheet' href='css/media_queries.css' />
+        <link rel='stylesheet' href='css/media-queries.css' />
         ";
     return $head;
 }
