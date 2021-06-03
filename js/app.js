@@ -19,7 +19,7 @@ function inputValidate() {
       case "phone":
         inputData = inputsToValidate[i].value;
         let regPhone = /^\+(?:[0-9]●?){6,16}[0-9]$/;
-
+      
         if (!regPhone.test(inputData)) {
           inputsToValidate[i].classList.add("invalid");
           inputsToValidate[i].classList.remove("valid");

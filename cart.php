@@ -18,12 +18,12 @@ $totalPrice = 0;
 
 if (isset($_SESSION['cartProducts'])) {
     foreach ($_SESSION['cartProducts'] as $product) {
-        $productName = $product['product_name'];
-        $productPrice = $product['product_price'];
-        $productId = $product['product_id'];
-        $subscriptionName = $product['subscription_name'];
-        $subscriptionPrice = $product['subscription_price'];
-        $totalPrice =  $totalPrice + (float)$product['product_price'];
+        $productName = $product['productName'];
+        $productPrice = $product['productPrice'];
+        $productId = $product['productId'];
+        $subscriptionName = $product['subscriptionName'];
+        $subscriptionPrice = $product['subscriptionPrice'];
+        $totalPrice =  $totalPrice + (float)$product['productPrice'];
 
         $products =  $products . "<div class='product-row'>
                                     <div class='product-item'>
@@ -48,16 +48,16 @@ if (isset($_SESSION['cartAddOns'])) {
     foreach ($_SESSION['cartAddOns'] as $addon) {
         $sAddOnId = $addon['addOnId'];
         $addonName = $addon['addOnName'];
-        $addonQuantity = $addon['addOnAmount'];
+        $nAddOnAmount = $addon['addOnAmount'];
         $addonPrice = $addon['addOnPrice'];
-        $addonTotalPrice = (float)$addonQuantity * (float)$addonPrice;
+        $addonTotalPrice = (float)$nAddOnAmount * (float)$addonPrice;
         $totalPrice =  $totalPrice + $addonTotalPrice;
         $addons =  $addons . "<div class='product-row'>
                                     <div class='product-item'>
                                         <p class='product-item__name'>$addonName</p>
                                         <p class='product-item__quantity'>
-                                            <span class='product-item__delete' onclick='removeItemFromCart($sAddOnId, false, $addonQuantity)'></span>
-                                            $addonQuantity
+                                            <span class='product-item__delete' onclick='removeItemFromCart($sAddOnId, false, $nAddOnAmount)'></span>
+                                            $nAddOnAmount
                                         </p>
                                         <p class='product-item__price'>$addonTotalPrice</p>
                                     </div>
@@ -203,6 +203,7 @@ if (!isset($_SESSION['loginStatus'])) {
                 oninput="inputValidate(); printBtnValidate();"
             />
             <div class="errorMessage"></div>
+            <div id="paypal-button-container"></div>
         </form>';
     $loggedIn = 'false';
 } else {
@@ -296,7 +297,7 @@ if (!isset($_SESSION['loginStatus'])) {
         console.log(document.querySelectorAll(".valid").length);
         btnContainer = document.getElementsByClassName("form__btnContainer")[0];
         if (document.querySelectorAll(".valid").length !== 12) {
-            btnContainer.innerHTML = "<p>What would cause you not to fill out all the fields in the form?</p>";
+            // btnContainer.innerHTML = "<p>What would cause you not to fill out all the fields in the form?</p>";
         } else {
             console.log("It does work");
             btnContainer.innerHTML = "<div id='paypal-button-container'></div>";
@@ -316,6 +317,7 @@ if (!isset($_SESSION['loginStatus'])) {
                 },
                 onApprove: function(data, actions) {
                     return actions.order.capture().then(function(PurchaseDetails) {
+                        
                         document.getElementsByClassName('signUpForm')[0].submit();
                     });
                 }

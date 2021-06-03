@@ -80,21 +80,21 @@ $apiKey = "";
                                 $sql = "SELECT count(*) FROM `customer_products` WHERE `customer_id` = \"$customerId\"";
                                 $results = $conn->query($sql);
                                 $row = $results->fetch_assoc();
-                                $amount = $row['count(*)'];
-                                echo "<li> $amount products with active licences</li>";
+                                $nProductAmount = $row['count(*)'];
+                                echo "<li> $nProductAmount products with active licences</li>";
                                 $sql = "SELECT * FROM customer_addons LEFT JOIN addons ON customer_addons.addon_id  = addons.addon_id  WHERE `customer_id` = \"$customerId\"";
                                 $results = $conn->query($sql);
                                 while ($row = $results->fetch_assoc()) {
-                                    $amount = $row['addon_amount'];
+                                    $nAddOnAmount = $row['addon_amount'];
                                     $name = $row['addon_name'];
-                                    echo "<li> $amount $name's in our database</li>";
+                                    echo "<li> $nAddOnAmount $name's in our database</li>";
                                 }
 
                                 $sql = "SELECT count(*) FROM `orders` WHERE `customer_id` = \"$customerId\"";
                                 $results = $conn->query($sql);
                                 $row = $results->fetch_assoc();
-                                $amount = $row['count(*)'];
-                                echo "<li> $amount orders in our database</li>";
+                                $nOrderAmount = $row['count(*)'];
+                                echo "<li> $nOrderAmount orders in our database</li>";
                                 ?>
                             </ul>
 
@@ -167,13 +167,12 @@ $apiKey = "";
                                 $buttonToggle = "On";
                             }
 
-                            $productDesc = $row->product_description;
+
                             $productName = $row->product_name;
 
                             if ($row->subscription_active) {
                                 $profileInfoCard = "<div class='profileCard'>
-                                                        <h1>$productName</h1>
-                                                        <p>$productDesc</p>
+                                                        <h1>$productName</h1>                                                        
                                                         <div class='subInfo'>
                                                             <p>FROM: $subStart || TO: $subEnd</p>
                                                             <p>Total days: $totalDays</p>

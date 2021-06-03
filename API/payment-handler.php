@@ -74,9 +74,9 @@ createReceipt($currentDate);
 //echo "sucess";
 foreach ($cartProducts as $product) {
     $apiKey = bin2hex(random_bytes(32));
-    $product_id = $product['product_id'];
-    $subscription_id = $product['subscription_id'];
-    $product_price = $product['product_price'];
+    $productId = $product['productId'];
+    $subscription_id = $product['subscriptionId'];
+    $productPrice = $product['productPrice'];
     $sql = "SELECT * FROM subscriptions WHERE subscription_id = \"$subscription_id\"";
     $result = $conn->query($sql);
     $row = $result->fetch_object();
@@ -86,21 +86,21 @@ foreach ($cartProducts as $product) {
     $subActive = 1;
     $subAuto = 1;
     $stmt_3 = $conn->prepare("INSERT INTO customer_products (customer_products_id ,customer_id, product_id, subscription_start, subscription_total_length, subscription_end, subscription_active, subscription_autorenew, api_key, embed_link) VALUES ( null,?,?,?,?,?,?,?,?,?)");
-    $stmt_3->bind_param("iiiiiiiss", $customerId, $product_id, $currentDate, $subLen, $subEnd, $subActive, $subAuto, $apiKey, $embed);
+    $stmt_3->bind_param("iiiiiiiss", $customerId, $productId, $currentDate, $subLen, $subEnd, $subActive, $subAuto, $apiKey, $embed);
     $stmt_3->execute();
     $licenseID = $stmt_3->insert_id;
 
     $stmt_4 = $conn->prepare("INSERT INTO order_products (order_products_id, order_id, product_id, subscription_id, payed_price) VALUES(null,?,?,?,?)");
-    $stmt_4->bind_param("iiii", $orderId, $product_id, $subscription_id, $product_price);
+    $stmt_4->bind_param("iiii", $orderId, $productId, $subscription_id, $productPrice);
     $stmt_4->execute();
     $stmt_4->insert_id;
 }
 
 foreach ($cartAddOns as $addOn) {
     $sAddOnId = $addOn['addOnId'];
-    $addOn_amount = $addOn['addOnAmount'];
+    $nAddOnAmount = $addOn['addOnAmount'];
     $addOn_price = $addOn['addOnPrice'];
-    $payed_price = (float)$addOn_price * (float)$addOn_amount;
+    $payed_price = (float)$addOn_price * (float)$nAddOnAmount;
     $addonExists = false;
 
     $sql = "SELECT * FROM customer_addons WHERE customer_id = \"$customerId\"";
@@ -109,7 +109,7 @@ foreach ($cartAddOns as $addOn) {
     while ($row = $result->fetch_object()) {
         if ($row->addon_id == $sAddOnId) {
             $currentAmount = $row->addon_amount;
-            $newAmount = $currentAmount + $addOn_amount;
+            $newAmount = $currentAmount + $nAddOnAmount;
             $sql = "UPDATE customer_addons SET addon_amount = \"$newAmount\" WHERE customer_addon_id = \"$row->customer_addon_id\"";
             $conn->query($sql);
             $addonExists = true;
@@ -118,13 +118,13 @@ foreach ($cartAddOns as $addOn) {
 
     if (!$addonExists) {
         $stmt_6 = $conn->prepare("INSERT INTO customer_addons (customer_addon_id, customer_id, addon_id, addon_amount) VALUES ( null,?,?,?)");
-        $stmt_6->bind_param("iii", $customerId, $sAddOnId, $addOn_amount);
+        $stmt_6->bind_param("iii", $customerId, $sAddOnId, $nAddOnAmount);
         $stmt_6->execute();
         $stmt_6->insert_id;
     }
 
     $stmt_7 = $conn->prepare("INSERT INTO order_addons (order_addons_id, order_id, addon_id, payed_price, addon_amount) VALUES(null,?,?,?,?)");
-    $stmt_7->bind_param("iiss", $orderId, $sAddOnId, $payed_price, $addOn_amount);
+    $stmt_7->bind_param("iiss", $orderId, $sAddOnId, $payed_price, $nAddOnAmount);
     $stmt_7->execute();
     $stmt_7->insert_id;
 }

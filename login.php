@@ -62,7 +62,7 @@ if (isset($_POST['customer_email']) && isset($_POST['customer_password'])) {
                 <form class="login-form" method="post">
                     <label class="login-form__label">Email:</label>
 
-                    <input class="login-form__input" oninput="" type="email" placeholder="example@email.com" data-validate="email" name="customer_email">
+                    <input class="login-form__input" type="email" placeholder="example@email.com" name="customer_email">
 
                     <label class="login-form__label">Password:
                         <span class="login-form__label-info-outer js-toggle-infobox">

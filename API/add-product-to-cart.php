@@ -5,9 +5,9 @@ include("../DB_Connection/connection.php");
 $_POST = json_decode(file_get_contents("php://input"), true); //make json object an assoc array
 
 
-if (isset($_POST['product_id'])) {
+if (isset($_POST['productId'])) {
     $subID = $_POST['sub'];
-    $productId = $_POST['product_id'];
+    $productId = $_POST['productId'];
     $productSql = "SELECT * FROM products WHERE product_id = \"$productId\"";
     $productResult = $conn->query($productSql);
     $productRow = $productResult->fetch_object();
@@ -25,23 +25,23 @@ if (isset($_POST['product_id'])) {
 
         $count = count($_SESSION['cartProducts']);
         $productArray = array(
-            'product_id' => $productId,
-            'product_name' => $productName,
-            'product_price' => $productPrice,
-            'subscription_id' => $subID,
-            'subscription_name' => $subName,
-            'subscription_price' => $subPrice
+            'productId' => $productId,
+            'productName' => $productName,
+            'productPrice' => $productPrice,
+            'subscriptionId' => $subID,
+            'subscriptionName' => $subName,
+            'subscriptionPrice' => $subPrice
         );
         $_SESSION['cartProducts'][$count] = $productArray;
     } else {
 
         $productArray = array(
-            'product_id' => $productId,
-            'product_name' => $productName,
-            'product_price' => $productPrice,
-            'subscription_id' => $subID,
-            'subscription_name' => $subName,
-            'subscription_price' => $subPrice
+            'productId' => $productId,
+            'productName' => $productName,
+            'productPrice' => $productPrice,
+            'subscriptionId' => $subID,
+            'subscriptionName' => $subName,
+            'subscriptionPrice' => $subPrice
         );
         $_SESSION['cartProducts'][0] = $productArray;
     }

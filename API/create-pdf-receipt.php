@@ -64,8 +64,8 @@ function createReceipt($time)
 
     foreach ($_SESSION['cartProducts'] as $product) {
 
-        $productName = $product['product_name'];
-        $productPrice = $product['product_price'];
+        $productName = $product['productName'];
+        $productPrice = $product['productPrice'];
         $totalPrice =  $totalPrice + (float)$productPrice;
 
         $receipt->Cell(100, 5, $productName, 0, 0, 'L');
@@ -88,12 +88,12 @@ function createReceipt($time)
 
         $addonName = $addon['addOnName'];
         $addonPrice = (float)$addon['addOnPrice'];
-        $addonAmount = (float)$addon['addon_amount'];
-        $addonTotalprice = $addonPrice * $addonAmount;
+        $nAddOnAmount = (float)$addon['addOnAmount'];
+        $addonTotalprice = $addonPrice * $nAddOnAmount;
         $totalPrice =  $totalPrice + $addonTotalprice;
 
         $receipt->Cell(100, 5, $addonName, 0, 0, 'L');
-        $receipt->Cell(40, 5, "x $addonAmount", 0, 0, 'L');
+        $receipt->Cell(40, 5, "x $nAddOnAmount", 0, 0, 'L');
         $receipt->Cell(40, 5, $addonPrice, 0, 0, 'L');
         $receipt->Cell(40, 5, $addonTotalprice, 0, 0, 'L');
         $receipt->Ln(8);

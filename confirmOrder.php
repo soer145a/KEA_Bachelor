@@ -18,8 +18,8 @@ $boughtAddons = "";
 if (isset($_SESSION['cartProducts'])) {
     foreach ($_SESSION['cartProducts'] as $product) {
 
-        $productName = $product['product_name'] . ", " .  $productName;
-        $totalPrice =  $totalPrice + (float)$product['product_price'];
+        $productName = $product['productName'] . ", " .  $productName;
+        $totalPrice =  $totalPrice + (float)$product['productPrice'];
     }
 }
 if (isset($_SESSION['cartAddOns'])) {

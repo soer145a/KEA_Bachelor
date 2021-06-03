@@ -35,8 +35,8 @@ if (!isset($_SESSION['loginStatus'])) {
 }
 
 foreach ($_SESSION['cartProducts'] as $product) {
-    $productName = $product['product_name'] . ", " .  $productName;
-    $totalPrice =  $totalPrice + (float)$product['product_price'];
+    $productName = $product['productName'] . ", " .  $productName;
+    $totalPrice =  $totalPrice + (float)$product['productPrice'];
 }
 foreach ($_SESSION['cartAddOns'] as $addon) {
     $addonName = $addon['addOnName'];

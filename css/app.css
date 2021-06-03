@@ -177,14 +177,6 @@ img {
     overflow: hidden;
 }
 
-.invalid {
-    border: 2px solid red;
-}
-
-.valid {
-    border: 2px solid green;
-}
-
 .productCard {
     max-width: 300px;
 }

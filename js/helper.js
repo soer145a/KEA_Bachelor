@@ -103,19 +103,25 @@ function clickedItem(item) {
 }
 
 function addAddOnToCart(sAddOnId) {
-  let addOnAmount = document.querySelector(
+  let nAddOnAmount = document.querySelector(
     ".addon-form__input_" + sAddOnId
   ).value;
 
-  postData("API/add-addon-to-cart.php", {
-    addOnId: sAddOnId,
-    addOnAmount: addOnAmount,
-  });
-  updateCartCounter({
-    isProduct: false,
-    addonAmount: addOnAmount,
-    increment: true,
-  });
+  if (isNaN(parseInt(nAddOnAmount))) {
+    //Do user communication here
+  } else {
+    parseInt(nAddOnAmount);
+
+    postData("API/add-addon-to-cart.php", {
+      addOnId: sAddOnId,
+      addOnAmount: nAddOnAmount,
+    });
+    updateCartCounter({
+      isProduct: false,
+      addonAmount: nAddOnAmount,
+      increment: true,
+    });
+  }
 }
 
 function addProductToCart(productId, buttonId) {
@@ -143,7 +149,7 @@ function addProductToCart(productId, buttonId) {
   } else {
     //Add to cart
     postData("API/add-product-to-cart.php", {
-      product_id: productId,
+      productId: productId,
       sub: chosenSubscription,
     });
     updateCartCounter({ isProduct: true, addonAmount: 0, increment: true });

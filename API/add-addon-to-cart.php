@@ -7,51 +7,48 @@ $_POST = json_decode(file_get_contents("php://input"), true); //make json object
 if (isset($_POST['addOnId'])) {
 
     $sAddOnId = $_POST['addOnId'];
-    $addOnAmount = $_POST['addOnAmount'];
-    $sql = "SELECT * FROM addons WHERE addon_id = \"$sAddOnId\"";
-    $result = $conn->query($sql);
-    $row = $result->fetch_object();
-    $addOnName = $row->addon_name;
-    $addOnPrice = $row->addon_price;
+    $nAddOnAmount = $_POST['addOnAmount'];
+    $sAddOnSelectSql = "SELECT * FROM addons WHERE addon_id = \"$sAddOnId\"";
+    $oAddOnResult = $conn->query($sAddOnSelectSql);
+    $oAddOnRow = $oAddOnResult->fetch_object();
+    $sAddOnName = $oAddOnRow->addon_name;
+    $nAddOnPrice = (float)$oAddOnRow->addon_price;
 
     if (isset($_SESSION['cartAddOns'])) {
 
-        $addOnsIdsArray = array_column($_SESSION['cartAddOns'], 'addOnId');
-        $count = count($_SESSION['cartAddOns']);
+        $aAddOnIdArray = array_column($_SESSION['cartAddOns'], 'addOnId');
+        $nAddOnCount = count($_SESSION['cartAddOns']);
 
-        if (in_array($sAddOnId, $addOnsIdsArray)) {
+        if (in_array($sAddOnId, $aAddOnIdArray)) {
 
-            for ($i = 0; $i < $count; $i++) {
+            for ($i = 0; $i < $nAddOnCount; $i++) {
 
                 if ($_SESSION['cartAddOns'][$i]['addOnId'] == $sAddOnId) {
 
-                    $oldAmount = $_SESSION['cartAddOns'][$i]['addOnAmount'];
-                    $newAmount = $addOnAmount + $oldAmount;
-                    $_SESSION['cartAddOns'][$i]['addOnAmount'] = $newAmount;
+                    $nOldAddonAmount = $_SESSION['cartAddOns'][$i]['addOnAmount'];
+                    $nNewAddonAmount = $nAddOnAmount + $nOldAddonAmount;
+                    $_SESSION['cartAddOns'][$i]['addOnAmount'] = $nNewAddonAmount;
                 }
             }
         } else {
-
-            $addOnArray = array(
+            $aAddOnArray = array(
                 'addOnId' => $sAddOnId,
-                'addOnName' => $addOnName,
-                'addOnPrice' => $addOnPrice,
-                'addOnAmount' => $addOnAmount
+                'addOnName' => $sAddOnName,
+                'addOnPrice' => $nAddOnPrice,
+                'addOnAmount' => $nAddOnAmount
             );
-            $_SESSION['cartAddOns'][$count] = $addOnArray;
+            $_SESSION['cartAddOns'][$nAddOnCount] = $aAddOnArray;
         }
     } else {
 
-        $addOnArray = array(
+        $aAddOnArray = array(
             'addOnId' => $sAddOnId,
-            'addOnName' => $addOnName,
-            'addOnPrice' => $addOnPrice,
-            'addOnAmount' => $addOnAmount
+            'addOnName' => $sAddOnName,
+            'addOnPrice' => $nAddOnPrice,
+            'addOnAmount' => $nAddOnAmount
         );
-        $_SESSION['cartAddOns'][0] = $addOnArray;
+        $_SESSION['cartAddOns'][0] = $aAddOnArray;
     }
 }
-
 $response = array("error" => false);
-
 echo json_encode($response);
