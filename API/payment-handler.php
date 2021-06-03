@@ -97,9 +97,9 @@ foreach ($cartProducts as $product) {
 }
 
 foreach ($cartAddOns as $addOn) {
-    $addOn_id = $addOn['addon_id'];
-    $addOn_amount = $addOn['addon_amount'];
-    $addOn_price = $addOn['addon_price'];
+    $sAddOnId = $addOn['addOnId'];
+    $addOn_amount = $addOn['addOnAmount'];
+    $addOn_price = $addOn['addOnPrice'];
     $payed_price = (float)$addOn_price * (float)$addOn_amount;
     $addonExists = false;
 
@@ -107,7 +107,7 @@ foreach ($cartAddOns as $addOn) {
     $result = $conn->query($sql);
 
     while ($row = $result->fetch_object()) {
-        if ($row->addon_id == $addOn_id) {
+        if ($row->addon_id == $sAddOnId) {
             $currentAmount = $row->addon_amount;
             $newAmount = $currentAmount + $addOn_amount;
             $sql = "UPDATE customer_addons SET addon_amount = \"$newAmount\" WHERE customer_addon_id = \"$row->customer_addon_id\"";
@@ -118,13 +118,13 @@ foreach ($cartAddOns as $addOn) {
 
     if (!$addonExists) {
         $stmt_6 = $conn->prepare("INSERT INTO customer_addons (customer_addon_id, customer_id, addon_id, addon_amount) VALUES ( null,?,?,?)");
-        $stmt_6->bind_param("iii", $customerId, $addOn_id, $addOn_amount);
+        $stmt_6->bind_param("iii", $customerId, $sAddOnId, $addOn_amount);
         $stmt_6->execute();
         $stmt_6->insert_id;
     }
 
     $stmt_7 = $conn->prepare("INSERT INTO order_addons (order_addons_id, order_id, addon_id, payed_price, addon_amount) VALUES(null,?,?,?,?)");
-    $stmt_7->bind_param("iiss", $orderId, $addOn_id, $payed_price, $addOn_amount);
+    $stmt_7->bind_param("iiss", $orderId, $sAddOnId, $payed_price, $addOn_amount);
     $stmt_7->execute();
     $stmt_7->insert_id;
 }

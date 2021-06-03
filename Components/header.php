@@ -46,7 +46,7 @@ function headerComp($activeLink)
     }
     if (isset($_SESSION['cartAddOns'])) {
         foreach ($_SESSION['cartAddOns'] as $addon) {
-            $cartCount = $cartCount + $addon['addon_amount'];
+            $cartCount = $cartCount + $addon['addOnAmount'];
         }
     }
 

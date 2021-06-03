@@ -46,17 +46,17 @@ if (isset($_SESSION['cartProducts'])) {
 
 if (isset($_SESSION['cartAddOns'])) {
     foreach ($_SESSION['cartAddOns'] as $addon) {
-        $addonId = $addon['addon_id'];
-        $addonName = $addon['addon_name'];
-        $addonQuantity = $addon['addon_amount'];
-        $addonPrice = $addon['addon_price'];
+        $sAddOnId = $addon['addOnId'];
+        $addonName = $addon['addOnName'];
+        $addonQuantity = $addon['addOnAmount'];
+        $addonPrice = $addon['addOnPrice'];
         $addonTotalPrice = (float)$addonQuantity * (float)$addonPrice;
         $totalPrice =  $totalPrice + $addonTotalPrice;
         $addons =  $addons . "<div class='product-row'>
                                     <div class='product-item'>
                                         <p class='product-item__name'>$addonName</p>
                                         <p class='product-item__quantity'>
-                                            <span class='product-item__delete' onclick='removeItemFromCart($addonId, false, $addonQuantity)'></span>
+                                            <span class='product-item__delete' onclick='removeItemFromCart($sAddOnId, false, $addonQuantity)'></span>
                                             $addonQuantity
                                         </p>
                                         <p class='product-item__price'>$addonTotalPrice</p>
@@ -264,6 +264,7 @@ if (!isset($_SESSION['loginStatus'])) {
     <?= $footer ?>
 </body>
 <script src="js/app.js"></script>
+<script src="js/helper.js"></script>
 <script src="https://www.paypal.com/sdk/js?client-id=ASc0sohSJuv9IX6ovw_EQxA0uGoiQO5YxX2U7u9qnfZGwovsZ6Tylr1Arf0XOCAshoqqX8ApS3nkYpGy&currency=EUR&disable-funding=credit,card" async>
 </script>
 <script>

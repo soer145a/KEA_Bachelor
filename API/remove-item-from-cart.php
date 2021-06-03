@@ -17,7 +17,7 @@ if (isset($_POST['itemId'])) {
         }
     } else {
         foreach ($_SESSION['cartAddOns'] as $key => $addon) {
-            if ($addon['addon_id'] === $itemId) {
+            if ($addon['addOnId'] === $itemId) {
                 $response = array("line 21" => $key);
                 unset($_SESSION['cartAddOns'][$key]);
             }

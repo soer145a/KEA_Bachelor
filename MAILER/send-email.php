@@ -39,9 +39,9 @@ foreach ($_SESSION['cartProducts'] as $product) {
     $totalPrice =  $totalPrice + (float)$product['product_price'];
 }
 foreach ($_SESSION['cartAddOns'] as $addon) {
-    $addonName = $addon['addon_name'];
-    $addonTotalprice = (float)$addon['addon_price'] * (float)$addon['addon_amount'];
-    $boughtAddons = $boughtAddons . $addon['addon_amount'] . " x " . $addonName . ", ";
+    $addonName = $addon['addOnName'];
+    $addonTotalprice = (float)$addon['addOnPrice'] * (float)$addon['addOnAmount'];
+    $boughtAddons = $boughtAddons . $addon['addOnAmount'] . " x " . $addonName . ", ";
     $totalPrice =  $totalPrice + $addonTotalprice;
 }
 

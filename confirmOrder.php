@@ -24,9 +24,9 @@ if (isset($_SESSION['cartProducts'])) {
 }
 if (isset($_SESSION['cartAddOns'])) {
     foreach ($_SESSION['cartAddOns'] as $addon) {
-        $addonName = $addon['addon_name'];
-        $addonTotalprice = (float)$addon['addon_price'] * (float)$addon['addon_amount'];
-        $boughtAddons = $boughtAddons . $addon['addon_amount'] . " x " . $addonName . ", ";
+        $addonName = $addon['addOnName'];
+        $addonTotalprice = (float)$addon['addOnPrice'] * (float)$addon['addOnAmount'];
+        $boughtAddons = $boughtAddons . $addon['addOnAmount'] . " x " . $addonName . ", ";
         $totalPrice =  $totalPrice + $addonTotalprice;
     }
 }

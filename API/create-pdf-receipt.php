@@ -86,8 +86,8 @@ function createReceipt($time)
 
     foreach ($_SESSION['cartAddOns'] as $addon) {
 
-        $addonName = $addon['addon_name'];
-        $addonPrice = (float)$addon['addon_price'];
+        $addonName = $addon['addOnName'];
+        $addonPrice = (float)$addon['addOnPrice'];
         $addonAmount = (float)$addon['addon_amount'];
         $addonTotalprice = $addonPrice * $addonAmount;
         $totalPrice =  $totalPrice + $addonTotalprice;

@@ -4,11 +4,11 @@ include("../DB_Connection/connection.php");
 
 $_POST = json_decode(file_get_contents("php://input"), true); //make json object an assoc array
 
-if (isset($_POST['addon_id'])) {
+if (isset($_POST['addOnId'])) {
 
-    $addOnId = $_POST['addon_id'];
-    $addOnAmount = $_POST['addon_amount'];
-    $sql = "SELECT * FROM addons WHERE addon_id = \"$addOnId\"";
+    $sAddOnId = $_POST['addOnId'];
+    $addOnAmount = $_POST['addOnAmount'];
+    $sql = "SELECT * FROM addons WHERE addon_id = \"$sAddOnId\"";
     $result = $conn->query($sql);
     $row = $result->fetch_object();
     $addOnName = $row->addon_name;
@@ -16,37 +16,37 @@ if (isset($_POST['addon_id'])) {
 
     if (isset($_SESSION['cartAddOns'])) {
 
-        $addOnsIdsArray = array_column($_SESSION['cartAddOns'], 'addon_id');
+        $addOnsIdsArray = array_column($_SESSION['cartAddOns'], 'addOnId');
         $count = count($_SESSION['cartAddOns']);
 
-        if (in_array($addOnId, $addOnsIdsArray)) {
+        if (in_array($sAddOnId, $addOnsIdsArray)) {
 
             for ($i = 0; $i < $count; $i++) {
 
-                if ($_SESSION['cartAddOns'][$i]['addon_id'] == $addOnId) {
+                if ($_SESSION['cartAddOns'][$i]['addOnId'] == $sAddOnId) {
 
-                    $oldAmount = $_SESSION['cartAddOns'][$i]['addon_amount'];
+                    $oldAmount = $_SESSION['cartAddOns'][$i]['addOnAmount'];
                     $newAmount = $addOnAmount + $oldAmount;
-                    $_SESSION['cartAddOns'][$i]['addon_amount'] = $newAmount;
+                    $_SESSION['cartAddOns'][$i]['addOnAmount'] = $newAmount;
                 }
             }
         } else {
 
             $addOnArray = array(
-                'addon_id' => $addOnId,
-                'addon_name' => $addOnName,
-                'addon_price' => $addOnPrice,
-                'addon_amount' => $addOnAmount
+                'addOnId' => $sAddOnId,
+                'addOnName' => $addOnName,
+                'addOnPrice' => $addOnPrice,
+                'addOnAmount' => $addOnAmount
             );
             $_SESSION['cartAddOns'][$count] = $addOnArray;
         }
     } else {
 
         $addOnArray = array(
-            'addon_id' => $addOnId,
-            'addon_name' => $addOnName,
-            'addon_price' => $addOnPrice,
-            'addon_amount' => $addOnAmount
+            'addOnId' => $sAddOnId,
+            'addOnName' => $addOnName,
+            'addOnPrice' => $addOnPrice,
+            'addOnAmount' => $addOnAmount
         );
         $_SESSION['cartAddOns'][0] = $addOnArray;
     }
