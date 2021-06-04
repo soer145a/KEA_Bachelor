@@ -6,38 +6,38 @@ include_once("Components/head.php");
 include_once("Components/footer.php");
 include("DB_Connection/connection.php");
 include_once("Components/addOn.php");
-$head = headComp();
-$header = headerComp('cart');
-$footer = footerComp();
+$sHeadHtmlComp = headComp();
+$sHeaderHtmlComp = headerComp('cart');
+$sFooterHtmlComp = footerComp();
 
 //productcards being printet starts here
-$content = "";
-$products = "";
-$addons = "";
-$totalPrice = 0;
+$sPageHtml = "";
+$sProductHtml = "";
+$sAddonHtml = "";
+$nTotalPrice = 0;
 
 if (isset($_SESSION['cartProducts'])) {
-    foreach ($_SESSION['cartProducts'] as $product) {
-        $productName = $product['productName'];
-        $productPrice = $product['productPrice'];
-        $productId = $product['productId'];
-        $subscriptionName = $product['subscriptionName'];
-        $subscriptionPrice = $product['subscriptionPrice'];
-        $totalPrice =  $totalPrice + $product['productPrice'];
+    foreach ($_SESSION['cartProducts'] as $aProduct) {
+        $sProductName = $aProduct['productName'];
+        $nProductPrice = $aProduct['productPrice'];
+        $sProductId = $aProduct['productId'];
+        $sSubscriptionName = $aProduct['subscriptionName'];
+        $nSubscriptionPrice = $aProduct['subscriptionPrice'];
+        $nTotalPrice =  $nTotalPrice + $aProduct['productPrice'];
 
-        $products =  $products . "<div class='product-row'>
+        $sProductHtml =  $sProductHtml . "<div class='product-row'>
                                     <div class='product-item'>
-                                        <p class='product-item__name'>$productName</p>
+                                        <p class='product-item__name'>$sProductName</p>
                                         <p class='product-item__quantity'>
-                                            <span class='product-item__delete' onclick='removeItemFromCart($productId, true, 0)'></span>
+                                            <span class='product-item__delete' onclick='removeItemFromCart($sProductId, true, 0)'></span>
                                             1
                                         </p>
-                                        <p class='product-item__price'>$productPrice</p>
+                                        <p class='product-item__price'>$nProductPrice</p>
                                     </div>
 
                                     <div class='subscription-row'>
-                                        <p class='subscription-row__text'>Subscription: $subscriptionName</p>
-                                        <p class='subscription-row__text subscription-row__price'>$subscriptionPrice</p>
+                                        <p class='subscription-row__text'>Subscription: $sSubscriptionName</p>
+                                        <p class='subscription-row__text subscription-row__price'>$nSubscriptionPrice</p>
                                     </div>
                                 </div>";
     }
@@ -45,29 +45,29 @@ if (isset($_SESSION['cartProducts'])) {
 
 
 if (isset($_SESSION['cartAddOns'])) {
-    foreach ($_SESSION['cartAddOns'] as $addon) {
-        $addonId = $addon['addOnId'];
-        $addonName = $addon['addOnName'];
-        $addonQuantity = $addon['addOnAmount'];
-        $addonPrice = $addon['addOnPrice'];
-        $addonTotalPrice = (float)$addonQuantity * (float)$addonPrice;
-        $totalPrice =  $totalPrice + $addonTotalPrice;
-        $addons =  $addons . "<div class='product-row'>
+    foreach ($_SESSION['cartAddOns'] as $aAddon) {
+        $sAddonId = $aAddon['addOnId'];
+        $sAddonName = $aAddon['addOnName'];
+        $nAddonAmount = $aAddon['addOnAmount'];
+        $nAddonPrice = $aAddon['addOnPrice'];
+        $nAddonTotalPrice = $nAddonAmount * $nAddonPrice;
+        $nTotalPrice =  $nTotalPrice + $nAddonTotalPrice;
+        $sAddonHtml =  $sAddonHtml . "<div class='product-row'>
                                     <div class='product-item'>
-                                        <p class='product-item__name'>$addonName</p>
+                                        <p class='product-item__name'>$sAddonName</p>
                                         <p class='product-item__quantity'>
-                                            <span class='product-item__delete' onclick='removeItemFromCart($addonId, false, $addonQuantity)'></span>
-                                            $addonQuantity
+                                            <span class='product-item__delete' onclick='removeItemFromCart($sAddonId, false, $nAddonAmount)'></span>
+                                            $nAddonAmount
                                         </p>
-                                        <p class='product-item__price'>$addonTotalPrice</p>
+                                        <p class='product-item__price'>$nAddonTotalPrice</p>
                                     </div>
                                 </div>";
     }
 }
 
 if (!isset($_SESSION['loginStatus'])) {
-    $loggedIn = 'false';
-    $content = "
+    $bLoginStatus = 'false';
+    $sPageHtml = "
         <form action='API/payment-handler.php' method='POST' class='account-details'>
             <h2 class='section-header'>Account details</h2>
             <label for='account-details__name'
@@ -79,7 +79,7 @@ if (!isset($_SESSION['loginStatus'])) {
                 name='companyName'
                 data-validate='string'
                 required
-                oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
+                oninput='inputValidate(); togglePaypalButton($bLoginStatus, $nTotalPrice);'
             />
             <label for='account-details__cvr'
                 >Company CVR nr.</label
@@ -90,7 +90,7 @@ if (!isset($_SESSION['loginStatus'])) {
                 name='companyCvr'
                 data-validate='cvr'
                 required
-                oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
+                oninput='inputValidate(); togglePaypalButton($bLoginStatus, $nTotalPrice);'
             />
             <div class='account-details__contact'>
                 <h4 class='section-subheader contact__header'>Contact Person</h4>
@@ -102,7 +102,7 @@ if (!isset($_SESSION['loginStatus'])) {
                         name='customerFirstName'
                         data-validate='string'
                         required
-                        oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
+                        oninput='inputValidate(); togglePaypalButton($bLoginStatus, $nTotalPrice);'
                     />
                 </div>
                 <div class='contact__wrapper'>
@@ -113,7 +113,7 @@ if (!isset($_SESSION['loginStatus'])) {
                         name='customerLastName'
                         data-validate='string'
                         required
-                        oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
+                        oninput='inputValidate(); togglePaypalButton($bLoginStatus, $nTotalPrice);'
                     />
                 </div>
             </div>
@@ -125,7 +125,7 @@ if (!isset($_SESSION['loginStatus'])) {
                 name='customerPhone'
                 data-validate='phone'
                 required
-                oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
+                oninput='inputValidate(); togglePaypalButton($bLoginStatus, $nTotalPrice);'
             />
             <label for='account-details__mail'>Email</label>
             <input
@@ -134,7 +134,7 @@ if (!isset($_SESSION['loginStatus'])) {
                 name='customerEmail'
                 data-validate='email'
                 required
-                oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
+                oninput='inputValidate(); togglePaypalButton($bLoginStatus, $nTotalPrice);'
             />
             <label for='account-details__password'
                 >Password</label
@@ -142,10 +142,10 @@ if (!isset($_SESSION['loginStatus'])) {
             <input
                 id='account-details__password'
                 type='password'
-                name='customerPassword_init'
+                name='customerPassword'
                 data-validate='password'
                 required
-                oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
+                oninput='inputValidate(); togglePaypalButton($bLoginStatus, $nTotalPrice);'
             />
             <label for='account-details__confirm-password'
                 >Confirm Password</label
@@ -156,7 +156,7 @@ if (!isset($_SESSION['loginStatus'])) {
                 name='customerPasswordConfirm'
                 data-validate='password'
                 required
-                oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
+                oninput='inputValidate(); togglePaypalButton($bLoginStatus, $nTotalPrice);'
             />
             <h2 class='section-header'>
                 Shipping/Billing address
@@ -170,7 +170,7 @@ if (!isset($_SESSION['loginStatus'])) {
                 name='companyStreet'
                 data-validate='string'
                 required
-                oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
+                oninput='inputValidate(); togglePaypalButton($bLoginStatus, $nTotalPrice);'
             />
             <label for='account-details__city'>City</label>
             <input
@@ -179,7 +179,7 @@ if (!isset($_SESSION['loginStatus'])) {
                 data-validate='string'
                 name='companyCity'
                 required
-                oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
+                oninput='inputValidate(); togglePaypalButton($bLoginStatus, $nTotalPrice);'
             />
             <label for='account-details__zip-code'
                 >Zip code</label
@@ -190,7 +190,7 @@ if (!isset($_SESSION['loginStatus'])) {
                 data-validate='string'
                 name='companyZip'
                 required
-                oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
+                oninput='inputValidate(); togglePaypalButton($bLoginStatus, $nTotalPrice);'
             />
             <label for='account-details__zip-code'
                 >Country</label
@@ -201,12 +201,12 @@ if (!isset($_SESSION['loginStatus'])) {
                 data-validate='string'
                 name='companyCountry'
                 required
-                oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
+                oninput='inputValidate(); togglePaypalButton($bLoginStatus, $nTotalPrice);'
             />
             <div class='errorMessage'></div>
         </form>";
 } else {
-    $loggedIn = 'true';
+    $bLoginStatus = 'true';
 }
 
 ?>
@@ -215,15 +215,15 @@ if (!isset($_SESSION['loginStatus'])) {
 <html lang="en">
 
 <head>
-    <?= $head ?>
+    <?= $sHeadHtmlComp ?>
 </head>
 
 <body>
-    <?= $header ?>
+    <?= $sHeaderHtmlComp ?>
     <main id="cart" class="container-full-width">
         <section class="layout-container cart">
             <div class="checkout-container">
-                <?= $content ?>
+                <?= $sPageHtml ?>
                 <div class="order-summary-container">
                     <h2 class="section-header">Order summary</h2>
                     <div class="order-summary">
@@ -236,8 +236,8 @@ if (!isset($_SESSION['loginStatus'])) {
                         </div>
                         <div class="order-summary__body">
                             <div class="product-container">
-                                <?= $products ?>
-                                <?= $addons ?>
+                                <?= $sProductHtml ?>
+                                <?= $sAddonHtml ?>
                                 <div class="empty-cart">
                                     <p class="empty-cart__text">
                                         You don't have any products in
@@ -258,7 +258,7 @@ if (!isset($_SESSION['loginStatus'])) {
         </section>
 
     </main>
-    <?= $footer ?>
+    <?= $sFooterHtmlComp ?>
 </body>
 <script src="https://www.paypal.com/sdk/js?client-id=ASc0sohSJuv9IX6ovw_EQxA0uGoiQO5YxX2U7u9qnfZGwovsZ6Tylr1Arf0XOCAshoqqX8ApS3nkYpGy&currency=EUR&disable-funding=credit,card">
 </script>
@@ -266,5 +266,5 @@ if (!isset($_SESSION['loginStatus'])) {
 <script src="js/helper.js"></script>
 
 <script>
-    togglePaypalButton(<?= $loggedIn ?>, <?= $totalPrice ?>);
+    togglePaypalButton(<?= $bLoginStatus ?>, <?= $nTotalPrice ?>);
 </script>

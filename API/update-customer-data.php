@@ -5,25 +5,25 @@ include_once("../DB_Connection/connection.php");
 
 $customerId = $_SESSION['customerId'];
 
-if (isset($_POST['customer_password'])) {
-    $password = $_POST['customer_password'];
-    $newPassword = $_POST['customerPasswordConfirm'];
-    $sql = "SELECT * FROM customers WHERE customer_id = \"$customerId\"";
-    $result = $oDbConnection->query($sql);
-    $row = $result->fetch_object();
-    $db_password = $row->customer_password;
-    if (password_verify($password, $db_password)) {
-        $value = password_hash($newPassword, PASSWORD_DEFAULT);
-        $sql = "UPDATE `customers` SET `customer_password` = \"$value\" WHERE customer_id = \"$customerId\"";
-        $oDbConnection->query($sql);
+if (isset($_POST['customerPassword'])) {
+    $sCustomerPassword = $_POST['customerPassword'];
+    $sNewPassword = $_POST['customerPasswordConfirm'];
+    $sCustomerSelectSql = "SELECT * FROM customers WHERE customer_id = \"$customerId\"";
+    $oCustomerResult = $oDbConnection->query($sCustomerSelectSql);
+    $oCustomerRow = $oCustomerResult->fetch_object();
+    $sOldPassword = $oCustomerRow->customer_password;
+    if (password_verify($sCustomerPassword, $sOldPassword)) {
+        $sCustomerPasswordHashed = password_hash($sNewPassword, PASSWORD_DEFAULT);
+        $sCustomerUpdateSql = "UPDATE `customers` SET `customer_password` = \"$sCustomerPasswordHashed\" WHERE customer_id = \"$customerId\"";
+        $oDbConnection->query($sCustomerUpdateSql);
         echo "password updated";
     }
 } else if (isset($_POST)) {
 
-    $fieldToUpdate = key($_POST);
-    $value = reset($_POST);
-    $sql = "UPDATE `customers` SET `$fieldToUpdate` = \"$value\" WHERE customer_id = \"$customerId\"";
-    $oDbConnection->query($sql);
+    $sColumnToUpdate = key($_POST);
+    $sData = reset($_POST);
+    $sCustomerUpdateSql = "UPDATE `customers` SET `$sColumnToUpdate` = \"$sData\" WHERE customer_id = \"$customerId\"";
+    $oDbConnection->query($sCustomerUpdateSql);
 }
 
 header("Location: ../profile.php");

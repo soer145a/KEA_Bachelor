@@ -3,8 +3,8 @@
 
 function footerComp()
 {
-    $footerContent = 
-    "<footer class='container-full-width'>
+    $sFooterHtmlComp =
+        "<footer class='container-full-width'>
             <div class='layout-container footer'>
                 <div class='address address-container'>
                     <h3 class='address__header'>Mirtual</h3>
@@ -41,7 +41,5 @@ function footerComp()
             </div>
         </footer>";
 
-    return $footerContent;
+    return $sFooterHtmlComp;
 }
-
-

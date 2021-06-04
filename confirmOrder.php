@@ -3,30 +3,30 @@ session_start();
 include_once("Components/head.php");
 include_once("Components/header.php");
 include_once("Components/footer.php");
-$head = headComp();
-$footer = footerComp();
+$sHeadHtmlComp = headComp();
+$sFooterHtmlComp = footerComp();
 
 if (!isset($_SESSION['orderId'])) {
     header('Location: index.php');
 }
 
-$productName = "";
-$totalPrice = 0;
-$boughtAddons = "";
+$sProductName = "";
+$nTotalPrice = 0;
+$sBoughtAddons = "";
 
 if (isset($_SESSION['cartProducts'])) {
-    foreach ($_SESSION['cartProducts'] as $product) {
+    foreach ($_SESSION['cartProducts'] as $aProduct) {
 
-        $productName = $product['productName'] . ", " .  $productName;
-        $totalPrice =  $totalPrice + (float)$product['productPrice'];
+        $sProductName = $aProduct['productName'] . ", " .  $sProductName;
+        $nTotalPrice =  $nTotalPrice + $aProduct['productPrice'];
     }
 }
 if (isset($_SESSION['cartAddOns'])) {
-    foreach ($_SESSION['cartAddOns'] as $addon) {
-        $addonName = $addon['addOnName'];
-        $addonTotalprice = (float)$addon['addOnPrice'] * (float)$addon['addOnAmount'];
-        $boughtAddons = $boughtAddons . $addon['addOnAmount'] . " x " . $addonName . ", ";
-        $totalPrice =  $totalPrice + $addonTotalprice;
+    foreach ($_SESSION['cartAddOns'] as $aAddon) {
+        $sAddonName = $aAddon['addOnName'];
+        $nAddonTotalprice = $aAddon['addOnPrice'] * $aAddon['addOnAmount'];
+        $sBoughtAddons = $sBoughtAddons . $aAddon['addOnAmount'] . " x " . $sAddonName . ", ";
+        $nTotalPrice =  $nTotalPrice + $nAddonTotalprice;
     }
 }
 
@@ -36,12 +36,12 @@ unset($_SESSION['customerData']);
 unset($_SESSION['customerConfirmCode']);
 unset($_SESSION['orderId']);
 
-$header = headerComp('');
+$sHeaderHtmlComp = headerComp('');
 
 if (!isset($_SESSION['loginStatus'])) {
-    $message = "Thank you for your order! <br> We have sent you an email with a link to confirm your email address.";
+    $sUserMessage = "Thank you for your order! <br> We have sent you an email with a link to confirm your email address.";
 } else {
-    $message = "Thank you for your order.";
+    $sUserMessage = "Thank you for your order.";
 }
 
 ?>
@@ -50,25 +50,25 @@ if (!isset($_SESSION['loginStatus'])) {
 <html lang="en">
 
 <head>
-    <?= $head ?>
+    <?= $sHeadHtmlComp ?>
 </head>
 
 <body>
-    <?= $header ?>
+    <?= $sHeaderHtmlComp ?>
     <main>
         <section id="orderConfirmation">
             <div class="layout-container orderConfirmation">
                 <div class="order-confirmation-summary">
-                    <h1 class="section-header"><?= $message ?></h1>
-                    <p>You have bought: <?= $productName ?></p>
-                    <p>Addons: <?= $boughtAddons ?></p>
-                    <p>Price: <?= $totalPrice ?></p>
+                    <h1 class="section-header"><?= $sUserMessage ?></h1>
+                    <p>You have bought: <?= $sProductName ?></p>
+                    <p>Addons: <?= $sBoughtAddons ?></p>
+                    <p>Price: <?= $nTotalPrice ?></p>
                 </div>
             </div>
         </section>
     </main>
 
-    <?= $footer ?>
+    <?= $sFooterHtmlComp ?>
 </body>
 
 </html>

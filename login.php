@@ -1,44 +1,44 @@
 <?php
 session_start();
-$errorMess = "";
+$sErrorMessage = "";
 include_once("Components/head.php");
 include_once("Components/header.php");
 include_once("Components/footer.php");
-$head = headComp();
-$header = headerComp('login');
-$footer = footerComp();
+$sHeadHtmlComp = headComp();
+$sHeaderHtmlComp = headerComp('login');
+$sFooterHtmlComp = footerComp();
 
 if (isset($_SESSION['loginStatus'])) {
     header('Location: profile.php');
 }
 
-if (isset($_POST['customer_email']) && isset($_POST['customer_password'])) {
-    //echo $_POST['customer_email']." ".$_POST['customer_password'];
-    if ($_POST['customer_email'] != "" && $_POST['customer_password'] != "") {
+if (isset($_POST['customerEmail']) && isset($_POST['customerPassword'])) {
+    //echo $_POST['customerEmail']." ".$_POST['customer_password'];
+    if ($_POST['customerEmail'] != "" && $_POST['customerPassword'] != "") {
         //echo "Data is there";
         include("DB_Connection/connection.php");
-        $password = $oDbConnection->real_escape_string($_POST['customer_password']);
-        $email = $oDbConnection->real_escape_string($_POST['customer_email']);
-        $sql = "SELECT * FROM customers WHERE customer_email = \"$email\"";
-        $result = $oDbConnection->query($sql);
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_object();
-            $db_password = $row->customer_password;
-            if (password_verify($password, $db_password)) {
-                if ($row->customer_confirmed == 1) {
+        $sCustomerPassword = $oDbConnection->real_escape_string($_POST['customerPassword']);
+        $sCustomerEmail = $oDbConnection->real_escape_string($_POST['customerEmail']);
+        $sCustomerSelectSql = "SELECT * FROM customers WHERE customer_email = \"$sCustomerEmail\"";
+        $oCustomerResult = $oDbConnection->query($sCustomerSelectSql);
+        if ($oCustomerResult->num_rows > 0) {
+            $oCustomerRow = $oCustomerResult->fetch_object();
+            $sCustomerDbPassword = $oCustomerRow->customer_password;
+            if (password_verify($sCustomerPassword, $sCustomerDbPassword)) {
+                if ($oCustomerRow->customer_confirmed == 1) {
                     $_SESSION['loginStatus'] = true;
-                    $_SESSION['customerId'] = $row->customer_id;
-                    $_SESSION['customer_first_name'] = $row->customer_first_name;
-                    $_SESSION['customer_last_name'] = $row->customer_last_name;
+                    $_SESSION['customerId'] = $oCustomerRow->customer_id;
+                    $_SESSION['customerFirstName'] = $oCustomerRow->customer_first_name;
+                    $_SESSION['customerLastName'] = $oCustomerRow->customer_last_name;
                     header('Location: index.php');
                 } else {
-                    $errorMess = "<p style='color:red'> ERROR - You have not confirmed yo account</p>";
+                    $sErrorMessage = "<p style='color:red'> ERROR - You have not confirmed yo account</p>";
                 }
             } else {
-                $errorMess = "<p style='color:red'> ERROR - You don' fuckd up kiddo</p>";
+                $sErrorMessage = "<p style='color:red'> ERROR - You don' fuckd up kiddo</p>";
             }
         } else {
-            $errorMess = "<p style='color:red'> ERROR - You don' fuckd up kiddo</p>";
+            $sErrorMessage = "<p style='color:red'> ERROR - You don' fuckd up kiddo</p>";
         }
     }
 }
@@ -49,11 +49,11 @@ if (isset($_POST['customer_email']) && isset($_POST['customer_password'])) {
 <html lang="en">
 
 <head>
-    <?= $head ?>
+    <?= $sHeadHtmlComp ?>
 </head>
 
 <body>
-    <?= $header ?>
+    <?= $sHeaderHtmlComp ?>
     <main>
         <section id="login">
             <div class="layout-container login">
@@ -62,7 +62,7 @@ if (isset($_POST['customer_email']) && isset($_POST['customer_password'])) {
                 <form class="login-form" method="post">
                     <label class="login-form__label">Email:</label>
 
-                    <input class="login-form__input" type="email" placeholder="example@email.com" name="customer_email">
+                    <input class="login-form__input" type="email" placeholder="example@email.com" name="customerEmail">
 
                     <label class="login-form__label">Password:
                         <span class="login-form__label-info-outer js-toggle-infobox">
@@ -80,9 +80,9 @@ if (isset($_POST['customer_email']) && isset($_POST['customer_password'])) {
                         </span>
                     </label>
 
-                    <input class="login-form__input" type="password" placeholder="Type in your password" name="customer_password">
+                    <input class="login-form__input" type="password" placeholder="Type in your password" name="customerPassword">
 
-                    <?= $errorMess ?>
+                    <?= $sErrorMessage ?>
                     <br>
                     <button class="login-form__button button button--purple" type="submit">Login</button>
                 </form>
@@ -90,7 +90,7 @@ if (isset($_POST['customer_email']) && isset($_POST['customer_password'])) {
         </section>
     </main>
 
-    <?= $footer ?>
+    <?= $sFooterHtmlComp ?>
 </body>
 <script src="js/app.js"></script>
 <script src="js/helper.js"></script>

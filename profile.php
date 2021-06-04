@@ -1,72 +1,72 @@
 <?php
 session_start();
+include("DB_Connection/connection.php");
 include_once("Components/head.php");
 include_once("Components/header.php");
 include_once("Components/footer.php");
-$head = headComp();
-$header = headerComp('profile');
-$footer = footerComp();
+$sHeadHtmlComp = headComp();
+$sHeaderHtmlComp = headerComp('profile');
+$sFooterHtmlComp = footerComp();
 
-$errorMess = "";
-$showFlag = false;
+$sErrorMessage = "";
+$bShowFlag = false;
 if (!isset($_SESSION['loginStatus'])) {
     header('Location: login.php');
 } else {
     $customerId = $_SESSION['customerId'];
-    include("DB_Connection/connection.php");
 
-    $sql = "SELECT * FROM customers WHERE customer_id = \"$customerId\"";
-    $result = $oDbConnection->query($sql);
-    $row = $result->fetch_object();
-    $firstName = $row->customer_first_name;
-    $lastName = $row->customer_last_name;
-    $customerCompName = $row->customer_company_name;
-    $customerEmail = $row->customer_email;
-    $customerCvr = $row->customer_cvr;
-    $customerCity = $row->customer_city;
-    $customerStreet = $row->customer_address;
-    $customerCountry = $row->customer_country;
-    $customerPostCode = $row->customer_postcode;
-    $customerPhone = $row->customer_phone;
+    $sCustomerSelectSql = "SELECT * FROM customers WHERE customer_id = \"$customerId\"";
+    $oCustomerResult = $oDbConnection->query($sCustomerSelectSql);
+    $oCustomerRow = $oCustomerResult->fetch_object();
+    $sCustomerFirstName = $oCustomerRow->customer_first_name;
+    $sCustomerLastName = $oCustomerRow->customer_last_name;
+    $sCompanyName = $oCustomerRow->customer_company_name;
+    $sCustomerEmail = $oCustomerRow->customer_email;
+    $sCompanyCvr = $oCustomerRow->customer_cvr;
+    $sCustomerCity = $oCustomerRow->customer_city;
+    $sCustomerStreet = $oCustomerRow->customer_address;
+    $sCustomerCountry = $oCustomerRow->customer_country;
+    $sCustomerZip = $oCustomerRow->customer_postcode;
+    $sCustomerPhone = $oCustomerRow->customer_phone;
 
-    $_SESSION['customer_first_name'] = $firstName;
-    $_SESSION['customer_last_name'] = $lastName;
+    $_SESSION['customerFirstName'] = $sCustomerFirstName;
+    $_SESSION['customerLastName'] = $sCustomerLastName;
 }
 if (isset($_POST['confirmPassword'])) {
 
-    $password = $oDbConnection->real_escape_string($_POST['confirmPassword']);
-    $sql = "SELECT * FROM customers WHERE customer_id = \" $customerId \"";
-    $result = $oDbConnection->query($sql);
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_object();
-        //echo json_encode($row);
-        $db_password = $row->customer_password;
-        if (password_verify($password, $db_password)) {
+    $sCustomerPassword = $oDbConnection->real_escape_string($_POST['confirmPassword']);
+    $sCustomerSelectSql = "SELECT * FROM customers WHERE customer_id = \" $customerId \"";
+    $oCustomerResult = $oDbConnection->query($sCustomerSelectSql);
+    if ($oCustomerResult->num_rows > 0) {
+        $oCustomerRow = $oCustomerResult->fetch_object();
+        //echo json_encode($oCustomerRow);
+        $sCustomerDbPassword = $oCustomerRow->customer_password;
+        if (password_verify($sCustomerPassword, $sCustomerDbPassword)) {
             header("Location: API/delete-user-information.php");
         } else {
-            $errorMess = "<p style='color:red'> ERROR - You don' fuckd up kiddo</p>";
-            $showFlag = true;
+            $sErrorMessage = "<p style='color:red'> ERROR - You don' fuckd up kiddo</p>";
+            $bShowFlag = true;
         }
     }
 }
 
-$embedLink = "";
-$apiKey = "";
+$sEmbedLink = "";
+$sApiKey = "";
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <?= $head ?>
+    <?= $sHeadHtmlComp ?>
 </head>
 
 <body>
-    <?= $header ?>
+    <?= $sHeaderHtmlComp ?>
     <main>
         <section id="profile">
             <div class="layout-container profile">
-                <h1 class="section-header profile__header">Welcome <?= $firstName, " ", $lastName ?></h1>
+                <h1 class="section-header profile__header">Welcome <?= $sCustomerFirstName, " ", $sCustomerLastName ?></h1>
                 <div class="profile__main">
                     <div id="deleteModal" class="hidden delete-profile modal--delete">
                         <h2 class="section-header">Are you sure you want to delete your data?</h2>
@@ -76,24 +76,24 @@ $apiKey = "";
                             <p class="section-paragraph">You will be deleting:</p>
                             <ul>
                                 <?php
-                                include("DB_Connection/connection.php");
-                                $sql = "SELECT count(*) FROM `customer_products` WHERE `customer_id` = \"$customerId\"";
-                                $results = $oDbConnection->query($sql);
-                                $row = $results->fetch_assoc();
-                                $nProductAmount = $row['count(*)'];
-                                echo "<li> $nProductAmount products with active licences</li>";
-                                $sql = "SELECT * FROM customer_addons LEFT JOIN addons ON customer_addons.addon_id  = addons.addon_id  WHERE `customer_id` = \"$customerId\"";
-                                $results = $oDbConnection->query($sql);
-                                while ($row = $results->fetch_assoc()) {
-                                    $nAddOnAmount = $row['addon_amount'];
-                                    $name = $row['addon_name'];
-                                    echo "<li> $nAddOnAmount $name's in our database</li>";
+
+                                $sCustomerProductSelectSql = "SELECT count(*) FROM `customer_products` WHERE `customer_id` = \"$customerId\"";
+                                $oCustomerProductResult = $oDbConnection->query($sCustomerProductSelectSql);
+                                $oCustomerProductRow = $oCustomerProductResult->fetch_assoc();
+                                $nCustomerProductAmount = $oCustomerProductRow['count(*)'];
+                                echo "<li> $nCustomerProductAmount products with active licences</li>";
+                                $sCustomerAddonSelectSql = "SELECT * FROM customer_addons LEFT JOIN addons ON customer_addons.addon_id  = addons.addon_id  WHERE `customer_id` = \"$customerId\"";
+                                $oCustomerAddonResults = $oDbConnection->query($sCustomerAddonSelectSql);
+                                while ($oCustomerAddonRow = $oCustomerAddonResults->fetch_assoc()) {
+                                    $nAddOnAmount = $oCustomerAddonRow['addon_amount'];
+                                    $sAddonName = $oCustomerAddonRow['addon_name'];
+                                    echo "<li> $nAddOnAmount $sAddonName's in our database</li>";
                                 }
 
-                                $sql = "SELECT count(*) FROM `orders` WHERE `customer_id` = \"$customerId\"";
-                                $results = $oDbConnection->query($sql);
-                                $row = $results->fetch_assoc();
-                                $nOrderAmount = $row['count(*)'];
+                                $sOrderSelectSql = "SELECT count(*) FROM `orders` WHERE `customer_id` = \"$customerId\"";
+                                $oOrderResults = $oDbConnection->query($sOrderSelectSql);
+                                $oOrderRow = $oOrderResults->fetch_assoc();
+                                $nOrderAmount = $oOrderRow['count(*)'];
                                 echo "<li> $nOrderAmount orders in our database</li>";
                                 ?>
                             </ul>
@@ -104,7 +104,7 @@ $apiKey = "";
                             <button class="delete-profile__button button button--red" onclick="showDeleteOption2()">I Understand</button>
                         </div>
                     </div>
-                    <div id="deleteModalTotal" class="modal modal--delete <?php if ($showFlag) {
+                    <div id="deleteModalTotal" class="modal modal--delete <?php if ($bShowFlag) {
                                                                                 echo "shown";
                                                                             } else {
                                                                                 echo "hidden";
@@ -121,7 +121,7 @@ $apiKey = "";
                                 <input class="customer-password-form__input" type="password" name="confirmPassword" oninput="checkPassword()" id="pass2">
                             </div>
                             <?= "<input type='hidden' name='userID' value='$customerId'>" ?>
-                            <?= $errorMess ?>
+                            <?= $sErrorMessage ?>
                             <div class="button-wrapper">
                                 <button type="button" class="delete-profile__button button button--purple" onclick="removeDeleteModals()">Cancel</button>
                                 <button disabled id="deleteButton" class="delete-profile__button button button--red">DELETE MY ACOUNT</button>
@@ -130,67 +130,66 @@ $apiKey = "";
                     </div>
                     <div class="customerInfoContainer">
                         <?php
-                        $profileInfo = "";
-                        $sql = "SELECT * FROM customer_products LEFT JOIN products ON customer_products.product_id  = products.product_id";
-                        $results = $oDbConnection->query($sql);
+                        $sCustomerProductHtml = "";
+                        $sCustomerProductSelectSql = "SELECT * FROM customer_products LEFT JOIN products ON customer_products.product_id  = products.product_id";
+                        $oCustomerProductResults = $oDbConnection->query($sCustomerProductSelectSql);
 
-                        while ($row = $results->fetch_object()) {
-                            //echo json_encode($row);
+                        while ($oCustomerProductRow = $oCustomerProductResults->fetch_object()) {
+                            //echo json_encode($oCustomerProductRow);
 
-                            $charsToReplace = array("<", ">");
-                            $replaceWith = array("&lt;", "&gt;");
-                            $embedLink = str_replace($charsToReplace, $replaceWith, $row->embed_link);
-                            $apiKey = $row->api_key;
-                            $rowKey = $row->customer_products_id;
-                            $dt = new DateTime("@$row->subscription_start");
-                            $subStart = $dt->format('Y-m-d');
-                            $dt = new DateTime("@$row->subscription_end");
-                            $subEnd = $dt->format('Y-m-d');
-                            $reduceTotalAmount = $row->subscription_end - time();
-                            //echo $reduceTotalAmount/86400;
-                            $totalDaysRemaining = round($reduceTotalAmount / 86400);
+                            $sCharsToReplace = array("<", ">");
+                            $sReplaceCharsWith = array("&lt;", "&gt;");
+                            $sEmbedLink = str_replace($sCharsToReplace, $sReplaceCharsWith, $oCustomerProductRow->embed_link);
+                            $sApiKey = $oCustomerProductRow->api_key;
+                            $sCustomerProductId = $oCustomerProductRow->customer_products_id;
+                            $oStartDate = new DateTime("@$oCustomerProductRow->subscription_start");
+                            $sCustomerProductStartDate = $oStartDate->format('Y-m-d');
+                            $oEndDate = new DateTime("@$oCustomerProductRow->subscription_end");
+                            $sCustomerProductEndDate = $oEndDate->format('Y-m-d');
+                            $nSubscriptionTimeLeft = $oCustomerProductRow->subscription_end - time();
+                            //echo $nSubscriptionTimeLeft/86400;
+                            $nSubscriptionDaysLeft = round($nSubscriptionTimeLeft / 86400);
 
-                            if ($totalDaysRemaining < 0) {
-                                $sql = "UPDATE customer_products SET subscription_active = 0 WHERE customer_products_id = \"$rowKey\"";
-                                $oDbConnection->query($sql);
-                                $row->subscription_active = 0;
-                                $totalDaysRemaining = 0;
+                            if ($nSubscriptionDaysLeft <= 0) {
+                                $sCustomerProductUpdateSql = "UPDATE customer_products SET subscription_active = 0 WHERE customer_products_id = \"$sCustomerProductId\"";
+                                $oDbConnection->query($sCustomerProductUpdateSql);
+                                $oCustomerProductRow->subscription_active = 0;
+                                $nSubscriptionDaysLeft = 0;
                             }
 
-                            $totalDays = round($row->subscription_total_length / 86400);
+                            $nCustomerProductTotalDays = round($oCustomerProductRow->subscription_total_length / 86400);
 
-                            $subID = $row->customer_products_id;
+                            $sCustomerProductId = $oCustomerProductRow->customer_products_id;
 
-                            if ($row->subscription_autorenew) {
-                                $autoRenew = "On";
-                                $buttonToggle = "Off";
+                            if ($oCustomerProductRow->subscription_autorenew) {
+                                $sAutoRenew = "On";
+                                $sButtonToggle = "Off";
                             } else {
-                                $autoRenew = "Off";
-                                $buttonToggle = "On";
+                                $sAutoRenew = "Off";
+                                $sButtonToggle = "On";
                             }
 
 
-                            $productName = $row->product_name;
+                            $sProductName = $oCustomerProductRow->product_name;
 
-                            if ($row->subscription_active) {
-                                $profileInfoCard = "<div class='profileCard'>
-                                                        <h1>$productName</h1>                                                        
+                            if ($oCustomerProductRow->subscription_active) {
+                                $sCustomerProductHtml = $sCustomerProductHtml . "<div class='profileCard'>
+                                                        <h1>$sProductName</h1>                                                        
                                                         <div class='subInfo'>
-                                                            <p>FROM: $subStart || TO: $subEnd</p>
-                                                            <p>Total days: $totalDays</p>
-                                                            <p>$totalDaysRemaining days left</p>
+                                                            <p>FROM: $sCustomerProductStartDate || TO: $sCustomerProductEndDate</p>
+                                                            <p>Total days: $nCustomerProductTotalDays</p>
+                                                            <p>$nSubscriptionDaysLeft days left</p>
                                                         </div>
                                                         <p>Embed link:</p>
-                                                        <pre><code class='html'> $embedLink</code></pre>
+                                                        <pre><code class='html'> $sEmbedLink</code></pre>
                                                         <p>API Key:</p>
-                                                        <pre><code class='html'>$apiKey</code></pre>
-                                                        <p>Auto renew subscription: <span><b>$autoRenew</b></span></p>
-                                                        <button onclick='toggleAutoRenew($subID)'>Switch Autorenew $buttonToggle</button>
+                                                        <pre><code class='html'>$sApiKey</code></pre>
+                                                        <p>Auto renew subscription: <span><b>$sAutoRenew</b></span></p>
+                                                        <button onclick='toggleAutoRenew($sCustomerProductId)'>Switch Autorenew $sButtonToggle</button>
                                                     </div>";
-                                $profileInfo = $profileInfo . $profileInfoCard;
                             }
                         }
-                        echo $profileInfo;
+                        echo $sCustomerProductHtml;
                         ?>
                     </div>
                     <div class="account-information">
@@ -199,38 +198,38 @@ $apiKey = "";
                                 <h4 class="section-subheader">Company Information</h4>
                                 <div class="customer-information-wrapper">
                                     <div class="customer-information__item customer-information__company-name">
-                                        <p class="section-paragraph customer-information__item__text"><?= $customerCompName ?></p>
-                                        <span class="customer-information__item__icon-outer" onclick="editInfo('<?= $customerCompName ?>', 'string', 'customer_company_name')">
+                                        <p class="section-paragraph customer-information__item__text"><?= $sCompanyName ?></p>
+                                        <span class="customer-information__item__icon-outer" onclick="editInfo('<?= $sCompanyName ?>', 'string', 'customer_company_name')">
                                             <span class="customer-information__item__icon-inner "></span>
                                         </span>
                                     </div>
                                     <div class="customer-information__item customer-information__cvr">
-                                        <p class="section-paragraph customer-information__item__text">CVR: <?= $customerCvr ?></p>
-                                        <span class="customer-information__item__icon-outer" onclick="editInfo( '<?= $customerCvr ?>', 'cvr', 'customer_cvr')">
+                                        <p class="section-paragraph customer-information__item__text">CVR: <?= $sCompanyCvr ?></p>
+                                        <span class="customer-information__item__icon-outer" onclick="editInfo( '<?= $sCompanyCvr ?>', 'cvr', 'customer_cvr')">
                                             <span class="customer-information__item__icon-inner "></span>
                                         </span>
                                     </div>
                                     <div class="customer-information__item customer-information__streetname">
-                                        <p class="section-paragraph customer-information__item__text"><?= $customerStreet ?></p>
-                                        <span class="customer-information__item__icon-outer" onclick="editInfo( '<?= $customerStreet ?>', 'string', 'customer_address')">
+                                        <p class="section-paragraph customer-information__item__text"><?= $sCustomerStreet ?></p>
+                                        <span class="customer-information__item__icon-outer" onclick="editInfo( '<?= $sCustomerStreet ?>', 'string', 'customer_address')">
                                             <span class="customer-information__item__icon-inner "></span>
                                         </span>
                                     </div>
                                     <div class="customer-information__item customer-information__zipcode">
-                                        <p class="section-paragraph customer-information__item__text"><?= $customerPostCode ?></p>
-                                        <span class="customer-information__item__icon-outer" onclick="editInfo( '<?= $customerPostCode ?>', 'string', 'customer_postcode')">
+                                        <p class="section-paragraph customer-information__item__text"><?= $sCustomerZip ?></p>
+                                        <span class="customer-information__item__icon-outer" onclick="editInfo( '<?= $sCustomerZip ?>', 'string', 'customer_postcode')">
                                             <span class="customer-information__item__icon-inner "></span>
                                         </span>
                                     </div>
                                     <div class="customer-information__item customer-information__city">
-                                        <p class="section-paragraph customer-information__item__text"><?= $customerCity ?></p>
-                                        <span class="customer-information__item__icon-outer" onclick="editInfo('<?= $customerCity ?>', 'string', 'customer_city')">
+                                        <p class="section-paragraph customer-information__item__text"><?= $sCustomerCity ?></p>
+                                        <span class="customer-information__item__icon-outer" onclick="editInfo('<?= $sCustomerCity ?>', 'string', 'customer_city')">
                                             <span class="customer-information__item__icon-inner "></span>
                                         </span>
                                     </div>
                                     <div class="customer-information__item customer-information__country">
-                                        <p class="section-paragraph customer-information__item__text"><?= $customerCountry ?></p>
-                                        <span class="customer-information__item__icon-outer" onclick="editInfo('<?= $customerCountry ?>', 'string', 'customer_country')">
+                                        <p class="section-paragraph customer-information__item__text"><?= $sCustomerCountry ?></p>
+                                        <span class="customer-information__item__icon-outer" onclick="editInfo('<?= $sCustomerCountry ?>', 'string', 'customer_country')">
                                             <span class="customer-information__item__icon-inner "></span>
                                         </span>
                                     </div>
@@ -240,27 +239,27 @@ $apiKey = "";
                                 <h4 class="section-subheader">Contact Person</h4>
                                 <div class="customer-information-wrapper">
                                     <div class="customer-information__item customer-information__firstname">
-                                        <p class="section-paragraph customer-information__item__text"><?= $firstName ?></p>
-                                        <span class="customer-information__item__icon-outer" onclick="editInfo('<?= $firstName ?>', 'string', 'customer_first_name')">
+                                        <p class="section-paragraph customer-information__item__text"><?= $sCustomerFirstName ?></p>
+                                        <span class="customer-information__item__icon-outer" onclick="editInfo('<?= $sCustomerFirstName ?>', 'string', 'customer_first_name')">
                                             <span class="customer-information__item__icon-inner "></span>
                                         </span>
                                     </div>
                                     <div class="customer-information__item customer-information__lastname">
-                                        <p class="section-paragraph customer-information__item__text"><?= $lastName ?></p>
-                                        <span class="customer-information__item__icon-outer" onclick="editInfo('<?= $lastName ?>', 'string', 'customer_first_name')">
+                                        <p class="section-paragraph customer-information__item__text"><?= $sCustomerLastName ?></p>
+                                        <span class="customer-information__item__icon-outer" onclick="editInfo('<?= $sCustomerLastName ?>', 'string', 'customer_last_name')">
                                             <span class="customer-information__item__icon-inner "></span>
                                         </span>
                                     </div>
                                     <div class="customer-information__item customer-information__email">
-                                        <p class="section-paragraph customer-information__item__text"><?= $customerEmail ?></p>
-                                        <span class="customer-information__item__icon-outer" onclick="editInfo('<?= $customerEmail ?>', 'string', 'customer_first_name')">
+                                        <p class="section-paragraph customer-information__item__text"><?= $sCustomerEmail ?></p>
+                                        <span class="customer-information__item__icon-outer" onclick="editInfo('<?= $sCustomerEmail ?>', 'email', 'customer_email')">
                                             <span class="customer-information__item__icon-inner "></span>
                                         </span>
 
                                     </div>
                                     <div class="customer-information__item customer-information__phone">
-                                        <p class="section-paragraph customer-information__item__text"><?= $customerPhone ?></p>
-                                        <span class="customer-information__item__icon-outer" onclick="editInfo('<?= $customerPhone ?>', 'string', 'customer_first_name')">
+                                        <p class="section-paragraph customer-information__item__text"><?= $sCustomerPhone ?></p>
+                                        <span class="customer-information__item__icon-outer" onclick="editInfo('<?= $sCustomerPhone ?>', 'phone', 'customer_phone')">
                                             <span class="customer-information__item__icon-inner "></span>
                                         </span>
                                     </div>
@@ -284,7 +283,7 @@ $apiKey = "";
                                                 </ul>
                                             </span>
                                         </label>
-                                        <input id="newPassword" class="customer-password-form__input" oninput="inputValidate()" data-validate="password" type="password" name="customerPassword_init" placeholder="New password">
+                                        <input id="newPassword" class="customer-password-form__input" oninput="inputValidate()" data-validate="password" type="password" name="customerPassword" placeholder="New password">
                                     </div>
                                     <div class="form-wrapper">
                                         <label for="confirmPassword" class="customer-password-form__input-label">Confirm new password:</label>
@@ -292,7 +291,7 @@ $apiKey = "";
                                     </div>
                                     <div class="form-wrapper">
                                         <label for="oldPassword" class="customer-password-form__input-label">Old password:</label>
-                                        <input id="oldPassword" class="customer-password-form__input" oninput="inputValidate()" data-validate="password" type="password" name="customer_password" placeholder="Type your old password">
+                                        <input id="oldPassword" class="customer-password-form__input" oninput="inputValidate()" data-validate="password" type="password" name="customerPassword" placeholder="Type your old password">
                                     </div>
                                     <button class="button button--yellow customer-password-form__button" type="submit">Change password</button>
                                     <!-- <div class="errorMessage"></div> -->
@@ -307,7 +306,7 @@ $apiKey = "";
     </main>
 
 
-    <?= $footer ?>
+    <?= $sFooterHtmlComp ?>
 </body>
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
 <script>

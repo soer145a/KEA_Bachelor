@@ -6,11 +6,11 @@ include_once("Components/head.php");
 include_once("Components/header.php");
 include_once("Components/products.php");
 include_once("Components/footer.php");
-$head = headComp();
-$header = headerComp('index');
-$products = productsComp($oDbConnection);
-$footer = footerComp();
-$addOns = addOnsComp($oDbConnection);
+$sHeadHtmlComp = headComp();
+$sHeaderHtmlComp = headerComp('index');
+$sProductHtmlComp = productsComp($oDbConnection);
+$sFooterHtmlComp = footerComp();
+$sAddOnHtmlComp = addOnsComp($oDbConnection);
 
 
 ?>
@@ -18,11 +18,11 @@ $addOns = addOnsComp($oDbConnection);
 <html lang="en">
 
 <head>
-    <?= $head; ?>
+    <?= $sHeadHtmlComp; ?>
 </head>
 
 <body>
-    <?= $header ?>
+    <?= $sHeaderHtmlComp ?>
     <main class="container-full-width">
         <section id="intro">
             <div class="layout-container intro">
@@ -139,7 +139,7 @@ $addOns = addOnsComp($oDbConnection);
         <section id="solutions">
             <div id="product-1" class="product-link"></div>
             <div class="layout-container solutions">
-                <?= $products ?>
+                <?= $sProductHtmlComp ?>
             </div>
         </section>
 
@@ -161,7 +161,7 @@ $addOns = addOnsComp($oDbConnection);
                 </div>
                 <div class='addon-container'>
 
-                    <?= $addOns ?>
+                    <?= $sAddOnHtmlComp ?>
                 </div>
 
             </div>
@@ -199,7 +199,7 @@ $addOns = addOnsComp($oDbConnection);
         <p>add ons</p>
         
     </div> -->
-    <?= $footer ?>
+    <?= $sFooterHtmlComp ?>
 </body>
 <script src="js/app.js"></script>
 <script src="js/helper.js"></script>

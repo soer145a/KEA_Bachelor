@@ -14,41 +14,41 @@ require 'SMTP.php';
 // Load Composer's autoloader
 //require 'vendor/autoload.php';
 $oCustomerData = json_decode($_SESSION['customerData']);
-$customerId = $_SESSION['customerId'];
-$orderId = $_SESSION['orderId'];
+$sCustomerId = $_SESSION['customerId'];
+$sOrderId = $_SESSION['orderId'];
 
-$email = $oCustomerData->customerEmail;
-$fName = $oCustomerData->customerFirstName;
-$lName = $oCustomerData->customerLastName;
+$sCustomerEmail = $oCustomerData->customerEmail;
+$sCustomerFirstName = $oCustomerData->customerFirstName;
+$sCustomerLastName = $oCustomerData->customerLastName;
 
-$emailContentOrder = file_get_contents("orderEmail.php");
-$emailContentConfirm = file_get_contents("confirmEmail.php");
-$name = "$fName $lName";
-$totalPrice = 0;
-$productName = "";
-$addonName = "";
-$boughtAddons = "";
+$sOrderEmailContent = file_get_contents("orderEmail.php");
+$sConfirmEmailContent = file_get_contents("confirmEmail.php");
+$sCustomerName = "$sCustomerFirstName $sCustomerLastName";
+$nTotalPrice = 0;
+$sProductName = "";
+$sAddonName = "";
+$sBoughtAddons = "";
 
 if (!isset($_SESSION['loginStatus'])) {
-    $emailContentConfirm = str_replace("::USERNAME::", $name, $emailContentConfirm);
-    $emailContentConfirm = str_replace("::confirmCode::", $_SESSION['customerConfirmCode'], $emailContentConfirm);
+    $sConfirmEmailContent = str_replace("::USERNAME::", $sCustomerName, $sConfirmEmailContent);
+    $sConfirmEmailContent = str_replace("::CONFIRMCODE::", $_SESSION['customerConfirmCode'], $sConfirmEmailContent);
 }
 
 foreach ($_SESSION['cartProducts'] as $product) {
-    $productName = $product['productName'] . ", " .  $productName;
-    $totalPrice =  $totalPrice + (float)$product['productPrice'];
+    $sProductName = $product['productName'] . ", " .  $sProductName;
+    $nTotalPrice =  $nTotalPrice + $product['productPrice'];
 }
 foreach ($_SESSION['cartAddOns'] as $addon) {
-    $addonName = $addon['addOnName'];
-    $addonTotalprice = (float)$addon['addOnPrice'] * (float)$addon['addOnAmount'];
-    $boughtAddons = $boughtAddons . $addon['addOnAmount'] . " x " . $addonName . ", ";
-    $totalPrice =  $totalPrice + $addonTotalprice;
+    $sAddonName = $addon['addOnName'];
+    $nAddonTotalprice = $addon['addOnPrice'] * $addon['addOnAmount'];
+    $sBoughtAddons = $sBoughtAddons . $addon['addOnAmount'] . " x " . $sAddonName . ", ";
+    $nTotalPrice =  $nTotalPrice + $nAddonTotalprice;
 }
 
-$emailContentOrder = str_replace("::USERNAME::", $name, $emailContentOrder);
-$emailContentOrder = str_replace("::ORDERPRODUCT::", $productName, $emailContentOrder);
-$emailContentOrder = str_replace("::ORDERADDONS::", $boughtAddons, $emailContentOrder);
-$emailContentOrder = str_replace("::ORDERPRICE::", $totalPrice, $emailContentOrder);
+$sOrderEmailContent = str_replace("::USERNAME::", $sCustomerName, $sOrderEmailContent);
+$sOrderEmailContent = str_replace("::ORDERPRODUCT::", $sProductName, $sOrderEmailContent);
+$sOrderEmailContent = str_replace("::ORDERADDONS::", $sBoughtAddons, $sOrderEmailContent);
+$sOrderEmailContent = str_replace("::ORDERPRICE::", $nTotalPrice, $sOrderEmailContent);
 
 
 /* $emailContent = str_replace("::USERNAME::",$UN,$emailContent);
@@ -56,51 +56,51 @@ $emailContentOrder = str_replace("::ORDERPRICE::", $totalPrice, $emailContentOrd
 // Instantiation and passing `true` enables exceptions
 
 //echo $emailContent;
-$mail = new PHPMailer(true);
+$oMail = new PHPMailer(true);
 
 try {
     //Server settings
-    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
-    $mail->isSMTP();                                            // Send using SMTP
-    $mail->Host       = 'smtp.gmail.com';                       // Set the SMTP server to send through
-    $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-    $mail->Username   = 'cookbook.kea@gmail.com';              // SMTP username
-    $mail->Password   = 'soer145a';                             // SMTP password
+    $oMail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+    $oMail->isSMTP();                                            // Send using SMTP
+    $oMail->Host       = 'smtp.gmail.com';                       // Set the SMTP server to send through
+    $oMail->SMTPAuth   = true;                                   // Enable SMTP authentication
+    $oMail->Username   = 'cookbook.kea@gmail.com';              // SMTP username
+    $oMail->Password   = 'soer145a';                             // SMTP password
 
-    //$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
-    $mail->SMTPSecure = 'tls';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
-    $mail->Port       = 587;                                    // TCP port to connect to
+    //$oMail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
+    $oMail->SMTPSecure = 'tls';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
+    $oMail->Port       = 587;                                    // TCP port to connect to
 
     /* $EM = $_GET['email'];
     $confirmCode = $_GET['confirmCode'];
     $UN = $_GET['displayName']; */
     //Recipients
-    $mail->setFrom('Mirtual@purplescout.com', 'Mirtual');
-    $mail->addAddress("$email", "Søren Rembøll");     // Add a recipient   
-    $mail->addReplyTo('Mirtual@purplescout.com', 'Information');
+    $oMail->setFrom('Mirtual@purplescout.com', 'Mirtual');
+    $oMail->addAddress("$sCustomerEmail", "$sCustomerName");     // Add a recipient   
+    $oMail->addReplyTo('Mirtual@purplescout.com', 'Information');
 
     // Attachments
-    // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+    // $oMail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
 
     // Content
-    //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-    $mail->addAttachment("../Customer-receipts/$customerId-$orderId.pdf");
-    $mail->isHTML(true);                                  // Set email format to HTML
-    $mail->Subject = "Mirtual order";
-    $mail->Body = $emailContentOrder;
-    $mail->send();
+    //$oMail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+    $oMail->addAttachment("../Customer-receipts/$sCustomerId-$sOrderId.pdf");
+    $oMail->isHTML(true);                                  // Set email format to HTML
+    $oMail->Subject = "Mirtual order";
+    $oMail->Body = $sOrderEmailContent;
+    $oMail->send();
 
     if (!isset($_SESSION['loginStatus'])) {
-        $mail->clearAttachments();
-        $mail->isHTML(true);                                  // Set email format to HTML
-        $mail->Subject = "Mirtual Activation";
-        $mail->Body    = $emailContentConfirm;
-        $mail->send();
+        $oMail->clearAttachments();
+        $oMail->isHTML(true);                                  // Set email format to HTML
+        $oMail->Subject = "Mirtual Activation";
+        $oMail->Body    = $sConfirmEmailContent;
+        $oMail->send();
     }
 
 
 
     echo "<script>window.location.assign(window.location.protocol + '/KEA_Bachelor/confirmOrder.php');</script>";
 } catch (Exception $e) {
-    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    echo "Message could not be sent. Mailer Error: {$oMail->ErrorInfo}";
 }

@@ -4,58 +4,57 @@
 function productsComp($oDbConnection)
 {
 
-    $productSql = 'SELECT * FROM products';
-    $productResult = $oDbConnection->query($productSql);
-    $subscriptionSql = 'SELECT * FROM subscriptions';
-    $subscriptionResult = $oDbConnection->query($subscriptionSql);
-    $productsContent = "";
-    $aSubscription = [];
-    $counter = "0";
+    $sProductSelectSql = 'SELECT * FROM products';
+    $oProductResult = $oDbConnection->query($sProductSelectSql);
+    $sSubscriptionSelectSql = 'SELECT * FROM subscriptions';
+    $oSubscriptionResult = $oDbConnection->query($sSubscriptionSelectSql);
+    $sProductHtmlComp = "";
+    $aSubscriptions = [];
+    $nCounter = "0";
 
-    while ($subscriptionRow = $subscriptionResult->fetch_object()) {
-        array_push($aSubscription, $subscriptionRow);
+    while ($subscriptionRow = $oSubscriptionResult->fetch_object()) {
+        array_push($aSubscriptions, $subscriptionRow);
     }
     // echo json_encode($aSubscription);
 
 
-    while ($productRow = $productResult->fetch_object()) {
+    while ($oProductRow = $oProductResult->fetch_object()) {
         $subscriptionList = "";
-        foreach ($aSubscription as $sub) {
-            $subscriptionList = $subscriptionList . "<span class='dropdown__list-item' data-subscriptionid='$sub->subscription_id' data-buttonid='$counter'>$sub->subscription_name - €$sub->subscription_price/month</span>";
+        foreach ($aSubscriptions as $oSubscription) {
+            $subscriptionList = $subscriptionList . "<span class='dropdown__list-item' data-subscriptionid='$oSubscription->subscription_id' data-buttonid='$nCounter'>$oSubscription->subscription_name - €$oSubscription->subscription_price/month</span>";
         }
 
-        switch ($productRow->product_id) {
+        switch ($oProductRow->product_id) {
             case 1:
-                $productsContent = $productsContent . "<div class='product'>
-              <span class='
+                $sProductHtmlComp = $sProductHtmlComp . "
+                <div class='product'>
+                    <span class='
                           background-sphere
                           background-sphere--left
                           background-sphere--top
                           background-sphere--purple
-                      '></span>
-              <div class='text-wrapper'>
-                  <h3 class='section-subheader'>Solution</h3>
-                  <h2 class='section-header'>$productRow->product_name</h2>
-                  <img class='section-image' src='$productRow->product_image_url' alt='$productRow->product_name' />
-              </div>
-              <div class='text-container'>
-                  <span class='text-container__background-block'></span>
-
-                  <div class='text-wrapper product-description'>
-                      <p class='section-paragraph'>
-                          Free up space otherwise occupied by changing
-                          rooms. With an in-store kiosk your customers
-                          can try out clothes without having to strip
-                          down first.
-                      </p>
-                      <p class='section-paragraph'>
-                          We will provide the hardware and software
-                          needed to get it up and running in your
-                          store all at the one-time price of €$productRow->product_price.
-                      </p>
-                  </div>
-
-                  <div class='product-fees'>
+                    '></span>
+                    <div class='text-wrapper'>
+                        <h3 class='section-subheader'>Solution</h3>
+                        <h2 class='section-header'>$oProductRow->product_name</h2>
+                        <img class='section-image' src='$oProductRow->product_image_url' alt='$oProductRow->product_name' />
+                    </div>
+                    <div class='text-container'>
+                        <span class='text-container__background-block'></span>
+                        <div class='text-wrapper product-description'>
+                            <p class='section-paragraph'>
+                                Free up space otherwise occupied by changing
+                                rooms. With an in-store kiosk your customers
+                                can try out clothes without having to strip
+                                down first.
+                            </p>
+                            <p class='section-paragraph'>
+                                We will provide the hardware and software
+                                needed to get it up and running in your
+                                store all at the one-time price of €$oProductRow->product_price.
+                            </p>
+                        </div>
+                    <div class='product-fees'>
                       <h4 class='section-paragraph'>
                           The fee includes the following:
                       </h4>
@@ -77,31 +76,30 @@ function productsComp($oDbConnection)
                               AR view of 3 clothing items
                           </li>
                       </ul>
-                  </div>
-
-                  <div class='dropdown-container'>
-                      <div class='dropdown'>
-                          <span class='dialog-box dialog-box--hidden' data-buttonid='$counter'>You have to choose a subscription lenght.</span>
+                    </div>
+                    <div class='dropdown-container'>
+                        <div class='dropdown'>
+                          <span class='dialog-box dialog-box--hidden' data-buttonid='$nCounter'>You have to choose a subscription lenght.</span>
                           <span class='dropdown__label'>Why do I need a subscription?</span>
-                          <span class='dropdown__button' data-buttonid='$counter'>Choose a subscription length</span>
+                          <span class='dropdown__button' data-buttonid='$nCounter'>Choose a subscription length</span>
                           <div class='
                                       dropdown-list-container
                                       dropdown-list-container--hidden
-                                  ' data-listid='$counter'>
+                                  ' data-listid='$nCounter'>
                                   
                                   <div class='dropdown__list'>
                                   $subscriptionList
                                 </div>
                           </div>
                       </div>
-                      <button class='button button--yellow' onclick='addProductToCart($productRow->product_id, $counter)' >Add to Cart</button>
+                      <button class='button button--yellow' onclick='addProductToCart($oProductRow->product_id, $nCounter)' >Add to Cart</button>
                   </div>
               </div>
           </div>";
 
                 break;
             case 2:
-                $productsContent = $productsContent . "<div id='product-2'></div>
+                $sProductHtmlComp = $sProductHtmlComp . "<div id='product-2'></div>
                 <div class='product'>
                 <span class='
                         background-sphere
@@ -111,8 +109,8 @@ function productsComp($oDbConnection)
                         '></span>
                 <div class='text-wrapper place-right'>
                     <h3 class='section-subheader'>Solution</h3>
-                    <h2 class='section-header'>$productRow->product_name</h2>
-                    <img class='section-image' src='$productRow->product_image_url' alt='$productRow->product_name' />
+                    <h2 class='section-header'>$oProductRow->product_name</h2>
+                    <img class='section-image' src='$oProductRow->product_image_url' alt='$oProductRow->product_name' />
                 </div>
                 <div class='text-container'>
                     <span class='text-container__background-block'></span>
@@ -127,7 +125,7 @@ function productsComp($oDbConnection)
                         <p class='section-paragraph'>
                             We will provide the hardware and software
                             needed to get it up and running in your
-                            store all at the one-time price of €$productRow->product_price.
+                            store all at the one-time price of €$oProductRow->product_price.
                         </p>
                     </div>
   
@@ -157,26 +155,26 @@ function productsComp($oDbConnection)
   
                     <div class='dropdown-container'>
                       <div class='dropdown'>
-                      <span class='dialog-box dialog-box--hidden' data-buttonid='$counter'>You have to choose a subscription lenght.</span>
+                      <span class='dialog-box dialog-box--hidden' data-buttonid='$nCounter'>You have to choose a subscription lenght.</span>
                           <span class='dropdown__label'>Why do I need a subscription?</span>
-                          <span class='dropdown__button' data-buttonid='$counter'>Choose a subscription length</span>
+                          <span class='dropdown__button' data-buttonid='$nCounter'>Choose a subscription length</span>
                           <div class='
                                       dropdown-list-container
                                       dropdown-list-container--hidden
-                                  ' data-listid='$counter'>
+                                  ' data-listid='$nCounter'>
                                   
                                   <div class='dropdown__list'>
                                   $subscriptionList
                                 </div>
                           </div>
                       </div>
-                      <button class='button button--yellow' onclick='addProductToCart($productRow->product_id, $counter)' >Add to Cart</button>
+                      <button class='button button--yellow' onclick='addProductToCart($oProductRow->product_id, $nCounter)' >Add to Cart</button>
                   </div>
               </div>
           </div>";
                 break;
             case 3:
-                $productsContent = $productsContent . "<div id='product-3'></div>
+                $sProductHtmlComp = $sProductHtmlComp . "<div id='product-3'></div>
                 <div class='product'>
                 <span class='
                             background-sphere
@@ -186,8 +184,8 @@ function productsComp($oDbConnection)
                         '></span>
                 <div class='text-wrapper'>
                     <h3 class='section-subheader'>Solution</h3>
-                    <h2 class='section-header'>$productRow->product_name</h2>
-                    <img class='section-image' src='$productRow->product_image_url' alt='$productRow->product_name' />
+                    <h2 class='section-header'>$oProductRow->product_name</h2>
+                    <img class='section-image' src='$oProductRow->product_image_url' alt='$oProductRow->product_name' />
                 </div>
                 <div class='text-container'>
                     <span class='text-container__background-block'></span>
@@ -203,7 +201,7 @@ function productsComp($oDbConnection)
                         <p class='section-paragraph'>
                             We will provide the hardware and software
                             needed to get it up and running in your
-                            store all at the one-time price of €$productRow->product_price.
+                            store all at the one-time price of €$oProductRow->product_price.
                         </p>
                     </div>
   
@@ -233,25 +231,25 @@ function productsComp($oDbConnection)
   
                     <div class='dropdown-container'>
                       <div class='dropdown'>
-                      <span class='dialog-box dialog-box--hidden' data-buttonid='$counter'>You have to choose a subscription lenght.</span>
+                      <span class='dialog-box dialog-box--hidden' data-buttonid='$nCounter'>You have to choose a subscription lenght.</span>
                           <span class='dropdown__label'>Why do I need a subscription?</span>
-                          <span class='dropdown__button' data-buttonid='$counter'>Choose a subscription length</span>
+                          <span class='dropdown__button' data-buttonid='$nCounter'>Choose a subscription length</span>
                           <div class='
                                       dropdown-list-container
                                       dropdown-list-container--hidden
-                                  ' data-listid='$counter'>
+                                  ' data-listid='$nCounter'>
                                   
                                   <div class='dropdown__list'>
                                   $subscriptionList
                                 </div>
                           </div>
                       </div>
-                      <button class='button button--yellow' onclick='addProductToCart($productRow->product_id, $counter)' >Add to Cart</button>
+                      <button class='button button--yellow' onclick='addProductToCart($oProductRow->product_id, $nCounter)' >Add to Cart</button>
                   </div>
               </div>
           </div>";
         }
-        $counter++;
+        $nCounter++;
     }
-    return $productsContent;
+    return $sProductHtmlComp;
 };

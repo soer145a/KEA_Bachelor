@@ -47,6 +47,6 @@ if (isset($_POST['productId'])) {
         $_SESSION['cartProducts'][0] = $aProductArray;
     }
 }
-$response = array("error" => false);
+$aResponse = array("error" => false);
 //Returning some data for our javascript to use
-echo json_encode($response);
+echo json_encode($aResponse);

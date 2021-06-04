@@ -1,56 +1,56 @@
 <?php
 
 
-function headerComp($activeLink)
+function headerComp($sActiveLink)
 {
 
-    $indexActiveClass = '';
-    $profileActiveClass = '';
-    $cartActiveClass = '';
-    $loginActiveClass = '';
+    $sIndexActiveClass = '';
+    $sProfileActiveClass = '';
+    $sCartActiveClass = '';
+    $sLoginActiveClass = '';
 
-    switch ($activeLink) {
+    switch ($sActiveLink) {
 
         case 'index':
-            $indexActiveClass = "navigation-list__item-link--active";
+            $sIndexActiveClass = "navigation-list__item-link--active";
             break;
 
         case 'profile':
-            $profileActiveClass = "navigation-list__item-link--active";
+            $sProfileActiveClass = "navigation-list__item-link--active";
             break;
 
         case 'cart':
-            $cartActiveClass = "navigation-list__item-link--active";
+            $sCartActiveClass = "navigation-list__item-link--active";
             break;
 
         case 'login':
-            $loginActiveClass = "navigation-list__item-link--active";
+            $sLoginActiveClass = "navigation-list__item-link--active";
             break;
     }
 
-    $cartCount = 0;
+    $nCartCount = 0;
 
     if (isset($_SESSION['loginStatus'])) {
-        $loginLink =
-            "<a href='logout.php' class='navigation-list__item-link $loginActiveClass'>Logout</a>";
-        $profileLink = "<li class='navigation-list__item'><a href='profile.php' class='navigation-list__item-link $profileActiveClass'>Profile</a></li>";
+        $sLoginLinkHtml =
+            "<a href='logout.php' class='navigation-list__item-link $sLoginActiveClass'>Logout</a>";
+        $sProfileLinkHtml = "<li class='navigation-list__item'><a href='profile.php' class='navigation-list__item-link $sProfileActiveClass'>Profile</a></li>";
     } else {
-        $loginLink =
-            "<a href='login.php' class='navigation-list__item-link $loginActiveClass'>Login</a>";
-        $profileLink = '';
+        $sLoginLinkHtml =
+            "<a href='login.php' class='navigation-list__item-link $sLoginActiveClass'>Login</a>";
+        $sProfileLinkHtml = '';
     }
 
     if (isset($_SESSION['cartProducts'])) {
 
-        $cartCount = $cartCount + count($_SESSION['cartProducts']);
+        $nCartCount = $nCartCount + count($_SESSION['cartProducts']);
     }
     if (isset($_SESSION['cartAddOns'])) {
-        foreach ($_SESSION['cartAddOns'] as $addon) {
-            $cartCount = $cartCount + $addon['addOnAmount'];
+        foreach ($_SESSION['cartAddOns'] as $aAddon) {
+            $nCartCount = $nCartCount + $aAddon['addOnAmount'];
         }
     }
 
-    $headerContent =
+    $sHeaderHtmlComp =
         "<header class='container-full-width'>
         <nav class='layout-container navigation-contatiner navigation'>
             <a href='index.php'
@@ -73,17 +73,17 @@ function headerComp($activeLink)
                 >
                     <ul class='navigation-list'>
                         <li class='navigation-list__item'>
-                            <a href='index.php' class='navigation-list__item-link $indexActiveClass'
+                            <a href='index.php' class='navigation-list__item-link $sIndexActiveClass'
                                 >Home</a
                             >
                         </li>   
-                        $profileLink                       
+                        $sProfileLinkHtml                       
                         <li class='navigation-list__item'>
-                            $loginLink
+                            $sLoginLinkHtml
                         </li>
                         <li class='navigation-list__item'>
-                            <a href='cart.php' class='navigation-list__item-link $cartActiveClass'
-                                >Cart<span class='cart-counter'>$cartCount</span></a
+                            <a href='cart.php' class='navigation-list__item-link $sCartActiveClass'
+                                >Cart<span class='cart-counter'>$nCartCount</span></a
                             >
                         </li>
                     </ul>
@@ -92,5 +92,5 @@ function headerComp($activeLink)
         </nav>
     </header>";
 
-    return $headerContent;
+    return $sHeaderHtmlComp;
 }

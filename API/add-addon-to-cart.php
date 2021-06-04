@@ -52,5 +52,5 @@ if (isset($_POST['addOnId'])) {
     }
 }
 //If failed, display why and echo the data/response
-$response = array("error" => false);
-echo json_encode($response);
+$aResponse = array("error" => false);
+echo json_encode($aResponse);

@@ -92,7 +92,7 @@ function inputValidate() {
         } else {
           if (
             inputsToValidate[i].value ===
-            document.getElementsByName("customerPassword_init")[0].value
+            document.getElementsByName("customerPassword")[0].value
           ) {
             inputsToValidate[i].classList.add("valid");
             inputsToValidate[i].classList.remove("invalid");
@@ -195,9 +195,9 @@ function showUpdateForm() {
   form.classList.add("shown");
 }
 
-async function toggleAutoRenew(subID) {
-  console.log(subID);
-  fetch(`API/update-autorenewal.php?subID=${subID}`)
+async function toggleAutoRenew(sCustomerProductId) {
+  console.log(sCustomerProductId);
+  fetch(`API/update-autorenewal.php?customer-product-id=${sCustomerProductId}`)
     .then((response) => response.text())
     .then((data) => location.reload());
 }

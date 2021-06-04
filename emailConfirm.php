@@ -3,27 +3,27 @@ session_start();
 include_once("Components/head.php");
 include_once("Components/header.php");
 include_once("Components/footer.php");
-$head = headComp();
-$header = headerComp('');
-$footer = footerComp();
+$sHeadHtmlComp = headComp();
+$sHeaderHtmlComp = headerComp('');
+$sFooterHtmlComp = footerComp();
 if (!isset($_GET['confirmCode'])) {
     header('Location: index.php');
 }
 $sCustomerConfirmCode = $_GET['confirmCode'];
 
 include_once("DB_Connection/connection.php");
-$sql = "UPDATE customers SET customer_confirmed = 1 WHERE customer_confirm_code = \"$sCustomerConfirmCode\"";
-$result = $oDbConnection->query($sql);
+$sCustomerUpdateSql = "UPDATE customers SET customer_confirmed = 1 WHERE customer_confirm_code = \"$sCustomerConfirmCode\"";
+$oCustomerResult = $oDbConnection->query($sCustomerUpdateSql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <?= $head ?>
+    <?= $sHeadHtmlComp ?>
 </head>
 
 <body>
-    <?= $header ?>
+    <?= $sHeaderHtmlComp ?>
     <main>
         <section id="email-confirmation">
             <div class="layout-container email-confirmation">
@@ -36,7 +36,7 @@ $result = $oDbConnection->query($sql);
             </div>
         </section>
     </main>
-    <?= $footer ?>
+    <?= $sFooterHtmlComp ?>
 </body>
 
 </html>

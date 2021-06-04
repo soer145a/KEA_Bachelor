@@ -1,7 +1,7 @@
 <?php
 session_start();
 $_POST = json_decode(file_get_contents("php://input"), true); //make json object an assoc array
-if(!isset($_POST['isLoggedIn'])){
+if (!isset($_POST['loginStatus'])) {
     header("Location: ../index.php");
     exit();
 }
