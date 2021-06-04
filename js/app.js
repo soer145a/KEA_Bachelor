@@ -34,7 +34,7 @@ function inputValidate() {
         document.getElementsByClassName("errorMessage")[0].innerHTML = "";
         inputData = inputsToValidate[i].value;
         let regEmail =
-          /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+          /^[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~](\.?[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/;
 
         if (!regEmail.test(inputData)) {
           inputsToValidate[i].classList.remove("valid");
@@ -288,4 +288,74 @@ function cancelEdit(value, type, postName) {
   for (let i = 0; i < aHiddenElements.length; i++) {
     aHiddenElements[i].classList.remove("customer-information__item--hidden");
   }
+}
+
+function togglePaypalButton(loggedIn, price) {
+  console.log(loggedIn, price)
+  if (loggedIn) {
+    document.querySelector(".order-summary__button").remove();
+    paypal.Buttons({
+        style: {
+            color: 'blue',
+            shape: 'rect',
+            size: 'responsive'
+        },
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                      amount: {
+                          value: price
+                      }
+                  }]
+              });
+          },
+          onApprove: function(data, actions) {
+              return actions.order.capture().then(function(PurchaseDetails) {
+                  window.location.assign(window.location.protocol + "/KEA_Bachelor/API/payment-handler.php");
+              });
+          }
+      }).render('#paypal-button-container');
+  } else {
+    const ePaypalContainer = document.querySelector("#paypal-button-container");
+
+    if (document.querySelectorAll(".valid").length !== 12) {
+
+        if (document.querySelector(".paypal-buttons") !== null) {
+            //Remove paypal button if it's there
+            document.querySelector(".paypal-buttons").remove()
+            let eButtonPlaceholder = document.createElement("button");
+            eButtonPlaceholder.setAttribute("class", "order-summary__button button button--purple");
+            eButtonPlaceholder.textContent = "Paypal";
+
+            ePaypalContainer.appendChild(eButtonPlaceholder);
+        }
+    } else {
+        console.log("It does work");
+        if (document.querySelector(".order-summary__button") !== null) {
+            document.querySelector(".order-summary__button").remove();
+
+            paypal.Buttons({
+                style: {
+                    color: 'blue',
+                    shape: 'rect',
+                    size: 'responsive'
+                },
+                createOrder: function(data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: price
+                            }
+                        }]
+                    });
+                },
+                onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(PurchaseDetails) {
+                        document.querySelector(".account-details").submit();
+                    });
+                }
+            }).render('#paypal-button-container');
+        }
+    }
+  }    
 }
