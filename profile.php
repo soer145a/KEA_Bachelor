@@ -68,11 +68,11 @@ $apiKey = "";
             <div class="layout-container profile">
                 <h1 class="section-header profile__header">Welcome <?= $firstName, " ", $lastName ?></h1>
                 <div class="profile__main">
-                    <div id="deleteModal" class="hidden modal--delete">
+                    <div id="deleteModal" class="hidden delete-profile modal--delete">
                         <h2 class="section-header">Are you sure you want to delete your data?</h2>
                         <p class="section-paragraph">You are about to delete every data we have regarding your product and your orders. <br>
                             Going foward with this, there will be no recovering this information, and your product and licenses will be removed from your account.</p>
-                        <div id="customerInfo">
+                        <div>
                             <p class="section-paragraph">You will be deleting:</p>
                             <ul>
                                 <?php
@@ -99,32 +99,34 @@ $apiKey = "";
                             </ul>
 
                         </div>
-                        <button class="button button--purple" onclick="cancelDeletion()">Cancel</button>
-                        <button class="button button--red" onclick="showDeleteOption2()">I Understand</button>
+                        <div class="delete-profile__button-container">
+                            <button class="delete-profile__button button button--purple" onclick="cancelDeletion()">Cancel</button>
+                            <button class="delete-profile__button button button--red" onclick="showDeleteOption2()">I Understand</button>
+                        </div>
                     </div>
-                    <div id="deleteModalTotal" class="<?php if ($showFlag) {
-                                                            echo "shown";
-                                                        } else {
-                                                            echo "hidden";
-                                                        } ?> ">
-                        <h1>Enter password</h1>
-                        <p>By entering your password, your account will be deleted.</p>
-                        <form method="post">
-                            <label>
-                                <p>Password:</p>
-                                <input type="password" name="password" oninput="checkPassword()" id="pass1">
-                            </label>
-                            <label>
-                                <p>Confirm Password:</p>
-                                <input type="password" name="confirmPassword" oninput="checkPassword()" id="pass2">
-                            </label>
-
+                    <div id="deleteModalTotal" class="modal modal--delete <?php if ($showFlag) {
+                                                                                echo "shown";
+                                                                            } else {
+                                                                                echo "hidden";
+                                                                            } ?> ">
+                        <h2 class="section-header">Enter password</h2>
+                        <p class="section-paragraph">By entering your password, your account will be deleted.</p>
+                        <form class="modal-form" method="post">
+                            <div class="form-wrapper">
+                                <label class="customer-password-form__input-label">Password</label>
+                                <input class="customer-password-form__input" type="password" name="password" oninput="checkPassword()" id="pass1">
+                            </div>
+                            <div class="form-wrapper">
+                                <label class="customer-password-form__input-label">Confirm Password</label>
+                                <input class="customer-password-form__input" type="password" name="confirmPassword" oninput="checkPassword()" id="pass2">
+                            </div>
                             <?= "<input type='hidden' name='userID' value='$customerId'>" ?>
                             <?= $errorMess ?>
-                            <button disabled id="deleteButton">DELETE MY ACOUNT</button>
+                            <div class="button-wrapper">
+                                <button type="button" class="delete-profile__button button button--purple" onclick="removeDeleteModals()">Cancel</button>
+                                <button disabled id="deleteButton" class="delete-profile__button button button--red">DELETE MY ACOUNT</button>
+                            </div>
                         </form>
-                        <button onclick="removeDeleteModals()">Cancel</button>
-
                     </div>
                     <div class="customerInfoContainer">
                         <?php
@@ -240,26 +242,26 @@ $apiKey = "";
                                 <div class="customer-information-wrapper">
                                     <div class="customer-information__item customer-information__firstname">
                                         <p class="section-paragraph customer-information__item__text"><?= $firstName ?></p>
-                                        <span class="customer-information__item__icon-outer" onclick="editInfo('Firstname: ', '<?= $firstName ?>', 'string', 'customer_first_name')">
+                                        <span class="customer-information__item__icon-outer" onclick="editInfo('<?= $firstName ?>', 'string', 'customer_first_name')">
                                             <span class="customer-information__item__icon-inner "></span>
                                         </span>
                                     </div>
                                     <div class="customer-information__item customer-information__lastname">
                                         <p class="section-paragraph customer-information__item__text"><?= $lastName ?></p>
-                                        <span class="customer-information__item__icon-outer" onclick="editInfo('Firstname: ', '<?= $lastName ?>', 'string', 'customer_first_name')">
+                                        <span class="customer-information__item__icon-outer" onclick="editInfo('<?= $lastName ?>', 'string', 'customer_first_name')">
                                             <span class="customer-information__item__icon-inner "></span>
                                         </span>
                                     </div>
                                     <div class="customer-information__item customer-information__email">
                                         <p class="section-paragraph customer-information__item__text"><?= $customerEmail ?></p>
-                                        <span class="customer-information__item__icon-outer" onclick="editInfo('Firstname: ', '<?= $customerEmail ?>', 'string', 'customer_first_name')">
+                                        <span class="customer-information__item__icon-outer" onclick="editInfo('<?= $customerEmail ?>', 'string', 'customer_first_name')">
                                             <span class="customer-information__item__icon-inner "></span>
                                         </span>
 
                                     </div>
                                     <div class="customer-information__item customer-information__phone">
                                         <p class="section-paragraph customer-information__item__text"><?= $customerPhone ?></p>
-                                        <span class="customer-information__item__icon-outer" onclick="editInfo('Firstname: ', '<?= $customerPhone ?>', 'string', 'customer_first_name')">
+                                        <span class="customer-information__item__icon-outer" onclick="editInfo('<?= $customerPhone ?>', 'string', 'customer_first_name')">
                                             <span class="customer-information__item__icon-inner "></span>
                                         </span>
                                     </div>

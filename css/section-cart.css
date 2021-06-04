@@ -73,9 +73,21 @@
 } 
 
 .order-summary__button {
-    margin-top: auto;
     width: auto;
-    align-self: flex-end;
+    white-space: nowrap;
+    margin: 0;
+    
+    position: relative;
+    left: calc(-50% - 16px);
+}
+
+.paypal-button-container {
+    margin: 0 auto;
+    margin-top: auto;
+}
+
+.paypal-buttons {
+    left: -50%;
 }
 
 .header-container {

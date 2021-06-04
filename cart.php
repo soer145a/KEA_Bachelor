@@ -207,7 +207,6 @@ if (!isset($_SESSION['loginStatus'])) {
     $loggedIn = 'false';
 } else {
     $loggedIn = 'true';
-    $content = "<div id='paypal-button-container'></div>";
 }
 
 //echo json_encode($_POST);
@@ -249,12 +248,11 @@ if (!isset($_SESSION['loginStatus'])) {
                             </div>
 
                         </div>
-                        <button class="
-                                        order-summary__button
-                                        button button--purple
-                                    ">
-                            Accept and Purchase
-                        </button>
+                        <div id='paypal-button-container' class="paypal-button-container">
+                            <button class="order-summary__button button button--purple">
+                                Accept and Purchase
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -269,10 +267,12 @@ if (!isset($_SESSION['loginStatus'])) {
 </script>
 <script>
     if (<?= $loggedIn ?>) {
+        document.querySelector(".order-summary__button").remove();
         paypal.Buttons({
             style: {
                 color: 'blue',
-                shape: 'pill',
+                shape: 'rect',
+                size: 'responsive'
             },
             createOrder: function(data, actions) {
                 return actions.order.create({
@@ -294,16 +294,19 @@ if (!isset($_SESSION['loginStatus'])) {
     function printBtnValidate() {
         console.log("Fire");
         console.log(document.querySelectorAll(".valid").length);
-        btnContainer = document.getElementsByClassName("form__btnContainer")[0];
+        // btnContainer = document.getElementsByClassName("form__btnContainer")[0];
         if (document.querySelectorAll(".valid").length !== 12) {
-            btnContainer.innerHTML = "<p>What would cause you not to fill out all the fields in the form?</p>";
+            //Add placeholder button
+
         } else {
             console.log("It does work");
-            btnContainer.innerHTML = "<div id='paypal-button-container'></div>";
+            document.querySelector(".order-summary__button").remove();
+            // btnContainer.innerHTML = "<div id='paypal-button-container' class='button'></div>";
             paypal.Buttons({
                 style: {
                     color: 'blue',
-                    shape: 'pill',
+                    shape: 'rect',
+                    size: 'responsive'
                 },
                 createOrder: function(data, actions) {
                     return actions.order.create({

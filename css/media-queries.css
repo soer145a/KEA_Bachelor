@@ -136,6 +136,14 @@
     .customer-information {
         width: 49%;
     }
+
+    .delete-profile__button-container {
+        justify-content: center;
+    }
+
+    .delete-profile__button {
+        margin: 0 auto;
+    }
 }
 
 /* DESKTOP - Orientation Landscape */
@@ -198,12 +206,8 @@
     .navigation-list__item {
         text-align: initial;
         
-        /* margin-left: 1rem; */
+        margin-left: 1rem;
     }
-    .navigation-list__item:nth-of-type(2) {
-        margin-left: 8px;
-        margin-right: 8px;
-    } 
 
     .navigation-list__item-link {
         width: auto;

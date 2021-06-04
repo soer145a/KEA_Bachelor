@@ -8,16 +8,56 @@
 }
 
 .modal--delete {
-    position: fixed;
+    
     z-index: 9000;
     text-align: center;
     border-radius: 10px;
     padding: 16px;
     background-color: var(--yellow);
     color: var(--purple-dark);
-    left: 0;
-    margin: 0 16px;
+    position: fixed;
+    top: calc(50% + 32px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 600px;
 }
+
+.modal-form {
+    margin: 16px 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.modal-form .form-wrapper {
+    margin-bottom: 16px;
+}
+
+.modal-form .customer-password-form__input{
+    margin-bottom: 0;
+    
+}
+.modal-form .customer-password-form__input-label{
+    height: auto;
+}
+
+.modal-form .button-wrapper{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.delete-profile__button-container {
+    width: 100%;
+    display: flex;
+    /* justify-content: space-between; */
+    margin: 16px 0;
+}
+
+.delete-profile__button:nth-of-type(1) {
+    margin-right: 16px;
+}
+
 .profile__header {
    text-align: center;
 }
@@ -120,7 +160,9 @@
 .form-wrapper {
     display: flex;
     flex-direction: column;
-    width: 49%;
+    flex-basis: 49%;
+    width: 100%;
+    max-width: 280px;
 }
 
 .customer-password-form__input-label {
