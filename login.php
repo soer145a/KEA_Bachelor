@@ -17,17 +17,17 @@ if (isset($_POST['customer_email']) && isset($_POST['customer_password'])) {
     if ($_POST['customer_email'] != "" && $_POST['customer_password'] != "") {
         //echo "Data is there";
         include("DB_Connection/connection.php");
-        $password = $conn->real_escape_string($_POST['customer_password']);
-        $email = $conn->real_escape_string($_POST['customer_email']);
+        $password = $oDbConnection->real_escape_string($_POST['customer_password']);
+        $email = $oDbConnection->real_escape_string($_POST['customer_email']);
         $sql = "SELECT * FROM customers WHERE customer_email = \"$email\"";
-        $result = $conn->query($sql);
+        $result = $oDbConnection->query($sql);
         if ($result->num_rows > 0) {
             $row = $result->fetch_object();
             $db_password = $row->customer_password;
             if (password_verify($password, $db_password)) {
                 if ($row->customer_confirmed == 1) {
                     $_SESSION['loginStatus'] = true;
-                    $_SESSION['customer_id'] = $row->customer_id;
+                    $_SESSION['customerId'] = $row->customer_id;
                     $_SESSION['customer_first_name'] = $row->customer_first_name;
                     $_SESSION['customer_last_name'] = $row->customer_last_name;
                     header('Location: index.php');
@@ -62,7 +62,7 @@ if (isset($_POST['customer_email']) && isset($_POST['customer_password'])) {
                 <form class="login-form" method="post">
                     <label class="login-form__label">Email:</label>
 
-                    <input class="login-form__input" oninput="" type="email" placeholder="example@email.com" data-validate="email" name="customer_email">
+                    <input class="login-form__input" type="email" placeholder="example@email.com" name="customer_email">
 
                     <label class="login-form__label">Password:
                         <span class="login-form__label-info-outer js-toggle-infobox">

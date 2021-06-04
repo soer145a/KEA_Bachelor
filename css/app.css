@@ -177,6 +177,7 @@ img {
     overflow: hidden;
 }
 
+<<<<<<< HEAD
 .invalid {
     border: 2px solid var(--red) !important;
 }
@@ -185,6 +186,8 @@ img {
     border: 2px solid var(--green) !important;
 }
 
+=======
+>>>>>>> 560061e4574839a8b6cca291ab86870fa0a77c7c
 .productCard {
     max-width: 300px;
 }

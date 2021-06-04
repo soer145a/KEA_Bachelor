@@ -4,54 +4,51 @@ include("../DB_Connection/connection.php");
 
 $_POST = json_decode(file_get_contents("php://input"), true); //make json object an assoc array
 
-if (isset($_POST['addon_id'])) {
+if (isset($_POST['addOnId'])) {
 
-    $addOnId = $_POST['addon_id'];
-    $addOnAmount = $_POST['addon_amount'];
-    $sql = "SELECT * FROM addons WHERE addon_id = \"$addOnId\"";
-    $result = $conn->query($sql);
-    $row = $result->fetch_object();
-    $addOnName = $row->addon_name;
-    $addOnPrice = $row->addon_price;
+    $sAddOnId = $_POST['addOnId'];
+    $nAddOnAmount = $_POST['addOnAmount'];
+    $sAddOnSelectSql = "SELECT * FROM addons WHERE addon_id = \"$sAddOnId\"";
+    $oAddOnResult = $oDbConnection->query($sAddOnSelectSql);
+    $oAddOnRow = $oAddOnResult->fetch_object();
+    $sAddOnName = $oAddOnRow->addon_name;
+    $nAddOnPrice = (float)$oAddOnRow->addon_price;
 
     if (isset($_SESSION['cartAddOns'])) {
 
-        $addOnsIdsArray = array_column($_SESSION['cartAddOns'], 'addon_id');
-        $count = count($_SESSION['cartAddOns']);
+        $aAddOnIdArray = array_column($_SESSION['cartAddOns'], 'addOnId');
+        $nAddOnCount = count($_SESSION['cartAddOns']);
 
-        if (in_array($addOnId, $addOnsIdsArray)) {
+        if (in_array($sAddOnId, $aAddOnIdArray)) {
 
-            for ($i = 0; $i < $count; $i++) {
+            for ($i = 0; $i < $nAddOnCount; $i++) {
 
-                if ($_SESSION['cartAddOns'][$i]['addon_id'] == $addOnId) {
+                if ($_SESSION['cartAddOns'][$i]['addOnId'] == $sAddOnId) {
 
-                    $oldAmount = $_SESSION['cartAddOns'][$i]['addon_amount'];
-                    $newAmount = $addOnAmount + $oldAmount;
-                    $_SESSION['cartAddOns'][$i]['addon_amount'] = $newAmount;
+                    $nOldAddonAmount = $_SESSION['cartAddOns'][$i]['addOnAmount'];
+                    $nNewAddonAmount = $nAddOnAmount + $nOldAddonAmount;
+                    $_SESSION['cartAddOns'][$i]['addOnAmount'] = $nNewAddonAmount;
                 }
             }
         } else {
-
-            $addOnArray = array(
-                'addon_id' => $addOnId,
-                'addon_name' => $addOnName,
-                'addon_price' => $addOnPrice,
-                'addon_amount' => $addOnAmount
+            $aAddOnArray = array(
+                'addOnId' => $sAddOnId,
+                'addOnName' => $sAddOnName,
+                'addOnPrice' => $nAddOnPrice,
+                'addOnAmount' => $nAddOnAmount
             );
-            $_SESSION['cartAddOns'][$count] = $addOnArray;
+            $_SESSION['cartAddOns'][$nAddOnCount] = $aAddOnArray;
         }
     } else {
 
-        $addOnArray = array(
-            'addon_id' => $addOnId,
-            'addon_name' => $addOnName,
-            'addon_price' => $addOnPrice,
-            'addon_amount' => $addOnAmount
+        $aAddOnArray = array(
+            'addOnId' => $sAddOnId,
+            'addOnName' => $sAddOnName,
+            'addOnPrice' => $nAddOnPrice,
+            'addOnAmount' => $nAddOnAmount
         );
-        $_SESSION['cartAddOns'][0] = $addOnArray;
+        $_SESSION['cartAddOns'][0] = $aAddOnArray;
     }
 }
-
 $response = array("error" => false);
-
 echo json_encode($response);

@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
-    updateSliderButton();
-    toggleDropdown();
-    itemSelector();
-    toggleInfoBox();
+  updateSliderButton();
+  toggleDropdown();
+  itemSelector();
+  toggleInfoBox();
 });
 
 function updateSliderButton() {
@@ -102,22 +102,32 @@ function clickedItem(item) {
   });
 }
 
-function addAddOnToCart(addOnId) {
-    let addOnAmount = document.querySelector(
-        ".addon-form__input_" + addOnId
-    ).value;
+function addAddOnToCart(sAddOnId) {
+  let nAddOnAmount = document.querySelector(
+    ".addon-form__input_" + sAddOnId
+  ).value;
+
+  if (isNaN(parseInt(nAddOnAmount))) {
+    //Do user communication here
+  } else {
+    parseInt(nAddOnAmount);
 
     postData("API/add-addon-to-cart.php", {
-        addon_id: addOnId,
-        addon_amount: addOnAmount,
+      addOnId: sAddOnId,
+      addOnAmount: nAddOnAmount,
     });
-    updateCartCounter({isProduct: false, addonAmount: addOnAmount, increment: true});
+    updateCartCounter({
+      isProduct: false,
+      addonAmount: nAddOnAmount,
+      increment: true,
+    });
+  }
 }
 
 function addProductToCart(productId, buttonId) {
   let aSubscriptionItems = document.querySelectorAll(".dropdown__list-item");
   let subChosen = false;
-  let chosenSubscription = undefined;
+  let sSubscriptionId = undefined;
 
   for (let i = 0; i < aSubscriptionItems.length; i++) {
     if (
@@ -125,69 +135,64 @@ function addProductToCart(productId, buttonId) {
       aSubscriptionItems[i].classList.contains("dropdown__list-item--active")
     ) {
       subChosen = true;
-      chosenSubscription = aSubscriptionItems[i].dataset.subscriptionid;
+      sSubscriptionId = aSubscriptionItems[i].dataset.subscriptionid;
     }
   }
 
-    if (!subChosen) {
-        let aDialogBoxes = document.querySelectorAll(".dialog-box");
-        for (let i = 0; i < aDialogBoxes.length; i++) {
-            if (parseInt(aDialogBoxes[i].dataset.buttonid) === buttonId) {
-                aDialogBoxes[i].classList.remove("dialog-box--hidden");
-            }
-        }
-    } else {
-        //Add to cart
-        postData("API/add-product-to-cart.php", {
-            product_id: productId,
-            sub: chosenSubscription,
-        });
-        updateCartCounter({isProduct: true, addonAmount: 0, increment: true})
+  if (!subChosen) {
+    let aDialogBoxes = document.querySelectorAll(".dialog-box");
+    for (let i = 0; i < aDialogBoxes.length; i++) {
+      if (parseInt(aDialogBoxes[i].dataset.buttonid) === buttonId) {
+        aDialogBoxes[i].classList.remove("dialog-box--hidden");
+      }
     }
-} 
-
+  } else {
+    //Add to cart
+    postData("API/add-product-to-cart.php", {
+      productId: productId,
+      subscriptionId: sSubscriptionId,
+    });
+    updateCartCounter({ isProduct: true, addonAmount: 0, increment: true });
+  }
+}
 
 function updateCartCounter(object) {
-    let eCartCounter = document.querySelector(".cart-counter");
+  let eCartCounter = document.querySelector(".cart-counter");
 
   let counter = parseInt(eCartCounter.textContent);
 
-
-    if(object.isProduct) {
-        if(!object.increment) {
-            //decrement counter
-            eCartCounter.textContent = counter - 1;
-        } else {
-            //increment counter
-            eCartCounter.textContent = counter + 1;
-        }
+  if (object.isProduct) {
+    if (!object.increment) {
+      //decrement counter
+      eCartCounter.textContent = counter - 1;
     } else {
-        if(!object.increment) {
-            //decrement counter
-            eCartCounter.textContent = counter - parseInt(object.addonAmount);
-        } else {
-            //increment counter
-            eCartCounter.textContent = counter + parseInt(object.addonAmount);
-        }
+      //increment counter
+      eCartCounter.textContent = counter + 1;
     }
-    
+  } else {
+    if (!object.increment) {
+      //decrement counter
+      eCartCounter.textContent = counter - parseInt(object.addonAmount);
+    } else {
+      //increment counter
+      eCartCounter.textContent = counter + parseInt(object.addonAmount);
+    }
+  }
 }
 
 function removeItemFromCart(id, isProduct, addonAmount) {
-    updateCartCounter({isProduct: isProduct, addonAmount: addonAmount, increment: false})
-    
+  updateCartCounter({
+    isProduct: isProduct,
+    addonAmount: addonAmount,
+    increment: false,
+  });
 
-    event.target.parentElement.parentElement.parentElement.remove()
+  event.target.parentElement.parentElement.parentElement.remove();
 
-    postData("API/remove-item-from-cart.php", {
-        itemId: id,
-        isProduct: isProduct
-    }).then((res) => {
-        console.log(res)
-    })
-
-
-   
+  postData("API/remove-item-from-cart.php", {
+    itemId: id,
+    isProduct: isProduct,
+  });
 }
 
 function toggleInfoBox() {

@@ -18,12 +18,12 @@ $totalPrice = 0;
 
 if (isset($_SESSION['cartProducts'])) {
     foreach ($_SESSION['cartProducts'] as $product) {
-        $productName = $product['product_name'];
-        $productPrice = $product['product_price'];
-        $productId = $product['product_id'];
-        $subscriptionName = $product['subscription_name'];
-        $subscriptionPrice = $product['subscription_price'];
-        $totalPrice =  $totalPrice + (float)$product['product_price'];
+        $productName = $product['productName'];
+        $productPrice = $product['productPrice'];
+        $productId = $product['productId'];
+        $subscriptionName = $product['subscriptionName'];
+        $subscriptionPrice = $product['subscriptionPrice'];
+        $totalPrice =  $totalPrice + (float)$product['productPrice'];
 
         $products =  $products . "<div class='product-row'>
                                     <div class='product-item'>
@@ -46,18 +46,18 @@ if (isset($_SESSION['cartProducts'])) {
 
 if (isset($_SESSION['cartAddOns'])) {
     foreach ($_SESSION['cartAddOns'] as $addon) {
-        $addonId = $addon['addon_id'];
-        $addonName = $addon['addon_name'];
-        $addonQuantity = $addon['addon_amount'];
-        $addonPrice = $addon['addon_price'];
-        $addonTotalPrice = (float)$addonQuantity * (float)$addonPrice;
+        $sAddOnId = $addon['addOnId'];
+        $addonName = $addon['addOnName'];
+        $nAddOnAmount = $addon['addOnAmount'];
+        $addonPrice = $addon['addOnPrice'];
+        $addonTotalPrice = (float)$nAddOnAmount * (float)$addonPrice;
         $totalPrice =  $totalPrice + $addonTotalPrice;
         $addons =  $addons . "<div class='product-row'>
                                     <div class='product-item'>
                                         <p class='product-item__name'>$addonName</p>
                                         <p class='product-item__quantity'>
-                                            <span class='product-item__delete' onclick='removeItemFromCart($addonId, false, $addonQuantity)'></span>
-                                            $addonQuantity
+                                            <span class='product-item__delete' onclick='removeItemFromCart($sAddOnId, false, $nAddOnAmount)'></span>
+                                            $nAddOnAmount
                                         </p>
                                         <p class='product-item__price'>$addonTotalPrice</p>
                                     </div>
@@ -203,6 +203,7 @@ if (!isset($_SESSION['loginStatus'])) {
                 oninput="inputValidate(); printBtnValidate();"
             />
             <div class="errorMessage"></div>
+            <div id="paypal-button-container"></div>
         </form>';
     $loggedIn = 'false';
 } else {
@@ -263,7 +264,7 @@ if (!isset($_SESSION['loginStatus'])) {
 </body>
 <script src="js/app.js"></script>
 <script src="js/helper.js"></script>
-<script src="https://www.paypal.com/sdk/js?client-id=ASc0sohSJuv9IX6ovw_EQxA0uGoiQO5YxX2U7u9qnfZGwovsZ6Tylr1Arf0XOCAshoqqX8ApS3nkYpGy&currency=EUR&disable-funding=credit,card">
+<script src="https://www.paypal.com/sdk/js?client-id=ASc0sohSJuv9IX6ovw_EQxA0uGoiQO5YxX2U7u9qnfZGwovsZ6Tylr1Arf0XOCAshoqqX8ApS3nkYpGy&currency=EUR&disable-funding=credit,card" async>
 </script>
 <script>
     if (<?= $loggedIn ?>) {
@@ -292,12 +293,16 @@ if (!isset($_SESSION['loginStatus'])) {
     }
 
     function printBtnValidate() {
-        console.log("Fire");
+
         console.log(document.querySelectorAll(".valid").length);
         // btnContainer = document.getElementsByClassName("form__btnContainer")[0];
         if (document.querySelectorAll(".valid").length !== 12) {
+<<<<<<< HEAD
             //Add placeholder button
 
+=======
+            // btnContainer.innerHTML = "<p>What would cause you not to fill out all the fields in the form?</p>";
+>>>>>>> 560061e4574839a8b6cca291ab86870fa0a77c7c
         } else {
             console.log("It does work");
             document.querySelector(".order-summary__button").remove();
@@ -319,6 +324,7 @@ if (!isset($_SESSION['loginStatus'])) {
                 },
                 onApprove: function(data, actions) {
                     return actions.order.capture().then(function(PurchaseDetails) {
+
                         document.getElementsByClassName('signUpForm')[0].submit();
                     });
                 }

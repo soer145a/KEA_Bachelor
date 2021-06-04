@@ -8,9 +8,9 @@ include_once("Components/products.php");
 include_once("Components/footer.php");
 $head = headComp();
 $header = headerComp('index');
-$products = productsComp($conn);
+$products = productsComp($oDbConnection);
 $footer = footerComp();
-$addOns = addOnsComp($conn);
+$addOns = addOnsComp($oDbConnection);
 
 
 ?>

@@ -14,7 +14,7 @@ require 'SMTP.php';
 // Load Composer's autoloader
 //require 'vendor/autoload.php';
 $userSubmittedData = json_decode($_SESSION['postData']);
-$customerId = $_SESSION['customer_id'];
+$customerId = $_SESSION['customerId'];
 $orderId = $_SESSION['orderId'];
 
 $email = $userSubmittedData->input_email;
@@ -35,13 +35,13 @@ if (!isset($_SESSION['loginStatus'])) {
 }
 
 foreach ($_SESSION['cartProducts'] as $product) {
-    $productName = $product['product_name'] . ", " .  $productName;
-    $totalPrice =  $totalPrice + (float)$product['product_price'];
+    $productName = $product['productName'] . ", " .  $productName;
+    $totalPrice =  $totalPrice + (float)$product['productPrice'];
 }
 foreach ($_SESSION['cartAddOns'] as $addon) {
-    $addonName = $addon['addon_name'];
-    $addonTotalprice = (float)$addon['addon_price'] * (float)$addon['addon_amount'];
-    $boughtAddons = $boughtAddons . $addon['addon_amount'] . " x " . $addonName . ", ";
+    $addonName = $addon['addOnName'];
+    $addonTotalprice = (float)$addon['addOnPrice'] * (float)$addon['addOnAmount'];
+    $boughtAddons = $boughtAddons . $addon['addOnAmount'] . " x " . $addonName . ", ";
     $totalPrice =  $totalPrice + $addonTotalprice;
 }
 

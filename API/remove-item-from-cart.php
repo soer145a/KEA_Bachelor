@@ -10,14 +10,14 @@ if (isset($_POST['itemId'])) {
     if ($isProduct) {
 
         foreach ($_SESSION['cartProducts'] as $key => $product) {
-            if ($product['product_id'] === $itemId) {
+            if ($product['productId'] === $itemId) {
                 $response = array("line 14" => $key);
                 unset($_SESSION['cartProducts'][$key]);
             }
         }
     } else {
         foreach ($_SESSION['cartAddOns'] as $key => $addon) {
-            if ($addon['addon_id'] === $itemId) {
+            if ($addon['addOnId'] === $itemId) {
                 $response = array("line 21" => $key);
                 unset($_SESSION['cartAddOns'][$key]);
             }

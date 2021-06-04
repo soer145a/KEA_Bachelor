@@ -5,45 +5,44 @@ include("../DB_Connection/connection.php");
 $_POST = json_decode(file_get_contents("php://input"), true); //make json object an assoc array
 
 
-if (isset($_POST['product_id'])) {
-    $subID = $_POST['sub'];
-    $productId = $_POST['product_id'];
-    $productSql = "SELECT * FROM products WHERE product_id = \"$productId\"";
-    $productResult = $conn->query($productSql);
-    $productRow = $productResult->fetch_object();
-    $productName = $productRow->product_name;
-    $productPrice = $productRow->product_price;
+if (isset($_POST['productId'])) {
+    $sSubscriptionId = $_POST['sSubscriptionId'];
+    $sProductId = $_POST['productId'];
+    $sProductSelectSql = "SELECT * FROM products WHERE product_id = \"$sProductId\"";
+    $oProductResult = $oDbConnection->query($sProductSelectSql);
+    $oProductRow = $oProductResult->fetch_object();
+    $sProductName = $oProductRow->product_name;
+    $nProductPrice = (float)$oProductRow->product_price;
 
-    $subSql = "SELECT * FROM subscriptions WHERE subscription_id = \"$subID\"";
-    $subResult = $conn->query($subSql);
-    $subRow = $subResult->fetch_object();
-    $subName = $subRow->subscription_name;
-    $subPrice = $subRow->subscription_price;
-    // $subLength = $subRow->subscription_length;
+    $sSubscriptionSql = "SELECT * FROM subscriptions WHERE subscription_id = \"$sSubscriptionId\"";
+    $oSubscriptionResult = $oDbConnection->query($sSubscriptionSql);
+    $oSubscriptionRow = $oSubscriptionResult->fetch_object();
+    $sSubscriptionName = $oSubscriptionRow->subscription_name;
+    $nSubscriptionPrice = (float)$oSubscriptionRow->subscription_price;
 
     if (isset($_SESSION['cartProducts'])) {
 
-        $count = count($_SESSION['cartProducts']);
-        $productArray = array(
-            'product_id' => $productId,
-            'product_name' => $productName,
-            'product_price' => $productPrice,
-            'subscription_id' => $subID,
-            'subscription_name' => $subName,
-            'subscription_price' => $subPrice
+        $nProductCount = count($_SESSION['cartProducts']);
+        $aProductArray = array(
+            'productId' => $sProductId,
+            'productName' => $sProductName,
+            'productPrice' => $nProductPrice,
+            'subscriptionId' => $sSubscriptionId,
+            'subscriptionName' => $sSubscriptionName,
+            'subscriptionPrice' => $nSubscriptionPrice
         );
-        $_SESSION['cartProducts'][$count] = $productArray;
+        $_SESSION['cartProducts'][$nProductCount] = $aProductArray;
     } else {
 
-        $productArray = array(
-            'product_id' => $productId,
-            'product_name' => $productName,
-            'product_price' => $productPrice,
-            'subscription_id' => $subID,
-            'subscription_name' => $subName,
-            'subscription_price' => $subPrice
+        $aProductArray = array(
+            'productId' => $sProductId,
+            'productName' => $sProductName,
+            'productPrice' => $nProductPrice,
+            'subscriptionId' => $sSubscriptionId,
+            'subscriptionName' => $sSubscriptionName,
+            'subscriptionPrice' => $nSubscriptionPrice
         );
-        $_SESSION['cartProducts'][0] = $productArray;
+        $_SESSION['cartProducts'][0] = $aProductArray;
     }
 }
 $response = array("error" => false);

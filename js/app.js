@@ -41,7 +41,8 @@ function inputValidate() {
           inputsToValidate[i].classList.add("invalid");
         } else {
           postData("API/check-db-for-existing-entries.php", {
-            customer_email: inputData,
+            whatToCheck: "customer_email",
+            data: inputData,
           }).then((response) => {
             if (!response.dataExists) {
               inputsToValidate[i].classList.add("valid");
@@ -114,8 +115,10 @@ function inputValidate() {
           inputsToValidate[i].classList.remove("valid");
         } else {
           postData("API/check-db-for-existing-entries.php", {
-            customer_cvr: inputData,
+            whatToCheck: "customer_cvr",
+            data: inputData,
           }).then((response) => {
+            console.log(response);
             if (!response.dataExists) {
               inputsToValidate[i].classList.add("valid");
               inputsToValidate[i].classList.remove("invalid");
@@ -220,30 +223,31 @@ function toggleMobileNavigation() {
 }
 
 function editInfo(value, type, postName) {
-
   let eParentElement = event.target.parentElement;
   let aParentElementChildren = eParentElement.children;
   //hide existing elements
-  for(let i = 0; i<aParentElementChildren.length; i++ ) {
-    aParentElementChildren[i].classList.add("customer-information__item--hidden");
+  for (let i = 0; i < aParentElementChildren.length; i++) {
+    aParentElementChildren[i].classList.add(
+      "customer-information__item--hidden"
+    );
   }
   //Create new dom element
 
   //form element
   let eForm = document.createElement("form");
-  eForm.setAttribute("class", "customer-information-form")
-  eForm.setAttribute("method", "post")
-  eForm.setAttribute("onsubmit", "return inputValidate();")
-  eForm.setAttribute("action", "API/update-customer-data.php")
+  eForm.setAttribute("class", "customer-information-form");
+  eForm.setAttribute("method", "post");
+  eForm.setAttribute("onsubmit", "return inputValidate();");
+  eForm.setAttribute("action", "API/update-customer-data.php");
 
   //input element
   let eInput = document.createElement("input");
-  eInput.setAttribute("class", "form__input")
-  eInput.setAttribute("oninput", "inputValidate()")
-  eInput.setAttribute("data-validate", `${type}`)
-  eInput.setAttribute("type", "text")
-  eInput.setAttribute("name", `${postName}`)
-  eInput.setAttribute("value", `${value}`)
+  eInput.setAttribute("class", "form__input");
+  eInput.setAttribute("oninput", "inputValidate()");
+  eInput.setAttribute("data-validate", `${type}`);
+  eInput.setAttribute("type", "text");
+  eInput.setAttribute("name", `${postName}`);
+  eInput.setAttribute("value", `${value}`);
 
   //Submit button
   let eSubmitButton = document.createElement("button");
@@ -254,8 +258,11 @@ function editInfo(value, type, postName) {
   let eCancelButton = document.createElement("button");
   eCancelButton.setAttribute("class", "form__button form__button--cancel");
   eCancelButton.setAttribute("type", "button");
-  eCancelButton.setAttribute("onclick", `cancelEdit("${value}", "${type}", "${postName}")`);
-  
+  eCancelButton.setAttribute(
+    "onclick",
+    `cancelEdit("${value}", "${type}", "${postName}")`
+  );
+
   //Append button and input inside of form
   eForm.appendChild(eInput);
   eForm.appendChild(eSubmitButton);
@@ -263,23 +270,22 @@ function editInfo(value, type, postName) {
 
   //Append new element inside of parent element
   eParentElement.appendChild(eForm);
-
 }
 
 function cancelEdit(value, type, postName) {
-
   let eRootElement = event.target.parentElement.parentElement;
-  
-   //Find form element to remove/delete
+
+  //Find form element to remove/delete
   const eForm = eRootElement.querySelector("form");
 
   //remove form from DOM
   eForm.remove();
   //Find all elements with hidden class inside of root element
-  let aHiddenElements = eRootElement.querySelectorAll(".customer-information__item--hidden");
+  let aHiddenElements = eRootElement.querySelectorAll(
+    ".customer-information__item--hidden"
+  );
   //remove hidden class from elements
-  for(let i = 0; i < aHiddenElements.length; i++) {
+  for (let i = 0; i < aHiddenElements.length; i++) {
     aHiddenElements[i].classList.remove("customer-information__item--hidden");
   }
-
 }
