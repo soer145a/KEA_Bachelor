@@ -6,7 +6,10 @@ include("./create-pdf-receipt.php");
 //echo json_encode($_POST['input_first_name']);
 //$sql = "INSERT INTO customers VALUES (customer_first_name, customer_last_name, customer_company_name, customer_email, customer_password, customer_cvr) VALUES ('John', 'Doe', 'john@example.com')";
 //$result = $oDbConnection->query();
-
+if(!isset($_SESSION['purchaseProcess'])){
+    header("Location: ../index.php");
+    exit();
+}
 $cartProducts = $_SESSION['cartProducts'];
 $cartAddOns = $_SESSION['cartAddOns'];
 $embed = "<iframe src='http://127.0.0.1/KEA_Bachelor/deploys/product.php?key=INSERT KEY HERE' frameborder='0'></iframe>";

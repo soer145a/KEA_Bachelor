@@ -286,6 +286,7 @@ if (!isset($_SESSION['loginStatus'])) {
             },
             onApprove: function(data, actions) {
                 return actions.order.capture().then(function(PurchaseDetails) {
+                    
                     window.location.assign(window.location.protocol + "/KEA_Bachelor/API/payment-handler.php");
                 });
             }
@@ -297,12 +298,8 @@ if (!isset($_SESSION['loginStatus'])) {
         console.log(document.querySelectorAll(".valid").length);
         // btnContainer = document.getElementsByClassName("form__btnContainer")[0];
         if (document.querySelectorAll(".valid").length !== 12) {
-<<<<<<< HEAD
             //Add placeholder button
 
-=======
-            // btnContainer.innerHTML = "<p>What would cause you not to fill out all the fields in the form?</p>";
->>>>>>> 560061e4574839a8b6cca291ab86870fa0a77c7c
         } else {
             console.log("It does work");
             document.querySelector(".order-summary__button").remove();
@@ -324,7 +321,7 @@ if (!isset($_SESSION['loginStatus'])) {
                 },
                 onApprove: function(data, actions) {
                     return actions.order.capture().then(function(PurchaseDetails) {
-
+                        
                         document.getElementsByClassName('signUpForm')[0].submit();
                     });
                 }

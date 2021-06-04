@@ -6,9 +6,11 @@ include_once("Components/footer.php");
 $head = headComp();
 $header = headerComp('');
 $footer = footerComp();
-
+if (!isset($_GET['confirmCode'])) {
+    header('Location: index.php');
+}
 $customerConfirmCode = $_GET['confirmCode'];
-//echo $customerConfirmCode;
+
 include_once("DB_Connection/connection.php");
 $sql = "UPDATE customers SET customer_confirmed = 1 WHERE customer_confirm_code = \"$customerConfirmCode\"";
 $result = $oDbConnection->query($sql);

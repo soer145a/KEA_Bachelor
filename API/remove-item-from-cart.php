@@ -23,6 +23,8 @@ if (isset($_POST['itemId'])) {
             }
         }
     }
-};
+}else{
+    
+}
 
 echo json_encode($response);

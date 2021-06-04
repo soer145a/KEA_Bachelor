@@ -2,7 +2,9 @@
 include_once("../DB_Connection/connection.php");
 
 $_POST = json_decode(file_get_contents("php://input"), true); //make json object an assoc array
-
+if (!isset($_POST['whatToCheck']) && !isset($_POST['data'])) {
+    header('Location: ../index.php');
+}
 if (isset($_POST['data'])) {
 
     $sWhatTocheck = $_POST['whatToCheck'];

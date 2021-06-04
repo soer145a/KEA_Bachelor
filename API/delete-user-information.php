@@ -1,7 +1,10 @@
 <?php
 session_start();
 include_once("../DB_Connection/connection.php");
-
+if(!isset($_SESSION['customerId'])){
+    header("Location: ../index.php");
+    exit();
+}
 $sCustomerId = $_SESSION['customerId'];
 $sCustomerAddonDeleteSql = "DELETE FROM customer_addons WHERE customer_id = \"$sCustomerId\"";
 $oDbConnection->query($sCustomerAddonDeleteSql);

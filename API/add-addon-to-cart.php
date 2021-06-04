@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 include("../DB_Connection/connection.php");
 
@@ -49,6 +50,8 @@ if (isset($_POST['addOnId'])) {
         );
         $_SESSION['cartAddOns'][0] = $aAddOnArray;
     }
+}else{
+   header('Location: index.php');
 }
 $response = array("error" => false);
 echo json_encode($response);

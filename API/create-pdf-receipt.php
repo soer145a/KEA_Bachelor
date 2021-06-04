@@ -1,7 +1,9 @@
 <?php
 session_start();
 require '../CREATEPDF/fpdf.php';
-
+if(!isset($_SESSION['postData'])){
+    header("Location: ../index.php");
+}
 class PDF extends FPDF
 {
     function Header()
