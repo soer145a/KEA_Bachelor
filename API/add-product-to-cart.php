@@ -2,11 +2,10 @@
 session_start();
 include("../DB_Connection/connection.php");
 
-$_POST = json_decode(file_get_contents("php://input"), true); //make json object an assoc array
-
+$_POST = json_decode(file_get_contents("php://input"), true); //make json object an assoc array */
 
 if (isset($_POST['productId'])) {
-    $sSubscriptionId = $_POST['sSubscriptionId'];
+    $sSubscriptionId = $_POST['subscriptionId'];
     $sProductId = $_POST['productId'];
     $sProductSelectSql = "SELECT * FROM products WHERE product_id = \"$sProductId\"";
     $oProductResult = $oDbConnection->query($sProductSelectSql);
@@ -44,9 +43,10 @@ if (isset($_POST['productId'])) {
         );
         $_SESSION['cartProducts'][0] = $aProductArray;
     }
-}else{
+} else {
+
     header('Location: index.php');
 }
-$response = array("error" => false);
 
+$response = array("error" => false);
 echo json_encode($response);

@@ -1,6 +1,6 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "root";
+$password = "";
 $db = "purplescout";
 $oDbConnection = new mysqli($servername, $username, $password, $db);

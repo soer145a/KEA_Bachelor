@@ -79,7 +79,7 @@ function inputValidate() {
         let regPassword =
           /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{6,30}$/;
 
-        if (inputsToValidate[i].name !== "input_password_confirm") {
+        if (inputsToValidate[i].name !== "customerPasswordConfirm") {
           if (!regPassword.test(inputData)) {
             inputsToValidate[i].classList.add("invalid");
             inputsToValidate[i].classList.remove("valid");
@@ -92,7 +92,7 @@ function inputValidate() {
         } else {
           if (
             inputsToValidate[i].value ===
-            document.getElementsByName("input_password_init")[0].value
+            document.getElementsByName("customerPassword_init")[0].value
           ) {
             inputsToValidate[i].classList.add("valid");
             inputsToValidate[i].classList.remove("invalid");
@@ -291,71 +291,83 @@ function cancelEdit(value, type, postName) {
 }
 
 function togglePaypalButton(loggedIn, price) {
-  console.log(loggedIn, price)
+  console.log(loggedIn, price);
   if (loggedIn) {
     document.querySelector(".order-summary__button").remove();
-    paypal.Buttons({
+    paypal
+      .Buttons({
         style: {
-            color: 'blue',
-            shape: 'rect',
-            size: 'responsive'
+          color: "blue",
+          shape: "rect",
+          size: "responsive",
         },
-        createOrder: function(data, actions) {
-            return actions.order.create({
-                purchase_units: [{
-                      amount: {
-                          value: price
-                      }
-                  }]
-              });
-          },
-          onApprove: function(data, actions) {
-              return actions.order.capture().then(function(PurchaseDetails) {
-                  window.location.assign(window.location.protocol + "/KEA_Bachelor/API/payment-handler.php");
-              });
-          }
-      }).render('#paypal-button-container');
+        createOrder: function (data, actions) {
+          return actions.order.create({
+            purchase_units: [
+              {
+                amount: {
+                  value: price,
+                },
+              },
+            ],
+          });
+        },
+        onApprove: function (data, actions) {
+          return actions.order.capture().then(function (PurchaseDetails) {
+            window.location.assign(
+              window.location.protocol + "/KEA_Bachelor/API/payment-handler.php"
+            );
+          });
+        },
+      })
+      .render("#paypal-button-container");
   } else {
     const ePaypalContainer = document.querySelector("#paypal-button-container");
 
     if (document.querySelectorAll(".valid").length !== 12) {
+      if (document.querySelector(".paypal-buttons") !== null) {
+        //Remove paypal button if it's there
+        document.querySelector(".paypal-buttons").remove();
+        let eButtonPlaceholder = document.createElement("button");
+        eButtonPlaceholder.setAttribute(
+          "class",
+          "order-summary__button button button--purple"
+        );
+        eButtonPlaceholder.textContent = "Paypal";
 
-        if (document.querySelector(".paypal-buttons") !== null) {
-            //Remove paypal button if it's there
-            document.querySelector(".paypal-buttons").remove()
-            let eButtonPlaceholder = document.createElement("button");
-            eButtonPlaceholder.setAttribute("class", "order-summary__button button button--purple");
-            eButtonPlaceholder.textContent = "Paypal";
-
-            ePaypalContainer.appendChild(eButtonPlaceholder);
-        }
+        ePaypalContainer.appendChild(eButtonPlaceholder);
+      }
     } else {
-        console.log("It does work");
-        if (document.querySelector(".order-summary__button") !== null) {
-            document.querySelector(".order-summary__button").remove();
+      console.log("It does work");
+      if (document.querySelector(".order-summary__button") !== null) {
+        document.querySelector(".order-summary__button").remove();
 
-            paypal.Buttons({
-                style: {
-                    color: 'blue',
-                    shape: 'rect',
-                    size: 'responsive'
-                },
-                createOrder: function(data, actions) {
-                    return actions.order.create({
-                        purchase_units: [{
-                            amount: {
-                                value: price
-                            }
-                        }]
-                    });
-                },
-                onApprove: function(data, actions) {
-                    return actions.order.capture().then(function(PurchaseDetails) {
-                        document.querySelector(".account-details").submit();
-                    });
-                }
-            }).render('#paypal-button-container');
-        }
+        paypal
+          .Buttons({
+            style: {
+              color: "blue",
+              shape: "rect",
+              size: "responsive",
+            },
+            createOrder: function (data, actions) {
+              return actions.order.create({
+                purchase_units: [
+                  {
+                    amount: {
+                      value: price,
+                    },
+                  },
+                ],
+              });
+            },
+            onApprove: function (data, actions) {
+              return actions.order.capture().then(function (PurchaseDetails) {
+                document.querySelector(".account-details").submit();
+              });
+            },
+          })
+          .render("#paypal-button-container");
+      }
     }
-  }    
+  }
 }

@@ -284,11 +284,11 @@ $apiKey = "";
                                                 </ul>
                                             </span>
                                         </label>
-                                        <input id="newPassword" class="customer-password-form__input" oninput="inputValidate()" data-validate="password" type="password" name="input_password_init" placeholder="New password">
+                                        <input id="newPassword" class="customer-password-form__input" oninput="inputValidate()" data-validate="password" type="password" name="customerPassword_init" placeholder="New password">
                                     </div>
                                     <div class="form-wrapper">
                                         <label for="confirmPassword" class="customer-password-form__input-label">Confirm new password:</label>
-                                        <input id="confirmPassword" class="customer-password-form__input" oninput="inputValidate()" data-validate="password" type="password" name="input_password_confirm" placeholder="Confirm password">
+                                        <input id="confirmPassword" class="customer-password-form__input" oninput="inputValidate()" data-validate="password" type="password" name="customerPasswordConfirm" placeholder="Confirm password">
                                     </div>
                                     <div class="form-wrapper">
                                         <label for="oldPassword" class="customer-password-form__input-label">Old password:</label>

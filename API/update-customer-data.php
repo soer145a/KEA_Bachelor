@@ -7,7 +7,7 @@ $customerId = $_SESSION['customerId'];
 
 if (isset($_POST['customer_password'])) {
     $password = $_POST['customer_password'];
-    $newPassword = $_POST['input_password_confirm'];
+    $newPassword = $_POST['customerPasswordConfirm'];
     $sql = "SELECT * FROM customers WHERE customer_id = \"$customerId\"";
     $result = $oDbConnection->query($sql);
     $row = $result->fetch_object();

@@ -18,12 +18,12 @@ $totalPrice = 0;
 
 if (isset($_SESSION['cartProducts'])) {
     foreach ($_SESSION['cartProducts'] as $product) {
-        $productName = $product['product_name'];
-        $productPrice = $product['product_price'];
-        $productId = $product['product_id'];
-        $subscriptionName = $product['subscription_name'];
-        $subscriptionPrice = $product['subscription_price'];
-        $totalPrice =  $totalPrice + (float)$product['product_price'];
+        $productName = $product['productName'];
+        $productPrice = $product['productPrice'];
+        $productId = $product['productId'];
+        $subscriptionName = $product['subscriptionName'];
+        $subscriptionPrice = $product['subscriptionPrice'];
+        $totalPrice =  $totalPrice + $product['productPrice'];
 
         $products =  $products . "<div class='product-row'>
                                     <div class='product-item'>
@@ -46,10 +46,10 @@ if (isset($_SESSION['cartProducts'])) {
 
 if (isset($_SESSION['cartAddOns'])) {
     foreach ($_SESSION['cartAddOns'] as $addon) {
-        $addonId = $addon['addon_id'];
-        $addonName = $addon['addon_name'];
-        $addonQuantity = $addon['addon_amount'];
-        $addonPrice = $addon['addon_price'];
+        $addonId = $addon['addOnId'];
+        $addonName = $addon['addOnName'];
+        $addonQuantity = $addon['addOnAmount'];
+        $addonPrice = $addon['addOnPrice'];
         $addonTotalPrice = (float)$addonQuantity * (float)$addonPrice;
         $totalPrice =  $totalPrice + $addonTotalPrice;
         $addons =  $addons . "<div class='product-row'>
@@ -76,7 +76,7 @@ if (!isset($_SESSION['loginStatus'])) {
             <input
                 id='account-details__name'
                 type='text'
-                name='input_company_name'
+                name='companyName'
                 data-validate='string'
                 required
                 oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
@@ -87,7 +87,7 @@ if (!isset($_SESSION['loginStatus'])) {
             <input
                 id='account-details__cvr'
                 type='text'
-                name='input_company_cvr'
+                name='companyCvr'
                 data-validate='cvr'
                 required
                 oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
@@ -99,7 +99,7 @@ if (!isset($_SESSION['loginStatus'])) {
                     <input
                         id='contact__firstname'
                         type='text'
-                        name='input_first_name'
+                        name='customerFirstName'
                         data-validate='string'
                         required
                         oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
@@ -110,7 +110,7 @@ if (!isset($_SESSION['loginStatus'])) {
                     <input
                         id='contact__lastname'
                         type='text'
-                        name='input_last_name'
+                        name='customerLastName'
                         data-validate='string'
                         required
                         oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
@@ -122,7 +122,7 @@ if (!isset($_SESSION['loginStatus'])) {
             <input
                 id='account-details__mail'
                 type='text'
-                name='input_phone'
+                name='customerPhone'
                 data-validate='phone'
                 required
                 oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
@@ -131,7 +131,7 @@ if (!isset($_SESSION['loginStatus'])) {
             <input
                 id='account-details__mail'
                 type='email'
-                name='input_email'
+                name='customerEmail'
                 data-validate='email'
                 required
                 oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
@@ -142,7 +142,7 @@ if (!isset($_SESSION['loginStatus'])) {
             <input
                 id='account-details__password'
                 type='password'
-                name='input_password_init'
+                name='customerPassword_init'
                 data-validate='password'
                 required
                 oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
@@ -153,7 +153,7 @@ if (!isset($_SESSION['loginStatus'])) {
             <input
                 id='account-details__confirm-password'
                 type='password'
-                name='input_password_confirm'
+                name='customerPasswordConfirm'
                 data-validate='password'
                 required
                 oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
@@ -167,7 +167,7 @@ if (!isset($_SESSION['loginStatus'])) {
             <input
                 id='account-details__street-name'
                 type='text'
-                name='input_company_street'
+                name='companyStreet'
                 data-validate='string'
                 required
                 oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
@@ -177,7 +177,7 @@ if (!isset($_SESSION['loginStatus'])) {
                 id='account-details__city'
                 type='text'
                 data-validate='string'
-                name='input_company_city'
+                name='companyCity'
                 required
                 oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
             />
@@ -188,7 +188,7 @@ if (!isset($_SESSION['loginStatus'])) {
                 id='account-details__zip-code'
                 type='text'
                 data-validate='string'
-                name='input_company_Postcode'
+                name='companyZip'
                 required
                 oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
             />
@@ -199,7 +199,7 @@ if (!isset($_SESSION['loginStatus'])) {
                 id='account-details__zip-code'
                 type='text'
                 data-validate='string'
-                name='input_company_country'
+                name='companyCountry'
                 required
                 oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
             />

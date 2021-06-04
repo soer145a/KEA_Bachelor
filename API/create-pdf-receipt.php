@@ -1,9 +1,9 @@
 <?php
-session_start();
+
 require '../CREATEPDF/fpdf.php';
-if(!isset($_SESSION['postData'])){
+/* if (!isset($_SESSION['customerData'])) {
     header("Location: ../index.php");
-}
+} */
 class PDF extends FPDF
 {
     function Header()
@@ -26,13 +26,13 @@ function createReceipt($iTimeEpoch)
 {
     $sOrderId = $_SESSION['orderId'];
     $sCustomerId = $_SESSION['customerId'];
-    $oCustomerData = json_decode($_SESSION['postData']);
-    $sCustomerEmail = $oCustomerData->input_email;
-    $sCompanyName = $oCustomerData->input_company_name;
-    $sCompanyCvr = $oCustomerData->input_company_cvr;
-    $sCompanyStreet = $oCustomerData->input_company_street;
-    $sCompanyZip = $oCustomerData->input_company_Postcode;
-    $sCompanyCity = $oCustomerData->input_company_city;
+    $oCustomerData = json_decode($_SESSION['customerData']);
+    $sCustomerEmail = $oCustomerData->customerEmail;
+    $sCompanyName = $oCustomerData->companyName;
+    $sCompanyCvr = $oCustomerData->companyCvr;
+    $sCompanyStreet = $oCustomerData->companyStreet;
+    $sCompanyZip = $oCustomerData->companyZip;
+    $sCompanyCity = $oCustomerData->companyCity;
     $sCurrentDate = date('d/m/Y', $iTimeEpoch);
     $nTotalPrice = 0;
     $nAddonTotalprice = 0;
@@ -57,49 +57,56 @@ function createReceipt($iTimeEpoch)
     $oCustomerReceipt->Cell(0, 5, 'Order details:', 0, 0, 'L');
     $oCustomerReceipt->SetFont('Arial', 'B', '14');
     $oCustomerReceipt->Ln(10);
-    $oCustomerReceipt->Cell(100, 5, 'Products', 0, 0, 'L');
-    $oCustomerReceipt->Cell(40, 5, 'Amount', 0, 0, 'L');
-    $oCustomerReceipt->Cell(40, 5, 'Price', 0, 0, 'L');
-    $oCustomerReceipt->Cell(40, 5, 'Total', 0, 0, 'L');
-    $oCustomerReceipt->SetFont('Arial', '', '12');
-    $oCustomerReceipt->Ln(10);
 
-    foreach ($_SESSION['cartProducts'] as $aProduct) {
+    if (isset($_SESSION['cartProducts'])) {
+        $oCustomerReceipt->Cell(100, 5, 'Products', 0, 0, 'L');
+        $oCustomerReceipt->Cell(40, 5, 'Amount', 0, 0, 'L');
+        $oCustomerReceipt->Cell(40, 5, 'Price', 0, 0, 'L');
+        $oCustomerReceipt->Cell(40, 5, 'Total', 0, 0, 'L');
+        $oCustomerReceipt->SetFont('Arial', '', '12');
+        $oCustomerReceipt->Ln(10);
 
-        $sProductName = $aProduct['productName'];
-        $nProductPrice = $aProduct['productPrice'];
-        $nTotalPrice =  $nTotalPrice + $nProductPrice;
+        foreach ($_SESSION['cartProducts'] as $aProduct) {
 
-        $oCustomerReceipt->Cell(100, 5, $sProductName, 0, 0, 'L');
-        $oCustomerReceipt->Cell(40, 5, 'x 1', 0, 0, 'L');
-        $oCustomerReceipt->Cell(40, 5, $nProductPrice, 0, 0, 'L');
-        $oCustomerReceipt->Cell(40, 5, $nProductPrice, 0, 0, 'L');
-        $oCustomerReceipt->Ln(8);
+            $sProductName = $aProduct['productName'];
+            $nProductPrice = $aProduct['productPrice'];
+            $nTotalPrice =  $nTotalPrice + $nProductPrice;
+
+            $oCustomerReceipt->Cell(100, 5, $sProductName, 0, 0, 'L');
+            $oCustomerReceipt->Cell(40, 5, 'x 1', 0, 0, 'L');
+            $oCustomerReceipt->Cell(40, 5, $nProductPrice, 0, 0, 'L');
+            $oCustomerReceipt->Cell(40, 5, $nProductPrice, 0, 0, 'L');
+            $oCustomerReceipt->Ln(8);
+        }
     }
 
-    $oCustomerReceipt->Ln(20);
-    $oCustomerReceipt->SetFont('Arial', 'B', '14');
-    $oCustomerReceipt->Cell(100, 5, 'Addons', 0, 0, 'L');
-    $oCustomerReceipt->Cell(40, 5, 'Amount', 0, 0, 'L');
-    $oCustomerReceipt->Cell(40, 5, 'Price', 0, 0, 'L');
-    $oCustomerReceipt->Cell(40, 5, 'Total', 0, 0, 'L');
-    $oCustomerReceipt->SetFont('Arial', '', '12');
-    $oCustomerReceipt->Ln(10);
+    if (isset($_SESSION['cartAddOns'])) {
+        $oCustomerReceipt->Ln(20);
+        $oCustomerReceipt->SetFont('Arial', 'B', '14');
+        $oCustomerReceipt->Cell(100, 5, 'Addons', 0, 0, 'L');
+        $oCustomerReceipt->Cell(40, 5, 'Amount', 0, 0, 'L');
+        $oCustomerReceipt->Cell(40, 5, 'Price', 0, 0, 'L');
+        $oCustomerReceipt->Cell(40, 5, 'Total', 0, 0, 'L');
+        $oCustomerReceipt->SetFont('Arial', '', '12');
+        $oCustomerReceipt->Ln(10);
 
-    foreach ($_SESSION['cartAddOns'] as $aAddon) {
+        foreach ($_SESSION['cartAddOns'] as $aAddon) {
 
-        $sAddonName = $aAddon['addOnName'];
-        $nAddonPrice = $aAddon['addOnPrice'];
-        $nAddOnAmount = $aAddon['addOnAmount'];
-        $nAddonTotalprice = $nAddonPrice * $nAddOnAmount;
-        $nTotalPrice =  $nTotalPrice + $nAddonTotalprice;
+            $sAddonName = $aAddon['addOnName'];
+            $nAddonPrice = $aAddon['addOnPrice'];
+            $nAddOnAmount = $aAddon['addOnAmount'];
+            $nAddonTotalprice = $nAddonPrice * $nAddOnAmount;
+            $nTotalPrice =  $nTotalPrice + $nAddonTotalprice;
 
-        $oCustomerReceipt->Cell(100, 5, $sAddonName, 0, 0, 'L');
-        $oCustomerReceipt->Cell(40, 5, "x $nAddOnAmount", 0, 0, 'L');
-        $oCustomerReceipt->Cell(40, 5, $nAddonPrice, 0, 0, 'L');
-        $oCustomerReceipt->Cell(40, 5, $nAddonTotalprice, 0, 0, 'L');
-        $oCustomerReceipt->Ln(8);
+            $oCustomerReceipt->Cell(100, 5, $sAddonName, 0, 0, 'L');
+            $oCustomerReceipt->Cell(40, 5, "x $nAddOnAmount", 0, 0, 'L');
+            $oCustomerReceipt->Cell(40, 5, $nAddonPrice, 0, 0, 'L');
+            $oCustomerReceipt->Cell(40, 5, $nAddonTotalprice, 0, 0, 'L');
+            $oCustomerReceipt->Ln(8);
+        }
     }
+
+
     $oCustomerReceipt->Ln(10);
     $oCustomerReceipt->SetFont('Arial', 'B', '16');
     $oCustomerReceipt->Cell(20, 5, 'Total:', 0, 0, 'L');

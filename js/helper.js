@@ -148,6 +148,7 @@ function addProductToCart(productId, buttonId) {
     }
   } else {
     //Add to cart
+
     postData("API/add-product-to-cart.php", {
       productId: productId,
       subscriptionId: sSubscriptionId,

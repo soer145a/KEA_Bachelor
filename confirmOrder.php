@@ -33,7 +33,7 @@ if (isset($_SESSION['cartAddOns'])) {
 
 unset($_SESSION['cartProducts']);
 unset($_SESSION['cartAddOns']);
-unset($_SESSION['postData']);
+unset($_SESSION['customerData']);
 unset($_SESSION['confirmCode']);
 unset($_SESSION['orderId']);
 

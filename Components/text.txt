@@ -4,7 +4,7 @@
             <input
                 id='account-details__name'
                 type='text'
-                name='input_company_name'
+                name='companyName'
                 data-validate='string'
                 required
                 oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
@@ -15,7 +15,7 @@
             <input
                 id='account-details__cvr'
                 type='text'
-                name='input_company_cvr'
+                name='companyCvr'
                 data-validate='cvr'
                 required
                 oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
@@ -27,7 +27,7 @@
                     <input
                         id='contact__firstname'
                         type='text'
-                        name='input_first_name'
+                        name='customerFirstName'
                         data-validate='string'
                         required
                         oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
@@ -38,7 +38,7 @@
                     <input
                         id='contact__lastname'
                         type='text'
-                        name='input_last_name'
+                        name='customerLastName'
                         data-validate='string'
                         required
                         oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
@@ -50,7 +50,7 @@
             <input
                 id='account-details__mail'
                 type='text'
-                name='input_phone'
+                name='customerPhone'
                 data-validate='phone'
                 required
                 oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
@@ -59,7 +59,7 @@
             <input
                 id='account-details__mail'
                 type='email'
-                name='input_email'
+                name='customerEmail'
                 data-validate='email'
                 required
                 oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
@@ -70,7 +70,7 @@
             <input
                 id='account-details__password'
                 type='password'
-                name='input_password_init'
+                name='customerPassword_init'
                 data-validate='password'
                 required
                 oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
@@ -81,7 +81,7 @@
             <input
                 id='account-details__confirm-password'
                 type='password'
-                name='input_password_confirm'
+                name='customerPasswordConfirm'
                 data-validate='password'
                 required
                 oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
@@ -95,7 +95,7 @@
             <input
                 id='account-details__street-name'
                 type='text'
-                name='input_company_street'
+                name='companyStreet'
                 data-validate='string'
                 required
                 oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
@@ -105,7 +105,7 @@
                 id='account-details__city'
                 type='text'
                 data-validate='string'
-                name='input_company_city'
+                name='companyCity'
                 required
                 oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
             />
@@ -116,7 +116,7 @@
                 id='account-details__zip-code'
                 type='text'
                 data-validate='string'
-                name='input_company_Postcode'
+                name='companyZip'
                 required
                 oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
             />
