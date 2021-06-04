@@ -34,7 +34,7 @@ function inputValidate() {
         document.getElementsByClassName("errorMessage")[0].innerHTML = "";
         inputData = inputsToValidate[i].value;
         let regEmail =
-          /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+          /^[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~](\.?[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/;
 
         if (!regEmail.test(inputData)) {
           inputsToValidate[i].classList.remove("valid");
