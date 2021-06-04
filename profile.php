@@ -12,11 +12,11 @@ $showFlag = false;
 if (!isset($_SESSION['loginStatus'])) {
     header('Location: login.php');
 } else {
-    $customerId = $_SESSION['customer_id'];
+    $customerId = $_SESSION['customerId'];
     include("DB_Connection/connection.php");
 
     $sql = "SELECT * FROM customers WHERE customer_id = \"$customerId\"";
-    $result = $conn->query($sql);
+    $result = $oDbConnection->query($sql);
     $row = $result->fetch_object();
     $firstName = $row->customer_first_name;
     $lastName = $row->customer_last_name;
@@ -34,9 +34,9 @@ if (!isset($_SESSION['loginStatus'])) {
 }
 if (isset($_POST['confirmPassword'])) {
 
-    $password = $conn->real_escape_string($_POST['confirmPassword']);
+    $password = $oDbConnection->real_escape_string($_POST['confirmPassword']);
     $sql = "SELECT * FROM customers WHERE customer_id = \" $customerId \"";
-    $result = $conn->query($sql);
+    $result = $oDbConnection->query($sql);
     if ($result->num_rows > 0) {
         $row = $result->fetch_object();
         //echo json_encode($row);
@@ -78,12 +78,12 @@ $apiKey = "";
                                 <?php
                                 include("DB_Connection/connection.php");
                                 $sql = "SELECT count(*) FROM `customer_products` WHERE `customer_id` = \"$customerId\"";
-                                $results = $conn->query($sql);
+                                $results = $oDbConnection->query($sql);
                                 $row = $results->fetch_assoc();
                                 $nProductAmount = $row['count(*)'];
                                 echo "<li> $nProductAmount products with active licences</li>";
                                 $sql = "SELECT * FROM customer_addons LEFT JOIN addons ON customer_addons.addon_id  = addons.addon_id  WHERE `customer_id` = \"$customerId\"";
-                                $results = $conn->query($sql);
+                                $results = $oDbConnection->query($sql);
                                 while ($row = $results->fetch_assoc()) {
                                     $nAddOnAmount = $row['addon_amount'];
                                     $name = $row['addon_name'];
@@ -91,7 +91,7 @@ $apiKey = "";
                                 }
 
                                 $sql = "SELECT count(*) FROM `orders` WHERE `customer_id` = \"$customerId\"";
-                                $results = $conn->query($sql);
+                                $results = $oDbConnection->query($sql);
                                 $row = $results->fetch_assoc();
                                 $nOrderAmount = $row['count(*)'];
                                 echo "<li> $nOrderAmount orders in our database</li>";
@@ -130,7 +130,7 @@ $apiKey = "";
                         <?php
                         $profileInfo = "";
                         $sql = "SELECT * FROM customer_products LEFT JOIN products ON customer_products.product_id  = products.product_id";
-                        $results = $conn->query($sql);
+                        $results = $oDbConnection->query($sql);
 
                         while ($row = $results->fetch_object()) {
                             //echo json_encode($row);
@@ -150,7 +150,7 @@ $apiKey = "";
 
                             if ($totalDaysRemaining < 0) {
                                 $sql = "UPDATE customer_products SET subscription_active = 0 WHERE customer_products_id = \"$rowKey\"";
-                                $conn->query($sql);
+                                $oDbConnection->query($sql);
                                 $row->subscription_active = 0;
                                 $totalDaysRemaining = 0;
                             }

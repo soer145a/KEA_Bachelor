@@ -9,7 +9,7 @@ if (isset($_POST['addOnId'])) {
     $sAddOnId = $_POST['addOnId'];
     $nAddOnAmount = $_POST['addOnAmount'];
     $sAddOnSelectSql = "SELECT * FROM addons WHERE addon_id = \"$sAddOnId\"";
-    $oAddOnResult = $conn->query($sAddOnSelectSql);
+    $oAddOnResult = $oDbConnection->query($sAddOnSelectSql);
     $oAddOnRow = $oAddOnResult->fetch_object();
     $sAddOnName = $oAddOnRow->addon_name;
     $nAddOnPrice = (float)$oAddOnRow->addon_price;

@@ -9,15 +9,15 @@ if (isset($_POST['data'])) {
     $sData = $_POST['data'];
 
     $sCheckSelectSql = "SELECT * FROM customers WHERE $sWhatTocheck = \"$sData\"";
-    $oCheckResult = $conn->query($sCheckSelectSql);
+    $oCheckResult = $oDbConnection->query($sCheckSelectSql);
 
     if ($oCheckResult->num_rows > 0) {
-        $response = array("dataExists" => true);
+        $aResponse = array("dataExists" => true);
     } else {
-        $response = array("dataExists" => false);
+        $aResponse = array("dataExists" => false);
     }
 } else {
-    $response = array("error" => true);
+    $aResponse = array("error" => true);
 }
 
-echo json_encode($response);
+echo json_encode($aResponse);

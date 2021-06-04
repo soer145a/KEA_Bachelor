@@ -9,13 +9,13 @@ if (isset($_POST['productId'])) {
     $sSubscriptionId = $_POST['sSubscriptionId'];
     $sProductId = $_POST['productId'];
     $sProductSelectSql = "SELECT * FROM products WHERE product_id = \"$sProductId\"";
-    $oProductResult = $conn->query($sProductSelectSql);
+    $oProductResult = $oDbConnection->query($sProductSelectSql);
     $oProductRow = $oProductResult->fetch_object();
     $sProductName = $oProductRow->product_name;
     $nProductPrice = (float)$oProductRow->product_price;
 
     $sSubscriptionSql = "SELECT * FROM subscriptions WHERE subscription_id = \"$sSubscriptionId\"";
-    $oSubscriptionResult = $conn->query($sSubscriptionSql);
+    $oSubscriptionResult = $oDbConnection->query($sSubscriptionSql);
     $oSubscriptionRow = $oSubscriptionResult->fetch_object();
     $sSubscriptionName = $oSubscriptionRow->subscription_name;
     $nSubscriptionPrice = (float)$oSubscriptionRow->subscription_price;

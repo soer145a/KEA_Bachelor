@@ -1,10 +1,10 @@
 <?php
 
 
-function addOnsComp($conn)
+function addOnsComp($oDbConnection)
 {
     $addOnSql = 'SELECT * FROM addons';
-    $addOnResult = $conn->query($addOnSql);
+    $addOnResult = $oDbConnection->query($addOnSql);
 
     while ($addOnRow = $addOnResult->fetch_object()) {
 

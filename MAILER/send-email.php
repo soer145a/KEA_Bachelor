@@ -14,7 +14,7 @@ require 'SMTP.php';
 // Load Composer's autoloader
 //require 'vendor/autoload.php';
 $userSubmittedData = json_decode($_SESSION['postData']);
-$customerId = $_SESSION['customer_id'];
+$customerId = $_SESSION['customerId'];
 $orderId = $_SESSION['orderId'];
 
 $email = $userSubmittedData->input_email;

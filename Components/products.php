@@ -1,13 +1,13 @@
 <?php
 //$productId, $productName, $imageUrl, $productPrice,
 
-function productsComp($conn)
+function productsComp($oDbConnection)
 {
 
     $productSql = 'SELECT * FROM products';
-    $productResult = $conn->query($productSql);
+    $productResult = $oDbConnection->query($productSql);
     $subscriptionSql = 'SELECT * FROM subscriptions';
-    $subscriptionResult = $conn->query($subscriptionSql);
+    $subscriptionResult = $oDbConnection->query($subscriptionSql);
     $productsContent = "";
     $aSubscription = [];
     $counter = "0";
