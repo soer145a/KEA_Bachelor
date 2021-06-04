@@ -66,150 +66,149 @@ if (isset($_SESSION['cartAddOns'])) {
 }
 
 if (!isset($_SESSION['loginStatus'])) {
-    $content = '
-        <form action="API/payment-handler.php" method="POST" class="account-details">
-            <h2 class="section-header">Account details</h2>
-            <label for="account-details__name"
+    $loggedIn = 'false';
+    $content = "
+        <form action='API/payment-handler.php' method='POST' class='account-details'>
+            <h2 class='section-header'>Account details</h2>
+            <label for='account-details__name'
                 >Company Name</label
             >
             <input
-                id="account-details__name"
-                type="text"
-                name="input_company_name"
-                data-validate="string"
+                id='account-details__name'
+                type='text'
+                name='input_company_name'
+                data-validate='string'
                 required
-                oninput="inputValidate(); printBtnValidate();"
+                oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
             />
-            <label for="account-details__cvr"
+            <label for='account-details__cvr'
                 >Company CVR nr.</label
             >
             <input
-                id="account-details__cvr"
-                type="text"
-                name="input_company_cvr"
-                data-validate="cvr"
+                id='account-details__cvr'
+                type='text'
+                name='input_company_cvr'
+                data-validate='cvr'
                 required
-                oninput="inputValidate(); printBtnValidate();"
+                oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
             />
-            <div class="account-details__contact">
-                <h4 class="section-subheader contact__header">Contact Person</h4>
-                <div class="contact__wrapper">
-                    <label for="contact__firstname">Firstname</label>
+            <div class='account-details__contact'>
+                <h4 class='section-subheader contact__header'>Contact Person</h4>
+                <div class='contact__wrapper'>
+                    <label for='contact__firstname'>Firstname</label>
                     <input
-                        id="contact__firstname"
-                        type="text"
-                        name="input_first_name"
-                        data-validate="string"
+                        id='contact__firstname'
+                        type='text'
+                        name='input_first_name'
+                        data-validate='string'
                         required
-                        oninput="inputValidate(); printBtnValidate();"
+                        oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
                     />
                 </div>
-                <div class="contact__wrapper">
-                    <label for="contact__lastname">Lastname</label>
+                <div class='contact__wrapper'>
+                    <label for='contact__lastname'>Lastname</label>
                     <input
-                        id="contact__lastname"
-                        type="text"
-                        name="input_last_name"
-                        data-validate="string"
+                        id='contact__lastname'
+                        type='text'
+                        name='input_last_name'
+                        data-validate='string'
                         required
-                        oninput="inputValidate(); printBtnValidate();"
+                        oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
                     />
                 </div>
             </div>
             
-            <label for="account-details__mail">Phone Number</label>
+            <label for='account-details__mail'>Phone Number</label>
             <input
-                id="account-details__mail"
-                type="text"
-                name="input_phone"
-                data-validate="phone"
+                id='account-details__mail'
+                type='text'
+                name='input_phone'
+                data-validate='phone'
                 required
-                oninput="inputValidate(); printBtnValidate();"
+                oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
             />
-            <label for="account-details__mail">Email</label>
+            <label for='account-details__mail'>Email</label>
             <input
-                id="account-details__mail"
-                type="email"
-                name="input_email"
-                data-validate="email"
+                id='account-details__mail'
+                type='email'
+                name='input_email'
+                data-validate='email'
                 required
-                oninput="inputValidate(); printBtnValidate();"
+                oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
             />
-            <label for="account-details__password"
+            <label for='account-details__password'
                 >Password</label
             >
             <input
-                id="account-details__password"
-                type="password"
-                name="input_password_init"
-                data-validate="password"
+                id='account-details__password'
+                type='password'
+                name='input_password_init'
+                data-validate='password'
                 required
-                oninput="inputValidate(); printBtnValidate();"
+                oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
             />
-            <label for="account-details__confirm-password"
+            <label for='account-details__confirm-password'
                 >Confirm Password</label
             >
             <input
-                id="account-details__confirm-password"
-                type="password"
-                name="input_password_confirm"
-                data-validate="password"
+                id='account-details__confirm-password'
+                type='password'
+                name='input_password_confirm'
+                data-validate='password'
                 required
-                oninput="inputValidate(); printBtnValidate();"
+                oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
             />
-            <h2 class="section-header">
+            <h2 class='section-header'>
                 Shipping/Billing address
             </h2>
-            <label for="account-details__street-name"
+            <label for='account-details__street-name'
                 >Street name</label
             >
             <input
-                id="account-details__street-name"
-                type="text"
-                name="input_company_street"
-                data-validate="string"
+                id='account-details__street-name'
+                type='text'
+                name='input_company_street'
+                data-validate='string'
                 required
-                oninput="inputValidate(); printBtnValidate();"
+                oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
             />
-            <label for="account-details__city">City</label>
+            <label for='account-details__city'>City</label>
             <input
-                id="account-details__city"
-                type="text"
-                data-validate="string"
-                name="input_company_city"
+                id='account-details__city'
+                type='text'
+                data-validate='string'
+                name='input_company_city'
                 required
-                oninput="inputValidate(); printBtnValidate();"
+                oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
             />
-            <label for="account-details__zip-code"
+            <label for='account-details__zip-code'
                 >Zip code</label
             >
             <input
-                id="account-details__zip-code"
-                type="text"
-                data-validate="string"
-                name="input_company_Postcode"
+                id='account-details__zip-code'
+                type='text'
+                data-validate='string'
+                name='input_company_Postcode'
                 required
-                oninput="inputValidate(); printBtnValidate();"
+                oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
             />
-            <label for="account-details__zip-code"
+            <label for='account-details__zip-code'
                 >Country</label
             >
             <input
-                id="account-details__zip-code"
-                type="text"
-                data-validate="string"
-                name="input_company_country"
+                id='account-details__zip-code'
+                type='text'
+                data-validate='string'
+                name='input_company_country'
                 required
-                oninput="inputValidate(); printBtnValidate();"
+                oninput='inputValidate(); togglePaypalButton($loggedIn, $totalPrice);'
             />
-            <div class="errorMessage"></div>
-        </form>';
-    $loggedIn = 'false';
+            <div class='errorMessage'></div>
+        </form>";
 } else {
     $loggedIn = 'true';
 }
 
-//echo json_encode($_POST);
 ?>
 
 <!DOCTYPE html>
@@ -261,75 +260,11 @@ if (!isset($_SESSION['loginStatus'])) {
     </main>
     <?= $footer ?>
 </body>
-<script src="js/app.js"></script>
-<script src="js/helper.js"></script>
 <script src="https://www.paypal.com/sdk/js?client-id=ASc0sohSJuv9IX6ovw_EQxA0uGoiQO5YxX2U7u9qnfZGwovsZ6Tylr1Arf0XOCAshoqqX8ApS3nkYpGy&currency=EUR&disable-funding=credit,card">
 </script>
+<script src="js/app.js"></script>
+<script src="js/helper.js"></script>
+
 <script>
-    if (<?= $loggedIn ?>) {
-        document.querySelector(".order-summary__button").remove();
-        paypal.Buttons({
-            style: {
-                color: 'blue',
-                shape: 'rect',
-                size: 'responsive'
-            },
-            createOrder: function(data, actions) {
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: {
-                            value: <?= $totalPrice ?>
-                        }
-                    }]
-                });
-            },
-            onApprove: function(data, actions) {
-                return actions.order.capture().then(function(PurchaseDetails) {
-                    window.location.assign(window.location.protocol + "/KEA_Bachelor/API/payment-handler.php");
-                });
-            }
-        }).render('#paypal-button-container');
-    }
-
-    function printBtnValidate() {
-        const ePaypalContainer = document.querySelector("#paypal-button-container");
-
-        if (document.querySelectorAll(".valid").length !== 12) {
-
-            if (document.querySelector(".paypal-buttons") !== null) {
-                //Remove paypal button if it's there
-                document.querySelector(".paypal-buttons").remove()
-                let eButtonPlaceholder = document.createElement("button");
-                eButtonPlaceholder.setAttribute("class", "order-summary__button button button--purple");
-                eButtonPlaceholder.textContent = "Paypal";
-            }
-        } else {
-            console.log("It does work");
-            if (document.querySelector(".order-summary__button") !== null) {
-                document.querySelector(".order-summary__button").remove();
-
-                paypal.Buttons({
-                    style: {
-                        color: 'blue',
-                        shape: 'rect',
-                        size: 'responsive'
-                    },
-                    createOrder: function(data, actions) {
-                        return actions.order.create({
-                            purchase_units: [{
-                                amount: {
-                                    value: <?= $totalPrice ?>
-                                }
-                            }]
-                        });
-                    },
-                    onApprove: function(data, actions) {
-                        return actions.order.capture().then(function(PurchaseDetails) {
-                            document.querySelector(".account-details").submit();
-                        });
-                    }
-                }).render('#paypal-button-container');
-            }
-        }
-    }
+    togglePaypalButton(<?= $loggedIn ?>, <?= $totalPrice ?>);
 </script>
