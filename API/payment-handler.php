@@ -67,7 +67,7 @@ if (!isset($_SESSION['loginStatus'])) {
 
 $nCurrentDate = time();
 $oOrderInsertSql = $oDbConnection->prepare("INSERT INTO orders (order_id , customer_id, order_date ) VALUES(null,?,?)");
-$oOrderInsertSql->bind_param("ii", $sCustomerId, $currentDate);
+$oOrderInsertSql->bind_param("ii", $sCustomerId, $nCurrentDate);
 $oOrderInsertSql->execute();
 $sOrderId = $oOrderInsertSql->insert_id;
 $_SESSION['orderId'] = $sOrderId;
@@ -139,6 +139,4 @@ if (isset($_SESSION['cartAddOns'])) {
 }
 
 
-
-/* 
-header("Location: ../MAILER/send-email.php"); */
+header("Location: ../MAILER/send-email.php");

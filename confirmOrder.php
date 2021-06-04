@@ -4,7 +4,6 @@ include_once("Components/head.php");
 include_once("Components/header.php");
 include_once("Components/footer.php");
 $head = headComp();
-$header = headerComp('');
 $footer = footerComp();
 
 if (!isset($_SESSION['orderId'])) {
@@ -36,6 +35,8 @@ unset($_SESSION['cartAddOns']);
 unset($_SESSION['customerData']);
 unset($_SESSION['confirmCode']);
 unset($_SESSION['orderId']);
+
+$header = headerComp('');
 
 if (!isset($_SESSION['loginStatus'])) {
     $message = "Thank you for your order! <br> We have sent you an email with a link to confirm your email address.";
