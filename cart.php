@@ -18,12 +18,12 @@ $totalPrice = 0;
 
 if (isset($_SESSION['cartProducts'])) {
     foreach ($_SESSION['cartProducts'] as $product) {
-        $productName = $product['productName'];
-        $productPrice = $product['productPrice'];
-        $productId = $product['productId'];
-        $subscriptionName = $product['subscriptionName'];
-        $subscriptionPrice = $product['subscriptionPrice'];
-        $totalPrice =  $totalPrice + (float)$product['productPrice'];
+        $productName = $product['product_name'];
+        $productPrice = $product['product_price'];
+        $productId = $product['product_id'];
+        $subscriptionName = $product['subscription_name'];
+        $subscriptionPrice = $product['subscription_price'];
+        $totalPrice =  $totalPrice + (float)$product['product_price'];
 
         $products =  $products . "<div class='product-row'>
                                     <div class='product-item'>
@@ -46,18 +46,18 @@ if (isset($_SESSION['cartProducts'])) {
 
 if (isset($_SESSION['cartAddOns'])) {
     foreach ($_SESSION['cartAddOns'] as $addon) {
-        $sAddOnId = $addon['addOnId'];
-        $addonName = $addon['addOnName'];
-        $nAddOnAmount = $addon['addOnAmount'];
-        $addonPrice = $addon['addOnPrice'];
-        $addonTotalPrice = (float)$nAddOnAmount * (float)$addonPrice;
+        $addonId = $addon['addon_id'];
+        $addonName = $addon['addon_name'];
+        $addonQuantity = $addon['addon_amount'];
+        $addonPrice = $addon['addon_price'];
+        $addonTotalPrice = (float)$addonQuantity * (float)$addonPrice;
         $totalPrice =  $totalPrice + $addonTotalPrice;
         $addons =  $addons . "<div class='product-row'>
                                     <div class='product-item'>
                                         <p class='product-item__name'>$addonName</p>
                                         <p class='product-item__quantity'>
-                                            <span class='product-item__delete' onclick='removeItemFromCart($sAddOnId, false, $nAddOnAmount)'></span>
-                                            $nAddOnAmount
+                                            <span class='product-item__delete' onclick='removeItemFromCart($addonId, false, $addonQuantity)'></span>
+                                            $addonQuantity
                                         </p>
                                         <p class='product-item__price'>$addonTotalPrice</p>
                                     </div>
@@ -203,7 +203,6 @@ if (!isset($_SESSION['loginStatus'])) {
                 oninput="inputValidate(); printBtnValidate();"
             />
             <div class="errorMessage"></div>
-            <div id="paypal-button-container"></div>
         </form>';
     $loggedIn = 'false';
 } else {
@@ -264,7 +263,7 @@ if (!isset($_SESSION['loginStatus'])) {
 </body>
 <script src="js/app.js"></script>
 <script src="js/helper.js"></script>
-<script src="https://www.paypal.com/sdk/js?client-id=ASc0sohSJuv9IX6ovw_EQxA0uGoiQO5YxX2U7u9qnfZGwovsZ6Tylr1Arf0XOCAshoqqX8ApS3nkYpGy&currency=EUR&disable-funding=credit,card" async>
+<script src="https://www.paypal.com/sdk/js?client-id=ASc0sohSJuv9IX6ovw_EQxA0uGoiQO5YxX2U7u9qnfZGwovsZ6Tylr1Arf0XOCAshoqqX8ApS3nkYpGy&currency=EUR&disable-funding=credit,card">
 </script>
 <script>
     if (<?= $loggedIn ?>) {
@@ -293,42 +292,44 @@ if (!isset($_SESSION['loginStatus'])) {
     }
 
     function printBtnValidate() {
+        const ePaypalContainer = document.querySelector("#paypal-button-container");
 
-        console.log(document.querySelectorAll(".valid").length);
-        // btnContainer = document.getElementsByClassName("form__btnContainer")[0];
         if (document.querySelectorAll(".valid").length !== 12) {
-<<<<<<< HEAD
-            //Add placeholder button
 
-=======
-            // btnContainer.innerHTML = "<p>What would cause you not to fill out all the fields in the form?</p>";
->>>>>>> 560061e4574839a8b6cca291ab86870fa0a77c7c
+            if (document.querySelector(".paypal-buttons") !== null) {
+                //Remove paypal button if it's there
+                document.querySelector(".paypal-buttons").remove()
+                let eButtonPlaceholder = document.createElement("button");
+                eButtonPlaceholder.setAttribute("class", "order-summary__button button button--purple");
+                eButtonPlaceholder.textContent = "Paypal";
+            }
         } else {
             console.log("It does work");
-            document.querySelector(".order-summary__button").remove();
-            // btnContainer.innerHTML = "<div id='paypal-button-container' class='button'></div>";
-            paypal.Buttons({
-                style: {
-                    color: 'blue',
-                    shape: 'rect',
-                    size: 'responsive'
-                },
-                createOrder: function(data, actions) {
-                    return actions.order.create({
-                        purchase_units: [{
-                            amount: {
-                                value: <?= $totalPrice ?>
-                            }
-                        }]
-                    });
-                },
-                onApprove: function(data, actions) {
-                    return actions.order.capture().then(function(PurchaseDetails) {
+            if (document.querySelector(".order-summary__button") !== null) {
+                document.querySelector(".order-summary__button").remove();
 
-                        document.getElementsByClassName('signUpForm')[0].submit();
-                    });
-                }
-            }).render('#paypal-button-container');
+                paypal.Buttons({
+                    style: {
+                        color: 'blue',
+                        shape: 'rect',
+                        size: 'responsive'
+                    },
+                    createOrder: function(data, actions) {
+                        return actions.order.create({
+                            purchase_units: [{
+                                amount: {
+                                    value: <?= $totalPrice ?>
+                                }
+                            }]
+                        });
+                    },
+                    onApprove: function(data, actions) {
+                        return actions.order.capture().then(function(PurchaseDetails) {
+                            document.querySelector(".account-details").submit();
+                        });
+                    }
+                }).render('#paypal-button-container');
+            }
         }
     }
 </script>
