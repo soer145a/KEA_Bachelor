@@ -2,10 +2,10 @@
 session_start();
 include("../DB_Connection/connection.php");
 
-$_POST = json_decode(file_get_contents("php://input"), true); //make json object an assoc array
-
+$_POST = json_decode(file_get_contents("php://input"), true); //make json object an assoc array from post data
 
 if (isset($_POST['productId'])) {
+    //If the product id is sent correctly, gather the data from database and create the variables
     $sSubscriptionId = $_POST['sSubscriptionId'];
     $sProductId = $_POST['productId'];
     $sProductSelectSql = "SELECT * FROM products WHERE product_id = \"$sProductId\"";
@@ -14,14 +14,16 @@ if (isset($_POST['productId'])) {
     $sProductName = $oProductRow->product_name;
     $nProductPrice = (float)$oProductRow->product_price;
 
+    //Get the subscription data from the database
     $sSubscriptionSql = "SELECT * FROM subscriptions WHERE subscription_id = \"$sSubscriptionId\"";
     $oSubscriptionResult = $oDbConnection->query($sSubscriptionSql);
     $oSubscriptionRow = $oSubscriptionResult->fetch_object();
     $sSubscriptionName = $oSubscriptionRow->subscription_name;
     $nSubscriptionPrice = (float)$oSubscriptionRow->subscription_price;
 
+    //Check to see if there is already a card products object in the session
     if (isset($_SESSION['cartProducts'])) {
-
+        //If there is, add the new product to the array 
         $nProductCount = count($_SESSION['cartProducts']);
         $aProductArray = array(
             'productId' => $sProductId,
@@ -33,7 +35,7 @@ if (isset($_POST['productId'])) {
         );
         $_SESSION['cartProducts'][$nProductCount] = $aProductArray;
     } else {
-
+        //If there is not a product array in session, create it, and add the product to it.
         $aProductArray = array(
             'productId' => $sProductId,
             'productName' => $sProductName,
@@ -44,9 +46,7 @@ if (isset($_POST['productId'])) {
         );
         $_SESSION['cartProducts'][0] = $aProductArray;
     }
-}else{
-    header('Location: index.php');
 }
 $response = array("error" => false);
-
+//Returning some data for our javascript to use
 echo json_encode($response);

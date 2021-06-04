@@ -1,11 +1,15 @@
 <?php
 session_start();
+//using the createPDF library
 require '../CREATEPDF/fpdf.php';
+//Check to see if the user is trying to access this page from browser
 if(!isset($_SESSION['postData'])){
     header("Location: ../index.php");
 }
+//Creating the PDF object
 class PDF extends FPDF
 {
+    //Making the header of the PDF
     function Header()
     {
         $this->Image('../assets/logo.png', 10, 6);
@@ -14,6 +18,7 @@ class PDF extends FPDF
         $this->SetFont('Arial', 'B', 12);
         $this->Ln(30);
     }
+    //Making the Footer of the PDF
     function Footer()
     {
         $this->SetY(-15);
@@ -21,9 +26,10 @@ class PDF extends FPDF
         $this->Cell(0, 10, 'Page ' . $this->PageNo() . '/{nb}', 0, 0, 'R');
     }
 }
-
+//The main function that makes the PDF, which receives a timestamp in epoch values as its parameter
 function createReceipt($iTimeEpoch)
-{
+{   
+    //The customer and purchasing data from the session, converted into variables we can handle
     $sOrderId = $_SESSION['orderId'];
     $sCustomerId = $_SESSION['customerId'];
     $oCustomerData = json_decode($_SESSION['postData']);
@@ -37,9 +43,11 @@ function createReceipt($iTimeEpoch)
     $nTotalPrice = 0;
     $nAddonTotalprice = 0;
 
+    //Creating the new PDF, and filling in the customer data from the session
     $oCustomerReceipt = new PDF();
     $oCustomerReceipt->AliasNbPages();
-    $oCustomerReceipt->AddPage();
+    $oCustomerReceipt->AddPage(); //Creating the page
+    //Each of the cell functions create a block of text in the PDF that we can fill out with the variables
     $oCustomerReceipt->Write(5, "$sCompanyName");
     $oCustomerReceipt->Cell(0, 5, "Customer number: $sCustomerId", 0, 0, 'R');
     $oCustomerReceipt->Ln(8);
@@ -53,6 +61,7 @@ function createReceipt($iTimeEpoch)
     $oCustomerReceipt->Ln(8);
     $oCustomerReceipt->Write(5, "Cvr: $sCompanyCvr");
     $oCustomerReceipt->Ln(30);
+    //Set the look of the pdf with font, color, and any styling like bold
     $oCustomerReceipt->SetFont('Arial', 'B', '18');
     $oCustomerReceipt->Cell(0, 5, 'Order details:', 0, 0, 'L');
     $oCustomerReceipt->SetFont('Arial', 'B', '14');
@@ -63,7 +72,7 @@ function createReceipt($iTimeEpoch)
     $oCustomerReceipt->Cell(40, 5, 'Total', 0, 0, 'L');
     $oCustomerReceipt->SetFont('Arial', '', '12');
     $oCustomerReceipt->Ln(10);
-
+    //Looping through the products, we create a cell for each of them for the customer to view them in a list
     foreach ($_SESSION['cartProducts'] as $aProduct) {
 
         $sProductName = $aProduct['productName'];
@@ -85,7 +94,7 @@ function createReceipt($iTimeEpoch)
     $oCustomerReceipt->Cell(40, 5, 'Total', 0, 0, 'L');
     $oCustomerReceipt->SetFont('Arial', '', '12');
     $oCustomerReceipt->Ln(10);
-
+    //Looping through the addons and generating a list similar to the products
     foreach ($_SESSION['cartAddOns'] as $aAddon) {
 
         $sAddonName = $aAddon['addOnName'];
@@ -104,6 +113,6 @@ function createReceipt($iTimeEpoch)
     $oCustomerReceipt->SetFont('Arial', 'B', '16');
     $oCustomerReceipt->Cell(20, 5, 'Total:', 0, 0, 'L');
     $oCustomerReceipt->Cell(30, 5, $nTotalPrice, 0, 0, 'L');
-
+    //Saving the pdf in a folder for us to attach in the email we send later on.
     $oCustomerReceipt->Output("../Customer-receipts/$sCustomerId-$sOrderId.pdf", 'F');
 }
