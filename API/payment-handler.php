@@ -15,6 +15,7 @@ include("./create-pdf-receipt.php");
 $sEmbed = "<iframe src='http://127.0.0.1/KEA_Bachelor/deploys/product.php?key=INSERT KEY HERE' frameborder='0'></iframe>";
 
 if (!isset($_SESSION['loginStatus'])) {
+    echo '18';
     $sCustomerFirstName = $oDbConnection->real_escape_string($_POST['customerFirstName']);
     //echo $sCustomerFirstName;
     $sCustomerLastName = $oDbConnection->real_escape_string($_POST['customerLastName']);
@@ -30,7 +31,7 @@ if (!isset($_SESSION['loginStatus'])) {
     //echo $_SESSION['tempUserData']->uPassword;
     $customerPasswordHashed = password_hash($_POST['customerPasswordConfirm'], PASSWORD_DEFAULT);
     //echo $customerPasswordHashed;
-    $nProfilenProfileConfirmCode = bin2hex(random_bytes(32));
+    $nCustomerConfirmCode = bin2hex(random_bytes(32));
     //echo $nProfileConfirmCode;    
 
     $sCompanyStreet = $oDbConnection->real_escape_string($_POST['companyStreet']);
@@ -40,14 +41,15 @@ if (!isset($_SESSION['loginStatus'])) {
     $nCustomerConfirmed = 0;
 
     $oCustomerInsertSql = $oDbConnection->prepare("INSERT INTO customers (customer_id ,customer_first_name, customer_last_name, customer_company_name, customer_email, customer_password, customer_cvr, customer_city, customer_address, customer_country,customer_postcode,customer_phone, customer_confirm_code, customer_confirmed) VALUES ( null,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-    $oCustomerInsertSql->bind_param("ssssssssssssi", $sCustomerFirstName, $sCustomerLastName, $sCompanyName, $sCustomerEmail, $customerPasswordHashed, $sCompanyCvr, $sCompanyCity, $sCompanyStreet, $sCompanyCountry, $sCompanyZip, $sCustomerPhone, $nProfileConfirmCode, $nCustomerConfirmed);
+    $oCustomerInsertSql->bind_param("ssssssssssssi", $sCustomerFirstName, $sCustomerLastName, $sCompanyName, $sCustomerEmail, $customerPasswordHashed, $sCompanyCvr, $sCompanyCity, $sCompanyStreet, $sCompanyCountry, $sCompanyZip, $sCustomerPhone, $nCustomerConfirmCode, $nCustomerConfirmed);
 
     $oCustomerInsertSql->execute();
     $sCustomerId = $oCustomerInsertSql->insert_id;
     $_SESSION['customerId'] = $sCustomerId;
     $_SESSION['customerData'] = json_encode($_POST);
-    $_SESSION['nProfileConfirmCode'] = $nProfileConfirmCode;
+    $_SESSION['customerConfirmCode'] = $nCustomerConfirmCode;
 } else {
+    echo '52';
     $sCustomerId = $_SESSION['customerId'];
     $sCustomerSelectSql = "SELECT * FROM customers WHERE customer_id = \"$sCustomerId\"";
     $oCustomerResult = $oDbConnection->query($sCustomerSelectSql);

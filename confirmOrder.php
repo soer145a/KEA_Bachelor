@@ -33,7 +33,7 @@ if (isset($_SESSION['cartAddOns'])) {
 unset($_SESSION['cartProducts']);
 unset($_SESSION['cartAddOns']);
 unset($_SESSION['customerData']);
-unset($_SESSION['confirmCode']);
+unset($_SESSION['customerConfirmCode']);
 unset($_SESSION['orderId']);
 
 $header = headerComp('');

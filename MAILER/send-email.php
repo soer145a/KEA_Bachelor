@@ -31,7 +31,7 @@ $boughtAddons = "";
 
 if (!isset($_SESSION['loginStatus'])) {
     $emailContentConfirm = str_replace("::USERNAME::", $name, $emailContentConfirm);
-    $emailContentConfirm = str_replace("::confirmCode::", $_SESSION['confirmCode'], $emailContentConfirm);
+    $emailContentConfirm = str_replace("::confirmCode::", $_SESSION['customerConfirmCode'], $emailContentConfirm);
 }
 
 foreach ($_SESSION['cartProducts'] as $product) {

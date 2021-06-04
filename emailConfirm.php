@@ -9,10 +9,10 @@ $footer = footerComp();
 if (!isset($_GET['confirmCode'])) {
     header('Location: index.php');
 }
-$customerConfirmCode = $_GET['confirmCode'];
+$sCustomerConfirmCode = $_GET['confirmCode'];
 
 include_once("DB_Connection/connection.php");
-$sql = "UPDATE customers SET customer_confirmed = 1 WHERE customer_confirm_code = \"$customerConfirmCode\"";
+$sql = "UPDATE customers SET customer_confirmed = 1 WHERE customer_confirm_code = \"$sCustomerConfirmCode\"";
 $result = $oDbConnection->query($sql);
 ?>
 <!DOCTYPE html>

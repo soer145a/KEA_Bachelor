@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 //using the createPDF library
 require '../CREATEPDF/fpdf.php';
 //Check to see if the user is trying to access this page from browser
