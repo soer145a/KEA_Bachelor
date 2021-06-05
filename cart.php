@@ -73,7 +73,7 @@ if (isset($_SESSION['cartAddOns'])) {
 
 if ($bLoginStatus != 'true') {
     $sPageHtml = "
-        <form action='API/payment-handler.php' method='POST' class='account-details'>
+        <form action='api/payment-handler.php' method='POST' class='account-details'>
             <h2 class='section-header'>Account details</h2>
             <label for='account-details__name'
                 >Company Name</label

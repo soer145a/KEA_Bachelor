@@ -39,7 +39,7 @@ function inputValidate() {
           aInputsToValidate[i].classList.remove("valid");
           aInputsToValidate[i].classList.add("invalid");
         } else {
-          postData("API/check-db-for-existing-entries.php", {
+          postData("api/check-db-for-existing-entries.php", {
             whatToCheck: "customer_email",
             data: sInputData,
           }).then((jResponse) => {
@@ -103,7 +103,7 @@ function inputValidate() {
           aInputsToValidate[i].classList.add("invalid");
           aInputsToValidate[i].classList.remove("valid");
         } else {
-          postData("API/check-db-for-existing-entries.php", {
+          postData("api/check-db-for-existing-entries.php", {
             whatToCheck: "customer_cvr",
             data: sInputData,
           }).then((jResponse) => {
@@ -181,7 +181,7 @@ function showUpdateForm() {
 
 async function toggleAutoRenew(sCustomerProductId) {
   fetch(
-    `API/update-autorenewal.php?customer-product-id=${sCustomerProductId}`
+    `api/update-autorenewal.php?customer-product-id=${sCustomerProductId}`
   ).then((data) => location.reload());
 }
 
@@ -221,7 +221,7 @@ function editInfo(sInputValue, sValidateType, sInputName) {
   eForm.setAttribute("class", "customer-information-form");
   eForm.setAttribute("method", "post");
   eForm.setAttribute("onsubmit", "return inputValidate();");
-  eForm.setAttribute("action", "API/update-customer-data.php");
+  eForm.setAttribute("action", "api/update-customer-data.php");
 
   //input element
   let eInput = document.createElement("input");
@@ -307,7 +307,7 @@ function togglePaypalButton(bLoginStatus, nPrice) {
             return actions.order.capture().then(function () {
               window.location.assign(
                 window.location.protocol +
-                  "/KEA_Bachelor/API/payment-handler.php"
+                  "/KEA_Bachelor/api/payment-handler.php"
               );
             });
           },

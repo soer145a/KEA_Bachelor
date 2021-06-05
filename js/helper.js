@@ -116,7 +116,7 @@ function addAddOnToCart(sAddOnId) {
   } else {
     nAddOnAmount = parseInt(nAddOnAmount);
 
-    postData("API/add-addon-to-cart.php", {
+    postData("api/add-addon-to-cart.php", {
       addOnId: sAddOnId,
       addOnAmount: nAddOnAmount,
     });
@@ -149,7 +149,7 @@ function addProductToCart(sProductId, sButtonId) {
   } else {
     //Add to cart
 
-    postData("API/add-product-to-cart.php", {
+    postData("api/add-product-to-cart.php", {
       productId: sProductId,
       subscriptionId: sSubscriptionId,
     });
@@ -190,7 +190,7 @@ function removeItemFromCart(sItemId, bIsProduct, nAddonAmount, bLoginStatus) {
     togglePaypalButton(bLoginStatus, 0);
   }
 
-  postData("API/remove-item-from-cart.php", {
+  postData("api/remove-item-from-cart.php", {
     itemId: sItemId,
     isProduct: bIsProduct,
   });
