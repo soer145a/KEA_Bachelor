@@ -251,7 +251,7 @@ if ($bLoginStatus != 'true') {
                         </div>
                         <div id='paypal-button-container' class="paypal-button-container">
                             <button id="paypalInactive" class="order-summary__button button button--purple">
-                                Accept and Purchase
+                                PayPal
                             </button>
                         </div>
                     </div>

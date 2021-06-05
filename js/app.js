@@ -280,7 +280,7 @@ function togglePaypalButton(bLoginStatus, nPrice) {
     "class",
     "order-summary__button button button--purple"
   );
-  eButtonPlaceholder.textContent = "Paypal";
+  eButtonPlaceholder.textContent = "PayPal";
   if (nPrice > 0) {
     if (bLoginStatus) {
       ePaypalContainer.textContent = "";
