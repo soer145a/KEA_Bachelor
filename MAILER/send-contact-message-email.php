@@ -39,7 +39,7 @@ if (isset($_POST['potentialCustomerMessage'])) {
 
 
         //Recipients
-        $oMail->setFrom("$potentialCustomerEmail", "$potentialCustomerName");
+        $oMail->setFrom("$potentialCustomerEmail", "Mirtual Contact Form");
         $oMail->addAddress("soren.remboll@gmail.com", "Soren Remboll");     // Add a recipient   
         $oMail->addReplyTo("$potentialCustomerEmail", "$potentialCustomerName");
 
