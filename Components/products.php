@@ -1,9 +1,8 @@
 <?php
-//$productId, $productName, $imageUrl, $productPrice,
-
+//The function that creates the products
 function productsComp($oDbConnection)
 {
-
+    //Get all the products in the database
     $sProductSelectSql = 'SELECT * FROM products';
     $oProductResult = $oDbConnection->query($sProductSelectSql);
     $sSubscriptionSelectSql = 'SELECT * FROM subscriptions';
@@ -11,19 +10,19 @@ function productsComp($oDbConnection)
     $sProductHtmlComp = "";
     $aSubscriptions = [];
     $nCounter = "0";
-
+//add the subscription data to an array
     while ($subscriptionRow = $oSubscriptionResult->fetch_object()) {
         array_push($aSubscriptions, $subscriptionRow);
     }
-    // echo json_encode($aSubscription);
 
-
+    //For each product create an html block
     while ($oProductRow = $oProductResult->fetch_object()) {
         $subscriptionList = "";
         foreach ($aSubscriptions as $oSubscription) {
+            //The list of subscription options on the product html block
             $subscriptionList = $subscriptionList . "<span class='dropdown__list-item' data-subscriptionid='$oSubscription->subscription_id' data-buttonid='$nCounter'>$oSubscription->subscription_name - €$oSubscription->subscription_price/month</span>";
         }
-
+        //For each product create the corresponding html block
         switch ($oProductRow->product_id) {
             case 1:
                 $sProductHtmlComp = $sProductHtmlComp . "
@@ -249,7 +248,9 @@ function productsComp($oDbConnection)
               </div>
           </div>";
         }
+        //Update the counter
         $nCounter++;
     }
+    //Return the html blocks
     return $sProductHtmlComp;
 };

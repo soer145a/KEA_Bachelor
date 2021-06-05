@@ -8,7 +8,7 @@ function headerComp($sActiveLink)
     $sProfileActiveClass = '';
     $sCartActiveClass = '';
     $sLoginActiveClass = '';
-
+    //When creating the header component, we need to have an active link for which side of website the user is on
     switch ($sActiveLink) {
 
         case 'index':
@@ -29,7 +29,7 @@ function headerComp($sActiveLink)
     }
 
     $nCartCount = 0;
-
+    //Add the correct navigation links if the user is logged in
     if (isset($_SESSION['loginStatus'])) {
         $sLoginLinkHtml =
             "<a href='logout.php' class='navigation-list__item-link $sLoginActiveClass'>Logout</a>";
@@ -41,7 +41,7 @@ function headerComp($sActiveLink)
     }
 
     if (isset($_SESSION['cartProducts'])) {
-
+        //Update the little red blob on the cart information
         $nCartCount = $nCartCount + count($_SESSION['cartProducts']);
     }
     if (isset($_SESSION['cartAddOns'])) {
@@ -49,7 +49,7 @@ function headerComp($sActiveLink)
             $nCartCount = $nCartCount + $aAddon['addOnAmount'];
         }
     }
-
+    //The actual html block
     $sHeaderHtmlComp =
         "<header class='container-full-width'>
         <nav class='layout-container navigation-contatiner navigation'>
@@ -91,6 +91,6 @@ function headerComp($sActiveLink)
             </div>
         </nav>
     </header>";
-
+    //Return the newly assembled block of html
     return $sHeaderHtmlComp;
 }

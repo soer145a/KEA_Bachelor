@@ -1,16 +1,18 @@
 <?php
 session_start();
+//indluce the styling blocks
 include_once("Components/head.php");
 include_once("Components/header.php");
 include_once("Components/footer.php");
 $sHeadHtmlComp = headComp();
 $sHeaderHtmlComp = headerComp('');
 $sFooterHtmlComp = footerComp();
+//If there is no confirm code, send the user away
 if (!isset($_GET['confirmCode'])) {
     header('Location: index.php');
 }
 $sCustomerConfirmCode = $_GET['confirmCode'];
-
+//Update the customer_confirmed record for where the confirm code is a match
 include_once("DB_Connection/connection.php");
 $sCustomerUpdateSql = "UPDATE customers SET customer_confirmed = 1 WHERE customer_confirm_code = \"$sCustomerConfirmCode\"";
 $oCustomerResult = $oDbConnection->query($sCustomerUpdateSql);

@@ -1,4 +1,5 @@
 <?php
+//The header component
 function headComp()
 {
     $sHeadHtmlComp =
@@ -28,5 +29,6 @@ function headComp()
         <link rel='stylesheet' href='css/footer.css' />
         <link rel='stylesheet' href='css/media-queries.css' />
         ";
+        //Return html block
     return $sHeadHtmlComp;
 }

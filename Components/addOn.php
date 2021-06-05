@@ -1,15 +1,17 @@
 <?php
 
-
+//The function that creates the addon components
 function addOnsComp($oDbConnection)
 {
     $sAddOnHtmlComp = "";
     $sAddOnSelectSql = 'SELECT * FROM addons';
+    //Get the addons from the database
     $oAddOnResult = $oDbConnection->query($sAddOnSelectSql);
-
+    //for each addon, create a html block that matches the information
     while ($oAddOnRow = $oAddOnResult->fetch_object()) {
 
         switch ($oAddOnRow->addon_id) {
+            //A custom block element for each addon
             case 1:
                 $sAddOnHtmlComp = $sAddOnHtmlComp . "<div class='addon-wrapper'>
                 <img class='addon-image' src='./assets/images/3d-model.png' alt='3d model of shirt'>
@@ -38,6 +40,6 @@ function addOnsComp($oDbConnection)
                 break;
         }
     }
-
+    //Send the html component back to where it was requested from
     return $sAddOnHtmlComp;
 }

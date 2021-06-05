@@ -1,8 +1,8 @@
 <?php
 
-
+//The function that creates the footer on each page
 function footerComp()
-{
+{   //The footer that is returned to where it was requested from
     $sFooterHtmlComp =
         "<footer class='container-full-width'>
             <div class='layout-container footer'>
@@ -40,6 +40,6 @@ function footerComp()
                 </div>
             </div>
         </footer>";
-
+    //Return the html block
     return $sFooterHtmlComp;
 }

@@ -7,38 +7,41 @@ include_once("Components/footer.php");
 $sHeadHtmlComp = headComp();
 $sHeaderHtmlComp = headerComp('login');
 $sFooterHtmlComp = footerComp();
-
+//If the user IS logged in, they should go to the profile page instead
 if (isset($_SESSION['loginStatus'])) {
     header('Location: profile.php');
 }
-
+//If the user has submitted the email and password, we check for a match in the database
 if (isset($_POST['customerEmail']) && isset($_POST['customerPassword'])) {
-    //echo $_POST['customerEmail']." ".$_POST['customer_password'];
+    //Check to see if the data sent has value
     if ($_POST['customerEmail'] != "" && $_POST['customerPassword'] != "") {
-        //echo "Data is there";
         include("DB_Connection/connection.php");
         $sCustomerPassword = $oDbConnection->real_escape_string($_POST['customerPassword']);
         $sCustomerEmail = $oDbConnection->real_escape_string($_POST['customerEmail']);
+        //Get the customer data from the database
         $sCustomerSelectSql = "SELECT * FROM customers WHERE customer_email = \"$sCustomerEmail\"";
         $oCustomerResult = $oDbConnection->query($sCustomerSelectSql);
         if ($oCustomerResult->num_rows > 0) {
             $oCustomerRow = $oCustomerResult->fetch_object();
             $sCustomerDbPassword = $oCustomerRow->customer_password;
+            //Verify that the password submitted is matching the one in the database
             if (password_verify($sCustomerPassword, $sCustomerDbPassword)) {
                 if ($oCustomerRow->customer_confirmed == 1) {
+                    //If the customer has not confirmed their account through the email, decline the login here
                     $_SESSION['loginStatus'] = true;
                     $_SESSION['customerId'] = $oCustomerRow->customer_id;
                     $_SESSION['customerFirstName'] = $oCustomerRow->customer_first_name;
                     $_SESSION['customerLastName'] = $oCustomerRow->customer_last_name;
                     header('Location: index.php');
+                    //Display an error message the user
                 } else {
-                    $sErrorMessage = "<p style='color:red'> ERROR - You have not confirmed yo account</p>";
+                    $sErrorMessage = "<p style='color:red'> ERROR - You have not confirmed the email through the account</p>";
                 }
             } else {
-                $sErrorMessage = "<p style='color:red'> ERROR - You don' fuckd up kiddo</p>";
+                $sErrorMessage = "<p style='color:red'> ERROR - Wrong password or email</p>";
             }
         } else {
-            $sErrorMessage = "<p style='color:red'> ERROR - You don' fuckd up kiddo</p>";
+            $sErrorMessage = "<p style='color:red'> ERROR - Wrong password or email</p>";
         }
     }
 }
