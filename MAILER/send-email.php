@@ -66,7 +66,7 @@ try {
     $oMail->SMTPSecure = 'tls';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
     $oMail->Port       = 587;                                    // TCP port to connect to
 
-    
+
     //Recipients
     $oMail->setFrom('Mirtual@purplescout.com', 'Mirtual');
     $oMail->addAddress("$sCustomerEmail", "$sCustomerName");     // Add a recipient   
@@ -75,12 +75,7 @@ try {
     // Attachments
 
     // Content
-<<<<<<< HEAD
-    //$oMail->AltBody = 'This is the body in plain text for non-HTML mail clients';
     $oMail->addAttachment("../customer-receipts/$sCustomerId-$sOrderId.pdf");
-=======
-    $oMail->addAttachment("../Customer-receipts/$sCustomerId-$sOrderId.pdf");
->>>>>>> fed27c1b87e655eccdb612e4482db8f64634d885
     $oMail->isHTML(true);                                  // Set email format to HTML
     $oMail->Subject = "Mirtual order";
     $oMail->Body = $sOrderEmailContent;
@@ -95,14 +90,9 @@ try {
     }
 
 
-<<<<<<< HEAD
-
-    echo "<script>window.location.assign(window.location.protocol + '/KEA_Bachelor/confirm-order.php');</script>";
-=======
     //Do a window relocate after the email is sent
     //This is not the optimal usage, since the customer might see a split second of the email sender
     echo "<script>window.location.assign(window.location.protocol + '/KEA_Bachelor/confirmOrder.php');</script>";
->>>>>>> fed27c1b87e655eccdb612e4482db8f64634d885
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$oMail->ErrorInfo}";
 }
