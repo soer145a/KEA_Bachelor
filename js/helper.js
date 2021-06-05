@@ -34,17 +34,18 @@ function toggleDialogBox() {
 
 function toggleDropdown() {
   if (document.querySelector(".dropdown") !== null) {
-    let aDropdownBtnElements = document.querySelectorAll(".dropdown__button");
-    let aDropdownlistElements = document.querySelectorAll(
+    let aDropdownButtonElements =
+      document.querySelectorAll(".dropdown__button");
+    let aDropdownListElements = document.querySelectorAll(
       ".dropdown-list-container"
     );
-    aDropdownBtnElements.forEach((button) => {
-      button.addEventListener("click", () => {
+    aDropdownButtonElements.forEach((eButton) => {
+      eButton.addEventListener("click", () => {
         //Reset all dialog boxes
 
-        aDropdownlistElements.forEach((list) => {
-          if (button.dataset.buttonid === list.dataset.listid) {
-            list.classList.toggle("dropdown-list-container--hidden");
+        aDropdownListElements.forEach((eList) => {
+          if (eButton.dataset.buttonid === eList.dataset.listid) {
+            eList.classList.toggle("dropdown-list-container--hidden");
           }
         });
       });
@@ -63,9 +64,9 @@ function itemSelector() {
         let aChildrenNodes = Array.from(
           aDropdownItems[i].parentElement.children
         );
-        aChildrenNodes.forEach((child) => {
+        aChildrenNodes.forEach((eChild) => {
           //remove class
-          child.classList.remove("dropdown__list-item--active");
+          eChild.classList.remove("dropdown__list-item--active");
         });
         toggleDialogBox();
         clickedItem(aDropdownItems[i]);
@@ -74,29 +75,32 @@ function itemSelector() {
   }
 }
 
-function clickedItem(item) {
+function clickedItem(eDropDownItem) {
   let aDropdownButtons = document.querySelectorAll(".dropdown__button");
-  aDropdownButtons.forEach((button) => {
-    if (button.dataset.buttonid === item.dataset.buttonid) {
+  aDropdownButtons.forEach((eButton) => {
+    if (eButton.dataset.buttonid === eDropDownItem.dataset.buttonid) {
       if (
-        button.dataset.subscriptionid === undefined ||
-        button.dataset.subscriptionid !== item.dataset.subscriptionid
+        eButton.dataset.subscriptionid === undefined ||
+        eButton.dataset.subscriptionid !== eDropDownItem.dataset.subscriptionid
       ) {
         //toogle active class
-        item.classList.add("dropdown__list-item--active");
+        eDropDownItem.classList.add("dropdown__list-item--active");
         //update text on dropdown button
-        button.textContent = item.textContent;
+        eButton.textContent = eDropDownItem.textContent;
         //Create or update dataset attribute
-        button.setAttribute("data-subscriptionid", item.dataset.subscriptionid);
+        eButton.setAttribute(
+          "data-subscriptionid",
+          eDropDownItem.dataset.subscriptionid
+        );
       } else if (
-        button.dataset.subscriptionid === item.dataset.subscriptionid
+        eButton.dataset.subscriptionid === eDropDownItem.dataset.subscriptionid
       ) {
         //Reset button and remove product id dataset
-        button.removeAttribute("data-subscriptionid");
+        eButton.removeAttribute("data-subscriptionid");
         //remove active class from the clicked product item.
-        item.classList.remove("dropdown__list-item--active");
+        eDropDownItem.classList.remove("dropdown__list-item--active");
         //Update text on dropdown button
-        button.textContent = "Choose a subscription length";
+        eButton.textContent = "Choose a subscription length";
       }
     }
   });
@@ -110,60 +114,56 @@ function addAddOnToCart(sAddOnId) {
   if (isNaN(parseInt(nAddOnAmount))) {
     //Do user communication here
   } else {
-    parseInt(nAddOnAmount);
+    nAddOnAmount = parseInt(nAddOnAmount);
 
-    postData("API/add-addon-to-cart.php", {
+    postData("api/add-addon-to-cart.php", {
       addOnId: sAddOnId,
       addOnAmount: nAddOnAmount,
     });
-    updateCartCounter({
-      isProduct: false,
-      addonAmount: nAddOnAmount,
-      increment: true,
-    });
+    updateCartCounter(false, nAddOnAmount, true);
   }
 }
 
-function addProductToCart(productId, buttonId) {
+function addProductToCart(sProductId, sButtonId) {
   let aSubscriptionItems = document.querySelectorAll(".dropdown__list-item");
-  let subChosen = false;
+  let bSubscriptionChosen = false;
   let sSubscriptionId = undefined;
 
   for (let i = 0; i < aSubscriptionItems.length; i++) {
     if (
-      parseInt(aSubscriptionItems[i].dataset.buttonid) === buttonId &&
+      parseInt(aSubscriptionItems[i].dataset.buttonid) === sButtonId &&
       aSubscriptionItems[i].classList.contains("dropdown__list-item--active")
     ) {
-      subChosen = true;
+      bSubscriptionChosen = true;
       sSubscriptionId = aSubscriptionItems[i].dataset.subscriptionid;
     }
   }
 
-  if (!subChosen) {
+  if (!bSubscriptionChosen) {
     let aDialogBoxes = document.querySelectorAll(".dialog-box");
     for (let i = 0; i < aDialogBoxes.length; i++) {
-      if (parseInt(aDialogBoxes[i].dataset.buttonid) === buttonId) {
+      if (parseInt(aDialogBoxes[i].dataset.buttonid) === sButtonId) {
         aDialogBoxes[i].classList.remove("dialog-box--hidden");
       }
     }
   } else {
     //Add to cart
 
-    postData("API/add-product-to-cart.php", {
-      productId: productId,
+    postData("api/add-product-to-cart.php", {
+      productId: sProductId,
       subscriptionId: sSubscriptionId,
     });
-    updateCartCounter({ isProduct: true, addonAmount: 0, increment: true });
+    updateCartCounter(true, 0, true);
   }
 }
 
-function updateCartCounter(object) {
+function updateCartCounter(bIsProduct, nAddonAmount, bIncrement) {
   let eCartCounter = document.querySelector(".cart-counter");
 
   let counter = parseInt(eCartCounter.textContent);
 
-  if (object.isProduct) {
-    if (!object.increment) {
+  if (bIsProduct) {
+    if (!bIncrement) {
       //decrement counter
       eCartCounter.textContent = counter - 1;
     } else {
@@ -171,22 +171,18 @@ function updateCartCounter(object) {
       eCartCounter.textContent = counter + 1;
     }
   } else {
-    if (!object.increment) {
+    if (!bIncrement) {
       //decrement counter
-      eCartCounter.textContent = counter - parseInt(object.addonAmount);
+      eCartCounter.textContent = counter - nAddonAmount;
     } else {
       //increment counter
-      eCartCounter.textContent = counter + parseInt(object.addonAmount);
+      eCartCounter.textContent = counter + nAddonAmount;
     }
   }
 }
 
-function removeItemFromCart(id, isProduct, addonAmount, bLoginStatus) {
-  updateCartCounter({
-    isProduct: isProduct,
-    addonAmount: addonAmount,
-    increment: false,
-  });
+function removeItemFromCart(sItemId, bIsProduct, nAddonAmount, bLoginStatus) {
+  updateCartCounter(bIsProduct, nAddonAmount, false);
 
   event.target.parentElement.parentElement.parentElement.remove();
 
@@ -194,18 +190,17 @@ function removeItemFromCart(id, isProduct, addonAmount, bLoginStatus) {
     togglePaypalButton(bLoginStatus, 0);
   }
 
-  postData("API/remove-item-from-cart.php", {
-    itemId: id,
-    isProduct: isProduct,
+  postData("api/remove-item-from-cart.php", {
+    itemId: sItemId,
+    isProduct: bIsProduct,
   });
 }
 
 function toggleInfoBox() {
-  console.log("toggleInfoBox()");
   if (document.querySelector(".js-toggle-infobox") !== null) {
     aToggleElements = document.querySelectorAll(".js-toggle-infobox");
-    aToggleElements.forEach((element) => {
-      element.addEventListener("click", () => {
+    aToggleElements.forEach((eToggleElement) => {
+      eToggleElement.addEventListener("click", () => {
         const eInfobox = document.querySelector(".login-form__label-info-box");
         eInfobox.classList.toggle("login-form__label-info-box--hidden");
       });

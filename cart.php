@@ -75,7 +75,7 @@ if (isset($_SESSION['cartAddOns'])) {
 //If the user is not logged in, we print the form for the user to fill out
 if ($bLoginStatus != 'true') {
     $sPageHtml = "
-        <form action='API/payment-handler.php' method='POST' class='account-details'>
+        <form action='api/payment-handler.php' method='POST' class='account-details'>
             <h2 class='section-header'>Account details</h2>
             <label for='account-details__name'
                 >Company Name</label
@@ -253,7 +253,7 @@ if ($bLoginStatus != 'true') {
                         </div>
                         <div id='paypal-button-container' class="paypal-button-container">
                             <button id="paypalInactive" class="order-summary__button button button--purple">
-                                Accept and Purchase
+                                PayPal
                             </button>
                         </div>
                     </div>

@@ -43,7 +43,7 @@ if (isset($_POST['confirmPassword'])) {
         //echo json_encode($oCustomerRow);
         $sCustomerDbPassword = $oCustomerRow->customer_password;
         if (password_verify($sCustomerPassword, $sCustomerDbPassword)) {
-            header("Location: API/delete-user-information.php");
+            header("Location: api/delete-user-information.php");
         } else {
             $sErrorMessage = "<p style='color:red'> ERROR - You don' fuckd up kiddo</p>";
             $bShowFlag = true;
@@ -115,11 +115,11 @@ $sApiKey = "";
                         <form class="modal-form" method="post">
                             <div class="form-wrapper">
                                 <label class="customer-password-form__input-label">Password</label>
-                                <input class="customer-password-form__input" type="password" name="password" oninput="checkPassword()" id="pass1">
+                                <input class="customer-password-form__input" type="password" name="password" oninput="checkPassword()" id="CustomerPassword">
                             </div>
                             <div class="form-wrapper">
                                 <label class="customer-password-form__input-label">Confirm Password</label>
-                                <input class="customer-password-form__input" type="password" name="confirmPassword" oninput="checkPassword()" id="pass2">
+                                <input class="customer-password-form__input" type="password" name="confirmPassword" oninput="checkPassword()" id="CustomerPasswordConfirm">
                             </div>
                             <?= "<input type='hidden' name='userID' value='$customerId'>" ?>
                             <?= $sErrorMessage ?>
@@ -183,7 +183,7 @@ $sApiKey = "";
                                                         </div>
                                                         <p>Embed link:</p>
                                                         <pre><code class='html'> $sEmbedLink</code></pre>
-                                                        <p>API Key:</p>
+                                                        <p>api Key:</p>
                                                         <pre><code class='html'>$sApiKey</code></pre>
                                                         <p>Auto renew subscription: <span><b>$sAutoRenew</b></span></p>
                                                         <button onclick='toggleAutoRenew($sCustomerProductId)'>Switch Autorenew $sButtonToggle</button>
@@ -268,7 +268,7 @@ $sApiKey = "";
                             </div>
                             <div class="customer-information-container">
                                 <h4 class="section-subheader">Edit password</h4>
-                                <form class="customer-password-form" method="post" onsubmit="return inputValidate();" action="API/update-customer-data.php">
+                                <form class="customer-password-form" method="post" onsubmit="return inputValidate();" action="api/update-customer-data.php">
                                     <div class="form-wrapper">
                                         <label class="customer-password-form__input-label">New password: <span class="login-form__label-info-outer js-toggle-infobox">
                                                 <span class="login-form__label-info-inner">

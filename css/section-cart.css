@@ -70,11 +70,21 @@
 }
 
 .order-summary__button {
-    width: auto;
+    background-color: var(--purple-grey);
+    width: 200px;
+    height: 35px;
+    border-radius: 5px;
     white-space: nowrap;
-    margin: 0;
     position: relative;
-    left: calc(-50% - 16px);
+    left: calc(-50%);
+    text-transform: none;
+    margin-bottom: 3px;
+    margin-left: 1px;
+    cursor: initial;
+}
+
+.order-summary__button:hover {
+    transform: scale(1);
 }
 
 .paypal-button-container {

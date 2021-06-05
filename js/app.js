@@ -3,127 +3,116 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function inputValidate() {
-  let inputData;
-  let inputsToValidate = [];
+  let sInputData;
+  let aInputsToValidate = [];
 
   if (event.type == "submit") {
-    formToValidate = event.target;
-    inputsToValidate = formToValidate.querySelectorAll("[data-validate]");
+    eFormToValidate = event.target;
+    aInputsToValidate = eFormToValidate.querySelectorAll("[data-validate]");
   } else {
-    inputsToValidate = [event.target];
+    aInputsToValidate = [event.target];
   }
 
-  for (let i = 0; i < inputsToValidate.length; i++) {
-    let validationType = inputsToValidate[i].getAttribute("data-validate");
+  for (let i = 0; i < aInputsToValidate.length; i++) {
+    let sValidationType = aInputsToValidate[i].getAttribute("data-validate");
 
-    switch (validationType) {
+    switch (sValidationType) {
       case "phone":
-        inputData = inputsToValidate[i].value;
-        let regPhone = /^\+(?:[0-9]●?){6,16}[0-9]$/;
+        sInputData = aInputsToValidate[i].value;
+        let sPhoneRegEx = /^\+(?:[0-9]●?){6,16}[0-9]$/;
 
-        if (!regPhone.test(inputData)) {
-          inputsToValidate[i].classList.add("invalid");
-          inputsToValidate[i].classList.remove("valid");
+        if (!sPhoneRegEx.test(sInputData)) {
+          aInputsToValidate[i].classList.add("invalid");
+          aInputsToValidate[i].classList.remove("valid");
         } else {
-          inputsToValidate[i].classList.add("valid");
-          inputsToValidate[i].classList.remove("invalid");
+          aInputsToValidate[i].classList.add("valid");
+          aInputsToValidate[i].classList.remove("invalid");
         }
         break;
 
       case "email":
-        document.getElementsByClassName("errorMessage")[0].innerHTML = "";
-        inputData = inputsToValidate[i].value;
-        let regEmail =
+        sInputData = aInputsToValidate[i].value;
+        let sEmailRegEx =
           /^[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~](\.?[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/;
 
-        if (!regEmail.test(inputData)) {
-          inputsToValidate[i].classList.remove("valid");
-          inputsToValidate[i].classList.add("invalid");
+        if (!sEmailRegEx.test(sInputData)) {
+          aInputsToValidate[i].classList.remove("valid");
+          aInputsToValidate[i].classList.add("invalid");
         } else {
-          postData("API/check-db-for-existing-entries.php", {
+          postData("api/check-db-for-existing-entries.php", {
             whatToCheck: "customer_email",
-            data: inputData,
-          }).then((response) => {
-            if (!response.dataExists) {
-              inputsToValidate[i].classList.add("valid");
-              inputsToValidate[i].classList.remove("invalid");
+            data: sInputData,
+          }).then((jResponse) => {
+            if (!jResponse.dataExists) {
+              aInputsToValidate[i].classList.add("valid");
+              aInputsToValidate[i].classList.remove("invalid");
             } else {
-              inputsToValidate[i].classList.remove("valid");
-              inputsToValidate[i].classList.add("invalid");
-
-              document.getElementsByClassName("errorMessage")[0].innerHTML =
-                "<strong>This email already exists</strong>";
+              aInputsToValidate[i].classList.remove("valid");
+              aInputsToValidate[i].classList.add("invalid");
             }
           });
         }
         break;
 
       case "string":
-        inputData = inputsToValidate[i].value;
+        sInputData = aInputsToValidate[i].value;
 
-        if (inputData.length < 1) {
-          inputsToValidate[i].classList.add("invalid");
-          inputsToValidate[i].classList.remove("valid");
+        if (sInputData.length < 1) {
+          aInputsToValidate[i].classList.add("invalid");
+          aInputsToValidate[i].classList.remove("valid");
         } else {
-          inputsToValidate[i].classList.add("valid");
-          inputsToValidate[i].classList.remove("invalid");
+          aInputsToValidate[i].classList.add("valid");
+          aInputsToValidate[i].classList.remove("invalid");
         }
         break;
 
       case "password":
-        inputData = inputsToValidate[i].value;
-        document.getElementsByClassName("errorMessage")[0].innerHTML = "";
+        sInputData = aInputsToValidate[i].value;
+
         //Must contain 6-30 characters, one uppercase character, one lowercase character, one numeric character and one special character. Eg.: MyStr0ng.PW-example
-        let regPassword =
+        let sPasswordRegEx =
           /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{6,30}$/;
 
-        if (inputsToValidate[i].name !== "customerPasswordConfirm") {
-          if (!regPassword.test(inputData)) {
-            inputsToValidate[i].classList.add("invalid");
-            inputsToValidate[i].classList.remove("valid");
-            document.getElementsByClassName("errorMessage")[0].innerHTML =
-              "<strong>The password has to be strong</strong>";
+        if (aInputsToValidate[i].name !== "customerPasswordConfirm") {
+          if (!sPasswordRegEx.test(sInputData)) {
+            aInputsToValidate[i].classList.add("invalid");
+            aInputsToValidate[i].classList.remove("valid");
           } else {
-            inputsToValidate[i].classList.add("valid");
-            inputsToValidate[i].classList.remove("invalid");
+            aInputsToValidate[i].classList.add("valid");
+            aInputsToValidate[i].classList.remove("invalid");
           }
         } else {
           if (
-            inputsToValidate[i].value ===
+            aInputsToValidate[i].value ===
             document.getElementsByName("customerPassword")[0].value
           ) {
-            inputsToValidate[i].classList.add("valid");
-            inputsToValidate[i].classList.remove("invalid");
+            aInputsToValidate[i].classList.add("valid");
+            aInputsToValidate[i].classList.remove("invalid");
           } else {
-            inputsToValidate[i].classList.add("invalid");
-            inputsToValidate[i].classList.remove("valid");
-            document.getElementsByClassName("errorMessage")[0].innerHTML =
-              "<strong>The passwords don't match</strong>";
+            aInputsToValidate[i].classList.add("invalid");
+            aInputsToValidate[i].classList.remove("valid");
           }
         }
         break;
 
       case "cvr":
-        document.getElementsByClassName("errorMessage")[0].innerHTML = "";
-        inputData = inputsToValidate[i].value;
-        let regCvr = /^(\d){8}$/;
+        sInputData = aInputsToValidate[i].value;
+        let sCvrRegEx = /^(\d){8}$/;
 
-        if (!regCvr.test(inputData)) {
-          inputsToValidate[i].classList.add("invalid");
-          inputsToValidate[i].classList.remove("valid");
+        if (!sCvrRegEx.test(sInputData)) {
+          aInputsToValidate[i].classList.add("invalid");
+          aInputsToValidate[i].classList.remove("valid");
         } else {
-          postData("API/check-db-for-existing-entries.php", {
+          postData("api/check-db-for-existing-entries.php", {
             whatToCheck: "customer_cvr",
-            data: inputData,
-          }).then((response) => {
-            if (!response.dataExists) {
-              inputsToValidate[i].classList.add("valid");
-              inputsToValidate[i].classList.remove("invalid");
+            data: sInputData,
+          }).then((jResponse) => {
+            if (!jResponse.dataExists) {
+              aInputsToValidate[i].classList.add("valid");
+              aInputsToValidate[i].classList.remove("invalid");
             } else {
-              inputsToValidate[i].classList.add("invalid");
-              inputsToValidate[i].classList.remove("valid");
-              document.getElementsByClassName("errorMessage")[0].innerHTML =
-                "<strong>This cvr already exists</strong>";
+              aInputsToValidate[i].classList.add("invalid");
+              aInputsToValidate[i].classList.remove("valid");
             }
           });
         }
@@ -131,9 +120,7 @@ function inputValidate() {
     }
   }
   if (event.type == "submit") {
-    if (formToValidate.querySelectorAll(".invalid").length > 0) {
-      document.getElementsByClassName("errorMessage")[0].innerHTML =
-        "<strong>A field is not valid</strong>";
+    if (eFormToValidate.querySelectorAll(".valid").length != 12) {
       return false;
     } else {
       return true;
@@ -156,10 +143,12 @@ function showDeleteOption2() {
   document.querySelector("#deleteModalTotal").classList.add("shown");
 }
 function checkPassword() {
-  let pass1 = document.querySelector("#pass1").value;
-  let pass2 = document.querySelector("#pass2").value;
+  let CustomerPassword = document.querySelector("#CustomerPassword").value;
+  let CustomerPasswordConfirm = document.querySelector(
+    "#CustomerPasswordConfirm"
+  ).value;
 
-  if (pass1 == pass2) {
+  if (CustomerPassword == CustomerPasswordConfirm) {
     document.querySelector("#deleteButton").removeAttribute("disabled");
   }
 }
@@ -168,8 +157,8 @@ function removeDeleteModals() {
   document.querySelector("#deleteModalTotal").classList.remove("shown");
 }
 
-async function postData(url = "", data = {}) {
-  const response = await fetch(url, {
+async function postData(sUrl = "", jData = {}) {
+  const response = await fetch(sUrl, {
     method: "POST",
     mode: "cors",
     cache: "no-cache",
@@ -178,22 +167,22 @@ async function postData(url = "", data = {}) {
       "Content-Type": "application/json",
     },
     referrerPolicy: "no-referrer",
-    body: JSON.stringify(data),
+    body: JSON.stringify(jData),
   });
 
   return response.json();
 }
 
 function showUpdateForm() {
-  let form = document.querySelector("#updateDataForm");
-  form.classList.remove("hidden");
-  form.classList.add("shown");
+  let eCustomerUpdateform = document.querySelector("#updateDataForm");
+  eCustomerUpdateform.classList.remove("hidden");
+  eCustomerUpdateform.classList.add("shown");
 }
 
 async function toggleAutoRenew(sCustomerProductId) {
-  fetch(`API/update-autorenewal.php?customer-product-id=${sCustomerProductId}`)
-    .then((response) => response.text())
-    .then((data) => location.reload());
+  fetch(
+    `api/update-autorenewal.php?customer-product-id=${sCustomerProductId}`
+  ).then((data) => location.reload());
 }
 
 // Top Navigation -- Hamburger
@@ -216,7 +205,7 @@ function toggleMobileNavigation() {
   }
 }
 
-function editInfo(value, type, postName) {
+function editInfo(sInputValue, sValidateType, sInputName) {
   let eParentElement = event.target.parentElement;
   let aParentElementChildren = eParentElement.children;
   //hide existing elements
@@ -232,16 +221,16 @@ function editInfo(value, type, postName) {
   eForm.setAttribute("class", "customer-information-form");
   eForm.setAttribute("method", "post");
   eForm.setAttribute("onsubmit", "return inputValidate();");
-  eForm.setAttribute("action", "API/update-customer-data.php");
+  eForm.setAttribute("action", "api/update-customer-data.php");
 
   //input element
   let eInput = document.createElement("input");
   eInput.setAttribute("class", "form__input");
   eInput.setAttribute("oninput", "inputValidate()");
-  eInput.setAttribute("data-validate", `${type}`);
+  eInput.setAttribute("data-validate", `${sValidateType}`);
   eInput.setAttribute("type", "text");
-  eInput.setAttribute("name", `${postName}`);
-  eInput.setAttribute("value", `${value}`);
+  eInput.setAttribute("name", `${sInputName}`);
+  eInput.setAttribute("value", `${sInputValue}`);
 
   //Submit button
   let eSubmitButton = document.createElement("button");
@@ -254,7 +243,7 @@ function editInfo(value, type, postName) {
   eCancelButton.setAttribute("type", "button");
   eCancelButton.setAttribute(
     "onclick",
-    `cancelEdit("${value}", "${type}", "${postName}")`
+    `cancelEdit("${sInputValue}", "${sValidateType}", "${sInputName}")`
   );
 
   //Append button and input inside of form
@@ -266,7 +255,7 @@ function editInfo(value, type, postName) {
   eParentElement.appendChild(eForm);
 }
 
-function cancelEdit(value, type, postName) {
+function cancelEdit() {
   let eRootElement = event.target.parentElement.parentElement;
 
   //Find form element to remove/delete
@@ -291,7 +280,7 @@ function togglePaypalButton(bLoginStatus, nPrice) {
     "class",
     "order-summary__button button button--purple"
   );
-  eButtonPlaceholder.textContent = "Paypal";
+  eButtonPlaceholder.textContent = "PayPal";
   if (nPrice > 0) {
     if (bLoginStatus) {
       ePaypalContainer.textContent = "";
@@ -318,7 +307,7 @@ function togglePaypalButton(bLoginStatus, nPrice) {
             return actions.order.capture().then(function () {
               window.location.assign(
                 window.location.protocol +
-                  "/KEA_Bachelor/API/payment-handler.php"
+                  "/KEA_Bachelor/api/payment-handler.php"
               );
             });
           },
