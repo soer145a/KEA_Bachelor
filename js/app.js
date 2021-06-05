@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   toggleMobileNavigation();
 });
+
 function inputValidate() {
   let inputData;
   let inputsToValidate = [];
@@ -30,7 +31,6 @@ function inputValidate() {
         break;
 
       case "email":
-        console.log("checking email");
         document.getElementsByClassName("errorMessage")[0].innerHTML = "";
         inputData = inputsToValidate[i].value;
         let regEmail =
@@ -48,11 +48,9 @@ function inputValidate() {
               inputsToValidate[i].classList.add("valid");
               inputsToValidate[i].classList.remove("invalid");
             } else {
-              console.log("setting email class to invalid");
               inputsToValidate[i].classList.remove("valid");
               inputsToValidate[i].classList.add("invalid");
 
-              console.log(inputsToValidate[i].classList);
               document.getElementsByClassName("errorMessage")[0].innerHTML =
                 "<strong>This email already exists</strong>";
             }
@@ -118,7 +116,6 @@ function inputValidate() {
             whatToCheck: "customer_cvr",
             data: inputData,
           }).then((response) => {
-            console.log(response);
             if (!response.dataExists) {
               inputsToValidate[i].classList.add("valid");
               inputsToValidate[i].classList.remove("invalid");
@@ -134,7 +131,6 @@ function inputValidate() {
     }
   }
   if (event.type == "submit") {
-    console.log(formToValidate.querySelectorAll(".invalid").length);
     if (formToValidate.querySelectorAll(".invalid").length > 0) {
       document.getElementsByClassName("errorMessage")[0].innerHTML =
         "<strong>A field is not valid</strong>";
@@ -146,7 +142,6 @@ function inputValidate() {
 }
 
 function showDeleteOption() {
-  console.log("Ready to delete!");
   document.querySelector("#deleteModal").classList.remove("hidden");
   document.querySelector("#deleteModal").classList.add("shown");
 }
@@ -163,7 +158,7 @@ function showDeleteOption2() {
 function checkPassword() {
   let pass1 = document.querySelector("#pass1").value;
   let pass2 = document.querySelector("#pass2").value;
-  console.log(pass1, pass2);
+
   if (pass1 == pass2) {
     document.querySelector("#deleteButton").removeAttribute("disabled");
   }
@@ -196,7 +191,6 @@ function showUpdateForm() {
 }
 
 async function toggleAutoRenew(sCustomerProductId) {
-  console.log(sCustomerProductId);
   fetch(`API/update-autorenewal.php?customer-product-id=${sCustomerProductId}`)
     .then((response) => response.text())
     .then((data) => location.reload());
@@ -291,9 +285,12 @@ function cancelEdit(value, type, postName) {
 }
 
 function togglePaypalButton(loggedIn, price) {
-  console.log(loggedIn, price);
+  let ePaypalContainer = document.querySelector("#paypal-button-container");
+
   if (loggedIn) {
-    document.querySelector(".order-summary__button").remove();
+    let eInactiveButton = document.getElementById("paypalInactive");
+    ePaypalContainer.removeChild(eInactiveButton);
+
     paypal
       .Buttons({
         style: {
@@ -322,26 +319,21 @@ function togglePaypalButton(loggedIn, price) {
       })
       .render("#paypal-button-container");
   } else {
-    const ePaypalContainer = document.querySelector("#paypal-button-container");
-
     if (document.querySelectorAll(".valid").length !== 12) {
       if (document.querySelector(".paypal-buttons") !== null) {
         //Remove paypal button if it's there
-        document.querySelector(".paypal-buttons").remove();
+        ePaypalContainer.textContent = "";
         let eButtonPlaceholder = document.createElement("button");
         eButtonPlaceholder.setAttribute(
           "class",
           "order-summary__button button button--purple"
         );
         eButtonPlaceholder.textContent = "Paypal";
-
         ePaypalContainer.appendChild(eButtonPlaceholder);
       }
     } else {
-      console.log("It does work");
       if (document.querySelector(".order-summary__button") !== null) {
-        document.querySelector(".order-summary__button").remove();
-
+        ePaypalContainer.textContent = "";
         paypal
           .Buttons({
             style: {
@@ -362,7 +354,10 @@ function togglePaypalButton(loggedIn, price) {
             },
             onApprove: function (data, actions) {
               return actions.order.capture().then(function (PurchaseDetails) {
-                document.querySelector(".account-details").submit();
+                window.location.assign(
+                  window.location.protocol +
+                    "/KEA_Bachelor/API/payment-handler.php"
+                );
               });
             },
           })

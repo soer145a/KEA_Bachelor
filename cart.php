@@ -202,7 +202,7 @@ if (!isset($_SESSION['loginStatus'])) {
                 name='companyCountry'
                 required
                 oninput='inputValidate(); togglePaypalButton($bLoginStatus, $nTotalPrice);'
-            />
+            />            
             <div class='errorMessage'></div>
         </form>";
 } else {
@@ -248,7 +248,7 @@ if (!isset($_SESSION['loginStatus'])) {
 
                         </div>
                         <div id='paypal-button-container' class="paypal-button-container">
-                            <button class="order-summary__button button button--purple">
+                            <button id="paypalInactive" class="order-summary__button button button--purple">
                                 Accept and Purchase
                             </button>
                         </div>
