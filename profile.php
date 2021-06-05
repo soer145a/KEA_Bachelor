@@ -292,7 +292,7 @@ $sApiKey = "";
                                     </div>
                                     <div class="form-wrapper">
                                         <label for="oldPassword" class="customer-password-form__input-label">Old password:</label>
-                                        <input id="oldPassword" class="customer-password-form__input" oninput="inputValidate()" data-validate="password" type="password" name="customerPassword" placeholder="Type your old password">
+                                        <input id="oldPassword" class="customer-password-form__input" data-validate="password" type="password" name="customerPassword" placeholder="Type your old password">
                                     </div>
                                     <button class="button button--yellow customer-password-form__button" type="submit">Change password</button>
                                     <!-- <div class="errorMessage"></div> -->

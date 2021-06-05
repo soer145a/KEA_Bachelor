@@ -118,11 +118,11 @@
     border: 2px solid var(--purple-light);
 }
 
-.customer-information-form .invalid {
+.customer-password-form .invalid, .customer-information-form .invalid {
     border: 2px solid var(--red);
 }
 
-.customer-information-form .valid {
+.customer-password-form .valid, .customer-information-form .valid {
     border: 2px solid var(--green);
 }
 
