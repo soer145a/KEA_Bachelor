@@ -4,6 +4,7 @@ include_once("../DB_Connection/connection.php");
 $_POST = json_decode(file_get_contents("php://input"), true); //make json object an assoc array
 //Check to see if the correct data has been sent to the api, if it is not sent correctly, usually means someone is trying
 //to enter from the browser and block it.
+$aResponse = [];
 if (!isset($_POST['whatToCheck']) && !isset($_POST['data'])) {
     header('Location: ../index.php');
 }

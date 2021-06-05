@@ -181,7 +181,7 @@ function updateCartCounter(object) {
   }
 }
 
-function removeItemFromCart(id, isProduct, addonAmount) {
+function removeItemFromCart(id, isProduct, addonAmount, bLoginStatus) {
   updateCartCounter({
     isProduct: isProduct,
     addonAmount: addonAmount,
@@ -189,6 +189,10 @@ function removeItemFromCart(id, isProduct, addonAmount) {
   });
 
   event.target.parentElement.parentElement.parentElement.remove();
+
+  if (document.querySelectorAll(".product-row").length == 0) {
+    togglePaypalButton(bLoginStatus, 0);
+  }
 
   postData("API/remove-item-from-cart.php", {
     itemId: id,

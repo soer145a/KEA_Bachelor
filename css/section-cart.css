@@ -67,21 +67,19 @@
 .order-summary__body {
     height: 100%;
     max-height: 800px;
-    overflow: scroll;
 }
 
 .order-summary__button {
     width: auto;
     white-space: nowrap;
     margin: 0;
-    
     position: relative;
     left: calc(-50% - 16px);
 }
 
 .paypal-button-container {
     margin: 0 auto;
-    margin-top: auto;
+    margin-top: 15px;
 }
 
 .paypal-buttons {
@@ -104,6 +102,8 @@
 .product-container {
     display: flex;
     flex-direction: column;
+    overflow: auto;
+    padding-bottom: 15px;
 }
 
 .product-row {

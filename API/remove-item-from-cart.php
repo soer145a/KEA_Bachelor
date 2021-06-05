@@ -3,6 +3,7 @@ session_start();
 include("../DB_Connection/connection.php");
 
 $_POST = json_decode(file_get_contents("php://input"), true); //make json object an assoc array
+$aResponse = [];
 //When removing an item from the sessions we simply need the id of product and then remove it from the array
 if (isset($_POST['itemId'])) {
 

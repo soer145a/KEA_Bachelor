@@ -10,13 +10,9 @@
     .intro-heading {
         padding-top: 5%;
     }
-
     .explainer-video {
         height: 367px;
         padding: 0;
-    }
-    .navigation-list-wrapper {
-        overflow: scroll;
     }
     .navigation-list {
         flex-direction: column;
@@ -27,7 +23,6 @@
     .navigation-list__item {
         margin-left: 0;
     }
-
     .navigation-list__item-link {
         display: block;
         text-align: center;
@@ -38,25 +33,20 @@
         display: flex;
         flex-wrap: wrap;
     }
-
     .solutions .product-description {
         flex-basis: 50%;
         padding-right: 16px;
     }
-
     .solutions .product-fees {
         flex-basis: 50%;
     }
-
     .solutions .dropdown-container {
         flex-grow: 1;
     }
-
     .solution .background-sphere--left {
         left: -50%;
         transform: translateX(50%);
     }
-
     .account-details__contact .contact__wrapper {
         width: 49%;
         display: flex;
@@ -65,82 +55,69 @@
 }
 
 /* Tablet */
+
 @media screen and (min-width: 768px) {
     #intro {
         height: 100vh;
     }
-
     .solutions .product {
         display: flex;
         justify-content: space-between;
     }
-
-    .solutions .product > .text-wrapper {
+    .solutions .product>.text-wrapper {
         flex-basis: 50%;
         max-width: 500px;
         padding-right: 32px;
     }
-    .solutions .product > .text-container {
+    .solutions .product>.text-container {
         flex-basis: 50%;
         max-width: 500px;
         display: block;
         margin-top: 25%;
         transform: translateY(-25%);
     }
-
     .solutions .section-image {
         height: auto;
         border-radius: 20px 20px 20px 20px;
     }
-
-    .product > .place-right {
+    .product>.place-right {
         padding-right: 0 !important;
         padding-left: 32px;
     }
-
     .checkout-container {
         display: flex;
         width: 100%;
     }
-    .account-details,
-    .order-summary-container {
+    .account-details, .order-summary-container {
         display: flex;
         flex-direction: column;
         width: 50%;
     }
-
     .account-details {
         padding-right: 16px;
     }
-
     .order-summary-container {
         padding-left: 16px;
     }
-
     .footer {
         justify-content: center;
     }
-
     .login-form__label-info-box {
         left: 30%;
         top: 50%;
         transform: translateY(-50%);
     }
-
     .account-details__contact .contact__wrapper {
         width: 100%;
         display: flex;
         flex-direction: column;
     }
-
     .customer-information {
         width: 49%;
     }
-
     .delete-profile__button-container {
         justify-content: center;
     }
-
     .delete-profile__button {
         margin: 0 auto;
     }
@@ -152,11 +129,9 @@
     #intro {
         height: 100vh;
     }
-
     #use-case {
         height: 650px;
     }
-
     .intro {
         display: flex;
         flex-direction: row;
@@ -165,61 +140,50 @@
         padding-top: 0;
         padding-bottom: 0;
     }
-
     .intro-heading {
         font-size: 4rem;
         max-width: 395px;
         line-height: 65px;
     }
-
     .video-container {
         flex-basis: 50%;
         height: auto;
     }
-
     .explainer-video {
         margin: 0;
         margin-left: auto;
     }
-
     .navigation-hamburger {
         display: none;
     }
-
     .navigation-list-wrapper {
         display: block !important;
         position: initial;
         height: initial;
         background-color: initial;
     }
-
     .navigation-list {
         flex-direction: row;
-        padding-right:10px;
+        padding-right: 10px;
         justify-content: space-between;
         width: 100%;
         height: 50px;
         align-items: center;
         overflow: hidden;
     }
-
     .navigation-list__item {
         text-align: initial;
-        
         margin-left: 1rem;
     }
-
     .navigation-list__item-link {
         width: auto;
         font-size: 0.8rem;
         color: var(--white);
     }
-
     /* SECTION - USE CASE */
     .use-case {
         display: flex;
     }
-
     .use-case .text-wrapper {
         flex-basis: 50%;
         padding-right: 32px;
@@ -227,12 +191,10 @@
     .use-case .image-container {
         flex-basis: 50%;
     }
-
     .use-case .background-sphere {
         top: -20%;
         left: -5%;
     }
-
     .account-details__contact .contact__wrapper {
         width: 49%;
         display: flex;

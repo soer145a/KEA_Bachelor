@@ -16,6 +16,12 @@ $sProductHtml = "";
 $sAddonHtml = "";
 $nTotalPrice = 0;
 
+if (!isset($_SESSION['loginStatus'])) {
+    $bLoginStatus = 'false';
+} else {
+    $bLoginStatus = 'true';
+}
+
 if (isset($_SESSION['cartProducts'])) {
     foreach ($_SESSION['cartProducts'] as $aProduct) {
         $sProductName = $aProduct['productName'];
@@ -29,7 +35,7 @@ if (isset($_SESSION['cartProducts'])) {
                                     <div class='product-item'>
                                         <p class='product-item__name'>$sProductName</p>
                                         <p class='product-item__quantity'>
-                                            <span class='product-item__delete' onclick='removeItemFromCart($sProductId, true, 0)'></span>
+                                            <span class='product-item__delete' onclick='removeItemFromCart($sProductId, true, 0, $bLoginStatus)'></span>
                                             1
                                         </p>
                                         <p class='product-item__price'>$nProductPrice</p>
@@ -56,7 +62,7 @@ if (isset($_SESSION['cartAddOns'])) {
                                     <div class='product-item'>
                                         <p class='product-item__name'>$sAddonName</p>
                                         <p class='product-item__quantity'>
-                                            <span class='product-item__delete' onclick='removeItemFromCart($sAddonId, false, $nAddonAmount)'></span>
+                                            <span class='product-item__delete' onclick='removeItemFromCart($sAddonId, false, $nAddonAmount, $bLoginStatus)'></span>
                                             $nAddonAmount
                                         </p>
                                         <p class='product-item__price'>$nAddonTotalPrice</p>
@@ -65,8 +71,7 @@ if (isset($_SESSION['cartAddOns'])) {
     }
 }
 
-if (!isset($_SESSION['loginStatus'])) {
-    $bLoginStatus = 'false';
+if ($bLoginStatus != 'true') {
     $sPageHtml = "
         <form action='API/payment-handler.php' method='POST' class='account-details'>
             <h2 class='section-header'>Account details</h2>
@@ -205,10 +210,7 @@ if (!isset($_SESSION['loginStatus'])) {
             />            
             <div class='errorMessage'></div>
         </form>";
-} else {
-    $bLoginStatus = 'true';
 }
-
 ?>
 
 <!DOCTYPE html>

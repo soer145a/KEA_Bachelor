@@ -3,7 +3,7 @@ session_start();
 include("../DB_Connection/connection.php");
 
 $_POST = json_decode(file_get_contents("php://input"), true); //make json object an assoc array
-
+$aResponse = [];
 if (isset($_POST['addOnId'])) {
     //Gather the information for what the addon contains
     $sAddOnId = $_POST['addOnId'];
@@ -41,7 +41,7 @@ if (isset($_POST['addOnId'])) {
             $_SESSION['cartAddOns'][$nAddOnCount] = $aAddOnArray;
         }
     } else {
-            //If there isn't a cartaddon array, create one, and add it to that
+        //If there isn't a cartaddon array, create one, and add it to that
         $aAddOnArray = array(
             'addOnId' => $sAddOnId,
             'addOnName' => $sAddOnName,

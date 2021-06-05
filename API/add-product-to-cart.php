@@ -3,7 +3,7 @@ session_start();
 include("../DB_Connection/connection.php");
 
 $_POST = json_decode(file_get_contents("php://input"), true); //make json object an assoc array from post data
-
+$aResponse = [];
 if (isset($_POST['productId'])) {
     //If the product id is sent correctly, gather the data from database and create the variables
     $sSubscriptionId = $_POST['subscriptionId'];
