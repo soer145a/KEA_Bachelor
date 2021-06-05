@@ -1,5 +1,6 @@
 <?php
 session_start();
+//Includes for styling purposes
 include_once("db-connection/connection.php");
 include_once("components/addOn.php");
 include_once("components/head.php");
@@ -191,14 +192,6 @@ $sAddOnHtmlComp = addOnsComp($oDbConnection);
             </div>
         </section>
     </main>
-    <!-- <div id="products">
-        <p>products</p>
-        
-    </div>
-    <div id="products">
-        <p>add ons</p>
-        
-    </div> -->
     <?= $sFooterHtmlComp ?>
 </body>
 <script src="js/app.js"></script>

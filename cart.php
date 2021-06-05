@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+//includes for styling
 include_once("components/header.php");
 include_once("components/head.php");
 include_once("components/footer.php");
@@ -16,12 +16,13 @@ $sProductHtml = "";
 $sAddonHtml = "";
 $nTotalPrice = 0;
 
+//Check to see if the user is logged in
 if (!isset($_SESSION['loginStatus'])) {
     $bLoginStatus = 'false';
 } else {
     $bLoginStatus = 'true';
 }
-
+//If there are card products in the session, add them to the cart summery
 if (isset($_SESSION['cartProducts'])) {
     foreach ($_SESSION['cartProducts'] as $aProduct) {
         $sProductName = $aProduct['productName'];
@@ -30,7 +31,7 @@ if (isset($_SESSION['cartProducts'])) {
         $sSubscriptionName = $aProduct['subscriptionName'];
         $nSubscriptionPrice = $aProduct['subscriptionPrice'];
         $nTotalPrice =  $nTotalPrice + $aProduct['productPrice'];
-
+        //The html block for print
         $sProductHtml =  $sProductHtml . "<div class='product-row'>
                                     <div class='product-item'>
                                         <p class='product-item__name'>$sProductName</p>
@@ -49,7 +50,7 @@ if (isset($_SESSION['cartProducts'])) {
     }
 }
 
-
+//If there are addons in the cart session, add them to the summery
 if (isset($_SESSION['cartAddOns'])) {
     foreach ($_SESSION['cartAddOns'] as $aAddon) {
         $sAddonId = $aAddon['addOnId'];
@@ -58,6 +59,7 @@ if (isset($_SESSION['cartAddOns'])) {
         $nAddonPrice = $aAddon['addOnPrice'];
         $nAddonTotalPrice = $nAddonAmount * $nAddonPrice;
         $nTotalPrice =  $nTotalPrice + $nAddonTotalPrice;
+        //The printed HTML
         $sAddonHtml =  $sAddonHtml . "<div class='product-row'>
                                     <div class='product-item'>
                                         <p class='product-item__name'>$sAddonName</p>
@@ -70,7 +72,7 @@ if (isset($_SESSION['cartAddOns'])) {
                                 </div>";
     }
 }
-
+//If the user is not logged in, we print the form for the user to fill out
 if ($bLoginStatus != 'true') {
     $sPageHtml = "
         <form action='api/payment-handler.php' method='POST' class='account-details'>

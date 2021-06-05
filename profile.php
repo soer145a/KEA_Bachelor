@@ -7,14 +7,15 @@ include_once("components/footer.php");
 $sHeadHtmlComp = headComp();
 $sHeaderHtmlComp = headerComp('profile');
 $sFooterHtmlComp = footerComp();
-
+//Reset the error message variabel
 $sErrorMessage = "";
 $bShowFlag = false;
+//Deny the entry to any customers that is not logged in
 if (!isset($_SESSION['loginStatus'])) {
     header('Location: login.php');
 } else {
     $customerId = $_SESSION['customerId'];
-
+    //Get the user data for the update inputs
     $sCustomerSelectSql = "SELECT * FROM customers WHERE customer_id = \"$customerId\"";
     $oCustomerResult = $oDbConnection->query($sCustomerSelectSql);
     $oCustomerRow = $oCustomerResult->fetch_object();
