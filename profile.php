@@ -114,11 +114,11 @@ $sApiKey = "";
                         <form class="modal-form" method="post">
                             <div class="form-wrapper">
                                 <label class="customer-password-form__input-label">Password</label>
-                                <input class="customer-password-form__input" type="password" name="password" oninput="checkPassword()" id="pass1">
+                                <input class="customer-password-form__input" type="password" name="password" oninput="checkPassword()" id="CustomerPassword">
                             </div>
                             <div class="form-wrapper">
                                 <label class="customer-password-form__input-label">Confirm Password</label>
-                                <input class="customer-password-form__input" type="password" name="confirmPassword" oninput="checkPassword()" id="pass2">
+                                <input class="customer-password-form__input" type="password" name="confirmPassword" oninput="checkPassword()" id="CustomerPasswordConfirm">
                             </div>
                             <?= "<input type='hidden' name='userID' value='$customerId'>" ?>
                             <?= $sErrorMessage ?>
