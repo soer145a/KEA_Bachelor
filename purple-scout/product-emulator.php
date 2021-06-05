@@ -1,6 +1,6 @@
 <?php
 
-include_once("../DB_Connection/connection.php");
+include_once("../db-connection/connection.php");
 //echo $_GET['key'];
 $key = $_GET['key'];
 $sCustomerProductSelectSql = "SELECT * FROM customer_products WHERE api_key = \"$key\"";

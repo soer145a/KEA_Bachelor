@@ -1,9 +1,9 @@
 <?php
 session_start();
 $sErrorMessage = "";
-include_once("Components/head.php");
-include_once("Components/header.php");
-include_once("Components/footer.php");
+include_once("components/head.php");
+include_once("components/header.php");
+include_once("components/footer.php");
 $sHeadHtmlComp = headComp();
 $sHeaderHtmlComp = headerComp('login');
 $sFooterHtmlComp = footerComp();
@@ -16,7 +16,7 @@ if (isset($_POST['customerEmail']) && isset($_POST['customerPassword'])) {
     //echo $_POST['customerEmail']." ".$_POST['customer_password'];
     if ($_POST['customerEmail'] != "" && $_POST['customerPassword'] != "") {
         //echo "Data is there";
-        include("DB_Connection/connection.php");
+        include("db-connection/connection.php");
         $sCustomerPassword = $oDbConnection->real_escape_string($_POST['customerPassword']);
         $sCustomerEmail = $oDbConnection->real_escape_string($_POST['customerEmail']);
         $sCustomerSelectSql = "SELECT * FROM customers WHERE customer_email = \"$sCustomerEmail\"";

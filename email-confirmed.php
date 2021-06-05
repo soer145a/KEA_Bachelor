@@ -1,8 +1,8 @@
 <?php
 session_start();
-include_once("Components/head.php");
-include_once("Components/header.php");
-include_once("Components/footer.php");
+include_once("components/head.php");
+include_once("components/header.php");
+include_once("components/footer.php");
 $sHeadHtmlComp = headComp();
 $sHeaderHtmlComp = headerComp('');
 $sFooterHtmlComp = footerComp();
@@ -11,7 +11,7 @@ if (!isset($_GET['confirmCode'])) {
 }
 $sCustomerConfirmCode = $_GET['confirmCode'];
 
-include_once("DB_Connection/connection.php");
+include_once("db-connection/connection.php");
 $sCustomerUpdateSql = "UPDATE customers SET customer_confirmed = 1 WHERE customer_confirm_code = \"$sCustomerConfirmCode\"";
 $oCustomerResult = $oDbConnection->query($sCustomerUpdateSql);
 ?>

@@ -1,5 +1,5 @@
 <?php
-include_once("../DB_Connection/connection.php");
+include_once("../db-connection/connection.php");
 
 $_POST = json_decode(file_get_contents("php://input"), true); //make json object an assoc array
 //Check to see if the correct data has been sent to the api, if it is not sent correctly, usually means someone is trying

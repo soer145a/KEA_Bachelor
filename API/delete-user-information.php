@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once("../DB_Connection/connection.php");
+include_once("../db-connection/connection.php");
 //Check if the customer id is in the session
 if(!isset($_SESSION['customerId'])){
     header("Location: ../index.php");

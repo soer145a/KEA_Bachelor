@@ -21,8 +21,8 @@ $sCustomerEmail = $oCustomerData->customerEmail;
 $sCustomerFirstName = $oCustomerData->customerFirstName;
 $sCustomerLastName = $oCustomerData->customerLastName;
 
-$sOrderEmailContent = file_get_contents("orderEmail.php");
-$sConfirmEmailContent = file_get_contents("confirmEmail.php");
+$sOrderEmailContent = file_get_contents("order-email.php");
+$sConfirmEmailContent = file_get_contents("confirm-email.php");
 $sCustomerName = "$sCustomerFirstName $sCustomerLastName";
 $nTotalPrice = 0;
 $sProductName = "";
@@ -84,7 +84,7 @@ try {
 
     // Content
     //$oMail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-    $oMail->addAttachment("../Customer-receipts/$sCustomerId-$sOrderId.pdf");
+    $oMail->addAttachment("../customer-receipts/$sCustomerId-$sOrderId.pdf");
     $oMail->isHTML(true);                                  // Set email format to HTML
     $oMail->Subject = "Mirtual order";
     $oMail->Body = $sOrderEmailContent;
@@ -100,7 +100,7 @@ try {
 
 
 
-    echo "<script>window.location.assign(window.location.protocol + '/KEA_Bachelor/confirmOrder.php');</script>";
+    echo "<script>window.location.assign(window.location.protocol + '/KEA_Bachelor/confirm-order.php');</script>";
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$oMail->ErrorInfo}";
 }

@@ -1,7 +1,7 @@
 <?php
 session_start();
 echo "starting the submission";
-include("../DB_Connection/connection.php");
+include("../db-connection/connection.php");
 include("./create-pdf-receipt.php");
 //echo json_encode($_POST['customerFirstName']);
 //$sql = "INSERT INTO customers VALUES (customer_first_name, customer_last_name, customer_company_name, customer_email, customer_password, customer_cvr) VALUES ('John', 'Doe', 'john@example.com')";
@@ -12,7 +12,7 @@ include("./create-pdf-receipt.php");
     exit();
 } */
 
-$sEmbed = "<iframe src='http://127.0.0.1/KEA_Bachelor/deploys/product.php?key=INSERT KEY HERE' frameborder='0'></iframe>";
+$sEmbed = "<iframe src='http://127.0.0.1/KEA_Bachelor/purple-scout/product-emulator.php?key=INSERT KEY HERE' frameborder='0'></iframe>";
 
 if (!isset($_SESSION['loginStatus'])) {
     echo '18';

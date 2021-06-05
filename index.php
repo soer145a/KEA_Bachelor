@@ -1,11 +1,11 @@
 <?php
 session_start();
-include_once("DB_Connection/connection.php");
-include_once("Components/addOn.php");
-include_once("Components/head.php");
-include_once("Components/header.php");
-include_once("Components/products.php");
-include_once("Components/footer.php");
+include_once("db-connection/connection.php");
+include_once("components/addOn.php");
+include_once("components/head.php");
+include_once("components/header.php");
+include_once("components/products.php");
+include_once("components/footer.php");
 $sHeadHtmlComp = headComp();
 $sHeaderHtmlComp = headerComp('index');
 $sProductHtmlComp = productsComp($oDbConnection);

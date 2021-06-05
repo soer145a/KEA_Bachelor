@@ -121,5 +121,5 @@ function createReceipt($iTimeEpoch)
     $oCustomerReceipt->Cell(20, 5, 'Total:', 0, 0, 'L');
     $oCustomerReceipt->Cell(30, 5, $nTotalPrice, 0, 0, 'L');
     //Saving the pdf in a folder for us to attach in the email we send later on.
-    $oCustomerReceipt->Output("../Customer-receipts/$sCustomerId-$sOrderId.pdf", 'F');
+    $oCustomerReceipt->Output("../customer-receipts/$sCustomerId-$sOrderId.pdf", 'F');
 }

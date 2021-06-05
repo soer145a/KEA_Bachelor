@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include_once("../DB_Connection/connection.php");
+include_once("../db-connection/connection.php");
 
 $customerId = $_SESSION['customerId'];
 

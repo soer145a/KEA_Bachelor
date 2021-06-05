@@ -1,7 +1,7 @@
 <?php
 session_start();
 $sCustomerProductId = $_GET['customer-product-id'];
-include_once("../DB_Connection/connection.php");
+include_once("../db-connection/connection.php");
 //When toggling the autorenew on the customer products, we need to know which entry we are toggling
 $sCustomerProductSelectSql = "SELECT * FROM `customer_products` WHERE customer_products_id = \"$sCustomerProductId\"";
 $oCustomerProductResult = $oDbConnection->query($sCustomerProductSelectSql);

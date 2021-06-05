@@ -1,9 +1,9 @@
 <?php
 session_start();
-include("DB_Connection/connection.php");
-include_once("Components/head.php");
-include_once("Components/header.php");
-include_once("Components/footer.php");
+include("db-connection/connection.php");
+include_once("components/head.php");
+include_once("components/header.php");
+include_once("components/footer.php");
 $sHeadHtmlComp = headComp();
 $sHeaderHtmlComp = headerComp('profile');
 $sFooterHtmlComp = footerComp();
