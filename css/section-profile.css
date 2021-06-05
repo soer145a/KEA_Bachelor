@@ -8,7 +8,6 @@
 }
 
 .modal--delete {
-    
     z-index: 9000;
     text-align: center;
     border-radius: 10px;
@@ -33,15 +32,15 @@
     margin-bottom: 16px;
 }
 
-.modal-form .customer-password-form__input{
+.modal-form .customer-password-form__input {
     margin-bottom: 0;
-    
 }
-.modal-form .customer-password-form__input-label{
+
+.modal-form .customer-password-form__input-label {
     height: auto;
 }
 
-.modal-form .button-wrapper{
+.modal-form .button-wrapper {
     display: flex;
     width: 100%;
     justify-content: space-between;
@@ -59,7 +58,7 @@
 }
 
 .profile__header {
-   text-align: center;
+    text-align: center;
 }
 
 .account-information {
@@ -73,7 +72,6 @@
 
 .customer-information .customer-information__button {
     width: 200px;
-
 }
 
 .customer-information-container {
@@ -87,8 +85,6 @@
     display: flex;
     flex-wrap: wrap;
 }
-
-
 
 .customer-information__item {
     flex-basis: 50%;
@@ -122,9 +118,18 @@
     border: 2px solid var(--purple-light);
 }
 
+.customer-information-form .invalid {
+    border: 2px solid var(--red);
+}
+
+.customer-information-form .valid {
+    border: 2px solid var(--green);
+}
+
 .customer-information-form .form__button--submit {
     background-image: url("../assets/icons/check.svg");
 }
+
 .customer-information-form .form__button--cancel {
     background-image: url("../assets/icons/remove.svg");
 }
@@ -148,7 +153,6 @@
     height: 20px;
     background-image: url("../assets/icons/pencil.svg");
     background-size: cover;
-
 }
 
 .customer-password-form {
