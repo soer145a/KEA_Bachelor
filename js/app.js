@@ -310,7 +310,7 @@ function togglePaypalButton(loggedIn, price) {
           });
         },
         onApprove: function (data, actions) {
-          return actions.order.capture().then(function (PurchaseDetails) {
+          return actions.order.capture().then(function () {
             window.location.assign(
               window.location.protocol + "/KEA_Bachelor/API/payment-handler.php"
             );
@@ -353,11 +353,8 @@ function togglePaypalButton(loggedIn, price) {
               });
             },
             onApprove: function (data, actions) {
-              return actions.order.capture().then(function (PurchaseDetails) {
-                window.location.assign(
-                  window.location.protocol +
-                    "/KEA_Bachelor/API/payment-handler.php"
-                );
+              return actions.order.capture().then(function () {
+                document.querySelector(".account-details").submit();
               });
             },
           })
