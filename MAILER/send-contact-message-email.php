@@ -33,10 +33,9 @@ if (isset($_POST['potentialCustomerMessage'])) {
         $oMail->Username   = 'cookbook.kea@gmail.com';              // SMTP username
         $oMail->Password   = 'soer145a';                             // SMTP password
 
-        //$oMail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
-        $oMail->SMTPSecure = 'tls';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
-        $oMail->Port       = 587;                                    // TCP port to connect to
-
+        //$oMail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;          // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
+        $oMail->SMTPSecure = 'tls';                                     // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
+        $oMail->Port       = 587;                                       // TCP port to connect to
 
         //Recipients
         $oMail->setFrom("$potentialCustomerEmail", "Mirtual Contact Form");

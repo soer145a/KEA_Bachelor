@@ -3,7 +3,7 @@ session_start();
 include("../db-connection/connection.php");
 
 $_POST = json_decode(file_get_contents("php://input"), true); //make json object an assoc array
-$aResponse = [];
+
 if (isset($_POST['addOnId'])) {
     //Gather the information for what the addon contains
     $sAddOnId = $_POST['addOnId'];
@@ -50,9 +50,9 @@ if (isset($_POST['addOnId'])) {
         );
         $_SESSION['cartAddOns'][0] = $aAddOnArray;
     }
+    $aResponse = array("itemAddedToCart" => true, "error" => "none");
+    echo json_encode($aResponse);
 }else{
     header("Location: ../index.php");
 }
-//If failed, display why and echo the data/response
-$aResponse = array("error" => false);
-echo json_encode($aResponse);
+

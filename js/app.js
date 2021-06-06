@@ -22,6 +22,10 @@ function inputValidate() {
         let sPhoneRegEx = /^\+(?:[0-9]●?){6,16}[0-9]$/;
 
         if (!sPhoneRegEx.test(sInputData)) {
+          showMessage(
+            "Phone should be between 6-16 characters and start with a +",
+            true
+          );
           aInputsToValidate[i].classList.add("invalid");
           aInputsToValidate[i].classList.remove("valid");
         } else {
@@ -38,6 +42,7 @@ function inputValidate() {
         if (!sEmailRegEx.test(sInputData)) {
           aInputsToValidate[i].classList.remove("valid");
           aInputsToValidate[i].classList.add("invalid");
+          showMessage("The email does not meet requirements", true);
         } else {
           postData("api/check-db-for-existing-entries.php", {
             whatToCheck: "customer_email",
@@ -49,13 +54,13 @@ function inputValidate() {
             } else {
               aInputsToValidate[i].classList.remove("valid");
               aInputsToValidate[i].classList.add("invalid");
+              showMessage("This email already exists", true);
             }
           });
         }
         break;
 
       case "string":
-        console.log("enters");
         sInputData = aInputsToValidate[i].value;
 
         if (sInputData.length < 1) {
@@ -76,6 +81,10 @@ function inputValidate() {
 
         if (aInputsToValidate[i].name !== "customerPasswordConfirm") {
           if (!sPasswordRegEx.test(sInputData)) {
+            showMessage(
+              "Password should be between 6-30 characters and include 1 uppercase, 1 lowercase, 1 special character",
+              true
+            );
             aInputsToValidate[i].classList.add("invalid");
             aInputsToValidate[i].classList.remove("valid");
           } else {
@@ -90,6 +99,7 @@ function inputValidate() {
             aInputsToValidate[i].classList.add("valid");
             aInputsToValidate[i].classList.remove("invalid");
           } else {
+            showMessage("Passwords do not match", true);
             aInputsToValidate[i].classList.add("invalid");
             aInputsToValidate[i].classList.remove("valid");
           }
@@ -101,6 +111,7 @@ function inputValidate() {
         let sCvrRegEx = /^(\d){8}$/;
 
         if (!sCvrRegEx.test(sInputData)) {
+          showMessage("CRV must be 8 numbers", true);
           aInputsToValidate[i].classList.add("invalid");
           aInputsToValidate[i].classList.remove("valid");
         } else {
@@ -108,11 +119,11 @@ function inputValidate() {
             whatToCheck: "customer_company_cvr",
             data: sInputData,
           }).then((jResponse) => {
-            console.log(jResponse);
             if (!jResponse.dataExists) {
               aInputsToValidate[i].classList.add("valid");
               aInputsToValidate[i].classList.remove("invalid");
             } else {
+              showMessage("CVR already exists", true);
               aInputsToValidate[i].classList.add("invalid");
               aInputsToValidate[i].classList.remove("valid");
             }
@@ -123,6 +134,7 @@ function inputValidate() {
   }
   if (event.type == "submit") {
     if (eFormToValidate.querySelectorAll(".invalid").length > 0) {
+      showMessage("One or more fields has not been filled out correctly", true);
       return false;
     } else {
       return true;
@@ -152,6 +164,8 @@ function checkPassword() {
 
   if (CustomerPassword == CustomerPasswordConfirm) {
     document.querySelector("#deleteButton").removeAttribute("disabled");
+  } else {
+    showMessage("Your passwords do not match", true);
   }
 }
 function removeDeleteModals() {
@@ -173,12 +187,6 @@ async function postData(sUrl = "", jData = {}) {
   });
 
   return response.json();
-}
-
-function showUpdateForm() {
-  let eCustomerUpdateform = document.querySelector("#updateDataForm");
-  eCustomerUpdateform.classList.remove("hidden");
-  eCustomerUpdateform.classList.add("shown");
 }
 
 async function toggleAutoRenew(sCustomerProductId) {
@@ -207,7 +215,7 @@ function toggleMobileNavigation() {
   }
 }
 
-function editInfo(sInputValue, sValidateType, sInputName) {
+function editInfo(sValidateType, sInputName) {
   let eParentElement = event.target.parentElement;
   let aParentElementChildren = eParentElement.children;
   //hide existing elements
@@ -216,14 +224,17 @@ function editInfo(sInputValue, sValidateType, sInputName) {
       "customer-information__item--hidden"
     );
   }
+
+  let eProfileInfo = document.getElementsByClassName(
+    "customer-information__" + sInputName
+  )[0];
+  let eProfileInfoPTag = eProfileInfo.querySelector("p").textContent;
   //Create new dom element
 
   //form element
   let eForm = document.createElement("form");
   eForm.setAttribute("class", "customer-information-form");
-  eForm.setAttribute("method", "post");
-  eForm.setAttribute("onsubmit", "return inputValidate();");
-  eForm.setAttribute("action", "api/update-customer-data.php");
+  eForm.setAttribute("onsubmit", `event.preventDefault();`);
 
   //input element
   let eInput = document.createElement("input");
@@ -232,21 +243,18 @@ function editInfo(sInputValue, sValidateType, sInputName) {
   eInput.setAttribute("data-validate", `${sValidateType}`);
   eInput.setAttribute("type", "text");
   eInput.setAttribute("name", `${sInputName}`);
-  eInput.setAttribute("value", `${sInputValue}`);
+  eInput.setAttribute("value", `${eProfileInfoPTag}`);
 
   //Submit button
   let eSubmitButton = document.createElement("button");
   eSubmitButton.setAttribute("class", "form__button form__button--submit");
   eSubmitButton.setAttribute("type", "submit");
-
+  eSubmitButton.setAttribute("onclick", `updateCustomerInfo("${sInputName}")`);
   //Cancel button
   let eCancelButton = document.createElement("button");
   eCancelButton.setAttribute("class", "form__button form__button--cancel");
   eCancelButton.setAttribute("type", "button");
-  eCancelButton.setAttribute(
-    "onclick",
-    `cancelEdit("${sInputValue}", "${sValidateType}", "${sInputName}")`
-  );
+  eCancelButton.setAttribute("onclick", `cancelEdit()`);
 
   //Append button and input inside of form
   eForm.appendChild(eInput);
@@ -255,6 +263,72 @@ function editInfo(sInputValue, sValidateType, sInputName) {
 
   //Append new element inside of parent element
   eParentElement.appendChild(eForm);
+}
+
+function updateCustomerInfo(sInputName) {
+  let eInput = document.getElementsByName(sInputName)[0];
+  if (eInput.classList.contains("invalid")) {
+  } else {
+    postData("api/update-customer-data.php", {
+      data: eInput.value,
+      whatToUpdate: sInputName,
+    }).then((jResponse) => {
+      if (jResponse.customerUpdated) {
+        let eProfileInfo = document.getElementsByClassName(
+          "customer-information__" + sInputName
+        )[0];
+
+        const eForm = eProfileInfo.querySelector("form");
+        //remove form from DOM
+        eForm.remove();
+        //Find all elements with hidden class inside of root element
+        let aHiddenElements = eProfileInfo.querySelectorAll(
+          ".customer-information__item--hidden"
+        );
+        //remove hidden class from elements
+        for (let i = 0; i < aHiddenElements.length; i++) {
+          aHiddenElements[i].classList.remove(
+            "customer-information__item--hidden"
+          );
+        }
+        let eProfileInfoPTag = eProfileInfo.querySelector("p");
+        eProfileInfoPTag.textContent = eInput.value;
+        switch (sInputName) {
+          case "customer_first_name":
+            customerFirstNameHeader.textContent = eInput.value;
+            break;
+          case "customer_last_name":
+            customerLastNameHeader.textContent = eInput.value;
+        }
+        showMessage("Your information has been updated", false);
+      }
+    });
+  }
+}
+function showMessage(sMessage, bIsError) {
+  messageBox.classList.remove("message-box--hidden");
+  messageText.textContent = sMessage;
+  if (bIsError) {
+    messageBox.classList.add("message-box--red");
+  } else {
+    messageBox.classList.add("message-box--green");
+  }
+  setTimeout(() => {
+    messageBox.classList.add("message-box--visually-hidden");
+
+    messageBox.addEventListener(
+      "transitionend",
+      function (e) {
+        messageBox.classList = "message-box message-box--hidden";
+        messageText.textContent = "";
+      },
+      {
+        capture: false,
+        once: true,
+        passive: false,
+      }
+    );
+  }, 5000);
 }
 
 function cancelEdit() {
@@ -307,9 +381,13 @@ function togglePaypalButton(bLoginStatus, nPrice) {
           },
           onApprove: function (data, actions) {
             return actions.order.capture().then(function () {
-              window.location.assign(
-                window.location.protocol +
-                  "/KEA_Bachelor/api/payment-handler.php"
+              postData("api/start-purchase-session.php", {
+                confirmString: true,
+              }).then(
+                window.location.assign(
+                  window.location.protocol +
+                    "/KEA_Bachelor/api/payment-handler.php"
+                )
               );
             });
           },
@@ -346,8 +424,9 @@ function togglePaypalButton(bLoginStatus, nPrice) {
               onApprove: function (data, actions) {
                 return actions.order.capture().then(function () {
                   postData("api/start-purchase-session.php", {
-                    confirmString: true
-                  }).then(document.querySelector(".account-details").submit());                });
+                    confirmString: true,
+                  }).then(document.querySelector(".account-details").submit());
+                });
               },
             })
             .render("#paypal-button-container");

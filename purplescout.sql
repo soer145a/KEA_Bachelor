@@ -1,14 +1,21 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.7
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Generation Time: May 27, 2021 at 07:48 PM
--- Server version: 5.7.32
--- PHP Version: 8.0.0
+-- Host: 127.0.0.1
+-- Generation Time: Jun 06, 2021 at 03:36 PM
+-- Server version: 10.4.18-MariaDB
+-- PHP Version: 8.0.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `purplescout`
@@ -48,13 +55,13 @@ CREATE TABLE `customers` (
   `customer_company_name` varchar(100) NOT NULL,
   `customer_email` varchar(100) NOT NULL,
   `customer_password` varchar(100) NOT NULL,
-  `customer_cvr` varchar(20) NOT NULL,
+  `customer_company_cvr` varchar(20) NOT NULL,
   `customer_city` varchar(100) DEFAULT NULL,
   `customer_address` varchar(100) DEFAULT NULL,
   `customer_country` varchar(100) DEFAULT NULL,
   `customer_postcode` varchar(100) DEFAULT NULL,
   `customer_phone` varchar(20) DEFAULT NULL,
-  `customer_confirm_code` varchar(40) NOT NULL,
+  `customer_confirm_code` varchar(100) NOT NULL,
   `customer_confirmed` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -62,11 +69,11 @@ CREATE TABLE `customers` (
 -- Dumping data for table `customers`
 --
 
-INSERT INTO `customers` (`customer_id`, `customer_first_name`, `customer_last_name`, `customer_company_name`, `customer_email`, `customer_password`, `customer_cvr`, `customer_city`, `customer_address`, `customer_country`, `customer_postcode`, `customer_phone`, `customer_confirm_code`, `customer_confirmed`) VALUES
+INSERT INTO `customers` (`customer_id`, `customer_first_name`, `customer_last_name`, `customer_company_name`, `customer_email`, `customer_password`, `customer_company_cvr`, `customer_city`, `customer_address`, `customer_country`, `customer_postcode`, `customer_phone`, `customer_confirm_code`, `customer_confirmed`) VALUES
 (89, 'Daniello', 'Beckowitch', 'wadas', 'd4nlbeck@gmail.com', '$2y$10$DxX3xEAz9/ehknHulFiGHeqvqYue3gXEe0CqzouM3AeVxHQQhN.o6', '12312312', 'Rødovre', 'Rødager Alle 75A st tv', 'Denmark', '2610', '+435435345', 'cc42ed81b3a993e883fc2a4c5c7bcbc02d69b393', 1),
-(90, 'SÃ¸ren', 'RembÃ¸ll', 'Memas', 'Soren@remboll.dk', '$2y$10$QhLZrcQy.WnsidnIWVMuGuOeUes.5BN/ZrPEWB0U6BhDDedp0VUhS', '12312313', 'BrÃ¸ndby', 'BrÃ¸ndbyvestervej 62A', 'Danmark', '2605', '+4522258809', '31acab9314548b7f255a5c3c1dd1152ce82bbb29', 1),
 (91, 'Daniel', 'Beck', 'The bagmen', 'daniel-beck@hotmail.com', '$2y$10$uCuAktprF8wAUn1BNdwG1.dMgCFK7.MYez6gLPfoZGOXohYvsvL0O', '12312345', 'Holte', 'Holtevej 2', 'Denmark', '2610', '+4455667788', '48e20531fdba39782f128a8859d4dc4382a46e50', 1),
-(92, 'Bob', 'Bobsen', 'bob aps', 'd4nielbeck@gmail.com', '$2y$10$7wugMZZbZNiwg/XhvpJ89.WiH3K1eFeuw9gdVBT8myTyYg5RkflJ2', '12312356', 'bobville', 'boblane 32', 'bobland', 'bob2020', '+345435435', 'c0c12412d576c0ff1fa8f3d436383258d203c1c6', 0);
+(92, 'Bob', 'Bobsen', 'bob aps', 'd4nielbeck@gmail.com', '$2y$10$7wugMZZbZNiwg/XhvpJ89.WiH3K1eFeuw9gdVBT8myTyYg5RkflJ2', '12312356', 'bobville', 'boblane 32', 'bobland', 'bob2020', '+345435435', 'c0c12412d576c0ff1fa8f3d436383258d203c1c6', 0),
+(103, 'SÃ¸ren', 'RembÃ¸ll', 'KEA', 'Soren@remboll.dk', '$2y$10$ZxdVxPRWcqAWxmAYEOx.8.7lZL8ORQMCQPK9UqNestK9Wtmz/XHsu', '44444444', 'BrÃ¸ndby', 'BrÃ¸ndbyvestervej 62A', 'Danmark', '2605', '+45123123', 'b90889368437a30369d23c0b8ca9be24e068d433a1455272c73049a424721fcd', 1);
 
 -- --------------------------------------------------------
 
@@ -100,6 +107,13 @@ CREATE TABLE `customer_products` (
   `embed_link` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `customer_products`
+--
+
+INSERT INTO `customer_products` (`customer_products_id`, `customer_id`, `product_id`, `subscription_start`, `subscription_total_length`, `subscription_end`, `subscription_active`, `subscription_autorenew`, `api_key`, `embed_link`) VALUES
+(83, 103, 1, 1622982074, 31556916, 1654538990, 1, 1, '6e23a56ccae2a40e271735c2db478202855f8c17303d265597ea2196f6eb1bfe', '<iframe src=\'http://127.0.0.1/KEA_Bachelor/deploys/product.php?key=INSERT KEY HERE\' frameborder=\'0\'></iframe>');
+
 -- --------------------------------------------------------
 
 --
@@ -112,6 +126,13 @@ CREATE TABLE `orders` (
   `order_date` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`order_id`, `customer_id`, `order_date`) VALUES
+(37, 103, 1622982074);
+
 -- --------------------------------------------------------
 
 --
@@ -122,7 +143,7 @@ CREATE TABLE `order_addons` (
   `order_addons_id` tinyint(6) NOT NULL,
   `order_id` tinyint(6) NOT NULL,
   `addon_id` tinyint(6) NOT NULL,
-  `payed_price` varchar(20) NOT NULL,
+  `order_addon_payed_price` varchar(20) NOT NULL,
   `addon_amount` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -137,8 +158,15 @@ CREATE TABLE `order_products` (
   `order_id` tinyint(6) NOT NULL,
   `product_id` tinyint(6) NOT NULL,
   `subscription_id` tinyint(6) NOT NULL,
-  `payed_price` varchar(20) NOT NULL
+  `order_products_payed_price` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `order_products`
+--
+
+INSERT INTO `order_products` (`order_products_id`, `order_id`, `product_id`, `subscription_id`, `order_products_payed_price`) VALUES
+(34, 37, 1, 3, '2900');
 
 -- --------------------------------------------------------
 
@@ -158,9 +186,9 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`product_id`, `product_name`, `product_price`, `product_image_url`) VALUES
-(1, 'In-store Kiosk', '2900', './assets/images/product-1.jpg'),
-(2, 'Mobile App', '1500', './assets/images/product-2.jpg'),
-(3, 'Webcam', '999', './assets/images/product-3.png');
+(1, 'In-store Kiosk', '2900', './Assets/images/product-1.jpg'),
+(2, 'Mobile App', '1500', './Assets/images/product-2.jpg'),
+(3, 'Webcam', '999', './Assets/images/product-3.png');
 
 -- --------------------------------------------------------
 
@@ -199,7 +227,7 @@ ALTER TABLE `addons`
 --
 ALTER TABLE `customers`
   ADD PRIMARY KEY (`customer_id`),
-  ADD UNIQUE KEY `customer_cvr` (`customer_cvr`),
+  ADD UNIQUE KEY `customer_cvr` (`customer_company_cvr`),
   ADD UNIQUE KEY `customer_email` (`customer_email`);
 
 --
@@ -268,7 +296,7 @@ ALTER TABLE `addons`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `customer_id` tinyint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
+  MODIFY `customer_id` tinyint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
 
 --
 -- AUTO_INCREMENT for table `customer_addons`
@@ -280,13 +308,13 @@ ALTER TABLE `customer_addons`
 -- AUTO_INCREMENT for table `customer_products`
 --
 ALTER TABLE `customer_products`
-  MODIFY `customer_products_id` tinyint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `customer_products_id` tinyint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` tinyint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `order_id` tinyint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `order_addons`
@@ -298,7 +326,7 @@ ALTER TABLE `order_addons`
 -- AUTO_INCREMENT for table `order_products`
 --
 ALTER TABLE `order_products`
-  MODIFY `order_products_id` tinyint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `order_products_id` tinyint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -350,3 +378,8 @@ ALTER TABLE `order_products`
   ADD CONSTRAINT `order_products_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
   ADD CONSTRAINT `order_products_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`),
   ADD CONSTRAINT `order_products_ibfk_3` FOREIGN KEY (`subscription_id`) REFERENCES `subscriptions` (`subscription_id`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -118,6 +118,11 @@
     border: 2px solid var(--purple-light);
 }
 
+.customer-information__customer_company_cvr .customer-information__item__text::before {
+    content: "CVR: ";
+    font-family: var(--font-paragraphs);
+}
+
 .customer-password-form .invalid, .customer-information-form .invalid {
     border: 2px solid var(--red);
 }
