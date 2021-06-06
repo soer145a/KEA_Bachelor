@@ -33,7 +33,7 @@ $sAddOnHtmlComp = addOnsComp($oDbConnection);
                 </h1>
                 <div class="video-container">
                     <div class="explainer-video">
-                        <img class="explainer-video__thumbnail" alt=" explainer video" />
+                        <div class="explainer-video__thumbnail" alt=" explainer video" />
                         <span class="play-button-circle">
                             <span class="play-button-triangle"></span>
                         </span>

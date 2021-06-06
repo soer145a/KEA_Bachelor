@@ -98,16 +98,17 @@
 
 .cart-counter {
     position: absolute;
-    width: 15px;
-    height: 15px;
+    width: 30px;
+    height: 20px;
     background-color: var(--red);
     color: var(--white);
     z-index: 9000;
-    border-radius: 100%;
+    border-radius: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
-    bottom: -10px;
+    bottom: -20px;
     right: -10px;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
+    padding-top: 1.5px;
 }
