@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   toggleDropdown();
   itemSelector();
   toggleInfoBox();
-  handleCarouselScroll()
+  handleCarouselScroll();
 });
 
 function updateSliderButton() {
@@ -126,7 +126,6 @@ function addAddOnToCart(sAddOnId) {
         updateCartCounter(false, nAddOnAmount, true);
       }
     });
-    
   }
 }
 
@@ -219,21 +218,18 @@ function toggleInfoBox() {
 }
 
 function handleCarouselScroll() {
- 
- let options = {
-     root: document.querySelector(".slider"),
-     rootMargin: "0px",
-     threshold: 1.0
- }
+  let options = {
+    root: document.querySelector(".slider"),
+    rootMargin: "0px",
+    threshold: 1.0,
+  };
 
- let target = document.querySelector("#card-2")
- 
+  let target = document.querySelector("#card-2");
 
- let observer = new IntersectionObserver((e) => {
-  
-     //In this callback find which card is in focus by looking at the position of the middle card
-     return;
- },options)
+  let observer = new IntersectionObserver((e) => {
+    //In this callback find which card is in focus by looking at the position of the middle card
+    return;
+  }, options);
 
- observer.observe(target);
+  observer.observe(target);
 }

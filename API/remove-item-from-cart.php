@@ -3,7 +3,7 @@ session_start();
 include("../db-connection/connection.php");
 
 $_POST = json_decode(file_get_contents("php://input"), true); //make json object an assoc array
-$aResponse = [];
+
 //When removing an item from the sessions we simply need the id of product and then remove it from the array
 if (isset($_POST['itemId'])) {
 
@@ -28,8 +28,9 @@ if (isset($_POST['itemId'])) {
             }
         }
     }
-}else{
+    $aResponse = array("itemRemovedFromCart" => true, "error" => "none");
+    //Returning some data for our javascript to use
+    echo json_encode($aResponse);
+} else {
     header("Location: ../index.php");
 }
-//Respond back
-echo json_encode($aResponse);

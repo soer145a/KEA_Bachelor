@@ -22,7 +22,10 @@ function inputValidate() {
         let sPhoneRegEx = /^\+(?:[0-9]●?){6,16}[0-9]$/;
 
         if (!sPhoneRegEx.test(sInputData)) {
-          showMessage("Phone should be between 6-16 characters and start with a +", true)
+          showMessage(
+            "Phone should be between 6-16 characters and start with a +",
+            true
+          );
           aInputsToValidate[i].classList.add("invalid");
           aInputsToValidate[i].classList.remove("valid");
         } else {
@@ -78,7 +81,10 @@ function inputValidate() {
 
         if (aInputsToValidate[i].name !== "customerPasswordConfirm") {
           if (!sPasswordRegEx.test(sInputData)) {
-            showMessage("Password should be between 6-30 characters and include 1 uppercase, 1 lowercase, 1 special character",true);
+            showMessage(
+              "Password should be between 6-30 characters and include 1 uppercase, 1 lowercase, 1 special character",
+              true
+            );
             aInputsToValidate[i].classList.add("invalid");
             aInputsToValidate[i].classList.remove("valid");
           } else {
@@ -93,7 +99,7 @@ function inputValidate() {
             aInputsToValidate[i].classList.add("valid");
             aInputsToValidate[i].classList.remove("invalid");
           } else {
-            showMessage("Passwords do not match",true)
+            showMessage("Passwords do not match", true);
             aInputsToValidate[i].classList.add("invalid");
             aInputsToValidate[i].classList.remove("valid");
           }
@@ -117,7 +123,7 @@ function inputValidate() {
               aInputsToValidate[i].classList.add("valid");
               aInputsToValidate[i].classList.remove("invalid");
             } else {
-              showMessage("CVR already exists",true);
+              showMessage("CVR already exists", true);
               aInputsToValidate[i].classList.add("invalid");
               aInputsToValidate[i].classList.remove("valid");
             }
@@ -182,7 +188,6 @@ async function postData(sUrl = "", jData = {}) {
 
   return response.json();
 }
-
 
 async function toggleAutoRenew(sCustomerProductId) {
   fetch(
@@ -263,7 +268,6 @@ function editInfo(sValidateType, sInputName) {
 function updateCustomerInfo(sInputName) {
   let eInput = document.getElementsByName(sInputName)[0];
   if (eInput.classList.contains("invalid")) {
-    
   } else {
     postData("api/update-customer-data.php", {
       data: eInput.value,
@@ -290,18 +294,18 @@ function updateCustomerInfo(sInputName) {
         let eProfileInfoPTag = eProfileInfo.querySelector("p");
         eProfileInfoPTag.textContent = eInput.value;
         switch (sInputName) {
-          case 'customer_first_name':
+          case "customer_first_name":
             customerFirstNameHeader.textContent = eInput.value;
-              break;
-          case 'customer_last_name':
+            break;
+          case "customer_last_name":
             customerLastNameHeader.textContent = eInput.value;
-      }
+        }
         showMessage("Your information has been updated", false);
       }
     });
   }
 }
-function showMessage(sMessage,bIsError) {
+function showMessage(sMessage, bIsError) {
   messageBox.classList.remove("message-box--hidden");
   messageText.textContent = sMessage;
   if (bIsError) {
@@ -310,10 +314,23 @@ function showMessage(sMessage,bIsError) {
     messageBox.classList.add("message-box--green");
   }
   setTimeout(() => {
-    messageBox.classList = "message-box message-box--hidden";
-    messageText.textContent = "";
-  },5000);
+    messageBox.classList.add("message-box--visually-hidden");
+
+    messageBox.addEventListener(
+      "transitionend",
+      function (e) {
+        messageBox.classList = "message-box message-box--hidden";
+        messageText.textContent = "";
+      },
+      {
+        capture: false,
+        once: true,
+        passive: false,
+      }
+    );
+  }, 5000);
 }
+
 function cancelEdit() {
   let eRootElement = event.target.parentElement.parentElement;
 
@@ -366,11 +383,12 @@ function togglePaypalButton(bLoginStatus, nPrice) {
             return actions.order.capture().then(function () {
               postData("api/start-purchase-session.php", {
                 confirmString: true,
-              }).then(window.location.assign(
-                window.location.protocol +
-                  "/KEA_Bachelor/api/payment-handler.php"
-              ));
-              
+              }).then(
+                window.location.assign(
+                  window.location.protocol +
+                    "/KEA_Bachelor/api/payment-handler.php"
+                )
+              );
             });
           },
         })
