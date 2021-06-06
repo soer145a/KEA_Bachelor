@@ -133,4 +133,4 @@ if (isset($_SESSION['cartAddOns'])) {
 }
 
 //Redirect to the send email function
-header("Location: ../MAILER/send-email.php");
+header("Location: ../MAILER/send-order-email.php");

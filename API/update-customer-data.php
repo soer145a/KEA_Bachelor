@@ -1,8 +1,7 @@
 <?php
 session_start();
-
 include_once("../db-connection/connection.php");
-
+//Get the customer id from the session
 $customerId = $_SESSION['customerId'];
 //A unique check for updating the customer password
 if (isset($_POST['customerPassword'])) {

@@ -55,6 +55,7 @@ function inputValidate() {
         break;
 
       case "string":
+        console.log("enters");
         sInputData = aInputsToValidate[i].value;
 
         if (sInputData.length < 1) {
@@ -120,7 +121,7 @@ function inputValidate() {
     }
   }
   if (event.type == "submit") {
-    if (eFormToValidate.querySelectorAll(".valid").length != 12) {
+    if (eFormToValidate.querySelectorAll(".invalid").length > 0) {
       return false;
     } else {
       return true;
