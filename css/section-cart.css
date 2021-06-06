@@ -80,7 +80,7 @@
     text-transform: none;
     margin-bottom: 3px;
     margin-left: 1px;
-    cursor: initial;
+    cursor:not-allowed;
 }
 
 .order-summary__button:hover {
