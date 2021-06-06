@@ -33,6 +33,14 @@ if (isset($_POST['customerPassword'])) {
     $sCustomerUpdateSql = "UPDATE `customers` SET `$sColumnToUpdate` = \"$sData\" WHERE customer_id = \"$customerId\"";
     $oDbConnection->query($sCustomerUpdateSql);
     $aResponse = array("customerUpdated" => true, "error" => "None");
+
+    switch ($sColumnToUpdate) {
+        case 'customer_first_name':
+            $_SESSION['customerFirstName'] = $sData;
+            break;
+        case 'customer_last_name':
+            $_SESSION['customerLastName'] = $sData;
+    }
 } else {
     $aResponse = array("customerUpdated" => false, "error" => "No field set");
 }
