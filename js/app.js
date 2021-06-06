@@ -55,7 +55,6 @@ function inputValidate() {
         break;
 
       case "string":
-        
         sInputData = aInputsToValidate[i].value;
 
         if (sInputData.length < 1) {
@@ -108,7 +107,6 @@ function inputValidate() {
             whatToCheck: "customer_company_cvr",
             data: sInputData,
           }).then((jResponse) => {
-            
             if (!jResponse.dataExists) {
               aInputsToValidate[i].classList.add("valid");
               aInputsToValidate[i].classList.remove("invalid");
@@ -375,8 +373,9 @@ function togglePaypalButton(bLoginStatus, nPrice) {
               onApprove: function (data, actions) {
                 return actions.order.capture().then(function () {
                   postData("api/start-purchase-session.php", {
-                    confirmString: true
-                  }).then(document.querySelector(".account-details").submit());                });
+                    confirmString: true,
+                  }).then(document.querySelector(".account-details").submit());
+                });
               },
             })
             .render("#paypal-button-container");
