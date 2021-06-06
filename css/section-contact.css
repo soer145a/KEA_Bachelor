@@ -11,6 +11,9 @@
     text-align: center;
     color: var(--white);
 }
+.contact .section-paragraph {
+    margin: 0 auto 1rem auto;
+}
 
 .contact .form-container {
     margin-top: 2rem;

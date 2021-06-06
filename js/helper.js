@@ -218,7 +218,6 @@ function toggleInfoBox() {
 }
 
 function handleCarouselScroll() {
-<<<<<<< HEAD
     if(document.querySelector(".slider") !== null) {
          console.log("handleCarouselScroll()")
          let options = {
@@ -238,20 +237,4 @@ function handleCarouselScroll() {
      
          observer.observe(target);
     }
-=======
-  let options = {
-    root: document.querySelector(".slider"),
-    rootMargin: "0px",
-    threshold: 1.0,
-  };
-
-  let target = document.querySelector("#card-2");
-
-  let observer = new IntersectionObserver((e) => {
-    //In this callback find which card is in focus by looking at the position of the middle card
-    return;
-  }, options);
-
-  observer.observe(target);
->>>>>>> 1bfb445fae57dd88a3866bd60bacda320d76d093
 }
