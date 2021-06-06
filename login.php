@@ -36,7 +36,7 @@ if (isset($_POST['customerEmail']) && isset($_POST['customerPassword'])) {
                     header('Location: index.php');
                     //Display an error message the user
                 } else {
-                    $sErrorMessage = "<p style='color:red'> ERROR - You have not confirmed the email through the account</p>";
+                    $sErrorMessage = "<p style='color:red'> ERROR - You have not confirmed your account, check your email</p>";
                 }
             } else {
                 $sErrorMessage = "<p style='color:red'> ERROR - Wrong password or email</p>";
@@ -45,6 +45,8 @@ if (isset($_POST['customerEmail']) && isset($_POST['customerPassword'])) {
             $sErrorMessage = "<p style='color:red'> ERROR - Wrong password or email</p>";
         }
     }
+}else{
+    $sErrorMessage = "<p style='color:red'> ERROR - Wrong password or email</p>";
 }
 
 ?>

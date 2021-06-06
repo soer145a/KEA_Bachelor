@@ -50,6 +50,8 @@ if (isset($_POST['addOnId'])) {
         );
         $_SESSION['cartAddOns'][0] = $aAddOnArray;
     }
+}else{
+    header("Location: ../index.php");
 }
 //If failed, display why and echo the data/response
 $aResponse = array("error" => false);

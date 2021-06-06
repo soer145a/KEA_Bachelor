@@ -46,6 +46,8 @@ if (isset($_POST['productId'])) {
         );
         $_SESSION['cartProducts'][0] = $aProductArray;
     }
+}else{
+    header("Location: ../index.php");
 }
 $aResponse = array("error" => false);
 //Returning some data for our javascript to use

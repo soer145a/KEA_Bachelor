@@ -26,6 +26,8 @@ if (isset($_POST['customerPassword'])) {
     $sData = reset($_POST);
     $sCustomerUpdateSql = "UPDATE `customers` SET `$sColumnToUpdate` = \"$sData\" WHERE customer_id = \"$customerId\"";
     $oDbConnection->query($sCustomerUpdateSql);
+}else {
+    header("Location: ../profile.php");
 }
 //Send the user back to the profile page
 header("Location: ../profile.php");

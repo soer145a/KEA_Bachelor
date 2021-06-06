@@ -28,6 +28,8 @@ if (isset($_POST['itemId'])) {
             }
         }
     }
+}else{
+    header("Location: ../index.php");
 }
 //Respond back
 echo json_encode($aResponse);

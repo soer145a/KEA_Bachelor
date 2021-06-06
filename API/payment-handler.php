@@ -23,7 +23,7 @@ if (!isset($_SESSION['loginStatus'])) {
     //The default setting for wheter a customer has confirmed their account or not
     $nCustomerConfirmed = 0;
     //Querying using the prepare statement for securing against sql injections
-    $oCustomerInsertSql = $oDbConnection->prepare("INSERT INTO customers (customer_id ,customer_first_name, customer_last_name, customer_company_name, customer_email, customer_password, customer_cvr, customer_city, customer_address, customer_country,customer_postcode,customer_phone, customer_confirm_code, customer_confirmed) VALUES ( null,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+    $oCustomerInsertSql = $oDbConnection->prepare("INSERT INTO customers (customer_id ,customer_first_name, customer_last_name, customer_company_name, customer_email, customer_password, customer_company_cvr, customer_city, customer_address, customer_country,customer_postcode,customer_phone, customer_confirm_code, customer_confirmed) VALUES ( null,?,?,?,?,?,?,?,?,?,?,?,?,?)");
     $oCustomerInsertSql->bind_param("ssssssssssssi", $sCustomerFirstName, $sCustomerLastName, $sCompanyName, $sCustomerEmail, $customerPasswordHashed, $sCompanyCvr, $sCompanyCity, $sCompanyStreet, $sCompanyCountry, $sCompanyZip, $sCustomerPhone, $nCustomerConfirmCode, $nCustomerConfirmed);
     $oCustomerInsertSql->execute();
     //Getting the ID of the newly created customer
