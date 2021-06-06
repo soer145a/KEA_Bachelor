@@ -45,6 +45,8 @@ if (isset($_POST['customerEmail']) && isset($_POST['customerPassword'])) {
             $sErrorMessage = "<p style='color:red'> ERROR - Wrong password or email</p>";
         }
     }
+}else{
+    $sErrorMessage = "<p style='color:red'> ERROR - Wrong password or email</p>";
 }
 
 ?>
