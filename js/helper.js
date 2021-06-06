@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   toggleDropdown();
   itemSelector();
   toggleInfoBox();
+  handleCarouselScroll()
 });
 
 function updateSliderButton() {
@@ -208,32 +209,22 @@ function toggleInfoBox() {
   }
 }
 
-// function scrollToItem(itemPosition, numItems, scroller) {
-//     scroller.scrollTo({
-//         scrollLeft: Math.floor(
-//             scroller.scrollWidth * (itemPosition / numItems)
-//         ),
-//         behavior: "smooth",
-//     });
-// }
+function handleCarouselScroll() {
+ console.log("handleCarouselScroll()")
+ let options = {
+     root: document.querySelector(".slider"),
+     rootMargin: "0px",
+     threshold: 1.0
+ }
 
-// function getSliderDotElements() {
-//     if (document.querySelector(".slider-dots__dot-element") !== null) {
-//         let aSliderDotElements = document.querySelectorAll(
-//             ".slider-dots__dot-element"
-//         );
+ let target = document.querySelector("#card-2")
+ 
 
-//         for (let i = 0; i < aSliderDotElements.length; i++) {}
-//     }
-// }
-// function isInViewport(element) {
-//     const rect = element.getBoundingClientRect();
-//     return (
-//         rect.top >= 0 &&
-//         rect.left >= 0 &&
-//         rect.bottom <=
-//             (window.innerHeight || document.documentElement.clientHeight) &&
-//         rect.right <=
-//             (window.innerWidth || document.documentElement.clientWidth)
-//     );
-// }
+ let observer = new IntersectionObserver((e) => {
+     console.log(e)
+     //In this callback find which card is in focus by looking at the position of the middle card
+     return;
+ },options)
+
+ observer.observe(target);
+}
