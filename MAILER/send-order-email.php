@@ -92,7 +92,7 @@ try {
 
     //Do a window relocate after the email is sent
     //This is not the optimal usage, since the customer might see a split second of the email sender
-    echo "<script>window.location.assign(window.location.protocol + '/KEA_Bachelor/confirmOrder.php');</script>";
+    echo "<script>window.location.assign(window.location.protocol + '/KEA_Bachelor/confirm-order.php');</script>";
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$oMail->ErrorInfo}";
 }

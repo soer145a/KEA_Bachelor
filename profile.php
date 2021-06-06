@@ -198,37 +198,38 @@ $sApiKey = "";
                             <div class="customer-information-container">
                                 <h4 class="section-subheader">Company Information</h4>
                                 <div class="customer-information-wrapper">
-                                    <div class="customer-information__item customer-information__company-name">
+                                    <div class="customer-information__item customer-information__customer_company_name">
                                         <p class="section-paragraph customer-information__item__text"><?= $sCompanyName ?></p>
                                         <span class="customer-information__item__icon-outer" onclick="editInfo('<?= $sCompanyName ?>', 'string', 'customer_company_name')">
                                             <span class="customer-information__item__icon-inner "></span>
                                         </span>
                                     </div>
-                                    <div class="customer-information__item customer-information__cvr">
-                                        <p class="section-paragraph customer-information__item__text">CVR: <?= $sCompanyCvr ?></p>
-                                        <span class="customer-information__item__icon-outer" onclick="editInfo( '<?= $sCompanyCvr ?>', 'cvr', 'customer_cvr')">
+                                    <div class="customer-information__item customer-information__customer_company_cvr">
+                                        <p class="section-paragraph customer-information__item__text"><?= $sCompanyCvr ?></p></span>
+
+                                        <span class="customer-information__item__icon-outer" onclick="editInfo( '<?= $sCompanyCvr ?>', 'cvr', 'customer_company_cvr')">
                                             <span class="customer-information__item__icon-inner "></span>
                                         </span>
                                     </div>
-                                    <div class="customer-information__item customer-information__streetname">
+                                    <div class="customer-information__item customer-information__customer_address">
                                         <p class="section-paragraph customer-information__item__text"><?= $sCustomerStreet ?></p>
                                         <span class="customer-information__item__icon-outer" onclick="editInfo( '<?= $sCustomerStreet ?>', 'string', 'customer_address')">
                                             <span class="customer-information__item__icon-inner "></span>
                                         </span>
                                     </div>
-                                    <div class="customer-information__item customer-information__zipcode">
+                                    <div class="customer-information__item customer-information__customer_postcode">
                                         <p class="section-paragraph customer-information__item__text"><?= $sCustomerZip ?></p>
                                         <span class="customer-information__item__icon-outer" onclick="editInfo( '<?= $sCustomerZip ?>', 'string', 'customer_postcode')">
                                             <span class="customer-information__item__icon-inner "></span>
                                         </span>
                                     </div>
-                                    <div class="customer-information__item customer-information__city">
+                                    <div class="customer-information__item customer-information__customer_city">
                                         <p class="section-paragraph customer-information__item__text"><?= $sCustomerCity ?></p>
                                         <span class="customer-information__item__icon-outer" onclick="editInfo('<?= $sCustomerCity ?>', 'string', 'customer_city')">
                                             <span class="customer-information__item__icon-inner "></span>
                                         </span>
                                     </div>
-                                    <div class="customer-information__item customer-information__country">
+                                    <div class="customer-information__item customer-information__customer_country">
                                         <p class="section-paragraph customer-information__item__text"><?= $sCustomerCountry ?></p>
                                         <span class="customer-information__item__icon-outer" onclick="editInfo('<?= $sCustomerCountry ?>', 'string', 'customer_country')">
                                             <span class="customer-information__item__icon-inner "></span>
@@ -239,26 +240,26 @@ $sApiKey = "";
                             <div class="customer-information-container">
                                 <h4 class="section-subheader">Contact Person</h4>
                                 <div class="customer-information-wrapper">
-                                    <div class="customer-information__item customer-information__firstname">
+                                    <div class="customer-information__item customer-information__customer_first_name">
                                         <p class="section-paragraph customer-information__item__text"><?= $sCustomerFirstName ?></p>
                                         <span class="customer-information__item__icon-outer" onclick="editInfo('<?= $sCustomerFirstName ?>', 'string', 'customer_first_name')">
                                             <span class="customer-information__item__icon-inner "></span>
                                         </span>
                                     </div>
-                                    <div class="customer-information__item customer-information__lastname">
+                                    <div class="customer-information__item customer-information__customer_last_name">
                                         <p class="section-paragraph customer-information__item__text"><?= $sCustomerLastName ?></p>
                                         <span class="customer-information__item__icon-outer" onclick="editInfo('<?= $sCustomerLastName ?>', 'string', 'customer_last_name')">
                                             <span class="customer-information__item__icon-inner "></span>
                                         </span>
                                     </div>
-                                    <div class="customer-information__item customer-information__email">
+                                    <div class="customer-information__item customer-information__customer_email">
                                         <p class="section-paragraph customer-information__item__text"><?= $sCustomerEmail ?></p>
                                         <span class="customer-information__item__icon-outer" onclick="editInfo('<?= $sCustomerEmail ?>', 'email', 'customer_email')">
                                             <span class="customer-information__item__icon-inner "></span>
                                         </span>
 
                                     </div>
-                                    <div class="customer-information__item customer-information__phone">
+                                    <div class="customer-information__item customer-information__customer_phone">
                                         <p class="section-paragraph customer-information__item__text"><?= $sCustomerPhone ?></p>
                                         <span class="customer-information__item__icon-outer" onclick="editInfo('<?= $sCustomerPhone ?>', 'phone', 'customer_phone')">
                                             <span class="customer-information__item__icon-inner "></span>

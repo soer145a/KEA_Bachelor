@@ -3,6 +3,9 @@ session_start();
 include_once("../db-connection/connection.php");
 //Get the customer id from the session
 $customerId = $_SESSION['customerId'];
+
+$_POST = json_decode(file_get_contents("php://input"), true); //make json object an assoc array
+
 //A unique check for updating the customer password
 if (isset($_POST['customerPassword'])) {
     //Get the 2 passwords from the frontend
@@ -19,15 +22,19 @@ if (isset($_POST['customerPassword'])) {
         $sCustomerPasswordHashed = password_hash($sNewPassword, PASSWORD_DEFAULT);
         $sCustomerUpdateSql = "UPDATE `customers` SET `customer_password` = \"$sCustomerPasswordHashed\" WHERE customer_id = \"$customerId\"";
         $oDbConnection->query($sCustomerUpdateSql);
+        $aResponse = array("customerUpdated" => true, "error" => "None");
+    } else {
+        $aResponse = array("customerUpdated" => false, "error" => "Wrong password");
     }
-} else if (isset($_POST)) {
+} else if (isset($_POST['whatToUpdate'])) {
     //for the other data records that needs to be changed
-    $sColumnToUpdate = key($_POST);
-    $sData = reset($_POST);
+    $sColumnToUpdate = $_POST['whatToUpdate'];
+    $sData = $_POST['data'];
     $sCustomerUpdateSql = "UPDATE `customers` SET `$sColumnToUpdate` = \"$sData\" WHERE customer_id = \"$customerId\"";
     $oDbConnection->query($sCustomerUpdateSql);
-}else {
-    header("Location: ../profile.php");
+    $aResponse = array("customerUpdated" => true, "error" => "None");
+} else {
+    $aResponse = array("customerUpdated" => false, "error" => "No field set");
 }
-//Send the user back to the profile page
-header("Location: ../profile.php");
+echo json_encode($aResponse);
+    //Send the user back to the profile page

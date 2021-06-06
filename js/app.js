@@ -220,9 +220,7 @@ function editInfo(sInputValue, sValidateType, sInputName) {
   //form element
   let eForm = document.createElement("form");
   eForm.setAttribute("class", "customer-information-form");
-  eForm.setAttribute("method", "post");
-  eForm.setAttribute("onsubmit", "return inputValidate();");
-  eForm.setAttribute("action", "api/update-customer-data.php");
+  eForm.setAttribute("onsubmit", `event.preventDefault();`);
 
   //input element
   let eInput = document.createElement("input");
@@ -237,15 +235,12 @@ function editInfo(sInputValue, sValidateType, sInputName) {
   let eSubmitButton = document.createElement("button");
   eSubmitButton.setAttribute("class", "form__button form__button--submit");
   eSubmitButton.setAttribute("type", "submit");
-
+  eSubmitButton.setAttribute("onclick", `updateCustomerInfo("${sInputName}")`);
   //Cancel button
   let eCancelButton = document.createElement("button");
   eCancelButton.setAttribute("class", "form__button form__button--cancel");
   eCancelButton.setAttribute("type", "button");
-  eCancelButton.setAttribute(
-    "onclick",
-    `cancelEdit("${sInputValue}", "${sValidateType}", "${sInputName}")`
-  );
+  eCancelButton.setAttribute("onclick", `cancelEdit()`);
 
   //Append button and input inside of form
   eForm.appendChild(eInput);
@@ -254,6 +249,40 @@ function editInfo(sInputValue, sValidateType, sInputName) {
 
   //Append new element inside of parent element
   eParentElement.appendChild(eForm);
+}
+
+function updateCustomerInfo(sInputName) {
+  let eInput = document.getElementsByName(sInputName)[0];
+  if (eInput.classList.contains("invalid")) {
+    //make error
+  } else {
+    postData("api/update-customer-data.php", {
+      data: eInput.value,
+      whatToUpdate: sInputName,
+    }).then((jResponse) => {
+      if (jResponse.customerUpdated) {
+        eProfileInfo = document.getElementsByClassName(
+          "customer-information__" + sInputName
+        )[0];
+
+        const eForm = eProfileInfo.querySelector("form");
+        //remove form from DOM
+        eForm.remove();
+        //Find all elements with hidden class inside of root element
+        let aHiddenElements = eProfileInfo.querySelectorAll(
+          ".customer-information__item--hidden"
+        );
+        //remove hidden class from elements
+        for (let i = 0; i < aHiddenElements.length; i++) {
+          aHiddenElements[i].classList.remove(
+            "customer-information__item--hidden"
+          );
+        }
+        let eProfileInfoPTag = eProfileInfo.querySelector("p");
+        eProfileInfoPTag.textContent = eInput.value;
+      }
+    });
+  }
 }
 
 function cancelEdit() {
