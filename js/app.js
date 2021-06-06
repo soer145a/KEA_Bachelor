@@ -55,7 +55,7 @@ function inputValidate() {
         break;
 
       case "string":
-        console.log("enters");
+        
         sInputData = aInputsToValidate[i].value;
 
         if (sInputData.length < 1) {
@@ -108,7 +108,7 @@ function inputValidate() {
             whatToCheck: "customer_company_cvr",
             data: sInputData,
           }).then((jResponse) => {
-            console.log(jResponse);
+            
             if (!jResponse.dataExists) {
               aInputsToValidate[i].classList.add("valid");
               aInputsToValidate[i].classList.remove("invalid");
