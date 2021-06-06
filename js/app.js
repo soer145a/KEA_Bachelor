@@ -205,7 +205,7 @@ function toggleMobileNavigation() {
   }
 }
 
-function editInfo(sInputValue, sValidateType, sInputName) {
+function editInfo(sValidateType, sInputName) {
   let eParentElement = event.target.parentElement;
   let aParentElementChildren = eParentElement.children;
   //hide existing elements
@@ -214,6 +214,11 @@ function editInfo(sInputValue, sValidateType, sInputName) {
       "customer-information__item--hidden"
     );
   }
+
+  let eProfileInfo = document.getElementsByClassName(
+    "customer-information__" + sInputName
+  )[0];
+  let eProfileInfoPTag = eProfileInfo.querySelector("p").textContent;
   //Create new dom element
 
   //form element
@@ -228,7 +233,7 @@ function editInfo(sInputValue, sValidateType, sInputName) {
   eInput.setAttribute("data-validate", `${sValidateType}`);
   eInput.setAttribute("type", "text");
   eInput.setAttribute("name", `${sInputName}`);
-  eInput.setAttribute("value", `${sInputValue}`);
+  eInput.setAttribute("value", `${eProfileInfoPTag}`);
 
   //Submit button
   let eSubmitButton = document.createElement("button");
@@ -260,7 +265,7 @@ function updateCustomerInfo(sInputName) {
       whatToUpdate: sInputName,
     }).then((jResponse) => {
       if (jResponse.customerUpdated) {
-        eProfileInfo = document.getElementsByClassName(
+        let eProfileInfo = document.getElementsByClassName(
           "customer-information__" + sInputName
         )[0];
 
