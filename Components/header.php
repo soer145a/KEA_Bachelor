@@ -90,7 +90,10 @@ function headerComp($sActiveLink)
                 </div>
             </div>
         </nav>
-    </header>";
+    </header>
+    <div class='message-box message-box--hidden' id='messageBox'>
+        <p class='message-box__text' id='messageText'>ERROR - DU er en bums</p>
+    </div>";
     //Return the newly assembled block of html
     return $sHeaderHtmlComp;
 }

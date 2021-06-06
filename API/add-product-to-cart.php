@@ -3,7 +3,7 @@ session_start();
 include("../db-connection/connection.php");
 
 $_POST = json_decode(file_get_contents("php://input"), true); //make json object an assoc array from post data
-$aResponse = [];
+
 if (isset($_POST['productId'])) {
     //If the product id is sent correctly, gather the data from database and create the variables
     $sSubscriptionId = $_POST['subscriptionId'];
@@ -46,9 +46,10 @@ if (isset($_POST['productId'])) {
         );
         $_SESSION['cartProducts'][0] = $aProductArray;
     }
+    $aResponse = array("itemAddedToCart" => true, "error" => "none");
+//Returning some data for our javascript to use
+    echo json_encode($aResponse);
 }else{
     header("Location: ../index.php");
 }
-$aResponse = array("error" => false);
-//Returning some data for our javascript to use
-echo json_encode($aResponse);
+

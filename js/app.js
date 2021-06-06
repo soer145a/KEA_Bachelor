@@ -22,6 +22,7 @@ function inputValidate() {
         let sPhoneRegEx = /^\+(?:[0-9]●?){6,16}[0-9]$/;
 
         if (!sPhoneRegEx.test(sInputData)) {
+          showMessage("Phone should be between 6-16 characters and start with a +", true)
           aInputsToValidate[i].classList.add("invalid");
           aInputsToValidate[i].classList.remove("valid");
         } else {
@@ -38,6 +39,7 @@ function inputValidate() {
         if (!sEmailRegEx.test(sInputData)) {
           aInputsToValidate[i].classList.remove("valid");
           aInputsToValidate[i].classList.add("invalid");
+          showMessage("The email does not meet requirements", true);
         } else {
           postData("api/check-db-for-existing-entries.php", {
             whatToCheck: "customer_email",
@@ -49,6 +51,7 @@ function inputValidate() {
             } else {
               aInputsToValidate[i].classList.remove("valid");
               aInputsToValidate[i].classList.add("invalid");
+              showMessage("This email already exists", true);
             }
           });
         }
@@ -75,6 +78,7 @@ function inputValidate() {
 
         if (aInputsToValidate[i].name !== "customerPasswordConfirm") {
           if (!sPasswordRegEx.test(sInputData)) {
+            showMessage("Password should be between 6-30 characters and include 1 uppercase, 1 lowercase, 1 special character",true);
             aInputsToValidate[i].classList.add("invalid");
             aInputsToValidate[i].classList.remove("valid");
           } else {
@@ -89,6 +93,7 @@ function inputValidate() {
             aInputsToValidate[i].classList.add("valid");
             aInputsToValidate[i].classList.remove("invalid");
           } else {
+            showMessage("Passwords do not match",true)
             aInputsToValidate[i].classList.add("invalid");
             aInputsToValidate[i].classList.remove("valid");
           }
@@ -100,6 +105,7 @@ function inputValidate() {
         let sCvrRegEx = /^(\d){8}$/;
 
         if (!sCvrRegEx.test(sInputData)) {
+          showMessage("CRV must be 8 numbers", true);
           aInputsToValidate[i].classList.add("invalid");
           aInputsToValidate[i].classList.remove("valid");
         } else {
@@ -111,6 +117,7 @@ function inputValidate() {
               aInputsToValidate[i].classList.add("valid");
               aInputsToValidate[i].classList.remove("invalid");
             } else {
+              showMessage("CVR already exists",true);
               aInputsToValidate[i].classList.add("invalid");
               aInputsToValidate[i].classList.remove("valid");
             }
@@ -121,6 +128,7 @@ function inputValidate() {
   }
   if (event.type == "submit") {
     if (eFormToValidate.querySelectorAll(".invalid").length > 0) {
+      showMessage("One or more fields has not been filled out correctly", true);
       return false;
     } else {
       return true;
@@ -150,6 +158,8 @@ function checkPassword() {
 
   if (CustomerPassword == CustomerPasswordConfirm) {
     document.querySelector("#deleteButton").removeAttribute("disabled");
+  } else {
+    showMessage("Your passwords do not match", true);
   }
 }
 function removeDeleteModals() {
@@ -173,11 +183,6 @@ async function postData(sUrl = "", jData = {}) {
   return response.json();
 }
 
-function showUpdateForm() {
-  let eCustomerUpdateform = document.querySelector("#updateDataForm");
-  eCustomerUpdateform.classList.remove("hidden");
-  eCustomerUpdateform.classList.add("shown");
-}
 
 async function toggleAutoRenew(sCustomerProductId) {
   fetch(
@@ -258,7 +263,7 @@ function editInfo(sValidateType, sInputName) {
 function updateCustomerInfo(sInputName) {
   let eInput = document.getElementsByName(sInputName)[0];
   if (eInput.classList.contains("invalid")) {
-    //make error
+    
   } else {
     postData("api/update-customer-data.php", {
       data: eInput.value,
@@ -284,11 +289,31 @@ function updateCustomerInfo(sInputName) {
         }
         let eProfileInfoPTag = eProfileInfo.querySelector("p");
         eProfileInfoPTag.textContent = eInput.value;
+        switch (sInputName) {
+          case 'customer_first_name':
+            customerFirstNameHeader.textContent = eInput.value;
+              break;
+          case 'customer_last_name':
+            customerLastNameHeader.textContent = eInput.value;
+      }
+        showMessage("Your information has been updated", false);
       }
     });
   }
 }
-
+function showMessage(sMessage,bIsError) {
+  messageBox.classList.remove("message-box--hidden");
+  messageText.textContent = sMessage;
+  if (bIsError) {
+    messageBox.classList.add("message-box--red");
+  } else {
+    messageBox.classList.add("message-box--green");
+  }
+  setTimeout(() => {
+    messageBox.classList = "message-box message-box--hidden";
+    messageText.textContent = "";
+  },5000);
+}
 function cancelEdit() {
   let eRootElement = event.target.parentElement.parentElement;
 
@@ -339,10 +364,13 @@ function togglePaypalButton(bLoginStatus, nPrice) {
           },
           onApprove: function (data, actions) {
             return actions.order.capture().then(function () {
-              window.location.assign(
+              postData("api/start-purchase-session.php", {
+                confirmString: true,
+              }).then(window.location.assign(
                 window.location.protocol +
                   "/KEA_Bachelor/api/payment-handler.php"
-              );
+              ));
+              
             });
           },
         })

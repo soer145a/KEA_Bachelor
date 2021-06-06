@@ -67,7 +67,7 @@ $sApiKey = "";
     <main>
         <section id="profile">
             <div class="layout-container profile">
-                <h1 class="section-header profile__header">Welcome <span class=""><?= $sCustomerFirstName ?></span> <span><?= $sCustomerLastName ?></span></h1>
+                <h1 class="section-header profile__header">Welcome <span id="customerFirstNameHeader"><?= $sCustomerFirstName ?></span> <span id="customerLastNameHeader"><?= $sCustomerLastName ?></span></h1>
                 <div class="profile__main">
                     <div id="deleteModal" class="hidden delete-profile modal--delete">
                         <h2 class="section-header">Are you sure you want to delete your data?</h2>

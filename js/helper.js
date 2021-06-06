@@ -120,8 +120,13 @@ function addAddOnToCart(sAddOnId) {
     postData("api/add-addon-to-cart.php", {
       addOnId: sAddOnId,
       addOnAmount: nAddOnAmount,
+    }).then((jResponse) => {
+      if (jResponse.itemAddedToCart) {
+        showMessage("Addon added to cart succesfully", false);
+        updateCartCounter(false, nAddOnAmount, true);
+      }
     });
-    updateCartCounter(false, nAddOnAmount, true);
+    
   }
 }
 
@@ -153,8 +158,12 @@ function addProductToCart(sProductId, sButtonId) {
     postData("api/add-product-to-cart.php", {
       productId: sProductId,
       subscriptionId: sSubscriptionId,
+    }).then((jResponse) => {
+      if (jResponse.itemAddedToCart) {
+        showMessage("Product added to cart succesfully", false);
+        updateCartCounter(true, 0, true);
+      }
     });
-    updateCartCounter(true, 0, true);
   }
 }
 
