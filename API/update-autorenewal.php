@@ -1,5 +1,8 @@
 <?php
 session_start();
+if(!isset($_GET['customer-product-id'])){
+    header("Location: ../index.php");
+}
 $sCustomerProductId = $_GET['customer-product-id'];
 include_once("../db-connection/connection.php");
 //When toggling the autorenew on the customer products, we need to know which entry we are toggling
