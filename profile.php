@@ -130,71 +130,10 @@ $sApiKey = "";
                         </form>
                     </div>
                     <div class="customerInfoContainer">
-                        <?php
-                        $sCustomerProductHtml = "";
-                        $sCustomerProductSelectSql = "SELECT * FROM customer_products LEFT JOIN products ON customer_products.product_id  = products.product_id";
-                        $oCustomerProductResults = $oDbConnection->query($sCustomerProductSelectSql);
-
-                        while ($oCustomerProductRow = $oCustomerProductResults->fetch_object()) {
-                            //echo json_encode($oCustomerProductRow);
-
-                            $sCharsToReplace = array("<", ">");
-                            $sReplaceCharsWith = array("&lt;", "&gt;");
-                            $sEmbedLink = str_replace($sCharsToReplace, $sReplaceCharsWith, $oCustomerProductRow->embed_link);
-                            $sApiKey = $oCustomerProductRow->api_key;
-                            $sCustomerProductId = $oCustomerProductRow->customer_products_id;
-                            $oStartDate = new DateTime("@$oCustomerProductRow->subscription_start");
-                            $sCustomerProductStartDate = $oStartDate->format('Y-m-d');
-                            $oEndDate = new DateTime("@$oCustomerProductRow->subscription_end");
-                            $sCustomerProductEndDate = $oEndDate->format('Y-m-d');
-                            $nSubscriptionTimeLeft = $oCustomerProductRow->subscription_end - time();
-                            //echo $nSubscriptionTimeLeft/86400;
-                            $nSubscriptionDaysLeft = round($nSubscriptionTimeLeft / 86400);
-
-                            if ($nSubscriptionDaysLeft <= 0) {
-                                $sCustomerProductUpdateSql = "UPDATE customer_products SET subscription_active = 0 WHERE customer_products_id = \"$sCustomerProductId\"";
-                                $oDbConnection->query($sCustomerProductUpdateSql);
-                                $oCustomerProductRow->subscription_active = 0;
-                                $nSubscriptionDaysLeft = 0;
-                            }
-
-                            $nCustomerProductTotalDays = round($oCustomerProductRow->subscription_total_length / 86400);
-
-                            $sCustomerProductId = $oCustomerProductRow->customer_products_id;
-
-                            if ($oCustomerProductRow->subscription_autorenew) {
-                                $sAutoRenew = "On";
-                                $sButtonToggle = "Off";
-                            } else {
-                                $sAutoRenew = "Off";
-                                $sButtonToggle = "On";
-                            }
-
-
-                            $sProductName = $oCustomerProductRow->product_name;
-
-                            if ($oCustomerProductRow->subscription_active) {
-                                $sCustomerProductHtml = $sCustomerProductHtml . "<div class='profileCard'>
-                                                        <h1>$sProductName</h1>                                                        
-                                                        <div class='subInfo'>
-                                                            <p>FROM: $sCustomerProductStartDate || TO: $sCustomerProductEndDate</p>
-                                                            <p>Total days: $nCustomerProductTotalDays</p>
-                                                            <p>$nSubscriptionDaysLeft days left</p>
-                                                        </div>
-                                                        <p>Embed link:</p>
-                                                        <pre><code class='html'> $sEmbedLink</code></pre>
-                                                        <p>api Key:</p>
-                                                        <pre><code class='html'>$sApiKey</code></pre>
-                                                        <p>Auto renew subscription: <span><b>$sAutoRenew</b></span></p>
-                                                        <button onclick='toggleAutoRenew($sCustomerProductId)'>Switch Autorenew $sButtonToggle</button>
-                                                    </div>";
-                            }
-                        }
-                        echo $sCustomerProductHtml;
-                        ?>
                     </div>
                     <div class="account-information">
                         <div class="customer-information">
+                            <h2 class="section-header">Profile information</h2>
                             <div class="customer-information-container">
                                 <h4 class="section-subheader">Company Information</h4>
                                 <div class="customer-information-wrapper">
@@ -302,21 +241,94 @@ $sApiKey = "";
                             <button class="customer-information__button button button--red" onclick="showDeleteOption()">Delete account</button>
                         </div>
                         <div class="product-overview">
-                            <div class="product-card">
-                                <h4 class="section-header product-card__header">$sProductName</h3>
+                            <h2 class="section-header">Product overview</h2>
+                            <?php
+                            $sCustomerProductHtml = "";
+                            $sCustomerProductSelectSql = "SELECT * FROM customer_products LEFT JOIN products ON customer_products.product_id  = products.product_id";
+                            $oCustomerProductResults = $oDbConnection->query($sCustomerProductSelectSql);
+
+                            while ($oCustomerProductRow = $oCustomerProductResults->fetch_object()) {
+                                //echo json_encode($oCustomerProductRow);
+
+                                $sCharsToReplace = array("<", ">");
+                                $sReplaceCharsWith = array("&lt;", "&gt;");
+                                $sEmbedLink = str_replace($sCharsToReplace, $sReplaceCharsWith, $oCustomerProductRow->embed_link);
+                                $sApiKey = $oCustomerProductRow->api_key;
+                                $sCustomerProductId = $oCustomerProductRow->customer_products_id;
+                                $oStartDate = new DateTime("@$oCustomerProductRow->subscription_start");
+                                $sCustomerProductStartDate = $oStartDate->format('Y-m-d');
+                                $oEndDate = new DateTime("@$oCustomerProductRow->subscription_end");
+                                $sCustomerProductEndDate = $oEndDate->format('Y-m-d');
+                                $nSubscriptionTimeLeft = $oCustomerProductRow->subscription_end - time();
+                                //echo $nSubscriptionTimeLeft/86400;
+                                $nSubscriptionDaysLeft = round($nSubscriptionTimeLeft / 86400);
+
+                                if ($nSubscriptionDaysLeft <= 0) {
+                                    $sCustomerProductUpdateSql = "UPDATE customer_products SET subscription_active = 0 WHERE customer_products_id = \"$sCustomerProductId\"";
+                                    $oDbConnection->query($sCustomerProductUpdateSql);
+                                    $oCustomerProductRow->subscription_active = 0;
+                                    $nSubscriptionDaysLeft = 0;
+                                }
+
+                                $nCustomerProductTotalDays = round($oCustomerProductRow->subscription_total_length / 86400);
+
+                                $sCustomerProductId = $oCustomerProductRow->customer_products_id;
+
+                                if ($oCustomerProductRow->subscription_autorenew) {
+                                    $sAutoRenew = "On";
+                                    $sButtonToggle = "Off";
+                                } else {
+                                    $sAutoRenew = "Off";
+                                    $sButtonToggle = "On";
+                                }
+
+
+                                $sProductName = $oCustomerProductRow->product_name;
+
+                                if ($oCustomerProductRow->subscription_active) {
+                                    $sCustomerProductHtml = $sCustomerProductHtml . "<div class='product-card'>
+                                                                                        <h4 class='section-header product-card__header'>$sProductName<span class='product-card__arrow-outer'><span class='product-card__arrow-inner'></span></span></h3>
+                                                                                            <div class='subscription-info'>
+                                                                                                <h5 class='section-subheader product-card__subheader'>Subscription Period:</h5>
+                                                                                                <p class='section-paragraph product-card__text'>FROM: $sCustomerProductStartDate || TO: $sCustomerProductEndDate</p>
+                                                                                                <p class='section-paragraph product-card__text'><span class='product-card__title'>Total days:</span> $nCustomerProductTotalDays</p>
+                                                                                                <p class='section-paragraph product-card__text'><span class='product-card__title'>Active days remaining:</span> $nSubscriptionDaysLeft</p>
+                                                                                            </div>
+                                                                                            <h5 class='section-subheader product-card__subheader'>Embed Link</h5>
+                                                                                            <div class='product-card__container'>
+                                                                                                <code class='html'> $sEmbedLink</code>
+                                                                                                <!--<pre><code class='html'> $sEmbedLink</code></pre> -->
+                                                                                            </div>
+                                                                                            <h5 class='section-subheader product-card__subheader'>API-key</h5>
+                                                                                            <div class='product-card__container'>
+                                                                                                <pre><code class='html'>$sApiKey</code></pre>
+                                                                                            </div>
+                                                                                            <p>Auto renew subscription: <span><b>$sAutoRenew</b></span></p>
+                                                                                            <button class='button button--purple' onclick='toggleAutoRenew($sCustomerProductId)'>Switch Autorenew $sButtonToggle</button>
+                                                                                    </div>";
+                                }
+                            }
+                            echo $sCustomerProductHtml;
+                            ?>
+                            <!-- <div class='product-card'>
+                                <h4 class='section-header product-card__header'>$sProductName</h3>
                                     <div class='subscription-info'>
-                                        <h5 class="section-subheader product-card__subheader">Subscription Period:</h5>
-                                        <p class="section-paragraph product-card__text">FROM: $sCustomerProductStartDate || TO: $sCustomerProductEndDate</p>
-                                        <p class="section-paragraph product-card__text"><span class="product-card__title">Total days:</span> $nCustomerProductTotalDays</p>
-                                        <p class="section-paragraph product-card__text"><span class="product-card__title">Active days remaining:</span> $nSubscriptionDaysLeft</p>
+                                        <h5 class='section-subheader product-card__subheader'>Subscription Period:</h5>
+                                        <p class='section-paragraph product-card__text'>FROM: $sCustomerProductStartDate || TO: $sCustomerProductEndDate</p>
+                                        <p class='section-paragraph product-card__text'><span class='product-card__title'>Total days:</span> $nCustomerProductTotalDays</p>
+                                        <p class='section-paragraph product-card__text'><span class='product-card__title'>Active days remaining:</span> $nSubscriptionDaysLeft</p>
                                     </div>
-                                    <h5 class="section-subheader product-card__subheader">Embed Link</h5>
-                                    <pre><code class='html'> $sEmbedLink</code></pre>
-                                    <h5 class="section-subheader product-card__subheader">API-key</h5>
-                                    <pre><code class='html'>$sApiKey</code></pre>
+                                    <h5 class='section-subheader product-card__subheader'>Embed Link</h5>
+                                    <div class="product-card__container">
+                                        <pre><code class='html'> $sEmbedLink</code></pre>
+                                    </div>
+                                    <h5 class='section-subheader product-card__subheader'>API-key</h5>
+                                    <div class="product-card__container">
+                                        <pre><code class='html'>$sApiKey</code></pre>
+                                    </div>
                                     <p>Auto renew subscription: <span><b>$sAutoRenew</b></span></p>
-                                    <button class="button button--purple" onclick='toggleAutoRenew($sCustomerProductId)'>Switch Autorenew $sButtonToggle</button>
-                            </div>
+                                    <button class='button button--purple' onclick='toggleAutoRenew($sCustomerProductId)'>Switch Autorenew $sButtonToggle</button>
+                            </div> -->
                         </div>
                     </div>
 

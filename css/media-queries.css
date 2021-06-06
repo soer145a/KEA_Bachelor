@@ -112,9 +112,20 @@
         display: flex;
         flex-direction: column;
     }
-    .customer-information {
+
+    .account-information {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .customer-information, .product-overview {
         width: 49%;
     }
+
+    .customer-information {
+        margin-top: 0;
+        order: 0;
+    }
+   
     .delete-profile__button-container {
         justify-content: center;
     }
