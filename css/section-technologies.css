@@ -40,7 +40,7 @@
 .slider {
     display: flex;
     flex-direction: row;
-    
+    overflow: scroll;
     justify-content: space-between;
     scroll-snap-type: y mandatory;
     border-radius: 20px;
