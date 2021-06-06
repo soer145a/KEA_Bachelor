@@ -300,7 +300,25 @@ $sApiKey = "";
                             </div>
                             <button class="customer-information__button button button--red" onclick="showDeleteOption()">Delete account</button>
                         </div>
+                        <div class="product-overview">
+                            <div class="product-card">
+                                <h4 class="section-header product-card__header">$sProductName</h3>
+                                    <div class='subscription-info'>
+                                        <h5 class="section-subheader product-card__subheader">Subscription Period:</h5>
+                                        <p class="section-paragraph product-card__text">FROM: $sCustomerProductStartDate || TO: $sCustomerProductEndDate</p>
+                                        <p class="section-paragraph product-card__text"><span class="product-card__title">Total days:</span> $nCustomerProductTotalDays</p>
+                                        <p class="section-paragraph product-card__text"><span class="product-card__title">Active days remaining:</span> $nSubscriptionDaysLeft</p>
+                                    </div>
+                                    <h5 class="section-subheader product-card__subheader">Embed Link</h5>
+                                    <pre><code class='html'> $sEmbedLink</code></pre>
+                                    <h5 class="section-subheader product-card__subheader">API-key</h5>
+                                    <pre><code class='html'>$sApiKey</code></pre>
+                                    <p>Auto renew subscription: <span><b>$sAutoRenew</b></span></p>
+                                    <button class="button button--purple" onclick='toggleAutoRenew($sCustomerProductId)'>Switch Autorenew $sButtonToggle</button>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </section>

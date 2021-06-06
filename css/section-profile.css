@@ -196,3 +196,29 @@
 .customer-password-form__button {
     align-self: center;
 }
+
+/* Product overview */
+
+.product-card {
+    border: 2px solid var(--purple-light);; 
+    border-radius: 10px;
+    padding: 16px;  
+}  
+
+.product-card__header {
+    color: var(--purple-dark);
+    font-size: 1.5rem;
+}
+
+.product-card__subheader {
+    color: var(--purple-light);
+    font-size: 1rem;
+}
+
+.product-card__text {
+    
+}
+
+.product-card__title {
+    font-weight: bold;
+}

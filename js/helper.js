@@ -210,21 +210,23 @@ function toggleInfoBox() {
 }
 
 function handleCarouselScroll() {
- console.log("handleCarouselScroll()")
- let options = {
-     root: document.querySelector(".slider"),
-     rootMargin: "0px",
-     threshold: 1.0
- }
+    if(document.querySelector(".slider") !== null) {
+         console.log("handleCarouselScroll()")
+         let options = {
+             root: document.querySelector(".slider"),
+             rootMargin: "0px",
+             threshold: 1.0
+         }
+     
+         let target = document.querySelector("#card-2")
 
- let target = document.querySelector("#card-2")
- 
-
- let observer = new IntersectionObserver((e) => {
-     console.log(e)
-     //In this callback find which card is in focus by looking at the position of the middle card
-     return;
- },options)
-
- observer.observe(target);
+     
+         let observer = new IntersectionObserver((e) => {
+             console.log(e)
+             //In this callback find which card is in focus by looking at the position of the middle card
+             return;
+         },options)
+     
+         observer.observe(target);
+    }
 }
