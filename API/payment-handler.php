@@ -2,6 +2,11 @@
 session_start();
 include("../db-connection/connection.php");
 include("./create-pdf-receipt.php");
+if(!isset($_SESSION['purchaseProcess'])){
+    header("Location: ../index.php");
+    exit();
+}
+
 //the iframe embed that gates off customers which license has run out
 $sEmbed = "<iframe src='http://127.0.0.1/KEA_Bachelor/deploys/product.php?key=INSERT KEY HERE' frameborder='0'></iframe>";
 if (!isset($_SESSION['loginStatus'])) {
@@ -43,7 +48,7 @@ if (!isset($_SESSION['loginStatus'])) {
         "companyStreet" => $oCustomerRow->customer_address,
         "companyCity" => $oCustomerRow->customer_city,
         "companyZip" => $oCustomerRow->customer_postcode,
-        "companyCvr" => $oCustomerRow->customer_cvr,
+        "companyCvr" => $oCustomerRow->customer_company_cvr,
         "customerEmail" => $oCustomerRow->customer_email,
         "customerFirstName" => $oCustomerRow->customer_first_name,
         "customerLastName" =>  $oCustomerRow->customer_last_name
@@ -59,7 +64,7 @@ $oOrderInsertSql->execute();
 //Getting the order id when data is inserted
 $sOrderId = $oOrderInsertSql->insert_id;
 $_SESSION['orderId'] = $sOrderId;
-//Creating an order with tge current time in epoch
+//Creating an order with the current time in epoch
 createReceipt($nCurrentDate);
 
 if (isset($_SESSION['cartProducts'])) {
@@ -85,7 +90,7 @@ if (isset($_SESSION['cartProducts'])) {
         $sCustomerProductInsertSql->execute();
 
         //Create the link to the order_products
-        $sOrderProductInsertSql = $oDbConnection->prepare("INSERT INTO order_products (order_products_id, order_id, product_id, subscription_id, payed_price) VALUES(null,?,?,?,?)");
+        $sOrderProductInsertSql = $oDbConnection->prepare("INSERT INTO order_products (order_products_id, order_id, product_id, subscription_id, order_products_payed_price) VALUES(null,?,?,?,?)");
         $sOrderProductInsertSql->bind_param("iiii", $sOrderId, $sProductId, $sSubscriptionId, $nProductPrice);
         $sOrderProductInsertSql->execute();
     }
@@ -125,7 +130,7 @@ if (isset($_SESSION['cartAddOns'])) {
             $sCustomerAddonInsertSql->insert_id;
         }
         //Create a link to the order addons table with the addon
-        $sOrderAddonInsertSql = $oDbConnection->prepare("INSERT INTO order_addons (order_addons_id, order_id, addon_id, payed_price, addon_amount) VALUES(null,?,?,?,?)");
+        $sOrderAddonInsertSql = $oDbConnection->prepare("INSERT INTO order_addons (order_addons_id, order_id, addon_id, order_addon_payed_price, addon_amount) VALUES(null,?,?,?,?)");
         $sOrderAddonInsertSql->bind_param("iiss", $sOrderId, $sAddOnId, $nAddonTotalprice, $nAddOnAmount);
         $sOrderAddonInsertSql->execute();
         $sOrderAddonInsertSql->insert_id;

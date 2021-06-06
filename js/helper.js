@@ -210,7 +210,7 @@ function toggleInfoBox() {
 }
 
 function handleCarouselScroll() {
- console.log("handleCarouselScroll()")
+ 
  let options = {
      root: document.querySelector(".slider"),
      rootMargin: "0px",
@@ -221,7 +221,7 @@ function handleCarouselScroll() {
  
 
  let observer = new IntersectionObserver((e) => {
-     console.log(e)
+  
      //In this callback find which card is in focus by looking at the position of the middle card
      return;
  },options)

@@ -23,7 +23,7 @@ if (!isset($_SESSION['loginStatus'])) {
     $sCustomerLastName = $oCustomerRow->customer_last_name;
     $sCompanyName = $oCustomerRow->customer_company_name;
     $sCustomerEmail = $oCustomerRow->customer_email;
-    $sCompanyCvr = $oCustomerRow->customer_cvr;
+    $sCompanyCvr = $oCustomerRow->customer_company_cvr;
     $sCustomerCity = $oCustomerRow->customer_city;
     $sCustomerStreet = $oCustomerRow->customer_address;
     $sCustomerCountry = $oCustomerRow->customer_country;
@@ -45,7 +45,7 @@ if (isset($_POST['confirmPassword'])) {
         if (password_verify($sCustomerPassword, $sCustomerDbPassword)) {
             header("Location: api/delete-user-information.php");
         } else {
-            $sErrorMessage = "<p style='color:red'> ERROR - You don' fuckd up kiddo</p>";
+            $sErrorMessage = "<p style='color:red'> ERROR - Wrong password or email</p>";
             $bShowFlag = true;
         }
     }
@@ -296,7 +296,7 @@ $sApiKey = "";
                                         <input id="oldPassword" class="customer-password-form__input" data-validate="password" type="password" name="customerPassword" placeholder="Type your old password">
                                     </div>
                                     <button class="button button--yellow customer-password-form__button" type="submit">Change password</button>
-                                    <!-- <div class="errorMessage"></div> -->
+                                    <div class="errorMessage"></div>
                                 </form>
                             </div>
                             <button class="customer-information__button button button--red" onclick="showDeleteOption()">Delete account</button>
