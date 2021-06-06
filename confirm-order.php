@@ -8,7 +8,7 @@ $sFooterHtmlComp = footerComp();
 //If the order ID is not set, that means that no purchase was made, and we redirect the user back to the index page
 if (!isset($_SESSION['orderId'])) {
     header('Location: index.php');
-}
+} 
 
 $sProductName = "";
 $nTotalPrice = 0;
@@ -35,6 +35,7 @@ unset($_SESSION['cartAddOns']);
 unset($_SESSION['customerData']);
 unset($_SESSION['customerConfirmCode']);
 unset($_SESSION['orderId']);
+unset($_SESSION['purchaseProcess']);
 
 $sHeaderHtmlComp = headerComp('');
 //Depending on wheter we send the confirm email, we print a seperate message for the user

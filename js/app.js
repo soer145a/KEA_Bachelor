@@ -105,9 +105,10 @@ function inputValidate() {
           aInputsToValidate[i].classList.remove("valid");
         } else {
           postData("api/check-db-for-existing-entries.php", {
-            whatToCheck: "customer_cvr",
+            whatToCheck: "customer_company_cvr",
             data: sInputData,
           }).then((jResponse) => {
+            console.log(jResponse);
             if (!jResponse.dataExists) {
               aInputsToValidate[i].classList.add("valid");
               aInputsToValidate[i].classList.remove("invalid");
@@ -344,8 +345,9 @@ function togglePaypalButton(bLoginStatus, nPrice) {
               },
               onApprove: function (data, actions) {
                 return actions.order.capture().then(function () {
-                  document.querySelector(".account-details").submit();
-                });
+                  postData("api/start-purchase-session.php", {
+                    confirmString: true
+                  }).then(document.querySelector(".account-details").submit());                });
               },
             })
             .render("#paypal-button-container");
