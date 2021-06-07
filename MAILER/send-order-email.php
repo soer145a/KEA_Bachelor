@@ -55,7 +55,8 @@ $oMail = new PHPMailer(true);
 
 try {
     //Server settings
-    $oMail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+    // $oMail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+    $oMail->SMTPDebug = 0;                      // Enable verbose debug output
     $oMail->isSMTP();                                            // Send using SMTP
     $oMail->Host       = 'smtp.gmail.com';                       // Set the SMTP server to send through
     $oMail->SMTPAuth   = true;                                   // Enable SMTP authentication

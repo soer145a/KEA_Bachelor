@@ -18,7 +18,8 @@ function signUpFormComp($bLoginStatus, $nTotalPrice)
                 oninput='inputValidate(); togglePaypalButton($bLoginStatus, $nTotalPrice);'
             />
             <label for='account-details__cvr'
-                >Company CVR nr.</label
+                >Company CVR nr.                
+            </label
             >
             <input
                 id='account-details__cvr'
@@ -76,7 +77,7 @@ function signUpFormComp($bLoginStatus, $nTotalPrice)
                 >Password</label
             >
             <input
-                id='account-details__password'
+                id='accountDetails__password'
                 type='password'
                 name='customerPassword'
                 data-validate='password'
@@ -87,7 +88,7 @@ function signUpFormComp($bLoginStatus, $nTotalPrice)
                 >Confirm Password</label
             >
             <input
-                id='account-details__confirm-password'
+                id='accountDetails__confirmPassword'
                 type='password'
                 name='customerPasswordConfirm'
                 data-validate='password'

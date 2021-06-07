@@ -208,7 +208,7 @@ $sApiKey = "";
                             </div>
                             <div class="customer-information-container">
                                 <h4 class="section-subheader">Edit password</h4>
-                                <form class="customer-password-form" method="post" onsubmit="return inputValidate();" action="api/update-customer-data.php">
+                                <form class="customer-password-form" onsubmit="event.preventDefault();">
                                     <div class="form-wrapper">
                                         <label class="customer-password-form__input-label">New password: <span class="login-form__label-info-outer js-toggle-infobox">
                                                 <span class="login-form__label-info-inner">
@@ -224,17 +224,17 @@ $sApiKey = "";
                                                 </ul>
                                             </span>
                                         </label>
-                                        <input id="newPassword" class="customer-password-form__input" oninput="inputValidate()" data-validate="password" type="password" name="customerPassword" placeholder="New password">
+                                        <input id="accountDetails__password" class="customer-password-form__input" oninput="inputValidate()" data-validate="password" type="password" name="customerPassword" placeholder="New password">
                                     </div>
                                     <div class="form-wrapper">
                                         <label for="confirmPassword" class="customer-password-form__input-label">Confirm new password:</label>
-                                        <input id="confirmPassword" class="customer-password-form__input" oninput="inputValidate()" data-validate="password" type="password" name="customerPasswordConfirm" placeholder="Confirm password">
+                                        <input id="accountDetails__passwordConfirm" class="customer-password-form__input" oninput="inputValidate()" data-validate="password" type="password" name="customerPasswordConfirm" placeholder="Confirm password">
                                     </div>
                                     <div class="form-wrapper">
                                         <label for="oldPassword" class="customer-password-form__input-label">Old password:</label>
-                                        <input id="oldPassword" class="customer-password-form__input" data-validate="password" type="password" name="customerPassword" placeholder="Type your old password">
+                                        <input id="accountDetails__passwordOld" class="customer-password-form__input" type="password" placeholder="Type your old password">
                                     </div>
-                                    <button class="button button--yellow customer-password-form__button" type="submit">Change password</button>
+                                    <button class="button button--yellow customer-password-form__button" type="submit" onclick="changeCustomerPassword()">Change password</button>
                                     <div class="errorMessage"></div>
                                 </form>
                             </div>
@@ -290,45 +290,27 @@ $sApiKey = "";
                                                                                         <h4 class='section-header product-card__header'>$sProductName<span class='product-card__arrow-outer'><span class='product-card__arrow-inner'></span></span></h3>
                                                                                             <div class='subscription-info'>
                                                                                                 <h5 class='section-subheader product-card__subheader'>Subscription Period:</h5>
-                                                                                                <p class='section-paragraph product-card__text'>FROM: $sCustomerProductStartDate || TO: $sCustomerProductEndDate</p>
+                                                                                                <p class='section-paragraph product-card__text'><span class='product-card__text--bold'>FROM: </span>$sCustomerProductStartDate <span class='product-card__text--bold'>TO: </span> $sCustomerProductEndDate</p>
                                                                                                 <p class='section-paragraph product-card__text'><span class='product-card__title'>Total days:</span> $nCustomerProductTotalDays</p>
                                                                                                 <p class='section-paragraph product-card__text'><span class='product-card__title'>Active days remaining:</span> $nSubscriptionDaysLeft</p>
                                                                                             </div>
                                                                                             <h5 class='section-subheader product-card__subheader'>Embed Link</h5>
-                                                                                            <div class='product-card__container'>
-                                                                                                <code class='html'> $sEmbedLink</code>
-                                                                                                <!--<pre><code class='html'> $sEmbedLink</code></pre> -->
+                                                                                            <div class='product-card__container'>                                                                                
+                                                                                               <pre><code class='html'> $sEmbedLink</code></pre>
                                                                                             </div>
                                                                                             <h5 class='section-subheader product-card__subheader'>API-key</h5>
                                                                                             <div class='product-card__container'>
                                                                                                 <pre><code class='html'>$sApiKey</code></pre>
                                                                                             </div>
-                                                                                            <p>Auto renew subscription: <span><b>$sAutoRenew</b></span></p>
-                                                                                            <button class='button button--purple' onclick='toggleAutoRenew($sCustomerProductId)'>Switch Autorenew $sButtonToggle</button>
+                                                                                            <h5 class='section-subheader product-card__subheader'>Auto renew:</h5>
+                                                                                            <div class='product-card__container'>
+                                                                                                <p class='section-paragraph'><span id='autoRenewSpan'>$sAutoRenew</span><span class='product-card__button-outer' type='button' onclick='toggleAutoRenew($sCustomerProductId)'><span id='autoRenewToggleButton' class='product-card__button-inner'>Turn $sButtonToggle</span></span></p>
+                                                                                            </div>
                                                                                     </div>";
                                 }
                             }
                             echo $sCustomerProductHtml;
                             ?>
-                            <!-- <div class='product-card'>
-                                <h4 class='section-header product-card__header'>$sProductName</h3>
-                                    <div class='subscription-info'>
-                                        <h5 class='section-subheader product-card__subheader'>Subscription Period:</h5>
-                                        <p class='section-paragraph product-card__text'>FROM: $sCustomerProductStartDate || TO: $sCustomerProductEndDate</p>
-                                        <p class='section-paragraph product-card__text'><span class='product-card__title'>Total days:</span> $nCustomerProductTotalDays</p>
-                                        <p class='section-paragraph product-card__text'><span class='product-card__title'>Active days remaining:</span> $nSubscriptionDaysLeft</p>
-                                    </div>
-                                    <h5 class='section-subheader product-card__subheader'>Embed Link</h5>
-                                    <div class="product-card__container">
-                                        <pre><code class='html'> $sEmbedLink</code></pre>
-                                    </div>
-                                    <h5 class='section-subheader product-card__subheader'>API-key</h5>
-                                    <div class="product-card__container">
-                                        <pre><code class='html'>$sApiKey</code></pre>
-                                    </div>
-                                    <p>Auto renew subscription: <span><b>$sAutoRenew</b></span></p>
-                                    <button class='button button--purple' onclick='toggleAutoRenew($sCustomerProductId)'>Switch Autorenew $sButtonToggle</button>
-                            </div> -->
                         </div>
                     </div>
 

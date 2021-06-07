@@ -177,14 +177,14 @@ $sAddOnHtmlComp = addOnsComp($oDbConnection);
                         a message and we’ll resond as soon as possible.
                     </p>
                     <div class="form-container">
-                        <form class="contact-form" method="post" action="MAILER/send-contact-message-email.php">
+                        <form class="contact-form" onsubmit="event.preventDefault();">
                             <label class="contact-form__label" for="contact-form__name">Name</label>
-                            <input class="contact-form__input" required type="text" id="contact-form__name" name="potentialCustomerName" />
+                            <input class="contact-form__input" type="text" id="contactFormName" name="potentialCustomerName" />
                             <label class="contact-form__label" for="contact-form__email">Email</label>
-                            <input class="contact-form__input" required type="text" id="contact-form__email" name="potentialCustomerEmail" />
+                            <input class="contact-form__input" oninput="inputValidate()" data-validate="email" type="text" id="customerFormEmail" name="potentialCustomerEmail" />
                             <label class="contact-form__label" for="contact-form__message">Message</label>
-                            <textarea class="contact-form__textarea" required id="contact-form__message" name="potentialCustomerMessage"></textarea>
-                            <button type="submit" class="contact-form__button">
+                            <textarea class="contact-form__textarea" id="customerFormMessage" name="potentialCustomerMessage"></textarea>
+                            <button type="submit" class="contact-form__button" onclick="sendContactForm();">
                                 Send Message
                             </button>
                         </form>

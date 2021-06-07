@@ -2,6 +2,9 @@ document.addEventListener("DOMContentLoaded", () => {
   toggleMobileNavigation();
 });
 
+let bMessageBoxShown = false;
+let fTimeOutFunction;
+
 function inputValidate() {
   let sInputData;
   let aInputsToValidate = [];
@@ -22,10 +25,6 @@ function inputValidate() {
         let sPhoneRegEx = /^\+(?:[0-9]●?){6,16}[0-9]$/;
 
         if (!sPhoneRegEx.test(sInputData)) {
-          showMessage(
-            "Phone should be between 6-16 characters and start with a +",
-            true
-          );
           aInputsToValidate[i].classList.add("invalid");
           aInputsToValidate[i].classList.remove("valid");
         } else {
@@ -42,7 +41,6 @@ function inputValidate() {
         if (!sEmailRegEx.test(sInputData)) {
           aInputsToValidate[i].classList.remove("valid");
           aInputsToValidate[i].classList.add("invalid");
-          showMessage("The email does not meet requirements", true);
         } else {
           postData("api/check-db-for-existing-entries.php", {
             whatToCheck: "customer_email",
@@ -81,10 +79,6 @@ function inputValidate() {
 
         if (aInputsToValidate[i].name !== "customerPasswordConfirm") {
           if (!sPasswordRegEx.test(sInputData)) {
-            showMessage(
-              "Password should be between 6-30 characters and include 1 uppercase, 1 lowercase, 1 special character",
-              true
-            );
             aInputsToValidate[i].classList.add("invalid");
             aInputsToValidate[i].classList.remove("valid");
           } else {
@@ -99,7 +93,6 @@ function inputValidate() {
             aInputsToValidate[i].classList.add("valid");
             aInputsToValidate[i].classList.remove("invalid");
           } else {
-            showMessage("Passwords do not match", true);
             aInputsToValidate[i].classList.add("invalid");
             aInputsToValidate[i].classList.remove("valid");
           }
@@ -111,7 +104,6 @@ function inputValidate() {
         let sCvrRegEx = /^(\d){8}$/;
 
         if (!sCvrRegEx.test(sInputData)) {
-          showMessage("CRV must be 8 numbers", true);
           aInputsToValidate[i].classList.add("invalid");
           aInputsToValidate[i].classList.remove("valid");
         } else {
@@ -132,9 +124,20 @@ function inputValidate() {
         break;
     }
   }
+
   if (event.type == "submit") {
     if (eFormToValidate.querySelectorAll(".invalid").length > 0) {
-      showMessage("One or more fields has not been filled out correctly", true);
+      if (
+        accountDetails__password.value !== accountDetails__passwordConfirm.value
+      ) {
+        showMessage("The passwords do not match", true);
+      } else {
+        showMessage(
+          "One or more fields has not been filled out correctly",
+          true
+        );
+      }
+
       return false;
     } else {
       return true;
@@ -190,9 +193,21 @@ async function postData(sUrl = "", jData = {}) {
 }
 
 async function toggleAutoRenew(sCustomerProductId) {
-  fetch(
-    `api/update-autorenewal.php?customer-product-id=${sCustomerProductId}`
-  ).then((data) => location.reload());
+  postData("api/update-autorenewal.php", {
+    customerProductId: sCustomerProductId,
+  }).then((jResponse) => {
+    if (jResponse.renewToggledOn) {
+      console.log(jResponse);
+      autoRenewSpan.textContent = "On";
+      autoRenewToggleButton.textContent = "Turn off";
+      showMessage("Auto-renewal has been turned on", false);
+    } else {
+      console.log(jResponse);
+      autoRenewSpan.textContent = "Off";
+      autoRenewToggleButton.textContent = "Turn on";
+      showMessage("Auto-renewal has been turned off", false);
+    }
+  });
 }
 
 // Top Navigation -- Hamburger
@@ -263,6 +278,7 @@ function editInfo(sValidateType, sInputName) {
 
   //Append new element inside of parent element
   eParentElement.appendChild(eForm);
+  eInput.focus();
 }
 
 function updateCustomerInfo(sInputName) {
@@ -305,30 +321,109 @@ function updateCustomerInfo(sInputName) {
     });
   }
 }
+
+function sendContactForm() {
+  if (customerFormEmail.classList.contains("invalid")) {
+    showMessage("Please provide a valid email address", true);
+  } else {
+    let sCustomerName = contactFormName.value;
+    let sCustomerEmail = customerFormEmail.value;
+    let sCustomerMessage = customerFormMessage.value;
+    if (sCustomerName == "" || sCustomerEmail == "" || sCustomerMessage == "") {
+      showMessage("Please fill out all the field", true);
+    } else {
+      postData("MAILER/send-contact-message-email.php", {
+        customerName: sCustomerName,
+        customerEmail: sCustomerEmail,
+        customerMessage: sCustomerMessage,
+      }).then((jResponse) => {
+        console.log(jResponse);
+        if (!jResponse.mailSent) {
+          showMessage("An error occurred", true);
+        } else {
+          showMessage(
+            "Thank you, Your message has been sent to Mirtual",
+            false
+          );
+          contactFormName.value = "";
+          customerFormEmail.value = "";
+          customerFormMessage.value = "";
+        }
+      });
+    }
+  }
+}
+
+function changeCustomerPassword() {
+  let sNewPassword = accountDetails__password;
+  let sPasswordConfirm = accountDetails__passwordConfirm;
+  let sOldPassword = accountDetails__passwordOld;
+  console.log(361);
+  if (
+    sNewPassword.value == "" ||
+    sPasswordConfirm.value == "" ||
+    sOldPassword.value == ""
+  ) {
+    console.log(367);
+    showMessage("Please fill out all fields", true);
+  } else {
+    console.log(370);
+    if (sNewPassword.classList.contains("invalid")) {
+      console.log(372);
+      showMessage("New password does not meet requirements", true);
+    } else {
+      console.log(375);
+      if (sPasswordConfirm.classList.contains("invalid")) {
+        console.log(377);
+        showMessage("The passwords do not match", true);
+      } else {
+        console.log(380);
+        postData("api/update-customer-data.php", {
+          customerPassword: sOldPassword.value,
+          newCustomerPassword: sPasswordConfirm.value,
+        }).then((jResponse) => {
+          console.log(jResponse);
+          if (jResponse.customerUpdated) {
+            showMessage("Your password has been updated", false);
+            sNewPassword.value = "";
+            sPasswordConfirm.value = "";
+            sOldPassword.value = "";
+          } else {
+            showMessage("The password was incorrect", true);
+          }
+        });
+      }
+    }
+  }
+}
+
 function showMessage(sMessage, bIsError) {
-  messageBox.classList.remove("message-box--hidden");
+  if (bMessageBoxShown) {
+    stopTimeOut();
+  }
+  bMessageBoxShown = true;
+  messageBox.classList.remove(...messageBox.classList);
+  messageBox.classList.add("message-box");
   messageText.textContent = sMessage;
   if (bIsError) {
     messageBox.classList.add("message-box--red");
   } else {
     messageBox.classList.add("message-box--green");
   }
-  setTimeout(() => {
+  fTimeOutFunction = setTimeout(() => {
     messageBox.classList.add("message-box--visually-hidden");
-
-    messageBox.addEventListener(
-      "transitionend",
-      function (e) {
-        messageBox.classList = "message-box message-box--hidden";
-        messageText.textContent = "";
-      },
-      {
-        capture: false,
-        once: true,
-        passive: false,
-      }
-    );
+    setTimeout(() => {
+      messageBox.classList.remove(...messageBox.classList);
+      messageBox.classList = "message-box message-box--hidden";
+      messageText.textContent = "";
+      bMessageBoxShown = false;
+    }, 1100);
   }, 5000);
+  console.log(fTimeOutFunction, "hello");
+}
+
+function stopTimeOut() {
+  clearTimeout(fTimeOutFunction);
 }
 
 function cancelEdit() {

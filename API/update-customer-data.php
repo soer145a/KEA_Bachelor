@@ -10,19 +10,20 @@ $_POST = json_decode(file_get_contents("php://input"), true); //make json object
 if (isset($_POST['customerPassword'])) {
     //Get the 2 passwords from the frontend
     $sCustomerPassword = $_POST['customerPassword'];
-    $sNewPassword = $_POST['customerPasswordConfirm'];
+    $sNewPassword = $_POST['newCustomerPassword'];
     //get the password of the user from the database
     $sCustomerSelectSql = "SELECT * FROM customers WHERE customer_id = \"$customerId\"";
     $oCustomerResult = $oDbConnection->query($sCustomerSelectSql);
     $oCustomerRow = $oCustomerResult->fetch_object();
     $sOldPassword = $oCustomerRow->customer_password;
     //Verify the customers password hash
+
     if (password_verify($sCustomerPassword, $sOldPassword)) {
         //Create the new hashed password and update the database
         $sCustomerPasswordHashed = password_hash($sNewPassword, PASSWORD_DEFAULT);
         $sCustomerUpdateSql = "UPDATE `customers` SET `customer_password` = \"$sCustomerPasswordHashed\" WHERE customer_id = \"$customerId\"";
         $oDbConnection->query($sCustomerUpdateSql);
-        $aResponse = array("customerUpdated" => true, "error" => "None");
+        $aResponse = array("customerUpdated" => true, "error" => "None");   
     } else {
         $aResponse = array("customerUpdated" => false, "error" => "Wrong password");
     }
