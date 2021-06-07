@@ -1,16 +1,17 @@
 #contact {
     background-color: var(--purple-light);
 }
+
 .section-container {
     max-width: 768px;
     margin: 0 auto;
 }
 
-.contact .section-header,
-.contact .section-paragraph {
+.contact .section-header, .contact .section-paragraph {
     text-align: center;
     color: var(--white);
 }
+
 .contact .section-paragraph {
     margin: 0 auto 1rem auto;
 }
@@ -29,8 +30,7 @@
     margin-bottom: 8px;
 }
 
-.contact-form .contact-form__input,
-.contact-form .contact-form__textarea {
+.contact-form .contact-form__input, .contact-form .contact-form__textarea {
     margin-bottom: 32px;
     border: none;
     padding: 0;
@@ -56,4 +56,12 @@
     color: var(--purple-dark);
     font-weight: bold;
     letter-spacing: 1px;
+}
+
+.contact-form .invalid {
+    border: 2px solid var(--red);
+}
+
+.contact-form .valid {
+    border: 2px solid var(--green);
 }

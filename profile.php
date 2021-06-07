@@ -208,7 +208,7 @@ $sApiKey = "";
                             </div>
                             <div class="customer-information-container">
                                 <h4 class="section-subheader">Edit password</h4>
-                                <form class="customer-password-form" method="post" onsubmit="return inputValidate();" action="api/update-customer-data.php">
+                                <form class="customer-password-form" onsubmit="event.preventDefault();">
                                     <div class="form-wrapper">
                                         <label class="customer-password-form__input-label">New password: <span class="login-form__label-info-outer js-toggle-infobox">
                                                 <span class="login-form__label-info-inner">
@@ -224,17 +224,17 @@ $sApiKey = "";
                                                 </ul>
                                             </span>
                                         </label>
-                                        <input id="newPassword" class="customer-password-form__input" oninput="inputValidate()" data-validate="password" type="password" name="customerPassword" placeholder="New password">
+                                        <input id="accountDetails__password" class="customer-password-form__input" oninput="inputValidate()" data-validate="password" type="password" name="customerPassword" placeholder="New password">
                                     </div>
                                     <div class="form-wrapper">
                                         <label for="confirmPassword" class="customer-password-form__input-label">Confirm new password:</label>
-                                        <input id="confirmPassword" class="customer-password-form__input" oninput="inputValidate()" data-validate="password" type="password" name="customerPasswordConfirm" placeholder="Confirm password">
+                                        <input id="accountDetails__passwordConfirm" class="customer-password-form__input" oninput="inputValidate()" data-validate="password" type="password" name="customerPasswordConfirm" placeholder="Confirm password">
                                     </div>
                                     <div class="form-wrapper">
                                         <label for="oldPassword" class="customer-password-form__input-label">Old password:</label>
-                                        <input id="oldPassword" class="customer-password-form__input" data-validate="password" type="password" name="customerPassword" placeholder="Type your old password">
+                                        <input id="accountDetails__passwordOld" class="customer-password-form__input" type="password" placeholder="Type your old password">
                                     </div>
-                                    <button class="button button--yellow customer-password-form__button" type="submit">Change password</button>
+                                    <button class="button button--yellow customer-password-form__button" type="submit" onclick="changeCustomerPassword()">Change password</button>
                                     <div class="errorMessage"></div>
                                 </form>
                             </div>
@@ -304,7 +304,7 @@ $sApiKey = "";
                                                                                             </div>
                                                                                             <h5 class='section-subheader product-card__subheader'>Auto renew:</h5>
                                                                                             <div class='product-card__container'>
-                                                                                                <p>$sAutoRenew<span class='product-card__button-outer' type='button' onclick='toggleAutoRenew($sCustomerProductId)'><span class='product-card__button-inner'>Turn $sButtonToggle</span></span></p>
+                                                                                                <p class='section-paragraph'><span id='autoRenewSpan'>$sAutoRenew</span><span class='product-card__button-outer' type='button' onclick='toggleAutoRenew($sCustomerProductId)'><span id='autoRenewToggleButton' class='product-card__button-inner'>Turn $sButtonToggle</span></span></p>
                                                                                             </div>
                                                                                     </div>";
                                 }

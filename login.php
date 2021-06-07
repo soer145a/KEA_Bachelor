@@ -36,16 +36,17 @@ if (isset($_POST['customerEmail']) && isset($_POST['customerPassword'])) {
                     header('Location: index.php');
                     //Display an error message the user
                 } else {
-                    $sErrorMessage = "<p style='color:red'> ERROR - You have not confirmed your account, check your email</p>";
+
+                    $sErrorMessage = "<script>showMessage('You have not confirmed your account, please check your email', true)</script>";
                 }
             } else {
-                $sErrorMessage = "<p style='color:red'> ERROR - Wrong password or email</p>";
+                $sErrorMessage = "<script>showMessage('Wrong password or email', true)</script>";
             }
         } else {
-            $sErrorMessage = "<p style='color:red'> ERROR - Wrong password or email</p>";
+            $sErrorMessage = "<script>showMessage('Wrong password or email', true)</script>";
         }
     } else {
-        $sErrorMessage = "<p style='color:red'> ERROR - Wrong password or email</p>";
+        $sErrorMessage = "<script>showMessage('Please enter your login information', true)</script>";
     }
 }
 
@@ -88,7 +89,7 @@ if (isset($_POST['customerEmail']) && isset($_POST['customerPassword'])) {
 
                     <input class="login-form__input" type="password" placeholder="Type in your password" name="customerPassword">
 
-                    <?= $sErrorMessage ?>
+
                     <br>
                     <button class="login-form__button button button--purple" type="submit">Login</button>
                 </form>
@@ -100,5 +101,6 @@ if (isset($_POST['customerEmail']) && isset($_POST['customerPassword'])) {
 </body>
 <script src="js/app.js"></script>
 <script src="js/helper.js"></script>
+<?= $sErrorMessage ?>
 
 </html>

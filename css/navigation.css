@@ -101,7 +101,6 @@
     position: fixed;
     top: 80px;
     z-index: 100000;
-    transition-duration: 2s;
     text-align: center;
     transition: all 1s linear;
 }

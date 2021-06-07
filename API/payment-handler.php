@@ -2,6 +2,7 @@
 session_start();
 include("../db-connection/connection.php");
 include("./create-pdf-receipt.php");
+
 if(!isset($_SESSION['purchaseProcess'])){
     header("Location: ../index.php");
     exit();
