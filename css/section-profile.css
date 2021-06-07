@@ -262,3 +262,36 @@
     width: 100%;
     word-wrap: break-word;
 }
+
+.product-card__text--bold {
+    font-weight: bold;
+}
+
+.product-card__button-outer {
+    padding: 15px;
+    display: inline-block;
+    cursor: pointer;
+    position: relative;
+}
+.product-card__button-outer::before {
+    content: "-";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 3px;
+} 
+
+.product-card__button-outer:hover .product-card__button-inner  {
+    background-color: var(--purple-dark);
+    color: var(--white);
+    border: 2px solid var(--purple-dark);
+}
+.product-card__button-inner {
+    display: inline-block;
+    height: auto;
+    width: auto;
+    border: 2px solid var(--purple-light);
+    padding: 3px;
+    border-radius: 10px;
+    line-height: 20px;
+}
