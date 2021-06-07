@@ -244,7 +244,7 @@ $sApiKey = "";
                             <h2 class="section-header">Product overview</h2>
                             <?php
                             $sCustomerProductHtml = "";
-                            $sCustomerProductSelectSql = "SELECT * FROM customer_products LEFT JOIN products ON customer_products.product_id  = products.product_id";
+                            $sCustomerProductSelectSql = "SELECT * FROM customer_products LEFT JOIN products ON customer_products.product_id  = products.product_id WHERE customer_id = \"$customerId\"";
                             $oCustomerProductResults = $oDbConnection->query($sCustomerProductSelectSql);
 
                             while ($oCustomerProductRow = $oCustomerProductResults->fetch_object()) {
@@ -326,6 +326,6 @@ $sApiKey = "";
     hljs.highlightAll();
 </script>
 <script src="js/app.js"></script>
-<script src="js/helper.js"></script>
+<script src="js/profile.js"></script>
 
 </html>

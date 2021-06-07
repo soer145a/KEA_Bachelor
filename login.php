@@ -100,7 +100,6 @@ if (isset($_POST['customerEmail']) && isset($_POST['customerPassword'])) {
     <?= $sFooterHtmlComp ?>
 </body>
 <script src="js/app.js"></script>
-<script src="js/helper.js"></script>
 <?= $sErrorMessage ?>
 
 </html>

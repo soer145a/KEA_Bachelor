@@ -196,6 +196,6 @@ $sAddOnHtmlComp = addOnsComp($oDbConnection);
     <?= $sFooterHtmlComp ?>
 </body>
 <script src="js/app.js"></script>
-<script src="js/helper.js"></script>
+<script src="js/index.js"></script>
 
 </html>

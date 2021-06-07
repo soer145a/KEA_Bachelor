@@ -212,7 +212,7 @@
 
 .product-card {
     border: 2px solid var(--purple-light);
-    ;
+    margin-bottom: 30px;
     border-radius: 10px;
     padding: 16px;
 }
