@@ -19,7 +19,7 @@ $oOrderResults = $oDbConnection->query($sOrderSelectSql);
 
 while ($oOrderRow = $oOrderResults->fetch_object()) {
     
-    $sOrderId = $row->order_id;
+    $sOrderId = $oOrderRow->order_id;
     //Then we delete the relevant records from the other order tables to ensure that no data is left from that order
     $sOrderAddonDeleteSql = "DELETE FROM order_addons WHERE order_id = \"$sOrderId\"";
     $oDbConnection->query($sOrderAddonDeleteSql);
