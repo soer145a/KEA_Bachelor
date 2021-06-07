@@ -9,6 +9,10 @@ $sHeaderHtmlComp = headerComp('profile');
 $sFooterHtmlComp = footerComp();
 //Reset the error message variabel
 $sErrorMessage = "";
+if(isset($_SESSION['wrongPassword'])){
+    $sErrorMessage = "<script>showMessage('Wrong Password',true);</script>";
+    unset($_SESSION['wrongPassword']);
+}
 $bShowFlag = false;
 //Deny the entry to any customers that is not logged in
 if (!isset($_SESSION['loginStatus'])) {
@@ -33,23 +37,7 @@ if (!isset($_SESSION['loginStatus'])) {
     $_SESSION['customerFirstName'] = $sCustomerFirstName;
     $_SESSION['customerLastName'] = $sCustomerLastName;
 }
-if (isset($_POST['confirmPassword'])) {
 
-    $sCustomerPassword = $oDbConnection->real_escape_string($_POST['confirmPassword']);
-    $sCustomerSelectSql = "SELECT * FROM customers WHERE customer_id = \" $customerId \"";
-    $oCustomerResult = $oDbConnection->query($sCustomerSelectSql);
-    if ($oCustomerResult->num_rows > 0) {
-        $oCustomerRow = $oCustomerResult->fetch_object();
-        //echo json_encode($oCustomerRow);
-        $sCustomerDbPassword = $oCustomerRow->customer_password;
-        if (password_verify($sCustomerPassword, $sCustomerDbPassword)) {
-            header("Location: api/delete-user-information.php");
-        } else {
-            $sErrorMessage = "<p style='color:red'> ERROR - Wrong password or email</p>";
-            $bShowFlag = true;
-        }
-    }
-}
 
 $sEmbedLink = "";
 $sApiKey = "";
@@ -112,20 +100,14 @@ $sApiKey = "";
                                                                             } ?> ">
                         <h2 class="section-header">Enter password</h2>
                         <p class="section-paragraph">By entering your password, your account will be deleted.</p>
-                        <form class="modal-form" method="post">
+                        <form class="modal-form" method="post" action="api/delete-user-information.php">
                             <div class="form-wrapper">
                                 <label class="customer-password-form__input-label">Password</label>
-                                <input class="customer-password-form__input" type="password" name="password" oninput="checkPassword()" id="CustomerPassword">
-                            </div>
-                            <div class="form-wrapper">
-                                <label class="customer-password-form__input-label">Confirm Password</label>
-                                <input class="customer-password-form__input" type="password" name="confirmPassword" oninput="checkPassword()" id="CustomerPasswordConfirm">
-                            </div>
-                            <?= "<input type='hidden' name='userID' value='$customerId'>" ?>
-                            <?= $sErrorMessage ?>
+                                <input class="customer-password-form__input" type="password" name="customerPassword" id="customerPassword">
+                            </div>                            
                             <div class="button-wrapper">
                                 <button type="button" class="delete-profile__button button button--purple" onclick="removeDeleteModals()">Cancel</button>
-                                <button disabled id="deleteButton" class="delete-profile__button button button--red">DELETE MY ACOUNT</button>
+                                <button id="deleteButton" class="delete-profile__button button button--red">DELETE MY ACOUNT</button>
                             </div>
                         </form>
                     </div>
@@ -228,7 +210,7 @@ $sApiKey = "";
                                     </div>
                                     <div class="form-wrapper">
                                         <label for="confirmPassword" class="customer-password-form__input-label">Confirm new password:</label>
-                                        <input id="accountDetails__passwordConfirm" class="customer-password-form__input" oninput="inputValidate()" data-validate="password" type="password" name="customerPasswordConfirm" placeholder="Confirm password">
+                                        <input id="accountDetails__confirmPassword" class="customer-password-form__input" oninput="inputValidate()" data-validate="confirmPassword" type="password" name="customerPasswordConfirm" placeholder="Confirm password">
                                     </div>
                                     <div class="form-wrapper">
                                         <label for="oldPassword" class="customer-password-form__input-label">Old password:</label>
@@ -304,7 +286,7 @@ $sApiKey = "";
                                                                                             </div>
                                                                                             <h5 class='section-subheader product-card__subheader'>Auto renew:</h5>
                                                                                             <div class='product-card__container'>
-                                                                                                <p class='section-paragraph'><span id='autoRenewSpan'>$sAutoRenew</span><span class='product-card__button-outer' type='button' onclick='toggleAutoRenew($sCustomerProductId)'><span id='autoRenewToggleButton' class='product-card__button-inner'>Turn $sButtonToggle</span></span></p>
+                                                                                                <p class='section-paragraph'><span id='autoRenewSpan$sCustomerProductId'>$sAutoRenew</span><span class='product-card__button-outer' type='button' onclick='toggleAutoRenew($sCustomerProductId)'><span id='autoRenewToggleButton$sCustomerProductId' class='product-card__button-inner'>Turn $sButtonToggle</span></span></p>
                                                                                             </div>
                                                                                     </div>";
                                 }
@@ -327,5 +309,5 @@ $sApiKey = "";
 </script>
 <script src="js/app.js"></script>
 <script src="js/profile.js"></script>
-
+<?= $sErrorMessage ?>
 </html>

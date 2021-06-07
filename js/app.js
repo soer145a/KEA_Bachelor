@@ -103,29 +103,30 @@ function inputValidate() {
         //Must contain 6-30 characters, one uppercase character, one lowercase character, one numeric character and one special character. Eg.: MyStr0ng.PW-example
         let sPasswordRegEx =
           /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{6,30}$/;
-
-        if (aInputsToValidate[i].name !== "customerPasswordConfirm") {
-          if (!sPasswordRegEx.test(sInputData)) {
-            aInputsToValidate[i].classList.add("invalid");
-            aInputsToValidate[i].classList.remove("valid");
-          } else {
-            aInputsToValidate[i].classList.add("valid");
-            aInputsToValidate[i].classList.remove("invalid");
-          }
+            if (!sPasswordRegEx.test(sInputData)) {
+              aInputsToValidate[i].classList.add("invalid");
+              aInputsToValidate[i].classList.remove("valid");
+            } else {
+              aInputsToValidate[i].classList.add("valid");
+              aInputsToValidate[i].classList.remove("invalid");
+              if (aInputsToValidate[i].value !== accountDetails__confirmPassword.value) {
+                accountDetails__confirmPassword.classList.add("invalid");
+                accountDetails__confirmPassword.classList.remove("valid");
+              } else {
+                accountDetails__confirmPassword.classList.add("valid");
+                accountDetails__confirmPassword.classList.remove("invalid");
+              }
+            }
+        break;
+      case "confirmPassword":
+        if (aInputsToValidate[i].value !== accountDetails__password.value) {
+          aInputsToValidate[i].classList.add("invalid");
+          aInputsToValidate[i].classList.remove("valid")
         } else {
-          if (
-            aInputsToValidate[i].value ===
-            document.getElementsByName("customerPassword")[0].value
-          ) {
-            aInputsToValidate[i].classList.add("valid");
-            aInputsToValidate[i].classList.remove("invalid");
-          } else {
-            aInputsToValidate[i].classList.add("invalid");
-            aInputsToValidate[i].classList.remove("valid");
-          }
+          aInputsToValidate[i].classList.add("valid");
+          aInputsToValidate[i].classList.remove("invalid");
         }
         break;
-
       case "cvr":
         sInputData = aInputsToValidate[i].value;
         let sCvrRegEx = /^(\d){8}$/;
@@ -155,7 +156,7 @@ function inputValidate() {
   if (event.type == "submit") {
     if (eFormToValidate.querySelectorAll(".invalid").length > 0) {
       if (
-        accountDetails__password.value !== accountDetails__passwordConfirm.value
+        accountDetails__password.value !== accountDetails__confirmPassword.value
       ) {
         showMessage("The passwords do not match", true);
       } else {

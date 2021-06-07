@@ -91,7 +91,7 @@ function signUpFormComp($bLoginStatus, $nTotalPrice)
                 id='accountDetails__confirmPassword'
                 type='password'
                 name='customerPasswordConfirm'
-                data-validate='password'
+                data-validate='confirmPassword'
                 required
                 oninput='inputValidate(); togglePaypalButton($bLoginStatus, $nTotalPrice);'
             />

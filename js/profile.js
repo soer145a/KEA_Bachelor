@@ -12,23 +12,14 @@ function showDeleteOption() {
     document.querySelector("#deleteModalTotal").classList.remove("hidden");
     document.querySelector("#deleteModalTotal").classList.add("shown");
   }
-  function checkPassword() {
-    let CustomerPassword = document.querySelector("#CustomerPassword").value;
-    let CustomerPasswordConfirm = document.querySelector(
-      "#CustomerPasswordConfirm"
-    ).value;
   
-    if (CustomerPassword == CustomerPasswordConfirm) {
-      document.querySelector("#deleteButton").removeAttribute("disabled");
-    } else {
-      showMessage("Your passwords do not match", true);
-    }
-  }
   function removeDeleteModals() {
     document.querySelector("#deleteModalTotal").classList.add("hidden");
     document.querySelector("#deleteModalTotal").classList.remove("shown");
 }
 async function toggleAutoRenew(sCustomerProductId) {
+    let autoRenewSpan = document.querySelector(`#autoRenewSpan${sCustomerProductId}`);
+    let autoRenewToggleButton = document.querySelector(`#autoRenewToggleButton${sCustomerProductId}`);
     postData("api/update-autorenewal.php", {
       customerProductId: sCustomerProductId,
     }).then((jResponse) => {
@@ -138,7 +129,7 @@ function editInfo(sValidateType, sInputName) {
 }
 function changeCustomerPassword() {
     let sNewPassword = accountDetails__password;
-    let sPasswordConfirm = accountDetails__passwordConfirm;
+    let sPasswordConfirm = accountDetails__confirmPassword;
     let sOldPassword = accountDetails__passwordOld;
     console.log(361);
     if (

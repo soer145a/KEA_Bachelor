@@ -6,36 +6,46 @@ document.addEventListener("DOMContentLoaded", () => {
     // handleCarouselScroll();
   });
 function sendContactForm() {
-    if (customerFormEmail.classList.contains("invalid")) {
-      showMessage("Please provide a valid email address", true);
-    } else {
-      let sCustomerName = contactFormName.value;
-      let sCustomerEmail = customerFormEmail.value;
-      let sCustomerMessage = customerFormMessage.value;
+    let sCustomerName = contactFormName.value;
+    let sCustomerEmail = customerFormEmail.value;
+    let sCustomerMessage = customerFormMessage.value;
+    
+    
+      
       if (sCustomerName == "" || sCustomerEmail == "" || sCustomerMessage == "") {
         showMessage("Please fill out all the field", true);
       } else {
-        postData("MAILER/send-contact-message-email.php", {
-          customerName: sCustomerName,
-          customerEmail: sCustomerEmail,
-          customerMessage: sCustomerMessage,
-        }).then((jResponse) => {
-          console.log(jResponse);
-          if (!jResponse.mailSent) {
-            showMessage("An error occurred", true);
-          } else {
-            showMessage(
-              "Thank you, Your message has been sent to Mirtual",
-              false
-            );
-            contactFormName.value = "";
-            customerFormEmail.value = "";
-            customerFormMessage.value = "";
-          }
-        });
+        let sEmailRegEx =
+        /^[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~](\.?[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/;
+
+      if (!sEmailRegEx.test(sCustomerEmail)) {
+          customerFormEmail.classList.add("invalid");
+          showMessage("Please provide a valid email address", true);
+      } else {
+          customerFormEmail.classList.remove("invalid");
+          postData("MAILER/send-contact-message-email.php", {
+            customerName: sCustomerName,
+            customerEmail: sCustomerEmail,
+            customerMessage: sCustomerMessage,
+          }).then((jResponse) => {
+            console.log(jResponse);
+            if (!jResponse.mailSent) {
+              showMessage("An error occurred", true);
+            } else {
+              showMessage(
+                "Thank you, Your message has been sent to Mirtual",
+                false
+              );
+              contactFormName.value = "";
+              customerFormEmail.value = "";
+              customerFormMessage.value = "";
+            }
+          });
+      }
+        
       }
     }
-}
+
 /* function handleCarouselScroll() {
     if (document.querySelector(".slider") !== null) {
       console.log("handleCarouselScroll()");

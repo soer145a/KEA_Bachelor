@@ -181,7 +181,7 @@ $sAddOnHtmlComp = addOnsComp($oDbConnection);
                             <label class="contact-form__label" for="contact-form__name">Name</label>
                             <input class="contact-form__input" type="text" id="contactFormName" name="potentialCustomerName" />
                             <label class="contact-form__label" for="contact-form__email">Email</label>
-                            <input class="contact-form__input" oninput="inputValidate()" data-validate="email" type="text" id="customerFormEmail" name="potentialCustomerEmail" />
+                            <input class="contact-form__input" type="text" id="customerFormEmail" name="potentialCustomerEmail" />
                             <label class="contact-form__label" for="contact-form__message">Message</label>
                             <textarea class="contact-form__textarea" id="customerFormMessage" name="potentialCustomerMessage"></textarea>
                             <button type="submit" class="contact-form__button" onclick="sendContactForm();">
