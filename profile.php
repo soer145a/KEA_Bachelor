@@ -302,9 +302,9 @@ $sApiKey = "";
                                                                                             <div class='product-card__container'>
                                                                                                 <pre><code class='html'>$sApiKey</code></pre>
                                                                                             </div>
-                                                                                            <h5 class='section-subheader product-card__subheader'>Auto renew: </h5>
+                                                                                            <h5 class='section-subheader product-card__subheader'>Auto renew:</h5>
                                                                                             <div class='product-card__container'>
-                                                                                                <p>$sAutoRenew<span class='product-card__button-outer' type='button'><span class='product-card__button-inner'>Turn $sButtonToggle</span></span></p>
+                                                                                                <p>$sAutoRenew<span class='product-card__button-outer' type='button' onclick='toggleAutoRenew($sCustomerProductId)'><span class='product-card__button-inner'>Turn $sButtonToggle</span></span></p>
                                                                                             </div>
                                                                                     </div>";
                                 }

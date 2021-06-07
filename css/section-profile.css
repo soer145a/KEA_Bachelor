@@ -268,17 +268,18 @@
 }
 
 .product-card__button-outer {
-    padding: 15px;
+    padding: 6px;
     display: inline-block;
     cursor: pointer;
     position: relative;
+    margin-left: 8px;
 }
 .product-card__button-outer::before {
     content: "-";
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    left: 3px;
+    left: -6px;
 } 
 
 .product-card__button-outer:hover .product-card__button-inner  {
