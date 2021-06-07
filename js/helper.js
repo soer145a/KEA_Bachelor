@@ -116,7 +116,7 @@ function addAddOnToCart(sAddOnId) {
     //Do user communication here
   } else {
     nAddOnAmount = parseInt(nAddOnAmount);
-
+    
     postData("api/add-addon-to-cart.php", {
       addOnId: sAddOnId,
       addOnAmount: nAddOnAmount,

@@ -151,7 +151,7 @@ function showDeleteOption() {
 }
 function cancelDeletion() {
   document.querySelector("#deleteModal").classList.add("hidden");
-  document.querySelector("#deleteModal").classList.remove("shown");
+  document.querySelector("#deleteModal").classList.remove("shown");0
 }
 function showDeleteOption2() {
   document.querySelector("#deleteModal").classList.add("hidden");
