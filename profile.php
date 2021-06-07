@@ -290,7 +290,7 @@ $sApiKey = "";
                                                                                         <h4 class='section-header product-card__header'>$sProductName<span class='product-card__arrow-outer'><span class='product-card__arrow-inner'></span></span></h3>
                                                                                             <div class='subscription-info'>
                                                                                                 <h5 class='section-subheader product-card__subheader'>Subscription Period:</h5>
-                                                                                                <p class='section-paragraph product-card__text'>FROM: $sCustomerProductStartDate || TO: $sCustomerProductEndDate</p>
+                                                                                                <p class='section-paragraph product-card__text'><span class='product-card__text--bold'>FROM: </span>$sCustomerProductStartDate <span class='product-card__text--bold'>TO: </span> $sCustomerProductEndDate</p>
                                                                                                 <p class='section-paragraph product-card__text'><span class='product-card__title'>Total days:</span> $nCustomerProductTotalDays</p>
                                                                                                 <p class='section-paragraph product-card__text'><span class='product-card__title'>Active days remaining:</span> $nSubscriptionDaysLeft</p>
                                                                                             </div>
@@ -302,32 +302,15 @@ $sApiKey = "";
                                                                                             <div class='product-card__container'>
                                                                                                 <pre><code class='html'>$sApiKey</code></pre>
                                                                                             </div>
-                                                                                            <p>Auto renew subscription: <span><b>$sAutoRenew</b></span></p>
-                                                                                            <button class='button button--purple' onclick='toggleAutoRenew($sCustomerProductId)'>Switch Autorenew $sButtonToggle</button>
+                                                                                            <h5 class='section-subheader product-card__subheader'>Auto renew:</h5>
+                                                                                            <div class='product-card__container'>
+                                                                                                <p>$sAutoRenew<span class='product-card__button-outer' type='button' onclick='toggleAutoRenew($sCustomerProductId)'><span class='product-card__button-inner'>Turn $sButtonToggle</span></span></p>
+                                                                                            </div>
                                                                                     </div>";
                                 }
                             }
                             echo $sCustomerProductHtml;
                             ?>
-                            <!-- <div class='product-card'>
-                                <h4 class='section-header product-card__header'>$sProductName</h3>
-                                    <div class='subscription-info'>
-                                        <h5 class='section-subheader product-card__subheader'>Subscription Period:</h5>
-                                        <p class='section-paragraph product-card__text'>FROM: $sCustomerProductStartDate || TO: $sCustomerProductEndDate</p>
-                                        <p class='section-paragraph product-card__text'><span class='product-card__title'>Total days:</span> $nCustomerProductTotalDays</p>
-                                        <p class='section-paragraph product-card__text'><span class='product-card__title'>Active days remaining:</span> $nSubscriptionDaysLeft</p>
-                                    </div>
-                                    <h5 class='section-subheader product-card__subheader'>Embed Link</h5>
-                                    <div class="product-card__container">
-                                        <pre><code class='html'> $sEmbedLink</code></pre>
-                                    </div>
-                                    <h5 class='section-subheader product-card__subheader'>API-key</h5>
-                                    <div class="product-card__container">
-                                        <pre><code class='html'>$sApiKey</code></pre>
-                                    </div>
-                                    <p>Auto renew subscription: <span><b>$sAutoRenew</b></span></p>
-                                    <button class='button button--purple' onclick='toggleAutoRenew($sCustomerProductId)'>Switch Autorenew $sButtonToggle</button>
-                            </div> -->
                         </div>
                     </div>
 
