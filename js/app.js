@@ -42,7 +42,6 @@ function inputValidate() {
         if (!sEmailRegEx.test(sInputData)) {
           aInputsToValidate[i].classList.remove("valid");
           aInputsToValidate[i].classList.add("invalid");
-          showMessage("The email does not meet requirements", true);
         } else {
           postData("api/check-db-for-existing-entries.php", {
             whatToCheck: "customer_email",
@@ -81,10 +80,6 @@ function inputValidate() {
 
         if (aInputsToValidate[i].name !== "customerPasswordConfirm") {
           if (!sPasswordRegEx.test(sInputData)) {
-            showMessage(
-              "Password should be between 6-30 characters and include 1 uppercase, 1 lowercase, 1 special character",
-              true
-            );
             aInputsToValidate[i].classList.add("invalid");
             aInputsToValidate[i].classList.remove("valid");
           } else {
@@ -111,7 +106,6 @@ function inputValidate() {
         let sCvrRegEx = /^(\d){8}$/;
 
         if (!sCvrRegEx.test(sInputData)) {
-          showMessage("CRV must be 8 numbers", true);
           aInputsToValidate[i].classList.add("invalid");
           aInputsToValidate[i].classList.remove("valid");
         } else {
@@ -315,19 +309,11 @@ function showMessage(sMessage, bIsError) {
   }
   setTimeout(() => {
     messageBox.classList.add("message-box--visually-hidden");
-
-    messageBox.addEventListener(
-      "transitionend",
-      function (e) {
-        messageBox.classList = "message-box message-box--hidden";
-        messageText.textContent = "";
-      },
-      {
-        capture: false,
-        once: true,
-        passive: false,
-      }
-    );
+    setTimeout(() => {
+      messageBox.classList.remove(...messageBox.classList);
+      messageBox.classList = "message-box message-box--hidden";
+      messageText.textContent = "";
+    }, 1100);
   }, 5000);
 }
 
