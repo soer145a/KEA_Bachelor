@@ -8,7 +8,7 @@ function headComp()
         <meta name='viewport' content='width=device-width, initial-scale=1.0' />
         <title>MainPage</title>
         <link rel='preconnect' href='https://fonts.gstatic.com' />
-        <link rel='icon' type='image/png' href='Assets/favicon.png'/>
+        <link rel='icon' type='image/png' href='assets/favicon.png'/>
         <link rel='stylesheet' href='//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.0.1/build/styles/default.min.css'>
         <link
             href='https://fonts.googleapis.com/css2?family=Asap+Condensed:wght@400;500&family=Poppins&display=swap'

@@ -9,7 +9,7 @@ $sHeaderHtmlComp = headerComp('profile');
 $sFooterHtmlComp = footerComp();
 //Reset the error message variabel
 $sErrorMessage = "";
-if(isset($_SESSION['wrongPassword'])){
+if (isset($_SESSION['wrongPassword'])) {
     $sErrorMessage = "<script>showMessage('Wrong Password',true);</script>";
     unset($_SESSION['wrongPassword']);
 }
@@ -65,7 +65,10 @@ $sApiKey = "";
                             <p class="section-paragraph">You will be deleting:</p>
                             <ul>
                                 <?php
-
+                                $sCustomerAddonHtmlContainer = "<div class='addon-card'>
+                                <h4 class='section-header addon-card__header'>Addons:<span class='addon-card__arrow-outer'><span class='addon-card__arrow-inner'></span></span></h4>                                  
+                                <div class='addon-info'>";
+                                $sCustomerAddonHtml = "";
                                 $sCustomerProductSelectSql = "SELECT count(*) FROM `customer_products` WHERE `customer_id` = \"$customerId\"";
                                 $oCustomerProductResult = $oDbConnection->query($sCustomerProductSelectSql);
                                 $oCustomerProductRow = $oCustomerProductResult->fetch_assoc();
@@ -76,8 +79,14 @@ $sApiKey = "";
                                 while ($oCustomerAddonRow = $oCustomerAddonResults->fetch_assoc()) {
                                     $nAddOnAmount = $oCustomerAddonRow['addon_amount'];
                                     $sAddonName = $oCustomerAddonRow['addon_name'];
+
+                                    $sCustomerAddonHtml = $sCustomerAddonHtml . "
+                                    <p class='section-paragraph addon-card__text'>$nAddOnAmount x <span class='addon-card__text--bold'>$sAddonName</span></p> ";
+
                                     echo "<li> $nAddOnAmount $sAddonName's in our database</li>";
                                 }
+
+                                $sCustomerAddonHtmlContainer = $sCustomerAddonHtmlContainer . $sCustomerAddonHtml . "</div></div>";
 
                                 $sOrderSelectSql = "SELECT count(*) FROM `orders` WHERE `customer_id` = \"$customerId\"";
                                 $oOrderResults = $oDbConnection->query($sOrderSelectSql);
@@ -104,7 +113,7 @@ $sApiKey = "";
                             <div class="form-wrapper">
                                 <label class="customer-password-form__input-label">Password</label>
                                 <input class="customer-password-form__input" type="password" name="customerPassword" id="customerPassword">
-                            </div>                            
+                            </div>
                             <div class="button-wrapper">
                                 <button type="button" class="delete-profile__button button button--purple" onclick="removeDeleteModals()">Cancel</button>
                                 <button id="deleteButton" class="delete-profile__button button button--red">DELETE MY ACOUNT</button>
@@ -269,7 +278,7 @@ $sApiKey = "";
 
                                 if ($oCustomerProductRow->subscription_active) {
                                     $sCustomerProductHtml = $sCustomerProductHtml . "<div class='product-card'>
-                                                                                        <h4 class='section-header product-card__header'>$sProductName<span class='product-card__arrow-outer'><span class='product-card__arrow-inner'></span></span></h3>
+                                                                                        <h4 class='section-header product-card__header'>$sProductName<span class='product-card__arrow-outer'><span class='product-card__arrow-inner'></span></span></h4>
                                                                                             <div class='subscription-info'>
                                                                                                 <h5 class='section-subheader product-card__subheader'>Subscription Period:</h5>
                                                                                                 <p class='section-paragraph product-card__text'><span class='product-card__text--bold'>FROM: </span>$sCustomerProductStartDate <span class='product-card__text--bold'>TO: </span> $sCustomerProductEndDate</p>
@@ -291,7 +300,7 @@ $sApiKey = "";
                                                                                     </div>";
                                 }
                             }
-                            echo $sCustomerProductHtml;
+                            echo $sCustomerAddonHtmlContainer . $sCustomerProductHtml;
                             ?>
                         </div>
                     </div>
@@ -310,4 +319,5 @@ $sApiKey = "";
 <script src="js/app.js"></script>
 <script src="js/profile.js"></script>
 <?= $sErrorMessage ?>
+
 </html>
