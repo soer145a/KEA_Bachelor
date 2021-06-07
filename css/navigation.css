@@ -131,7 +131,7 @@
 .cart-counter {
     position: absolute;
     width: auto;
-    min-width: 35px;
+    min-width: 25px;
     height: 20px;
     background-color: var(--red);
     color: var(--white);
