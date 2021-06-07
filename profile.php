@@ -295,9 +295,8 @@ $sApiKey = "";
                                                                                                 <p class='section-paragraph product-card__text'><span class='product-card__title'>Active days remaining:</span> $nSubscriptionDaysLeft</p>
                                                                                             </div>
                                                                                             <h5 class='section-subheader product-card__subheader'>Embed Link</h5>
-                                                                                            <div class='product-card__container'>
-                                                                                                <code class='html'> $sEmbedLink</code>
-                                                                                                <!--<pre><code class='html'> $sEmbedLink</code></pre> -->
+                                                                                            <div class='product-card__container'>                                                                                
+                                                                                               <pre><code class='html'> $sEmbedLink</code></pre>
                                                                                             </div>
                                                                                             <h5 class='section-subheader product-card__subheader'>API-key</h5>
                                                                                             <div class='product-card__container'>
