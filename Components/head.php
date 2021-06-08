@@ -27,6 +27,7 @@ function headComp()
         <link rel='stylesheet' href='css/section-login.css' />
         <link rel='stylesheet' href='css/section-profile.css' />
         <link rel='stylesheet' href='css/section-order-confirmation.css' />
+        <link rel='stylesheet' href='css/section-email-confirmation.css' />
         <link rel='stylesheet' href='css/footer.css' />
         <link rel='stylesheet' href='css/media-queries.css' />
         ";

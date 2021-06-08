@@ -19,9 +19,14 @@ function sendContactForm() {
         /^[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~](\.?[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/;
 
       if (!sEmailRegEx.test(sCustomerEmail)) {
-          customerFormEmail.classList.add("invalid");
+        customerFormEmail.classList.add("invalid");
+        setTimeout(() => {
+          customerFormEmail.classList.remove("invalid");
+        },5000)
           showMessage("Please provide a valid email address", true);
       } else {
+        document.body.style.cursor = 'wait';
+        document.querySelector(".contact-form__button").style.backgroundColor  = "grey";
           customerFormEmail.classList.remove("invalid");
           postData("MAILER/send-contact-message-email.php", {
             customerName: sCustomerName,
@@ -36,6 +41,9 @@ function sendContactForm() {
                 "Thank you, Your message has been sent to Mirtual",
                 false
               );
+              document.body.style.cursor = 'default';
+              document.querySelector(".contact-form__button").style  ="";
+
               contactFormName.value = "";
               customerFormEmail.value = "";
               customerFormMessage.value = "";

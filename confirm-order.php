@@ -61,9 +61,9 @@ if (!isset($_SESSION['loginStatus'])) {
             <div class="layout-container orderConfirmation">
                 <div class="order-confirmation-summary">
                     <h1 class="section-header"><?= $sUserMessage ?></h1>
-                    <p>You have bought: <?= $sProductName ?></p>
-                    <p>Addons: <?= $sBoughtAddons ?></p>
-                    <p>Price: <?= $nTotalPrice ?></p>
+                    <p><span class="order-confirmation-summary-text">You have bought:</span> <?= $sProductName ?></p>
+                    <p><span class="order-confirmation-summary-text">Addons:</span> <?= $sBoughtAddons ?></p>
+                    <p><span class="order-confirmation-summary-text">Price: </span><?= $nTotalPrice ?></p>
                 </div>
             </div>
         </section>

@@ -3,7 +3,14 @@
     display: flex;
     flex-direction: column;
     margin: 10% auto;
-    max-width: 60ch;
+    max-width: 60%;
+}
+.order-confirmation-summary > p{
+    font-size: 1.1em;
+    margin-top: 15px;
+}
+.order-confirmation-summary-text{
+    font-weight: bold;
 }
 
 .order-confirmation-summary .section-header {
