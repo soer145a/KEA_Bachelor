@@ -107,6 +107,7 @@
 
 .message-box--green {
     background-color: var(--green);
+
 }
 
 .message-box--red {
@@ -124,7 +125,7 @@
 .message-box__text {
     position: relative;
     top: 50%;
-    color: var(--white);
+    color: var(--purple-dark);
     transform: translateY(-50%);
 }
 
