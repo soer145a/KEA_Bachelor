@@ -40,7 +40,7 @@ if (isset($_POST['customerMessage'])) {
 
         //Recipients
         $oMail->setFrom("Mirtual@purplescout.com", "Mirtual Contact Form");
-        $oMail->addAddress("soren.remboll@gmail.com", "Soren Remboll");     // Add a recipient   
+        $oMail->addAddress("cookbook.kea@gmail.com", "Mirtual contact");     // Add a recipient   
         $oMail->addReplyTo("$potentialCustomerEmail", "$potentialCustomerName");
 
         // Attachments

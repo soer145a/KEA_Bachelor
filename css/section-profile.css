@@ -212,7 +212,7 @@
 
 .product-card {
     border: 2px solid var(--purple-light);
-    ;
+    margin-bottom: 30px;
     border-radius: 10px;
     padding: 16px;
 }
@@ -295,4 +295,36 @@
     padding: 3px;
     border-radius: 10px;
     line-height: 20px;
+}
+
+.addon-card {
+    border: 2px solid var(--purple-light);
+    margin-bottom: 30px;
+    border-radius: 10px;
+    padding: 16px;
+}
+
+.addon-card__header {
+    color: var(--purple-dark);
+    font-size: 1.5rem;
+    position: relative;
+}
+
+.addon-card__arrow-outer {
+    position: absolute;
+    display: block;
+    right: 0;
+    top: calc(50% - 15px);
+    transform: translateY(calc(-50% + 15px));
+    cursor: pointer;
+    padding: 15px;
+}
+
+.addon-card__arrow-inner {
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid var(--purple-dark);
+    border-bottom: 2px solid var(--purple-dark);
+    transform: rotate(45deg)
 }
