@@ -75,8 +75,7 @@
 }
 
 .navigation-list__item {
-    margin: 1.5rem 0;
-    margin-left: auto;
+    margin: 0 auto 25px auto;
 }
 
 .navigation-list__item-link {
@@ -93,6 +92,7 @@
 
 .navigation-list__item .navigation-list__item-link--active {
     color: var(--yellow);
+    text-decoration: underline;
 }
 
 .message-box {
