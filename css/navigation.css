@@ -112,6 +112,11 @@
 
 .message-box--red {
     background-color: var(--red);
+    
+}
+
+.message-box--red .message-box__text {
+    color: var(--white);
 }
 
 .message-box--hidden {
