@@ -33,11 +33,12 @@ $sAddOnHtmlComp = addOnsComp($oDbConnection);
                 </h1>
                 <div class="video-container">
                     <div class="explainer-video">
-                        <div class="explainer-video__thumbnail" alt=" explainer video">
+                        <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/cey_vcyR1EQ?rel=0&modestbranding=1&autohide=1&showinfo=0" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+                        <!-- <div class="explainer-video__thumbnail" alt=" explainer video">
                             <span class="play-button-circle">
                                 <span class="play-button-triangle"></span>
                             </span>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <span class="background-sphere"></span>
