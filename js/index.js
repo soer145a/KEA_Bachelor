@@ -25,7 +25,8 @@ function sendContactForm() {
         },5000)
           showMessage("Please provide a valid email address", true);
       } else {
-          document.body.style.cursor='wait';
+        document.body.style.cursor = 'wait';
+        document.querySelector(".contact-form__button").style.backgroundColor  = "grey";
           customerFormEmail.classList.remove("invalid");
           postData("MAILER/send-contact-message-email.php", {
             customerName: sCustomerName,
@@ -40,7 +41,9 @@ function sendContactForm() {
                 "Thank you, Your message has been sent to Mirtual",
                 false
               );
-              document.body.style.cursor='default';
+              document.body.style.cursor = 'default';
+              document.querySelector(".contact-form__button").style  ="";
+
               contactFormName.value = "";
               customerFormEmail.value = "";
               customerFormMessage.value = "";
