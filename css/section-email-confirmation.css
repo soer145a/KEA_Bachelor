@@ -1,9 +1,47 @@
 #email-confirmation{
-    height: 525px;
+    height: 100%;
+    max-height: 600px;
 }
-.layout-container  .email-confirmation{
-    margin: auto;
+
+.email-confirmation__container {
+    height: 100%;
+    max-width: 60ch;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
-.section-header{
-    margin-top: 40px;
+
+.email-confirmation__header {
+    margin-bottom: 32px;
+}
+
+.email-confirmation__subheader {
+    color: var(--purple-light);
+    margin-bottom: 32px;
+}
+
+
+.email-confirmation__link-list {
+    margin: 0 auto;
+    /* height: 80px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.email-confirmation__link {
+    height: 40px;
+    text-decoration: none;
+    color: var(--purple-dark);
+    transition: .4s;
+}
+
+.email-confirmation__link:hover {
+    letter-spacing: 1px;
+}
+
+.email-confirmation__link:visited {
+    color: var(--purple-dark);
 }

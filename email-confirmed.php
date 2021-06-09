@@ -8,9 +8,9 @@ $sHeadHtmlComp = headComp();
 $sHeaderHtmlComp = headerComp('');
 $sFooterHtmlComp = footerComp();
 //If there is no confirm code, send the user away
-if (!isset($_GET['confirmCode'])) {
-    header('Location: index.php');
-}
+// if (!isset($_GET['confirmCode'])) {
+//     header('Location: index.php');
+// }
 $sCustomerConfirmCode = $_GET['confirmCode'];
 //Update the customer_confirmed record for where the confirm code is a match
 include_once("db-connection/connection.php");
@@ -29,12 +29,16 @@ $oCustomerResult = $oDbConnection->query($sCustomerUpdateSql);
     <main>
         <section id="email-confirmation">
             <div class="layout-container email-confirmation">
-                <h1 class="section-header">We have recieved your confirmation - thank you.
-                    <br>
-                    Your account is now active.
-                </h1>
-                <a href="login.php">Go to the login page</a>
-                <a href="index.php">Go to the homepage</a>
+                <div class="email-confirmation__container">
+                    <h1 class="section-header email-confirmation__header">
+                        We have recieved your confirmation - thank you.
+                    </h1>
+                    <h2 class="section-subheader email-confirmation__subheader">Your account is now active.</h2>
+                    <div class="email-confirmation__link-list">
+                        <a class="email-confirmation__link" href="login.php">Go to the login page</a>
+                        <a class="email-confirmation__link" href="index.php">Go to the homepage</a>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
