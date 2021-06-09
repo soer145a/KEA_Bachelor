@@ -150,6 +150,7 @@
     .intro__video {
         flex-basis: 50%;
         height: auto;
+        margin-right: 0;
     }
     .explainer {
         margin: 0;
