@@ -1,14 +1,17 @@
 function showDeleteOption() {
+  //Functionality for showing the delete modal
   document.querySelector("#deleteModal").classList.remove("hidden");
   document.querySelector("#deleteModal").classList.add("shown");
 }
 
 function cancelDeletion() {
+  //Remove the delete modal
   document.querySelector("#deleteModal").classList.add("hidden");
   document.querySelector("#deleteModal").classList.remove("shown");
 }
 
 function showDeleteOption2() {
+  //show the next step when deleting your user
   document.querySelector("#deleteModal").classList.add("hidden");
   document.querySelector("#deleteModal").classList.remove("shown");
   document.querySelector("#deleteModalTotal").classList.remove("hidden");
@@ -16,30 +19,32 @@ function showDeleteOption2() {
 }
 
 function removeDeleteModals() {
+  //Cancel the deletion process
   document.querySelector("#deleteModalTotal").classList.add("hidden");
   document.querySelector("#deleteModalTotal").classList.remove("shown");
 }
-
-//Gets called when the user turns their subscription autorenewal on or off
-function toggleAutoRenew(sCustomerProductId) {
+async function toggleAutoRenew(sCustomerProductId) {
+  //This function sends the request to the api when to toggle the auto renew on their product
+  //Selecting the correct object
   let autoRenewSpan = document.querySelector(
     `#autoRenewSpan${sCustomerProductId}`
   );
   let autoRenewToggleButton = document.querySelector(
     `#autoRenewToggleButton${sCustomerProductId}`
   );
-  //Contact the database and make sure it updates the relevant columns
+  //Send request
   postData("api/update-autorenewal.php", {
     customerProductId: sCustomerProductId,
   }).then((jResponse) => {
-    //Check the response for what happend and update the front end to display the same and communicate this to the user
+    //The response from the api
     if (jResponse.renewToggledOn) {
-      console.log(jResponse);
+      //Check to see what it was toggled to
+      // if on
       autoRenewSpan.textContent = "On";
       autoRenewToggleButton.textContent = "Turn off";
       showMessage("Auto-renewal has been turned on", false);
     } else {
-      console.log(jResponse);
+      //If off
       autoRenewSpan.textContent = "Off";
       autoRenewToggleButton.textContent = "Turn on";
       showMessage("Auto-renewal has been turned off", false);
@@ -107,7 +112,7 @@ function updateCustomerInfo(sInputName) {
   //check if the customer has provided a valid input
   if (eInput.classList.contains("invalid")) {
   } else {
-    //contact database to update changes
+    //Send the request to the api
     postData("api/update-customer-data.php", {
       data: eInput.value,
       whatToUpdate: sInputName,
@@ -133,6 +138,7 @@ function updateCustomerInfo(sInputName) {
         }
         let eProfileInfoPTag = eProfileInfo.querySelector("p");
         eProfileInfoPTag.textContent = eInput.value;
+        //change the header on the profile page based on if one of the names were the changed data record
         switch (sInputName) {
           case "customer_first_name":
             customerFirstNameHeader.textContent = eInput.value;
@@ -140,6 +146,7 @@ function updateCustomerInfo(sInputName) {
           case "customer_last_name":
             customerLastNameHeader.textContent = eInput.value;
         }
+        //display message
         showMessage("Your information has been updated", false);
       }
     });
@@ -148,38 +155,43 @@ function updateCustomerInfo(sInputName) {
 
 //let the user update their password
 function changeCustomerPassword() {
+  //Gather the data from the input fields
   let sNewPassword = accountDetails__password;
   let sPasswordConfirm = accountDetails__confirmPassword;
   let sOldPassword = accountDetails__passwordOld;
-
-  //check if password fields have been filled out and let user know if they are missing fields
+  //If empty, stop the process
   if (
     sNewPassword.value == "" ||
     sPasswordConfirm.value == "" ||
     sOldPassword.value == ""
   ) {
+    //Error on the empty fields
     showMessage("Please fill out all fields", true);
   } else {
-    //Check if new password meets requirements and let user know if it does not
+    
     if (sNewPassword.classList.contains("invalid")) {
+      //The password is invalid case
       showMessage("New password does not meet requirements", true);
     } else {
-      //check if the two passwords match and let the user know if they don't
+      
       if (sPasswordConfirm.classList.contains("invalid")) {
+        //If the second input is invalid
         showMessage("The passwords do not match", true);
       } else {
-        //update the password in the database and communicate result to user
+        //Everything is okay and send request
         postData("api/update-customer-data.php", {
           customerPassword: sOldPassword.value,
           newCustomerPassword: sPasswordConfirm.value,
         }).then((jResponse) => {
+          //Based on response
           if (jResponse.customerUpdated) {
-            //Communicate to user and empty passwords fields
+            //success
             showMessage("Your password has been updated", false);
             sNewPassword.value = "";
             sPasswordConfirm.value = "";
             sOldPassword.value = "";
           } else {
+            //Error
             showMessage("The password was incorrect", true);
           }
         });
