@@ -4,9 +4,12 @@ $sErrorMessage = "";
 include_once("components/head.php");
 include_once("components/header.php");
 include_once("components/footer.php");
+include_once("components/inputInfoButton.php");
 $sHeadHtmlComp = headComp();
 $sHeaderHtmlComp = headerComp('login');
 $sFooterHtmlComp = footerComp();
+$aListItems = array("<li>6-30 characters</li>", "<li>One uppercase character</li>", " <li>One numeric character</li>", "<li>One special character</li>");
+$sPasswordInfoButtonHtml = inputInfoButtonComp($aListItems);
 //If the user IS logged in, they should go to the profile page instead
 if (isset($_SESSION['loginStatus'])) {
     header('Location: profile.php');
@@ -71,20 +74,7 @@ if (isset($_POST['customerEmail']) && isset($_POST['customerPassword'])) {
 
                     <input class="login-form__input" type="email" placeholder="example@email.com" name="customerEmail">
 
-                    <label class="login-form__label">Password:
-                        <span class="login-form__label-info-outer js-toggle-infobox">
-                            <span class="login-form__label-info-inner">
-                            </span>
-                        </span>
-                        <span class="login-form__label-info-box js-toggle-infobox login-form__label-info-box--hidden">
-                            <h5 class="section-subheader label-info-box__header">The password must concist of:</h5>
-                            <ul>
-                                <li>6-30 characters</li>
-                                <li>One uppercase character</li>
-                                <li>One numeric character</li>
-                                <li>One special character</li>
-                            </ul>
-                        </span>
+                    <label class="login-form__label">Password: <?= $sPasswordInfoButtonHtml ?>
                     </label>
 
                     <input class="login-form__input" type="password" placeholder="Type in your password" name="customerPassword">

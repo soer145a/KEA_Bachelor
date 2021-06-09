@@ -1,22 +1,34 @@
+//Execute functions on page load
 document.addEventListener("DOMContentLoaded", () => {
   toggleMobileNavigation();
   toggleInfoBox();
 });
+
+//Variables needed to be global for the timer function used for customer communication
 let bMessageBoxShown = false;
 let fTimeOutFunction;
+
+//Function used for communicating with the customers on the page
 function showMessage(sMessage, bIsError) {
+  //checks if a message is currently being shown
   if (bMessageBoxShown) {
+    //If message is shown, stop previously set timer to start process from fresh
     stopTimeOut();
   }
   bMessageBoxShown = true;
+
+  //reset messageBox classes
   messageBox.classList.remove(...messageBox.classList);
   messageBox.classList.add("message-box");
   messageText.textContent = sMessage;
+
+  //if bIsError is set to true the message banner turns red to indicate an error or green to indicate a successful action
   if (bIsError) {
     messageBox.classList.add("message-box--red");
   } else {
     messageBox.classList.add("message-box--green");
   }
+  //start timer to show message for 5 sec
   fTimeOutFunction = setTimeout(() => {
     messageBox.classList.add("message-box--visually-hidden");
     setTimeout(() => {
@@ -26,32 +38,37 @@ function showMessage(sMessage, bIsError) {
       bMessageBoxShown = false;
     }, 1100);
   }, 5000);
-  console.log(fTimeOutFunction, "hello");
 }
-
+//Function used to stop a prevously set timer
 function stopTimeOut() {
   clearTimeout(fTimeOutFunction);
 }
 
+//function used to validate inputs
 function inputValidate() {
   let sInputData;
   let aInputsToValidate = [];
 
+  // if trigger is of the type submit, create an array of all input fields
   if (event.type == "submit") {
     eFormToValidate = event.target;
     aInputsToValidate = eFormToValidate.querySelectorAll("[data-validate]");
+    //else put just the trigger input field into the array
   } else {
     aInputsToValidate = [event.target];
   }
 
+  //Repeat below code for each input in the array
   for (let i = 0; i < aInputsToValidate.length; i++) {
     let sValidationType = aInputsToValidate[i].getAttribute("data-validate");
 
+    //check the input data-validate attribute for what string it contains and execute code corresponding to the string
     switch (sValidationType) {
       case "phone":
         sInputData = aInputsToValidate[i].value;
         let sPhoneRegEx = /^\+(?:[0-9]●?){6,16}[0-9]$/;
 
+        //check if phonenumber is formatted correctly and set the correct class to let the customer visually know if it is correct or not
         if (!sPhoneRegEx.test(sInputData)) {
           aInputsToValidate[i].classList.add("invalid");
           aInputsToValidate[i].classList.remove("valid");
@@ -66,10 +83,12 @@ function inputValidate() {
         let sEmailRegEx =
           /^[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~](\.?[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/;
 
+        //check if email is formatted correctly and set the correct class to let the customer visually know if it is correct or not
         if (!sEmailRegEx.test(sInputData)) {
           aInputsToValidate[i].classList.remove("valid");
           aInputsToValidate[i].classList.add("invalid");
         } else {
+          //Contact api to check if email address already exists in database
           postData("api/check-db-for-existing-entries.php", {
             whatToCheck: "customer_email",
             data: sInputData,
@@ -88,6 +107,7 @@ function inputValidate() {
 
       case "string":
         sInputData = aInputsToValidate[i].value;
+
 
         if (sInputData.length < 1) {
           aInputsToValidate[i].classList.add("invalid");
