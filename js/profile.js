@@ -2,10 +2,12 @@ function showDeleteOption() {
   document.querySelector("#deleteModal").classList.remove("hidden");
   document.querySelector("#deleteModal").classList.add("shown");
 }
+
 function cancelDeletion() {
   document.querySelector("#deleteModal").classList.add("hidden");
   document.querySelector("#deleteModal").classList.remove("shown");
 }
+
 function showDeleteOption2() {
   document.querySelector("#deleteModal").classList.add("hidden");
   document.querySelector("#deleteModal").classList.remove("shown");
@@ -17,16 +19,20 @@ function removeDeleteModals() {
   document.querySelector("#deleteModalTotal").classList.add("hidden");
   document.querySelector("#deleteModalTotal").classList.remove("shown");
 }
-async function toggleAutoRenew(sCustomerProductId) {
+
+//Gets called when the user turns their subscription autorenewal on or off
+function toggleAutoRenew(sCustomerProductId) {
   let autoRenewSpan = document.querySelector(
     `#autoRenewSpan${sCustomerProductId}`
   );
   let autoRenewToggleButton = document.querySelector(
     `#autoRenewToggleButton${sCustomerProductId}`
   );
+  //Contact the database and make sure it updates the relevant columns
   postData("api/update-autorenewal.php", {
     customerProductId: sCustomerProductId,
   }).then((jResponse) => {
+    //Check the response for what happend and update the front end to display the same and communicate this to the user
     if (jResponse.renewToggledOn) {
       console.log(jResponse);
       autoRenewSpan.textContent = "On";
@@ -40,7 +46,11 @@ async function toggleAutoRenew(sCustomerProductId) {
     }
   });
 }
+
+//Changes the text displaying customer information to and input field with the same information as its value
+// and adds a cancel and save button
 function editInfo(sValidateType, sInputName) {
+  //54-62 hides existing html
   let eParentElement = event.target.parentElement;
   let aParentElementChildren = eParentElement.children;
   //hide existing elements
@@ -91,15 +101,19 @@ function editInfo(sValidateType, sInputName) {
   eInput.focus();
 }
 
+//Updates the changes customer information in the database and the frontend
 function updateCustomerInfo(sInputName) {
   let eInput = document.getElementsByName(sInputName)[0];
+  //check if the customer has provided a valid input
   if (eInput.classList.contains("invalid")) {
   } else {
+    //contact database to update changes
     postData("api/update-customer-data.php", {
       data: eInput.value,
       whatToUpdate: sInputName,
     }).then((jResponse) => {
       if (jResponse.customerUpdated) {
+        //if succes then update frontend and let user know
         let eProfileInfo = document.getElementsByClassName(
           "customer-information__" + sInputName
         )[0];
@@ -131,36 +145,36 @@ function updateCustomerInfo(sInputName) {
     });
   }
 }
+
+//let the user update their password
 function changeCustomerPassword() {
   let sNewPassword = accountDetails__password;
   let sPasswordConfirm = accountDetails__confirmPassword;
   let sOldPassword = accountDetails__passwordOld;
-  console.log(361);
+
+  //check if password fields have been filled out and let user know if they are missing fields
   if (
     sNewPassword.value == "" ||
     sPasswordConfirm.value == "" ||
     sOldPassword.value == ""
   ) {
-    console.log(367);
     showMessage("Please fill out all fields", true);
   } else {
-    console.log(370);
+    //Check if new password meets requirements and let user know if it does not
     if (sNewPassword.classList.contains("invalid")) {
-      console.log(372);
       showMessage("New password does not meet requirements", true);
     } else {
-      console.log(375);
+      //check if the two passwords match and let the user know if they don't
       if (sPasswordConfirm.classList.contains("invalid")) {
-        console.log(377);
         showMessage("The passwords do not match", true);
       } else {
-        console.log(380);
+        //update the password in the database and communicate result to user
         postData("api/update-customer-data.php", {
           customerPassword: sOldPassword.value,
           newCustomerPassword: sPasswordConfirm.value,
         }).then((jResponse) => {
-          console.log(jResponse);
           if (jResponse.customerUpdated) {
+            //Communicate to user and empty passwords fields
             showMessage("Your password has been updated", false);
             sNewPassword.value = "";
             sPasswordConfirm.value = "";
@@ -173,6 +187,8 @@ function changeCustomerPassword() {
     }
   }
 }
+
+//Close down the inputform and replace with the html that just displays the user information
 function cancelEdit() {
   let eRootElement = event.target.parentElement.parentElement;
 
