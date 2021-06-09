@@ -239,8 +239,6 @@ $sApiKey = "";
                             $oCustomerProductResults = $oDbConnection->query($sCustomerProductSelectSql);
 
                             while ($oCustomerProductRow = $oCustomerProductResults->fetch_object()) {
-                                //echo json_encode($oCustomerProductRow);
-
                                 $sCharsToReplace = array("<", ">");
                                 $sReplaceCharsWith = array("&lt;", "&gt;");
                                 $sEmbedLink = str_replace($sCharsToReplace, $sReplaceCharsWith, $oCustomerProductRow->embed_link);
