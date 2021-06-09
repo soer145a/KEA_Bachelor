@@ -37,12 +37,6 @@ $sAddOnHtmlComp = addOnsComp($oDbConnection);
                             <source src="./assets/video/placeholder-video.mp4" type="video/mp4">
                             Sorry, your browser doesn't support embedded videos.
                         </video>
-                        <!-- <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/cey_vcyR1EQ?rel=0&modestbranding=1&autohide=1&showinfo=0" title="YouTube video player" frameborder="0" allowfullscreen></iframe> -->
-                        <!-- <div class="explainer__thumbnail" alt=" explainer video">
-                            <span class="play-button-circle">
-                                <span class="play-button-triangle"></span>
-                            </span>
-                        </div> -->
                     </div>
                 </div>
                 <span class="background-sphere"></span>
