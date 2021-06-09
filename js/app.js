@@ -64,7 +64,7 @@ function inputValidate() {
       case "phone":
         sInputData = aInputsToValidate[i].value;
         let sPhoneRegEx = /^\+(?:[0-9]●?){6,16}[0-9]$/;
-        //Testing REGEX against our data
+        //check if phone number is formatted correctly and set the correct class to let the customer visually know if it is correct or not
         if (!sPhoneRegEx.test(sInputData)) {
           aInputsToValidate[i].classList.add("invalid");
           aInputsToValidate[i].classList.remove("valid");
@@ -95,7 +95,7 @@ function inputValidate() {
             } else {
               aInputsToValidate[i].classList.remove("valid");
               aInputsToValidate[i].classList.add("invalid");
-              showMessage("This email already exists", true);
+              showMessage("This email already exists", true); //Let user know what has happened
             }
           });
         }
@@ -103,7 +103,6 @@ function inputValidate() {
 
       case "string":
         sInputData = aInputsToValidate[i].value;
-
 
         if (sInputData.length < 1) {
           aInputsToValidate[i].classList.add("invalid");
@@ -127,7 +126,7 @@ function inputValidate() {
           aInputsToValidate[i].classList.add("valid");
           aInputsToValidate[i].classList.remove("invalid");
           if (
-            aInputsToValidate[i].value !== accountDetails__confirmPassword.value
+            aInputsToValidate[i].value !== accountDetails__confirmPassword.value //Make sure the password and confirm password boxes value match
           ) {
             accountDetails__confirmPassword.classList.add("invalid");
             accountDetails__confirmPassword.classList.remove("valid");
@@ -139,6 +138,7 @@ function inputValidate() {
         break;
       case "confirmPassword":
         if (aInputsToValidate[i].value !== accountDetails__password.value) {
+          //Make sure the password and confirm password boxes value match
           aInputsToValidate[i].classList.add("invalid");
           aInputsToValidate[i].classList.remove("valid");
         } else {
@@ -154,6 +154,7 @@ function inputValidate() {
           aInputsToValidate[i].classList.add("invalid");
           aInputsToValidate[i].classList.remove("valid");
         } else {
+          //Contact api to check if cvr address already exists in database
           postData("api/check-db-for-existing-entries.php", {
             whatToCheck: "customer_company_cvr",
             data: sInputData,
@@ -191,6 +192,8 @@ function inputValidate() {
     }
   }
 }
+
+//The postData function gets used to contact our apis by other JS functions
 async function postData(sUrl = "", jData = {}) {
   const response = await fetch(sUrl, {
     method: "POST",
@@ -206,6 +209,7 @@ async function postData(sUrl = "", jData = {}) {
 
   return response.json();
 }
+
 function toggleMobileNavigation() {
   if (document.querySelector(".js-toggleNavigation") !== null) {
     document
@@ -226,11 +230,12 @@ function toggleMobileNavigation() {
   }
 }
 
+//UpdateCartCounter is used to update the cartcounter when a product has been added to the cart
 function updateCartCounter(bIsProduct, nAddonAmount, bIncrement) {
   let eCartCounter = document.querySelector(".cart-counter");
-
   let counter = parseInt(eCartCounter.textContent);
 
+  //check if what has been added to the cart is a product or an addon
   if (bIsProduct) {
     if (!bIncrement) {
       //decrement counter
@@ -240,6 +245,7 @@ function updateCartCounter(bIsProduct, nAddonAmount, bIncrement) {
       eCartCounter.textContent = counter + 1;
     }
   } else {
+    //if it is an addon, check how many addons the user has added to the cart and add that to the cart counter
     if (!bIncrement) {
       //decrement counter
       eCartCounter.textContent = counter - nAddonAmount;
@@ -249,6 +255,8 @@ function updateCartCounter(bIsProduct, nAddonAmount, bIncrement) {
     }
   }
 }
+
+//Opens the infobox explaining the user what an expected input is
 function toggleInfoBox() {
   if (document.querySelector(".js-toggle-infobox") !== null) {
     aToggleElements = document.querySelectorAll(".js-toggle-infobox");
