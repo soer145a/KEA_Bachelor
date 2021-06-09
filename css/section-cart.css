@@ -56,7 +56,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding: 32px;
+    padding: 16px;
 }
 
 .order-summary__header {
@@ -68,7 +68,7 @@
     height: 100%;
     max-height: 400px;
     overflow: scroll;
-    margin-bottom: 32px;
+    margin-bottom: 16px;
 }
 
 .order-summary__body::-webkit-scrollbar {
@@ -85,10 +85,12 @@
     margin-bottom: 3px;
     margin-left: 1px;
     cursor:initial;
+    font-style: italic;
+    font-family: "helvetica neue";
+    color: var(--white);
 }
-
 .order-summary__button:hover {
-    transform: scale(1);
+    transform: none;
 }
 
 .paypal-button-container {
@@ -97,12 +99,17 @@
 }
 
 .header-container {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 8px;
+}
+
+.header-item {
+    flex-grow: 1;
 }
 
 .header-item__quantity {
-    text-align: center;
+    text-align: right;
 }
 
 .header-item__price {
@@ -115,39 +122,29 @@
     overflow: auto;
     padding-bottom: 15px;
 }
-
 .product-row {
-    height: auto;
-    display: flex;
+    display: grid;
+    height: 58px;
+    grid-template-rows: 2fr 1fr;
+    gap: 8px;
     margin-bottom: 16px;
-    flex-wrap: wrap;
+    border: 2px solid var(--purple-light);
+    border-radius: 10px;
+    padding: 8px;
+    height: auto;
 }
 
+.product-items {
+    align-self: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    
+}
 .product-item {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    height: 50px;
-    align-items: center;
+    align-self: center;
 }
-
-.subscription-row {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-}
-
-.subscription-row__text {
-    margin-left: 32px;
-    color: var(--black-60);
-}
-
-.subscription-row__price::before {
-    content: "\20AC";
-}
-
 .product-item__quantity {
-    text-align: center;
+    justify-self: end;
     position: relative;
 }
 
@@ -167,9 +164,24 @@
     width: 30px;
     display: block;
     position: absolute;
-    left: -64px;
+    left: -50px;
     top: 50%;
     transform: translateY(-50%);
+}
+
+.subscription-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.subscription-row__text {
+    margin-left: 32px;
+    color: var(--black-60);
+}
+
+.subscription-row__price::before {
+    content: "\20AC";
 }
 
 .empty-cart {

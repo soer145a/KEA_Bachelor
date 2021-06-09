@@ -34,13 +34,13 @@ if (isset($_SESSION['cartProducts'])) {
         $nTotalPrice =  $nTotalPrice + $aProduct['productPrice'];
         //The html block for print
         $sProductHtml =  $sProductHtml . "<div class='product-row'>
-                                    <div class='product-item'>
-                                        <p class='product-item__name'>$sProductName</p>
-                                        <p class='product-item__quantity'>
-                                            <span class='product-item__delete' onclick='removeItemFromCart($sProductId, true, 0, $bLoginStatus)'></span>
+                                    <div class='product-items'>
+                                        <p class='product-item product-item__name'>$sProductName</p>
+                                        <p class='product-item product-item__quantity'>
+                                            <span class='product-item product-item__delete' onclick='removeItemFromCart($sProductId, true, 0, $bLoginStatus)'></span>
                                             1
                                         </p>
-                                        <p class='product-item__price'>$nProductPrice</p>
+                                        <p class='product-item product-item__price'>$nProductPrice</p>
                                     </div>
 
                                     <div class='subscription-row'>
@@ -97,9 +97,9 @@ if ($bLoginStatus != 'true') {
                     <div class="order-summary">
                         <div class="order-summary__header">
                             <div class="header-container">
-                                <h5 class="header-item__product">Product</h5>
-                                <h5 class="header-item__quantity">Quantity</h5>
-                                <h5 class="header-item__price">Price</h5>
+                                <h5 class="header-item header-item__product">Product</h5>
+                                <h5 class="header-item header-item__quantity">Quantity</h5>
+                                <h5 class="header-item header-item__price">Price</h5>
                             </div>
                         </div>
                         <div class="order-summary__body">
@@ -116,7 +116,7 @@ if ($bLoginStatus != 'true') {
 
                         </div>
                         <div id='paypal-button-container' class="paypal-button-container">
-                            <button id="paypalInactive" class="order-summary__button button button--purple" title="You need to fill out the form.">
+                            <button id="paypalInactive" class="button order-summary__button " title="You need to fill out the form.">
                                 PayPal
                             </button>
                         </div>
