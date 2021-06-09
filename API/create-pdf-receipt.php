@@ -3,9 +3,9 @@ session_start();
 //using the createPDF library
 require '../CREATEPDF/fpdf.php';
 //Check to see if the user is trying to access this page from browser
-/* if(!isset($iTimeEpoch)){
+ if(!isset($iTimeEpoch)){
     header("Location: ../index.php");
-} */
+} 
 //Creating the PDF object
 class PDF extends FPDF
 {

@@ -32,14 +32,16 @@ if (isset($_POST['customerEmail']) && isset($_POST['customerPassword'])) {
             if (password_verify($sCustomerPassword, $sCustomerDbPassword)) {
                 if ($oCustomerRow->customer_confirmed == 1) {
                     //If the customer has not confirmed their account through the email, decline the login here
+
+                    //If the user is authorized, set session data and send the user to the index page
                     $_SESSION['loginStatus'] = true;
                     $_SESSION['customerId'] = $oCustomerRow->customer_id;
                     $_SESSION['customerFirstName'] = $oCustomerRow->customer_first_name;
                     $_SESSION['customerLastName'] = $oCustomerRow->customer_last_name;
                     header('Location: index.php');
-                    //Display an error message the user
+                    
                 } else {
-
+                    //Display an error message the user
                     $sErrorMessage = "<script>showMessage('You have not confirmed your account, please check your email', true)</script>";
                 }
             } else {

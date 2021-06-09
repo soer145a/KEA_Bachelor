@@ -48,8 +48,7 @@ function stopTimeOut() {
 function inputValidate() {
   let sInputData;
   let aInputsToValidate = [];
-
-  // if trigger is of the type submit, create an array of all input fields
+  //Check to see what it is we are submitting
   if (event.type == "submit") {
     eFormToValidate = event.target;
     aInputsToValidate = eFormToValidate.querySelectorAll("[data-validate]");
@@ -57,18 +56,15 @@ function inputValidate() {
   } else {
     aInputsToValidate = [event.target];
   }
-
-  //Repeat below code for each input in the array
+  //Get the type of what the function will be validating
   for (let i = 0; i < aInputsToValidate.length; i++) {
     let sValidationType = aInputsToValidate[i].getAttribute("data-validate");
-
-    //check the input data-validate attribute for what string it contains and execute code corresponding to the string
+    //In each case we check what the validation type is, and then validate on only that
     switch (sValidationType) {
       case "phone":
         sInputData = aInputsToValidate[i].value;
         let sPhoneRegEx = /^\+(?:[0-9]●?){6,16}[0-9]$/;
-
-        //check if phonenumber is formatted correctly and set the correct class to let the customer visually know if it is correct or not
+        //Testing REGEX against our data
         if (!sPhoneRegEx.test(sInputData)) {
           aInputsToValidate[i].classList.add("invalid");
           aInputsToValidate[i].classList.remove("valid");

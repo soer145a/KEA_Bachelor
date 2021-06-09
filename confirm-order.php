@@ -13,7 +13,7 @@ if (!isset($_SESSION['orderId'])) {
 $sProductName = "";
 $nTotalPrice = 0;
 $sBoughtAddons = "";
-//Make the summery for the user to view
+//Make the summery for the user to view based on the content of the cart session
 if (isset($_SESSION['cartProducts'])) {
     foreach ($_SESSION['cartProducts'] as $aProduct) {
 
