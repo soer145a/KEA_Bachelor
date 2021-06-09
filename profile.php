@@ -4,9 +4,12 @@ include("db-connection/connection.php");
 include_once("components/head.php");
 include_once("components/header.php");
 include_once("components/footer.php");
+include_once("components/inputInfoButton.php");
 $sHeadHtmlComp = headComp();
 $sHeaderHtmlComp = headerComp('profile');
 $sFooterHtmlComp = footerComp();
+$aListItems = array("<li class='infobox__list-item'>6-30 characters</li>", "<li class='infobox__list-item'>One uppercase character</li>", " <li class='infobox__list-item'>One numeric character</li>", "<li class='infobox__list-item'>One special character</li>");
+$sPasswordInfoButtonHtml = inputInfoButtonComp($aListItems);
 //Reset the error message variabel
 $sErrorMessage = "";
 if (isset($_SESSION['wrongPassword'])) {
@@ -206,19 +209,8 @@ $sApiKey = "";
                                 <h4 class="section-subheader">Edit password</h4>
                                 <form class="customer-password-form" onsubmit="event.preventDefault();">
                                     <div class="form-wrapper">
-                                        <label class="customer-password-form__input-label">New password: <span class="question-mark js-toggle-infobox">
-                                                <span class="question-mark__inner">
-                                                </span>
-                                            </span>
-                                            <span class="infobox js-toggle-infobox infobox--hidden">
-                                                <h5 class="section-subheader">The password must concist of:</h5>
-                                                <ul>
-                                                    <li>6-30 characters</li>
-                                                    <li>One uppercase character</li>
-                                                    <li>One numeric character</li>
-                                                    <li>One special character.</li>
-                                                </ul>
-                                            </span>
+                                        <label class="customer-password-form__input-label">New password:
+                                            <?= $sPasswordInfoButtonHtml ?>
                                         </label>
                                         <input id="accountDetails__password" class="customer-password-form__input" oninput="inputValidate()" data-validate="password" type="password" name="customerPassword" placeholder="New password">
                                     </div>

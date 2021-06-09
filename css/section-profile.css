@@ -93,7 +93,7 @@
 }
 
 .customer-information__item {
-    flex-basis: 50%;
+    /* flex-basis: 50%; */
     height: auto;
     display: flex;
     align-items: center;
@@ -120,7 +120,7 @@
 }
 
 .customer-information-form .form__input {
-    width: 60%;
+    width: 225px;
     border: 2px solid var(--purple-light);
 }
 
@@ -154,7 +154,7 @@
     padding: 10px;
     cursor: pointer;
     margin-left: auto;
-    margin-right: 32px;
+    /* margin-right: 32px; */
 }
 
 .customer-information__item__icon-inner {
@@ -177,24 +177,18 @@
     flex-direction: column;
     flex-basis: 49%;
     width: 100%;
-    max-width: 280px;
+    /* max-width: 280px; */
 }
 
 .customer-password-form__input-label {
-    height: 30px;
     position: relative;
     width: auto;
-}
-
-.customer-password-form__input-label .question-mark {
-    position: absolute;
-    top: -12px;
-    left: 50%;
-    z-index: 10;
+    display: flex;
+    align-items: center;
 }
 
 .customer-password-form__input-label .infobox {
-    left: 65%;
+    left: -18px;
     z-index: 10;
 }
 

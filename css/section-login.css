@@ -30,6 +30,10 @@
     align-items: center;
 }
 
+.login-form__label .infobox{
+    left: -34px;
+}
+
 .login-form__input {
     margin-top: 8px;
     margin-bottom: 32px;
