@@ -62,13 +62,13 @@ if (isset($_SESSION['cartAddOns'])) {
         $nTotalPrice =  $nTotalPrice + $nAddonTotalPrice;
         //The printed HTML
         $sAddonHtml =  $sAddonHtml . "<div class='product-row'>
-                                    <div class='product-item'>
-                                        <p class='product-item__name'>$sAddonName</p>
-                                        <p class='product-item__quantity'>
+                                    <div class='product-items'>
+                                        <p class='product-item product-item__name'>$sAddonName</p>
+                                        <p class='product-item product-item__quantity'>
                                             <span class='product-item__delete' onclick='removeItemFromCart($sAddonId, false, $nAddonAmount, $bLoginStatus)'></span>
                                             $nAddonAmount
                                         </p>
-                                        <p class='product-item__price'>$nAddonTotalPrice</p>
+                                        <p class='product-item product-item__price'>$nAddonTotalPrice</p>
                                     </div>
                                 </div>";
     }
