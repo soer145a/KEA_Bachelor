@@ -11,13 +11,13 @@ function inputInfoButtonComp($aListItems)
     }
 
     $sInputInfoButtonHtml =
-        "<span class='infobox-container'>
-            <span class='question-mark js-toggle-infobox'>
+        "<span class='infobox-container js-toggle-infobox'>
+            <span class='question-mark'>
                 <span class='question-mark__inner'></span>
             </span>
-            <span class='infobox js-toggle-infobox infobox--hidden'>
-                <h5 class='section-subheader'>The password must concist of:</h5>
-                <ul>
+            <span class='infobox infobox--hidden'>
+                <h5 class='section-subheader infobox__header'>The password must concist of:</h5>
+                <ul class='infobox__list'>
                     $sListItems
                 </ul>
             </span>

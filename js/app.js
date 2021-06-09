@@ -262,11 +262,15 @@ function toggleInfoBox() {
     aToggleElements = document.querySelectorAll(".js-toggle-infobox");
     aToggleElements.forEach((eToggleElement) => {
       eToggleElement.addEventListener("click", (eToggleElement) => {
-        console.log(eToggleElement.target.children);
-        /* const eInfobox = eToggleElement.target.querySelector(
-          ".login-form__label-info-box"
-        );
-        eInfobox.classList.toggle("login-form__label-info-box--hidden"); */
+        if(eToggleElement.target.classList.value !== "infobox") {
+          const eInfobox = eToggleElement.target.querySelector(
+            ".infobox"
+          );
+          eInfobox.classList.toggle("infobox--hidden");
+        } else {
+          eToggleElement.target.classList.toggle("infobox--hidden");
+        }
+        
       });
     });
   }

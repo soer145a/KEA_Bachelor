@@ -161,12 +161,14 @@ footer {
 
 .infobox-container {
     margin-left: 8px;
+    cursor: pointer;
 }
 
 .question-mark{
     display: block;
     padding: 10px;
     color: var(--white);
+    pointer-events: none;
 }
 
 .question-mark__inner {
@@ -175,7 +177,7 @@ footer {
     width: 20px;
     height: 20px;
     border-radius: 100%;
-    cursor: pointer;
+    
     background-color: var(--purple-dark);
 }
 
@@ -187,7 +189,7 @@ footer {
     font-family: var(--font-paragraphs);
 }
 
-.question-mark:hover + .infobox {
+.infobox-container:hover .infobox{
     display: block;
 }
 
@@ -204,6 +206,14 @@ footer {
 
 .infobox--hidden {
     display: none;
+}
+
+.infobox__header {
+    pointer-events: none;
+}
+
+.infobox__list {
+    pointer-events: none;
 }
 
 .infobox__list-item {
