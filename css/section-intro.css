@@ -11,39 +11,36 @@
     padding-top: 32px;
 }
 
-.intro-heading {
+/* .intro__heading {
     color: white;
     margin-bottom: 2rem;
     text-align: center;
     line-height: 55px;
+} */
+.intro__heading {
+    color: white;
+    margin-bottom: 32px;
+    text-align: center;
+    line-height: 55px;
 }
 
-.video-container {
+.intro__video {
     position: relative;
     width: 100%;
+    max-width: 625px;
     cursor: pointer;
     height: 100%;
-    margin-top: auto;
+    margin: auto;
 }
 
-/* .explainer-video {
-    max-height: 392px;
-    max-width: 584px;
-    overflow: hidden;
-    position: relative;
-    min-height: 230px;
-    padding-top: calc(591.44 / 1127.34 * 100%);
-    margin: 0 auto;
-} */
-
-.explainer-video{
+.explainer{
     position: relative;
     width: 100%;
     padding-bottom: 56.25%; 
     height: 0;
     z-index: 1;
   }
-  .explainer-video iframe{
+  .explainer__video{
     position: absolute;
     top:0;
     left: 0;
@@ -51,7 +48,7 @@
     height: 100%;
   }
 
-.explainer-video__thumbnail {
+.explainer__thumbnail {
     position: absolute;
     top: 0;
     left: 0;

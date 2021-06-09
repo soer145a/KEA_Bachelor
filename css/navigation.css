@@ -16,7 +16,7 @@
     max-width: 150px;
 }
 
-.navigation--wrapper {
+.navigation-wrapper {
     margin-left: auto;
 }
 
@@ -60,7 +60,7 @@
     left: 0;
     width: 100%;
     height: calc(100vh - 80px);
-    background-color: khaki;
+    background-color:var(--purple-light);
 }
 
 .navigation-list-wrapper--hidden {
@@ -68,10 +68,11 @@
 }
 
 .navigation-list {
+    max-width: 200px;
     display: flex;
     flex-direction: column;
-    margin: 25% 0;
-    margin-right: 16px;
+    margin: 0 auto;
+    margin-top: 64px;
 }
 
 .navigation-list__item {
@@ -92,7 +93,6 @@
 
 .navigation-list__item .navigation-list__item-link--active {
     color: var(--yellow);
-    
 }
 
 .message-box {
@@ -146,8 +146,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    bottom: -20px;
     right: -10px;
     font-size: 0.8rem;
-    padding: 1.5px 2px 0px 2px;
 }

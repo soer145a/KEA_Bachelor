@@ -7,26 +7,14 @@
 }
 
 @media screen and (min-width: 667px) {
-    .intro-heading {
-        padding-top: 5%;
-    }
-    .explainer-video {
+    
+    .explainer {
         height: 367px;
         padding: 0;
-    }
-    .navigation-list {
-        flex-direction: column;
-        justify-content: center;
-        margin: 0;
-        padding: 3rem 0;
-    }
-    .navigation-list__item {
-        margin-left: 0;
     }
     .navigation-list__item-link {
         display: block;
         text-align: center;
-        width: 500px;
         margin: 0 auto;
     }
     .solutions .text-container {
@@ -132,9 +120,7 @@
     .delete-profile__button {
         margin: 0 auto;
     }
-    .navigation-list__item {
-        margin: 0 auto;
-    }
+   
 }
 
 /* DESKTOP - Orientation Landscape */
@@ -154,27 +140,36 @@
         padding-top: 0;
         padding-bottom: 0;
     }
-    .intro-heading {
+    .intro__heading {
+        margin-top: auto;
+        margin-bottom: auto;
         font-size: 4rem;
         max-width: 395px;
         line-height: 65px;
     }
-    .video-container {
+    .intro__video {
         flex-basis: 50%;
         height: auto;
+        margin-right: 0;
     }
-    .explainer-video {
+    .explainer {
         margin: 0;
         margin-left: auto;
     }
     .navigation-hamburger {
         display: none;
     }
+
+    .navigation-wrapper {
+        height: 100%;
+    }
     .navigation-list-wrapper {
-        display: block !important;
-        position: initial;
-        height: initial;
+        display: flex;
+        position: relative;
         background-color: initial;
+        width: auto;
+        height: 100%;
+        top: 0;
     }
     .navigation-list {
         flex-direction: row;
@@ -184,10 +179,13 @@
         height: 50px;
         align-items: center;
         overflow: hidden;
+        margin: auto 0;
     }
     .navigation-list__item {
         text-align: initial;
         margin-left: 1rem;
+        margin-top: auto;
+        margin-bottom: auto;
     }
     .navigation-list__item-link {
         width: auto;

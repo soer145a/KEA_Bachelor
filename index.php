@@ -27,18 +27,16 @@ $sAddOnHtmlComp = addOnsComp($oDbConnection);
     <main class="container-full-width">
         <section id="intro">
             <div class="layout-container intro">
-                <h1 class="intro-heading">
+                <h1 class="intro__heading">
                     Elevate your customers experience with Mirtual - the
                     virtual mirror.
                 </h1>
-                <div class="video-container">
-                    <div class="explainer-video">
-                        <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/cey_vcyR1EQ?rel=0&modestbranding=1&autohide=1&showinfo=0" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
-                        <!-- <div class="explainer-video__thumbnail" alt=" explainer video">
-                            <span class="play-button-circle">
-                                <span class="play-button-triangle"></span>
-                            </span>
-                        </div> -->
+                <div class="intro__video">
+                    <div class="explainer">
+                        <video controls class="explainer__video">
+                            <source src="./assets/video/placeholder-video.mp4" type="video/mp4">
+                            Sorry, your browser doesn't support embedded videos.
+                        </video>
                     </div>
                 </div>
                 <span class="background-sphere"></span>

@@ -59,7 +59,7 @@ function headerComp($sActiveLink)
                     src='./assets/logo.png'
                     alt='brand logo'
             /></a>
-            <div class='navigation--wrapper'>
+            <div class='navigation-wrapper'>
                 <div class='navigation-hamburger js-toggleNavigation'>
                     <span class='navigation-hamburger__line'></span>
                     <span class='navigation-hamburger__line'></span>
