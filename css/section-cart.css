@@ -38,6 +38,9 @@
 .account-details__label {
     color: var(--purple-dark);
     position: relative;
+    width: auto;
+    display: flex;
+    align-items: center;
 }
 
 .account-details input {

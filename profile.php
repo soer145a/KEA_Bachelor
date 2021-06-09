@@ -206,12 +206,12 @@ $sApiKey = "";
                                 <h4 class="section-subheader">Edit password</h4>
                                 <form class="customer-password-form" onsubmit="event.preventDefault();">
                                     <div class="form-wrapper">
-                                        <label class="customer-password-form__input-label">New password: <span class="login-form__label-info-outer js-toggle-infobox">
-                                                <span class="login-form__label-info-inner">
+                                        <label class="customer-password-form__input-label">New password: <span class="question-mark js-toggle-infobox">
+                                                <span class="question-mark__inner">
                                                 </span>
                                             </span>
-                                            <span class="login-form__label-info-box js-toggle-infobox login-form__label-info-box--hidden">
-                                                <h5 class="section-subheader label-info-box__header">The password must concist of:</h5>
+                                            <span class="infobox js-toggle-infobox infobox--hidden">
+                                                <h5 class="section-subheader">The password must concist of:</h5>
                                                 <ul>
                                                     <li>6-30 characters</li>
                                                     <li>One uppercase character</li>

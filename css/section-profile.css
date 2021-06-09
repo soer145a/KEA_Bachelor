@@ -186,14 +186,14 @@
     width: auto;
 }
 
-.customer-password-form__input-label .login-form__label-info-outer {
+.customer-password-form__input-label .question-mark {
     position: absolute;
     top: -12px;
     left: 50%;
     z-index: 10;
 }
 
-.customer-password-form__input-label .login-form__label-info-box {
+.customer-password-form__input-label .infobox {
     left: 65%;
     z-index: 10;
 }

@@ -6,11 +6,11 @@ include_once("components/inputInfoButton.php");
 function signUpFormComp($bLoginStatus, $nTotalPrice)
 {
 
-    $aListItems = array("<li>8 characters</li>", "<li>Only numbers</li>");
+    $aListItems = array("<li class='infobox__list-item'>8 characters</li>", "<li class='infobox__list-item'>Only numbers</li>");
     $sCvrInfoButtonHtml = inputInfoButtonComp($aListItems);
-    $aListItems = array("<li>6-30 characters</li>", "<li>One uppercase character</li>", " <li>One numeric character</li>", "<li>One special character</li>");
+    $aListItems = array("<li class='infobox__list-item'>6-30 characters</li>", "<li class='infobox__list-item'>One uppercase character</li>", " <li class='infobox__list-item'>One numeric character</li>", "<li class='infobox__list-item'>One special character</li>");
     $sPasswordInfoButtonHtml = inputInfoButtonComp($aListItems);
-    $aListItems = array("<li>Start with countrycode (+45)</li>", "<li>After that, only numbers</li>", "<li>between 5-15 characters</li>");
+    $aListItems = array("<li class='infobox__list-item'>Start with countrycode (+45)</li>", "<li class='infobox__list-item'>After that, only numbers</li>", "<li class='infobox__list-item'>between 5-15 characters</li>");
     $sPhoneInfoButtonHtml = inputInfoButtonComp($aListItems);
 
 
