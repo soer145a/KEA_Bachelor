@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   toggleMobileNavigation();
+  toggleInfoBox();
 });
 let bMessageBoxShown = false;
 let fTimeOutFunction;
@@ -194,9 +195,10 @@ function toggleMobileNavigation() {
     document
       .querySelector(".js-toggleNavigation")
       .addEventListener("click", () => {
-        document.querySelector(".navigation-list-wrapper")
-        .classList.toggle("navigation-list-wrapper--hidden");
-      document.body.classList.toggle("no-scroll");
+        document
+          .querySelector(".navigation-list-wrapper")
+          .classList.toggle("navigation-list-wrapper--hidden");
+        document.body.classList.toggle("no-scroll");
         /* document
           .querySelector(".js-toggleNavigation")
           .addEventListener("click", () => {
@@ -235,9 +237,12 @@ function toggleInfoBox() {
   if (document.querySelector(".js-toggle-infobox") !== null) {
     aToggleElements = document.querySelectorAll(".js-toggle-infobox");
     aToggleElements.forEach((eToggleElement) => {
-      eToggleElement.addEventListener("click", () => {
-        const eInfobox = document.querySelector(".login-form__label-info-box");
-        eInfobox.classList.toggle("login-form__label-info-box--hidden");
+      eToggleElement.addEventListener("click", (eToggleElement) => {
+        console.log(eToggleElement.target.children);
+        /* const eInfobox = eToggleElement.target.querySelector(
+          ".login-form__label-info-box"
+        );
+        eInfobox.classList.toggle("login-form__label-info-box--hidden"); */
       });
     });
   }
