@@ -7,10 +7,8 @@
 }
 
 @media screen and (min-width: 667px) {
-    .intro-heading {
-        padding-top: 5%;
-    }
-    .explainer-video {
+    
+    .explainer {
         height: 367px;
         padding: 0;
     }
@@ -154,16 +152,18 @@
         padding-top: 0;
         padding-bottom: 0;
     }
-    .intro-heading {
+    .intro__heading {
+        margin-top: auto;
+        margin-bottom: auto;
         font-size: 4rem;
         max-width: 395px;
         line-height: 65px;
     }
-    .video-container {
+    .intro__video {
         flex-basis: 50%;
         height: auto;
     }
-    .explainer-video {
+    .explainer {
         margin: 0;
         margin-left: auto;
     }
