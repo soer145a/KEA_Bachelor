@@ -65,15 +65,18 @@ $sApiKey = "";
                             <p class="section-paragraph">You will be deleting:</p>
                             <ul>
                                 <?php
+                                //Creating the addon container and write the delete-user modal blocks
                                 $sCustomerAddonHtmlContainer = "<div class='addon-card'>
                                 <h4 class='section-header addon-card__header'>Addons:<span class='addon-card__arrow-outer'><span class='addon-card__arrow-inner'></span></span></h4>                                  
                                 <div class='addon-info'>";
                                 $sCustomerAddonHtml = "";
+                                //We use count(*) to only get the numbers
                                 $sCustomerProductSelectSql = "SELECT count(*) FROM `customer_products` WHERE `customer_id` = \"$customerId\"";
                                 $oCustomerProductResult = $oDbConnection->query($sCustomerProductSelectSql);
                                 $oCustomerProductRow = $oCustomerProductResult->fetch_assoc();
                                 $nCustomerProductAmount = $oCustomerProductRow['count(*)'];
                                 echo "<li> $nCustomerProductAmount products with active licences</li>";
+                                //The addons the customer has access to
                                 $sCustomerAddonSelectSql = "SELECT * FROM customer_addons LEFT JOIN addons ON customer_addons.addon_id  = addons.addon_id  WHERE `customer_id` = \"$customerId\"";
                                 $oCustomerAddonResults = $oDbConnection->query($sCustomerAddonSelectSql);
                                 while ($oCustomerAddonRow = $oCustomerAddonResults->fetch_assoc()) {
@@ -87,7 +90,7 @@ $sApiKey = "";
                                 }
 
                                 $sCustomerAddonHtmlContainer = $sCustomerAddonHtmlContainer . $sCustomerAddonHtml . "</div></div>";
-
+                                //Get the order amount from the database
                                 $sOrderSelectSql = "SELECT count(*) FROM `orders` WHERE `customer_id` = \"$customerId\"";
                                 $oOrderResults = $oDbConnection->query($sOrderSelectSql);
                                 $oOrderRow = $oOrderResults->fetch_assoc();
@@ -102,7 +105,9 @@ $sApiKey = "";
                             <button class="delete-profile__button button button--red" onclick="showDeleteOption2()">I Understand</button>
                         </div>
                     </div>
-                    <div id="deleteModalTotal" class="modal modal--delete <?php if ($bShowFlag) {
+                    <div id="deleteModalTotal" class="modal modal--delete <?php
+                                                                            // if the user fails the first password entry, keep the modal open
+                                                                            if ($bShowFlag) {
                                                                                 echo "shown";
                                                                             } else {
                                                                                 echo "hidden";
@@ -237,21 +242,21 @@ $sApiKey = "";
                             $sCustomerProductHtml = "";
                             $sCustomerProductSelectSql = "SELECT * FROM customer_products LEFT JOIN products ON customer_products.product_id  = products.product_id WHERE customer_id = \"$customerId\"";
                             $oCustomerProductResults = $oDbConnection->query($sCustomerProductSelectSql);
-
+                            //For each product the customer has bought, we print a block that cna display it back to the user
                             while ($oCustomerProductRow = $oCustomerProductResults->fetch_object()) {
                                 $sCharsToReplace = array("<", ">");
                                 $sReplaceCharsWith = array("&lt;", "&gt;");
                                 $sEmbedLink = str_replace($sCharsToReplace, $sReplaceCharsWith, $oCustomerProductRow->embed_link);
                                 $sApiKey = $oCustomerProductRow->api_key;
+                                //Make sure the new values are correct in the database
                                 $sCustomerProductId = $oCustomerProductRow->customer_products_id;
                                 $oStartDate = new DateTime("@$oCustomerProductRow->subscription_start");
                                 $sCustomerProductStartDate = $oStartDate->format('Y-m-d');
                                 $oEndDate = new DateTime("@$oCustomerProductRow->subscription_end");
                                 $sCustomerProductEndDate = $oEndDate->format('Y-m-d');
                                 $nSubscriptionTimeLeft = $oCustomerProductRow->subscription_end - time();
-                                //echo $nSubscriptionTimeLeft/86400;
                                 $nSubscriptionDaysLeft = round($nSubscriptionTimeLeft / 86400);
-
+                                //If the subscription has ended, turn the product off
                                 if ($nSubscriptionDaysLeft <= 0) {
                                     $sCustomerProductUpdateSql = "UPDATE customer_products SET subscription_active = 0 WHERE customer_products_id = \"$sCustomerProductId\"";
                                     $oDbConnection->query($sCustomerProductUpdateSql);
@@ -273,7 +278,7 @@ $sApiKey = "";
 
 
                                 $sProductName = $oCustomerProductRow->product_name;
-
+                                //The html block we print
                                 if ($oCustomerProductRow->subscription_active) {
                                     $sCustomerProductHtml = $sCustomerProductHtml . "<div class='product-card'>
                                                                                         <h4 class='section-header product-card__header'>$sProductName<span class='product-card__arrow-outer'><span class='product-card__arrow-inner'></span></span></h4>

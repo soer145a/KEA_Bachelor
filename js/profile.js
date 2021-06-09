@@ -1,12 +1,17 @@
 function showDeleteOption() {
+  //Functionality for showing the delete modal
   document.querySelector("#deleteModal").classList.remove("hidden");
   document.querySelector("#deleteModal").classList.add("shown");
 }
+
 function cancelDeletion() {
+  //Remove the delete modal
   document.querySelector("#deleteModal").classList.add("hidden");
   document.querySelector("#deleteModal").classList.remove("shown");
 }
+
 function showDeleteOption2() {
+  //show the next step when deleting your user
   document.querySelector("#deleteModal").classList.add("hidden");
   document.querySelector("#deleteModal").classList.remove("shown");
   document.querySelector("#deleteModalTotal").classList.remove("hidden");
@@ -14,33 +19,43 @@ function showDeleteOption2() {
 }
 
 function removeDeleteModals() {
+  //Cancel the deletion process
   document.querySelector("#deleteModalTotal").classList.add("hidden");
   document.querySelector("#deleteModalTotal").classList.remove("shown");
 }
 async function toggleAutoRenew(sCustomerProductId) {
+  //This function sends the request to the api when to toggle the auto renew on their product
+  //Selecting the correct object
   let autoRenewSpan = document.querySelector(
     `#autoRenewSpan${sCustomerProductId}`
   );
   let autoRenewToggleButton = document.querySelector(
     `#autoRenewToggleButton${sCustomerProductId}`
   );
+  //Send request
   postData("api/update-autorenewal.php", {
     customerProductId: sCustomerProductId,
   }).then((jResponse) => {
+    //The response from the api
     if (jResponse.renewToggledOn) {
-      console.log(jResponse);
+      //Check to see what it was toggled to
+      // if on
       autoRenewSpan.textContent = "On";
       autoRenewToggleButton.textContent = "Turn off";
       showMessage("Auto-renewal has been turned on", false);
     } else {
-      console.log(jResponse);
+      //If off
       autoRenewSpan.textContent = "Off";
       autoRenewToggleButton.textContent = "Turn on";
       showMessage("Auto-renewal has been turned off", false);
     }
   });
 }
+
+//Changes the text displaying customer information to and input field with the same information as its value
+// and adds a cancel and save button
 function editInfo(sValidateType, sInputName) {
+  //54-62 hides existing html
   let eParentElement = event.target.parentElement;
   let aParentElementChildren = eParentElement.children;
   //hide existing elements
@@ -91,15 +106,19 @@ function editInfo(sValidateType, sInputName) {
   eInput.focus();
 }
 
+//Updates the changes customer information in the database and the frontend
 function updateCustomerInfo(sInputName) {
   let eInput = document.getElementsByName(sInputName)[0];
+  //check if the customer has provided a valid input
   if (eInput.classList.contains("invalid")) {
   } else {
+    //Send the request to the api
     postData("api/update-customer-data.php", {
       data: eInput.value,
       whatToUpdate: sInputName,
     }).then((jResponse) => {
       if (jResponse.customerUpdated) {
+        //if succes then update frontend and let user know
         let eProfileInfo = document.getElementsByClassName(
           "customer-information__" + sInputName
         )[0];
@@ -119,6 +138,7 @@ function updateCustomerInfo(sInputName) {
         }
         let eProfileInfoPTag = eProfileInfo.querySelector("p");
         eProfileInfoPTag.textContent = eInput.value;
+        //change the header on the profile page based on if one of the names were the changed data record
         switch (sInputName) {
           case "customer_first_name":
             customerFirstNameHeader.textContent = eInput.value;
@@ -126,46 +146,52 @@ function updateCustomerInfo(sInputName) {
           case "customer_last_name":
             customerLastNameHeader.textContent = eInput.value;
         }
+        //display message
         showMessage("Your information has been updated", false);
       }
     });
   }
 }
+
+//let the user update their password
 function changeCustomerPassword() {
+  //Gather the data from the input fields
   let sNewPassword = accountDetails__password;
   let sPasswordConfirm = accountDetails__confirmPassword;
   let sOldPassword = accountDetails__passwordOld;
-  console.log(361);
+  //If empty, stop the process
   if (
     sNewPassword.value == "" ||
     sPasswordConfirm.value == "" ||
     sOldPassword.value == ""
   ) {
-    console.log(367);
+    //Error on the empty fields
     showMessage("Please fill out all fields", true);
   } else {
-    console.log(370);
+    
     if (sNewPassword.classList.contains("invalid")) {
-      console.log(372);
+      //The password is invalid case
       showMessage("New password does not meet requirements", true);
     } else {
-      console.log(375);
+      
       if (sPasswordConfirm.classList.contains("invalid")) {
-        console.log(377);
+        //If the second input is invalid
         showMessage("The passwords do not match", true);
       } else {
-        console.log(380);
+        //Everything is okay and send request
         postData("api/update-customer-data.php", {
           customerPassword: sOldPassword.value,
           newCustomerPassword: sPasswordConfirm.value,
         }).then((jResponse) => {
-          console.log(jResponse);
+          //Based on response
           if (jResponse.customerUpdated) {
+            //success
             showMessage("Your password has been updated", false);
             sNewPassword.value = "";
             sPasswordConfirm.value = "";
             sOldPassword.value = "";
           } else {
+            //Error
             showMessage("The password was incorrect", true);
           }
         });
@@ -173,6 +199,8 @@ function changeCustomerPassword() {
     }
   }
 }
+
+//Close down the inputform and replace with the html that just displays the user information
 function cancelEdit() {
   let eRootElement = event.target.parentElement.parentElement;
 

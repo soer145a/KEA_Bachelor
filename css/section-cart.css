@@ -35,8 +35,9 @@
     flex-direction: column;
 }
 
-.account-details label {
+.account-details__label {
     color: var(--purple-dark);
+    position: relative;
 }
 
 .account-details input {
