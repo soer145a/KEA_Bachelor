@@ -132,6 +132,9 @@
     .delete-profile__button {
         margin: 0 auto;
     }
+    .navigation-list__item {
+        margin: 0 auto;
+    }
 }
 
 /* DESKTOP - Orientation Landscape */
