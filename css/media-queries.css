@@ -12,19 +12,9 @@
         height: 367px;
         padding: 0;
     }
-    .navigation-list {
-        flex-direction: column;
-        justify-content: center;
-        margin: 0;
-        padding: 3rem 0;
-    }
-    .navigation-list__item {
-        margin-left: 0;
-    }
     .navigation-list__item-link {
         display: block;
         text-align: center;
-        width: 500px;
         margin: 0 auto;
     }
     .solutions .text-container {
@@ -130,9 +120,7 @@
     .delete-profile__button {
         margin: 0 auto;
     }
-    .navigation-list__item {
-        margin: 0 auto;
-    }
+   
 }
 
 /* DESKTOP - Orientation Landscape */
@@ -170,11 +158,17 @@
     .navigation-hamburger {
         display: none;
     }
+
+    .navigation-wrapper {
+        height: 100%;
+    }
     .navigation-list-wrapper {
-        display: block !important;
-        position: initial;
-        height: initial;
+        display: flex;
+        position: relative;
         background-color: initial;
+        width: auto;
+        height: 100%;
+        top: 0;
     }
     .navigation-list {
         flex-direction: row;
@@ -184,10 +178,13 @@
         height: 50px;
         align-items: center;
         overflow: hidden;
+        margin: auto 0;
     }
     .navigation-list__item {
         text-align: initial;
         margin-left: 1rem;
+        margin-top: auto;
+        margin-bottom: auto;
     }
     .navigation-list__item-link {
         width: auto;
