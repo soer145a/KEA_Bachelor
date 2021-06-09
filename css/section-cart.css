@@ -35,8 +35,9 @@
     flex-direction: column;
 }
 
-.account-details label {
+.account-details__label {
     color: var(--purple-dark);
+    position: relative;
 }
 
 .account-details input {
@@ -80,7 +81,7 @@
     text-transform: none;
     margin-bottom: 3px;
     margin-left: 1px;
-    cursor:initial;
+    cursor: initial;
 }
 
 .order-summary__button:hover {

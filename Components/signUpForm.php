@@ -1,12 +1,24 @@
 <?php
+
+include_once("components/inputInfoButton.php");
+
 //The sign up form component
 function signUpFormComp($bLoginStatus, $nTotalPrice)
 {
+
+    $aListItems = array("<li>8 characters</li>", "<li>Only numbers</li>");
+    $sCvrInfoButtonHtml = inputInfoButtonComp($aListItems);
+    $aListItems = array("<li>6-30 characters</li>", "<li>One uppercase character</li>", " <li>One numeric character</li>", "<li>One special character</li>");
+    $sPasswordInfoButtonHtml = inputInfoButtonComp($aListItems);
+    $aListItems = array("<li>Start with countrycode (+45)</li>", "<li>After that, only numbers</li>", "<li>between 5-15 characters</li>");
+    $sPhoneInfoButtonHtml = inputInfoButtonComp($aListItems);
+
+
     $sSignUpFormHtmlComp =
         "
         <form action='api/payment-handler.php' method='POST' class='account-details'>
             <h2 class='section-header'>Account details</h2>
-            <label for='account-details__name'
+            <label for='account-details__name class='account-details__label''
                 >Company Name</label
             >
             <input
@@ -17,8 +29,8 @@ function signUpFormComp($bLoginStatus, $nTotalPrice)
                 required
                 oninput='inputValidate(); togglePaypalButton($bLoginStatus, $nTotalPrice);'
             />
-            <label for='account-details__cvr'
-                >Company CVR nr.                
+            <label for='account-details__cvr' class='account-details__label'
+                >Company CVR nr. $sCvrInfoButtonHtml       
             </label
             >
             <input
@@ -32,7 +44,7 @@ function signUpFormComp($bLoginStatus, $nTotalPrice)
             <div class='account-details__contact'>
                 <h4 class='section-subheader contact__header'>Contact Person</h4>
                 <div class='contact__wrapper'>
-                    <label for='contact__firstname'>Firstname</label>
+                    <label class='account-details__label' for='contact__firstname'>Firstname</label>
                     <input
                         id='contact__firstname'
                         type='text'
@@ -43,7 +55,7 @@ function signUpFormComp($bLoginStatus, $nTotalPrice)
                     />
                 </div>
                 <div class='contact__wrapper'>
-                    <label for='contact__lastname'>Lastname</label>
+                    <label class='account-details__label' for='contact__lastname'>Lastname</label>
                     <input
                         id='contact__lastname'
                         type='text'
@@ -55,7 +67,8 @@ function signUpFormComp($bLoginStatus, $nTotalPrice)
                 </div>
             </div>
             
-            <label for='account-details__mail'>Phone Number</label>
+            <label class='account-details__label' for='account-details__mail'>Phone Number $sPhoneInfoButtonHtml
+            </label>
             <input
                 id='account-details__mail'
                 type='text'
@@ -64,7 +77,7 @@ function signUpFormComp($bLoginStatus, $nTotalPrice)
                 required
                 oninput='inputValidate(); togglePaypalButton($bLoginStatus, $nTotalPrice);'
             />
-            <label for='account-details__mail'>Email</label>
+            <label class='account-details__label' for='account-details__mail'>Email</label>
             <input
                 id='account-details__mail'
                 type='email'
@@ -73,9 +86,9 @@ function signUpFormComp($bLoginStatus, $nTotalPrice)
                 required
                 oninput='inputValidate(); togglePaypalButton($bLoginStatus, $nTotalPrice);'
             />
-            <label for='account-details__password'
-                >Password</label
-            >
+            <label class='account-details__label' for='account-details__password'
+                >Password $sPasswordInfoButtonHtml
+                </label>
             <input
                 id='accountDetails__password'
                 type='password'
@@ -84,7 +97,7 @@ function signUpFormComp($bLoginStatus, $nTotalPrice)
                 required
                 oninput='inputValidate(); togglePaypalButton($bLoginStatus, $nTotalPrice);'
             />
-            <label for='account-details__confirm-password'
+            <label class='account-details__label' for='account-details__confirm-password'
                 >Confirm Password</label
             >
             <input
@@ -98,7 +111,7 @@ function signUpFormComp($bLoginStatus, $nTotalPrice)
             <h2 class='section-header'>
                 Shipping/Billing address
             </h2>
-            <label for='account-details__street-name'
+            <label class='account-details__label' for='account-details__street-name'
                 >Street name</label
             >
             <input
@@ -109,7 +122,7 @@ function signUpFormComp($bLoginStatus, $nTotalPrice)
                 required
                 oninput='inputValidate(); togglePaypalButton($bLoginStatus, $nTotalPrice);'
             />
-            <label for='account-details__city'>City</label>
+            <label class='account-details__label' for='account-details__city'>City</label>
             <input
                 id='account-details__city'
                 type='text'
@@ -118,7 +131,7 @@ function signUpFormComp($bLoginStatus, $nTotalPrice)
                 required
                 oninput='inputValidate(); togglePaypalButton($bLoginStatus, $nTotalPrice);'
             />
-            <label for='account-details__zip-code'
+            <label class='account-details__label' for='account-details__zip-code'
                 >Zip code</label
             >
             <input
@@ -129,7 +142,7 @@ function signUpFormComp($bLoginStatus, $nTotalPrice)
                 required
                 oninput='inputValidate(); togglePaypalButton($bLoginStatus, $nTotalPrice);'
             />
-            <label for='account-details__zip-code'
+            <label class='account-details__label' for='account-details__zip-code'
                 >Country</label
             >
             <input

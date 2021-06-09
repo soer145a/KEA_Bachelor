@@ -82,7 +82,7 @@ if (isset($_POST['customerEmail']) && isset($_POST['customerPassword'])) {
                                 <li>6-30 characters</li>
                                 <li>One uppercase character</li>
                                 <li>One numeric character</li>
-                                <li>One special character.</li>
+                                <li>One special character</li>
                             </ul>
                         </span>
                     </label>
