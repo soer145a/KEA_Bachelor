@@ -1,22 +1,34 @@
+//Execute functions on page load
 document.addEventListener("DOMContentLoaded", () => {
   toggleMobileNavigation();
   toggleInfoBox();
 });
+
+//Variables needed to be global for the timer function used for customer communication
 let bMessageBoxShown = false;
 let fTimeOutFunction;
+
+//Function used for communicating with the customers on the page
 function showMessage(sMessage, bIsError) {
+  //checks if a message is currently being shown
   if (bMessageBoxShown) {
+    //If message is shown, stop previously set timer to start process from fresh
     stopTimeOut();
   }
   bMessageBoxShown = true;
+
+  //reset messageBox classes
   messageBox.classList.remove(...messageBox.classList);
   messageBox.classList.add("message-box");
   messageText.textContent = sMessage;
+
+  //if bIsError is set to true the message banner turns red to indicate an error or green to indicate a successful action
   if (bIsError) {
     messageBox.classList.add("message-box--red");
   } else {
     messageBox.classList.add("message-box--green");
   }
+  //start timer to show message for 5 sec
   fTimeOutFunction = setTimeout(() => {
     messageBox.classList.add("message-box--visually-hidden");
     setTimeout(() => {
@@ -26,13 +38,13 @@ function showMessage(sMessage, bIsError) {
       bMessageBoxShown = false;
     }, 1100);
   }, 5000);
-  console.log(fTimeOutFunction, "hello");
 }
-
+//Function used to stop a prevously set timer
 function stopTimeOut() {
   clearTimeout(fTimeOutFunction);
 }
 
+//function used to validate inputs
 function inputValidate() {
   let sInputData;
   let aInputsToValidate = [];
@@ -40,6 +52,7 @@ function inputValidate() {
   if (event.type == "submit") {
     eFormToValidate = event.target;
     aInputsToValidate = eFormToValidate.querySelectorAll("[data-validate]");
+    //else put just the trigger input field into the array
   } else {
     aInputsToValidate = [event.target];
   }
@@ -51,7 +64,7 @@ function inputValidate() {
       case "phone":
         sInputData = aInputsToValidate[i].value;
         let sPhoneRegEx = /^\+(?:[0-9]●?){6,16}[0-9]$/;
-        //Testing REGEX against our data
+        //check if phone number is formatted correctly and set the correct class to let the customer visually know if it is correct or not
         if (!sPhoneRegEx.test(sInputData)) {
           aInputsToValidate[i].classList.add("invalid");
           aInputsToValidate[i].classList.remove("valid");
@@ -66,10 +79,12 @@ function inputValidate() {
         let sEmailRegEx =
           /^[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~](\.?[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/;
 
+        //check if email is formatted correctly and set the correct class to let the customer visually know if it is correct or not
         if (!sEmailRegEx.test(sInputData)) {
           aInputsToValidate[i].classList.remove("valid");
           aInputsToValidate[i].classList.add("invalid");
         } else {
+          //Contact api to check if email address already exists in database
           postData("api/check-db-for-existing-entries.php", {
             whatToCheck: "customer_email",
             data: sInputData,
@@ -80,7 +95,7 @@ function inputValidate() {
             } else {
               aInputsToValidate[i].classList.remove("valid");
               aInputsToValidate[i].classList.add("invalid");
-              showMessage("This email already exists", true);
+              showMessage("This email already exists", true); //Let user know what has happened
             }
           });
         }
@@ -111,7 +126,7 @@ function inputValidate() {
           aInputsToValidate[i].classList.add("valid");
           aInputsToValidate[i].classList.remove("invalid");
           if (
-            aInputsToValidate[i].value !== accountDetails__confirmPassword.value
+            aInputsToValidate[i].value !== accountDetails__confirmPassword.value //Make sure the password and confirm password boxes value match
           ) {
             accountDetails__confirmPassword.classList.add("invalid");
             accountDetails__confirmPassword.classList.remove("valid");
@@ -123,6 +138,7 @@ function inputValidate() {
         break;
       case "confirmPassword":
         if (aInputsToValidate[i].value !== accountDetails__password.value) {
+          //Make sure the password and confirm password boxes value match
           aInputsToValidate[i].classList.add("invalid");
           aInputsToValidate[i].classList.remove("valid");
         } else {
@@ -138,6 +154,7 @@ function inputValidate() {
           aInputsToValidate[i].classList.add("invalid");
           aInputsToValidate[i].classList.remove("valid");
         } else {
+          //Contact api to check if cvr address already exists in database
           postData("api/check-db-for-existing-entries.php", {
             whatToCheck: "customer_company_cvr",
             data: sInputData,
@@ -175,6 +192,8 @@ function inputValidate() {
     }
   }
 }
+
+//The postData function gets used to contact our apis by other JS functions
 async function postData(sUrl = "", jData = {}) {
   const response = await fetch(sUrl, {
     method: "POST",
@@ -190,6 +209,7 @@ async function postData(sUrl = "", jData = {}) {
 
   return response.json();
 }
+
 function toggleMobileNavigation() {
   if (document.querySelector(".js-toggleNavigation") !== null) {
     document
@@ -210,11 +230,12 @@ function toggleMobileNavigation() {
   }
 }
 
+//UpdateCartCounter is used to update the cartcounter when a product has been added to the cart
 function updateCartCounter(bIsProduct, nAddonAmount, bIncrement) {
   let eCartCounter = document.querySelector(".cart-counter");
-
   let counter = parseInt(eCartCounter.textContent);
 
+  //check if what has been added to the cart is a product or an addon
   if (bIsProduct) {
     if (!bIncrement) {
       //decrement counter
@@ -224,6 +245,7 @@ function updateCartCounter(bIsProduct, nAddonAmount, bIncrement) {
       eCartCounter.textContent = counter + 1;
     }
   } else {
+    //if it is an addon, check how many addons the user has added to the cart and add that to the cart counter
     if (!bIncrement) {
       //decrement counter
       eCartCounter.textContent = counter - nAddonAmount;
@@ -233,6 +255,8 @@ function updateCartCounter(bIsProduct, nAddonAmount, bIncrement) {
     }
   }
 }
+
+//Opens the infobox explaining the user what an expected input is
 function toggleInfoBox() {
   if (document.querySelector(".js-toggle-infobox") !== null) {
     aToggleElements = document.querySelectorAll(".js-toggle-infobox");
