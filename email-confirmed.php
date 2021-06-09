@@ -8,9 +8,9 @@ $sHeadHtmlComp = headComp();
 $sHeaderHtmlComp = headerComp('');
 $sFooterHtmlComp = footerComp();
 //If there is no confirm code, send the user away
-// if (!isset($_GET['confirmCode'])) {
-//     header('Location: index.php');
-// }
+ if (!isset($_GET['confirmCode'])) {
+     header('Location: index.php');
+ }
 $sCustomerConfirmCode = $_GET['confirmCode'];
 //Update the customer_confirmed record for where the confirm code is a match
 include_once("db-connection/connection.php");

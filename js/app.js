@@ -35,22 +35,22 @@ function stopTimeOut() {
 function inputValidate() {
   let sInputData;
   let aInputsToValidate = [];
-
+  //Check to see what it is we are submitting
   if (event.type == "submit") {
     eFormToValidate = event.target;
     aInputsToValidate = eFormToValidate.querySelectorAll("[data-validate]");
   } else {
     aInputsToValidate = [event.target];
   }
-
+  //Get the type of what the function will be validating
   for (let i = 0; i < aInputsToValidate.length; i++) {
     let sValidationType = aInputsToValidate[i].getAttribute("data-validate");
-
+    //In each case we check what the validation type is, and then validate on only that
     switch (sValidationType) {
       case "phone":
         sInputData = aInputsToValidate[i].value;
         let sPhoneRegEx = /^\+(?:[0-9]●?){6,16}[0-9]$/;
-
+        //Testing REGEX against our data
         if (!sPhoneRegEx.test(sInputData)) {
           aInputsToValidate[i].classList.add("invalid");
           aInputsToValidate[i].classList.remove("valid");

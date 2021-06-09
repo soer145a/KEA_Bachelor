@@ -34,7 +34,7 @@ if (isset($_POST['customerPassword'])) {
     $sCustomerUpdateSql = "UPDATE `customers` SET `$sColumnToUpdate` = \"$sData\" WHERE customer_id = \"$customerId\"";
     $oDbConnection->query($sCustomerUpdateSql);
     $aResponse = array("customerUpdated" => true, "error" => "None");
-
+    //In case the user wants to change their name in our system, we also update the names in the session
     switch ($sColumnToUpdate) {
         case 'customer_first_name':
             $_SESSION['customerFirstName'] = $sData;
