@@ -92,10 +92,6 @@
 
 .navigation-list__item .navigation-list__item-link--active {
     color: var(--yellow);
-<<<<<<< HEAD
-=======
-    
->>>>>>> 37a8f0e5cdb0000b6cd9970ad5cc4465f9f00d08
 }
 
 .message-box {
@@ -149,8 +145,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    bottom: -20px;
     right: -10px;
     font-size: 0.8rem;
-    padding: 1.5px 2px 0px 2px;
 }
