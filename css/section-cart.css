@@ -71,6 +71,10 @@
     margin-bottom: 32px;
 }
 
+.order-summary__body::-webkit-scrollbar {
+    display: none;
+}
+
 .order-summary__button {
     background-color: var(--purple-grey);
     width: 200px;
