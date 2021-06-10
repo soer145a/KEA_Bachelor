@@ -19,6 +19,11 @@
     --white: rgba(255, 255, 255, 1);
 }
 
+* {
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
 /* Typography */
 
 h1, h2, h3, h4, h5, th {
@@ -74,6 +79,9 @@ a, p, button, form, label, input, textarea, address, td {
     font-weight: 400;
 }
 
+
+/* GENERAL STYLING */
+
 input {
     padding: 0;
     border: none;
@@ -83,7 +91,11 @@ input {
 }
 
 button:hover {
-    transform: scale(1.05);
+    -webkit-transform: scale(1.05);
+        -ms-transform: scale(1.05);
+            transform: scale(1.05);
+    -webkit-transition: 0.2s;
+    -o-transition: 0.2s;
     transition: 0.2s;
 }
 
@@ -112,25 +124,6 @@ button:hover {
 .button--red {
     background-color: var(--red);
     color: var(--white);
-}
-
-/* Chrome, Safari, Edge, Opera */
-
-input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-/* Firefox */
-
-input[type="number"] {
-    -moz-appearance: textfield;
-}
-
-/* GENERAL STYLING */
-
-* {
-    box-sizing: border-box;
 }
 
 .container-full-width {
@@ -242,37 +235,15 @@ img {
     overflow: hidden;
 }
 
-.productCard {
-    max-width: 300px;
+/* Chrome, Safari, Edge, Opera */
+
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
-.addOnCard {
-    max-width: 300px;
-}
+/* Firefox */
 
-.hidden {
-    display: none;
-}
-
-.shown {
-    display: block;
-}
-
-.customerInfoContainer {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-}
-
-.profileCard {
-    border: 2px solid black;
-    margin: 20px;
-    width: 300px;
-}
-
-.subActive {
-    background-color: green;
-}
-
-.subInactive {
-    background-color: red;
+input[type="number"] {
+    -moz-appearance: textfield;
 }

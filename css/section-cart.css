@@ -14,33 +14,55 @@
 }
 
 .account-details, .order-summary-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
 }
 
 .account-details__contact {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
 }
 
 .account-details__contact .contact__header {
-    flex-grow: 3;
-    flex-basis: 100%;
+    -webkit-box-flex: 3;
+        -ms-flex-positive: 3;
+            flex-grow: 3;
+    -ms-flex-preferred-size: 100%;
+        flex-basis: 100%;
 }
 
 .account-details__contact .contact__wrapper {
     width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
 }
 
 .account-details__label {
     color: var(--purple-dark);
     position: relative;
     width: auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 
 .account-details input {
@@ -58,8 +80,13 @@
     height: auto;
     min-height: 500px;
     width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     padding: 16px;
 }
 
@@ -107,7 +134,9 @@
     color: var(--white);
 }
 .order-summary__button:hover {
-    transform: none;
+    -webkit-transform: none;
+        -ms-transform: none;
+            transform: none;
 }
 
 .paypal-button-container {
@@ -116,13 +145,17 @@
 }
 
 .header-container {
+    display: -ms-grid;
     display: grid;
+    -ms-grid-columns: 1fr 1fr 1fr;
     grid-template-columns: repeat(3, 1fr);
     padding: 8px;
 }
 
 .header-item {
-    flex-grow: 1;
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
 }
 
 .header-item__quantity {
@@ -134,15 +167,22 @@
 }
 
 .product-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     overflow: auto;
     padding-bottom: 15px;
 }
 .product-row {
+    display: -ms-grid;
     display: grid;
     height: auto;
     min-height: 50px;
+    -ms-grid-rows: 2fr 8px 1fr;
     grid-template-rows: 2fr 1fr;
     gap: 8px;
     margin-bottom: 16px;
@@ -152,20 +192,28 @@
 }
 
 .product-items:only-child {
+    -ms-grid-row: 1;
+    -ms-grid-row-span: 2;
     grid-row: 1 / span 2;
 }
 
 .product-items {
-    align-self: center;
+    -ms-grid-row-align: center;
+        align-self: center;
+    display: -ms-grid;
     display: grid;
+    -ms-grid-columns: 1fr 1fr 1fr;
     grid-template-columns: repeat(3, 1fr);
     
 }
 .product-item {
-    align-self: center;
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
 }
 .product-item__quantity {
-    justify-self: end;
+    -ms-grid-column-align: end;
+        justify-self: end;
     position: relative;
 }
 
@@ -187,13 +235,19 @@
     position: absolute;
     left: -50px;
     top: 50%;
-    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
 }
 
 .subscription-row {
     width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-between;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
 }
 
 .subscription-row__text {
@@ -206,9 +260,15 @@
 }
 
 .empty-cart {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     height: 100%;
     margin-top: 32px;
 }

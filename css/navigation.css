@@ -1,7 +1,11 @@
 .navigation-contatiner {
     height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 
 .no-scroll {
@@ -37,18 +41,24 @@
     border-radius: 50px;
     background-color: var(--yellow);
     top: 50%;
-    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
 }
 
 .navigation-hamburger__line:nth-of-type(1) {
     top: 0;
-    transform: translateY(100%);
+    -webkit-transform: translateY(100%);
+        -ms-transform: translateY(100%);
+            transform: translateY(100%);
 }
 
 .navigation-hamburger__line:nth-of-type(3) {
     top: initial;
     bottom: 0;
-    transform: translateY(-100%);
+    -webkit-transform: translateY(-100%);
+        -ms-transform: translateY(-100%);
+            transform: translateY(-100%);
 }
 
 /* Navigation List */
@@ -68,9 +78,14 @@
 }
 
 .navigation-list {
-    max-width: 200px;
+    width: 250px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     margin: 0 auto;
     margin-top: 64px;
 }
@@ -102,6 +117,8 @@
     top: 80px;
     z-index: 100000;
     text-align: center;
+    -webkit-transition: all 1s linear;
+    -o-transition: all 1s linear;
     transition: all 1s linear;
 }
 
@@ -131,7 +148,9 @@
     position: relative;
     top: 50%;
     color: var(--white);
-    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
 }
 
 .cart-counter {
@@ -143,9 +162,15 @@
     color: var(--white);
     z-index: 9000;
     border-radius: 5px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     right: -10px;
     font-size: 0.8rem;
 }
