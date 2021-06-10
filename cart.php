@@ -113,7 +113,9 @@ if ($bLoginStatus != 'true') {
                                     </p>
                                 </div>
                             </div>
-
+                        </div>
+                        <div class="order-summary__total-price total-price">
+                            <h5 class="total-price__header">Total: <span class="total-price__price">2900</span></h5>
                         </div>
                         <div id='paypal-button-container' class="paypal-button-container">
                             <button id="paypalInactive" class="button order-summary__button " title="You need to fill out the form.">
