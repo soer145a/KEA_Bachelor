@@ -19,7 +19,7 @@ if (!isset($_SESSION['loginStatus'])) {
     $sCompanyName = $oDbConnection->real_escape_string($_POST['companyName']);
     $sCompanyCvr = $oDbConnection->real_escape_string($_POST['companyCvr']);
     //Hashing the password with the password_hash function
-    $customerPasswordHashed = password_hash($_POST['customerPasswordConfirm'], PASSWORD_DEFAULT);
+    $sCustomerPasswordHashed = password_hash($_POST['customerPasswordConfirm'], PASSWORD_DEFAULT);
     //The confirm code for the customer, 32 characters randomly generated
     $nCustomerConfirmCode = bin2hex(random_bytes(32));
     $sCompanyStreet = $oDbConnection->real_escape_string($_POST['companyStreet']);
@@ -30,7 +30,7 @@ if (!isset($_SESSION['loginStatus'])) {
     $nCustomerConfirmed = 0;
     //Querying using the prepare statement for securing against sql injections
     $oCustomerInsertSql = $oDbConnection->prepare("INSERT INTO customers (customer_id ,customer_first_name, customer_last_name, customer_company_name, customer_email, customer_password, customer_company_cvr, customer_city, customer_address, customer_country,customer_postcode,customer_phone, customer_confirm_code, customer_confirmed) VALUES ( null,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-    $oCustomerInsertSql->bind_param("ssssssssssssi", $sCustomerFirstName, $sCustomerLastName, $sCompanyName, $sCustomerEmail, $customerPasswordHashed, $sCompanyCvr, $sCompanyCity, $sCompanyStreet, $sCompanyCountry, $sCompanyZip, $sCustomerPhone, $nCustomerConfirmCode, $nCustomerConfirmed);
+    $oCustomerInsertSql->bind_param("ssssssssssssi", $sCustomerFirstName, $sCustomerLastName, $sCompanyName, $sCustomerEmail, $sCustomerPasswordHashed, $sCompanyCvr, $sCompanyCity, $sCompanyStreet, $sCompanyCountry, $sCompanyZip, $sCustomerPhone, $nCustomerConfirmCode, $nCustomerConfirmed);
     $oCustomerInsertSql->execute();
     //Getting the ID of the newly created customer
     $sCustomerId = $oCustomerInsertSql->insert_id;
