@@ -97,7 +97,6 @@ if (isset($_SESSION['cartProducts'])) {
     }
 }
 
-
 if (isset($_SESSION['cartAddOns'])) {
     //If there are addons in the card, loop through them
     foreach ($_SESSION['cartAddOns'] as $aAddOn) {
