@@ -2,10 +2,10 @@
 -- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jun 06, 2021 at 03:36 PM
--- Server version: 10.4.18-MariaDB
--- PHP Version: 8.0.3
+-- Host: danielbeck.dk.mysql.service.one.com:3306
+-- Generation Time: Jun 10, 2021 at 03:59 PM
+-- Server version: 10.3.29-MariaDB-1:10.3.29+maria~focal
+-- PHP Version: 7.2.24-0ubuntu0.18.04.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `purplescout`
+-- Database: `danielbeck_dkpurplescout`
 --
 
 -- --------------------------------------------------------
@@ -70,10 +70,7 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`customer_id`, `customer_first_name`, `customer_last_name`, `customer_company_name`, `customer_email`, `customer_password`, `customer_company_cvr`, `customer_city`, `customer_address`, `customer_country`, `customer_postcode`, `customer_phone`, `customer_confirm_code`, `customer_confirmed`) VALUES
-(89, 'Daniello', 'Beckowitch', 'wadas', 'd4nlbeck@gmail.com', '$2y$10$DxX3xEAz9/ehknHulFiGHeqvqYue3gXEe0CqzouM3AeVxHQQhN.o6', '12312312', 'Rødovre', 'Rødager Alle 75A st tv', 'Denmark', '2610', '+435435345', 'cc42ed81b3a993e883fc2a4c5c7bcbc02d69b393', 1),
-(91, 'Daniel', 'Beck', 'The bagmen', 'daniel-beck@hotmail.com', '$2y$10$uCuAktprF8wAUn1BNdwG1.dMgCFK7.MYez6gLPfoZGOXohYvsvL0O', '12312345', 'Holte', 'Holtevej 2', 'Denmark', '2610', '+4455667788', '48e20531fdba39782f128a8859d4dc4382a46e50', 1),
-(92, 'Bob', 'Bobsen', 'bob aps', 'd4nielbeck@gmail.com', '$2y$10$7wugMZZbZNiwg/XhvpJ89.WiH3K1eFeuw9gdVBT8myTyYg5RkflJ2', '12312356', 'bobville', 'boblane 32', 'bobland', 'bob2020', '+345435435', 'c0c12412d576c0ff1fa8f3d436383258d203c1c6', 0),
-(103, 'SÃ¸ren', 'RembÃ¸ll', 'KEA', 'Soren@remboll.dk', '$2y$10$ZxdVxPRWcqAWxmAYEOx.8.7lZL8ORQMCQPK9UqNestK9Wtmz/XHsu', '44444444', 'BrÃ¸ndby', 'BrÃ¸ndbyvestervej 62A', 'Danmark', '2605', '+45123123', 'b90889368437a30369d23c0b8ca9be24e068d433a1455272c73049a424721fcd', 1);
+(109, 'Søren', 'Rembøll', 'KEA', 'Soren@remboll.dk', '$2y$10$ExNmPaucnqhTlEl.5T5USuWm/ZlLrHxyUsr73llvipVRRdEGsyaH2', '44444444', 'Brøndby', 'Brøndbyvestervej 62A, St3', 'Denmark', '2605', '+4522258809', '2950a482129f27d727e7a4b4b7e1b4f4cd8d27ac541b785e447b4c81b32e8a89', 1);
 
 -- --------------------------------------------------------
 
@@ -112,7 +109,7 @@ CREATE TABLE `customer_products` (
 --
 
 INSERT INTO `customer_products` (`customer_products_id`, `customer_id`, `product_id`, `subscription_start`, `subscription_total_length`, `subscription_end`, `subscription_active`, `subscription_autorenew`, `api_key`, `embed_link`) VALUES
-(83, 103, 1, 1622982074, 31556916, 1654538990, 1, 1, '6e23a56ccae2a40e271735c2db478202855f8c17303d265597ea2196f6eb1bfe', '<iframe src=\'http://127.0.0.1/KEA_Bachelor/deploys/product.php?key=INSERT KEY HERE\' frameborder=\'0\'></iframe>');
+(94, 109, 1, 1623340461, 31556916, 1654897377, 1, 1, '4f1e1abcec7d0b788c9e4f0b303f02c579f8f476742e0aaa66f0caae7e3500cf', '<iframe src=\'https://danielbeck.dk/purple-scout/product.php?key=INSERT KEY HERE\' frameborder=\'0\'></iframe>');
 
 -- --------------------------------------------------------
 
@@ -131,7 +128,7 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `customer_id`, `order_date`) VALUES
-(37, 103, 1622982074);
+(56, 109, 1623340461);
 
 -- --------------------------------------------------------
 
@@ -166,7 +163,7 @@ CREATE TABLE `order_products` (
 --
 
 INSERT INTO `order_products` (`order_products_id`, `order_id`, `product_id`, `subscription_id`, `order_products_payed_price`) VALUES
-(34, 37, 1, 3, '2900');
+(45, 56, 1, 3, '2900');
 
 -- --------------------------------------------------------
 
@@ -186,9 +183,9 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`product_id`, `product_name`, `product_price`, `product_image_url`) VALUES
-(1, 'In-store Kiosk', '2900', './Assets/images/product-1.jpg'),
-(2, 'Mobile App', '1500', './Assets/images/product-2.jpg'),
-(3, 'Webcam', '999', './Assets/images/product-3.png');
+(1, 'In-store Kiosk', '2900', './assets/images/product-1.jpg'),
+(2, 'Mobile App', '1500', './assets/images/product-2.jpg'),
+(3, 'Webcam', '999', './assets/images/product-3.png');
 
 -- --------------------------------------------------------
 
@@ -296,37 +293,37 @@ ALTER TABLE `addons`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `customer_id` tinyint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
+  MODIFY `customer_id` tinyint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
 
 --
 -- AUTO_INCREMENT for table `customer_addons`
 --
 ALTER TABLE `customer_addons`
-  MODIFY `customer_addon_id` tinyint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `customer_addon_id` tinyint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `customer_products`
 --
 ALTER TABLE `customer_products`
-  MODIFY `customer_products_id` tinyint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
+  MODIFY `customer_products_id` tinyint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` tinyint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `order_id` tinyint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `order_addons`
 --
 ALTER TABLE `order_addons`
-  MODIFY `order_addons_id` tinyint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `order_addons_id` tinyint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `order_products`
 --
 ALTER TABLE `order_products`
-  MODIFY `order_products_id` tinyint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `order_products_id` tinyint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `products`
