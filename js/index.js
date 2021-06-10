@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   toggleDropdown();
   itemSelector();
   toggleInfoBox();
-  // handleCarouselScroll();
+  handleCarouselScroll();
 });
 
 //Used to send the contact form from the index page
@@ -58,26 +58,31 @@ function sendContactForm() {
   }
 }
 
-/* function handleCarouselScroll() {
+function handleCarouselScroll() {
     if (document.querySelector(".slider") !== null) {
-      console.log("handleCarouselScroll()");
+      
       let options = {
         root: document.querySelector(".slider"),
         rootMargin: "0px",
         threshold: 1.0,
       };
   
-      let target = document.querySelector("#card-2");
+      let target = document.querySelector("#card-3");
   
       let observer = new IntersectionObserver((e) => {
-        console.log(e);
+        let eIndicatorContainer = document.querySelector(".scroll-indicators")
+        if(e[0].isIntersecting) {
+          eIndicatorContainer.classList.add("scroll-indicators--hidden");
+        } else {
+          eIndicatorContainer.classList.remove("scroll-indicators--hidden");
+        }
         //In this callback find which card is in focus by looking at the position of the middle card
         return;
       }, options);
   
       observer.observe(target);
     }
-} */
+}
 
 //used to add an addon to the cart
 function addAddOnToCart(sAddOnId) {

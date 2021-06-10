@@ -118,20 +118,10 @@ $sAddOnHtmlComp = addOnsComp($oDbConnection);
                             </button>
                         </div>
                     </div>
-                    <div class="slider-dots">
-                        <a href="#card-1" class="
-                                    slider-dots__dot-element
-                                    slider-dots__dot-element--active
-                                    js-carousel-button
-                                "></a>
-                        <a href="#card-2" class="
-                                    slider-dots__dot-element
-                                    js-carousel-button
-                                "></a>
-                        <a href="#card-3" class="
-                                    slider-dots__dot-element
-                                    js-carousel-button
-                                "></a>
+                    <div class="scroll-indicators">
+                        <span class="indicator-arrow"><img src="./assets/icons/arrow.svg" alt="arrow" class="indicator-arrow__image"></span>
+                        <span class="indicator-arrow"><img src="./assets/icons/arrow.svg" alt="arrow" class="indicator-arrow__image"></span>
+                        <span class="indicator-arrow"><img src="./assets/icons/arrow.svg" alt="arrow" class="indicator-arrow__image"></span>
                     </div>
                 </div>
             </div>
