@@ -51,7 +51,7 @@ function togglePaypalButton(bLoginStatus) {
                   if (jResponse.purchaseStarted) {
                     window.location.assign(
                       //window.location.origin + "/api/payment-handler.php"
-                       window.location.origin + "/KEA_BACHELOR/api/payment-handler.php"
+                       window.location.origin + "/KEA_Bachelor/api/payment-handler.php"
                     );
                   } else {
                     showMessage("Access denied", true);
