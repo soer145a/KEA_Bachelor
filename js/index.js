@@ -160,23 +160,23 @@ function addProductToCart(sProductId, sButtonId) {
   }
 }
 
-function updateSliderButton() {
-  //This function sets the "active" class to the clicked element
-  if (document.querySelector(".js-carousel-button") !== null) {
-    let aSliderButtons = document.querySelectorAll(".js-carousel-button");
+// function updateSliderButton() {
+//   //This function sets the "active" class to the clicked element
+//   if (document.querySelector(".js-carousel-button") !== null) {
+//     let aSliderButtons = document.querySelectorAll(".js-carousel-button");
 
-    aSliderButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        for (let i = 0; i < aSliderButtons.length; i++) {
-          aSliderButtons[i].classList.remove(
-            "slider-dots__dot-element--active"
-          );
-        }
-        button.classList.add("slider-dots__dot-element--active");
-      });
-    });
-  }
-}
+//     aSliderButtons.forEach((button) => {
+//       button.addEventListener("click", () => {
+//         for (let i = 0; i < aSliderButtons.length; i++) {
+//           aSliderButtons[i].classList.remove(
+//             "slider-dots__dot-element--active"
+//           );
+//         }
+//         button.classList.add("slider-dots__dot-element--active");
+//       });
+//     });
+//   }
+// }
 
 //hides any open dialogbox. Gets called when the user chooses a subscription
 function toggleDialogBox() {
