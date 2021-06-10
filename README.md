@@ -10,6 +10,7 @@ login credentials for paypal payment testing is:
 Mail: sb-vwv3n6046864@personal.example.com
 Pass: asdASD.123
 
-The site can also be viewed live at https://danielbeck.dk
+github repo: https://github.com/soer145a/KEA_Bachelor.git
+The site can also be viewed live at: https://danielbeck.dk
 
 note: The project requires PHP 8:0
