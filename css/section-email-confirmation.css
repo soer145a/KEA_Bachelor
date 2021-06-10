@@ -1,6 +1,9 @@
 #email-confirmation{
+    height: 100vh;
+}
+
+.email-confirmation {
     height: 100%;
-    max-height: 600px;
 }
 
 .email-confirmation__container {

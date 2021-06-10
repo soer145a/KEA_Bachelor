@@ -1,10 +1,18 @@
+#orderConfirmation {
+    height: 100vh;
+}
+.orderConfirmation {
+    height: 100%;
+}
 .order-confirmation-summary {
+    height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
-    margin: 64px auto;
+    margin: auto auto;
     justify-content: center;
     max-width: 60ch;
+    text-align: center;
 }
 .order-confirmation-summary > p{
     font-size: 1.1em;
