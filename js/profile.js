@@ -3,11 +3,13 @@ function showDeleteOption() {
   document.querySelector("#deleteModal").classList.remove("hidden");
   document.querySelector("#deleteModal").classList.add("shown");
 }
+
 function cancelDeletion() {
   //Remove the delete modal
   document.querySelector("#deleteModal").classList.add("hidden");
   document.querySelector("#deleteModal").classList.remove("shown");
 }
+
 function showDeleteOption2() {
   //show the next step when deleting your user
   document.querySelector("#deleteModal").classList.add("hidden");
@@ -49,7 +51,11 @@ async function toggleAutoRenew(sCustomerProductId) {
     }
   });
 }
+
+//Changes the text displaying customer information to and input field with the same information as its value
+// and adds a cancel and save button
 function editInfo(sValidateType, sInputName) {
+  //54-62 hides existing html
   let eParentElement = event.target.parentElement;
   let aParentElementChildren = eParentElement.children;
   //hide existing elements
@@ -79,6 +85,10 @@ function editInfo(sValidateType, sInputName) {
   eInput.setAttribute("name", `${sInputName}`);
   eInput.setAttribute("value", `${eProfileInfoPTag}`);
 
+  //buttons-container
+  let eButtonContainer = document.createElement("div");
+  eButtonContainer.setAttribute("class", "form__button-container");
+
   //Submit button
   let eSubmitButton = document.createElement("button");
   eSubmitButton.setAttribute("class", "form__button form__button--submit");
@@ -90,18 +100,22 @@ function editInfo(sValidateType, sInputName) {
   eCancelButton.setAttribute("type", "button");
   eCancelButton.setAttribute("onclick", `cancelEdit()`);
 
-  //Append button and input inside of form
+  //Append buttons inside of button container
+  eButtonContainer.appendChild(eSubmitButton);
+  eButtonContainer.appendChild(eCancelButton);
+  //Append button container and input inside of form
   eForm.appendChild(eInput);
-  eForm.appendChild(eSubmitButton);
-  eForm.appendChild(eCancelButton);
+  eForm.appendChild(eButtonContainer);
 
   //Append new element inside of parent element
   eParentElement.appendChild(eForm);
   eInput.focus();
 }
 
+//Updates the changes customer information in the database and the frontend
 function updateCustomerInfo(sInputName) {
   let eInput = document.getElementsByName(sInputName)[0];
+  //check if the customer has provided a valid input
   if (eInput.classList.contains("invalid")) {
   } else {
     //Send the request to the api
@@ -110,6 +124,7 @@ function updateCustomerInfo(sInputName) {
       whatToUpdate: sInputName,
     }).then((jResponse) => {
       if (jResponse.customerUpdated) {
+        //if succes then update frontend and let user know
         let eProfileInfo = document.getElementsByClassName(
           "customer-information__" + sInputName
         )[0];
@@ -143,6 +158,8 @@ function updateCustomerInfo(sInputName) {
     });
   }
 }
+
+//let the user update their password
 function changeCustomerPassword() {
   //Gather the data from the input fields
   let sNewPassword = accountDetails__password;
@@ -188,8 +205,10 @@ function changeCustomerPassword() {
     }
   }
 }
+
+//Close down the inputform and replace with the html that just displays the user information
 function cancelEdit() {
-  let eRootElement = event.target.parentElement.parentElement;
+  let eRootElement = event.target.parentElement.parentElement.parentElement;
 
   //Find form element to remove/delete
   const eForm = eRootElement.querySelector("form");

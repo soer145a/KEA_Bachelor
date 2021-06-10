@@ -11,17 +11,17 @@ function inputInfoButtonComp($aListItems)
     }
 
     $sInputInfoButtonHtml =
-        "<span class='login-form__label-info-outer js-toggle-infobox'>
-        <span class='login-form__label-info-inner'>
-        </span>
-    </span>
-    <span class='login-form__label-info-box js-toggle-infobox login-form__label-info-box--hidden'>
-        <h5 class='section-subheader label-info-box__header'>The password must concist of:</h5>
-        <ul>
-            $sListItems
-        </ul>
-    </span>
-        ";
+        "<span class='infobox-container js-toggle-infobox'>
+            <span class='question-mark'>
+                <span class='question-mark__inner'></span>
+            </span>
+            <span class='infobox infobox--hidden'>
+                <h5 class='section-subheader infobox__header'>The password must concist of:</h5>
+                <ul class='infobox__list'>
+                    $sListItems
+                </ul>
+            </span>
+        </span>";
     //Return html block
     return $sInputInfoButtonHtml;
 }

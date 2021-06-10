@@ -8,7 +8,7 @@ include_once("components/inputInfoButton.php");
 $sHeadHtmlComp = headComp();
 $sHeaderHtmlComp = headerComp('login');
 $sFooterHtmlComp = footerComp();
-$aListItems = array("<li>6-30 characters</li>", "<li>One uppercase character</li>", " <li>One numeric character</li>", "<li>One special character</li>");
+$aListItems = array("<li class='infobox__list-item'>6-30 characters</li>", "<li class='infobox__list-item'>One uppercase character</li>", " <li class='infobox__list-item'>One numeric character</li>", "<li class='infobox__list-item'>One special character</li>");
 $sPasswordInfoButtonHtml = inputInfoButtonComp($aListItems);
 //If the user IS logged in, they should go to the profile page instead
 if (isset($_SESSION['loginStatus'])) {
@@ -39,7 +39,6 @@ if (isset($_POST['customerEmail']) && isset($_POST['customerPassword'])) {
                     $_SESSION['customerFirstName'] = $oCustomerRow->customer_first_name;
                     $_SESSION['customerLastName'] = $oCustomerRow->customer_last_name;
                     header('Location: index.php');
-                    
                 } else {
                     //Display an error message the user
                     $sErrorMessage = "<script>showMessage('You have not confirmed your account, please check your email', true)</script>";
