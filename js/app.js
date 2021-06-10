@@ -45,7 +45,7 @@ function stopTimeOut() {
 }
 
 //function used to validate inputs
-function inputValidate() {
+async function inputValidate() {
   let sInputData;
   let aInputsToValidate = [];
   //Check to see what it is we are submitting
@@ -262,14 +262,14 @@ function toggleInfoBox() {
     aToggleElements = document.querySelectorAll(".js-toggle-infobox");
     aToggleElements.forEach((eToggleElement) => {
       eToggleElement.addEventListener("click", (eToggleElement) => {
-        if(eToggleElement.target.classList.value !== "infobox") {
+        if (eToggleElement.target.classList.value !== "infobox") {
           const eInfobox = eToggleElement.target.querySelector(".infobox");
-          if(eInfobox) {
+          if (eInfobox) {
             eInfobox.classList.toggle("infobox--hidden");
           }
-        } else if(eToggleElement.target.classList.value === "infobox") {
-            eToggleElement.target.classList.toggle("infobox--hidden");
-          }
+        } else if (eToggleElement.target.classList.value === "infobox") {
+          eToggleElement.target.classList.toggle("infobox--hidden");
+        }
       });
     });
   }

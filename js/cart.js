@@ -50,15 +50,26 @@ function togglePaypalButton(bLoginStatus, nPrice) {
         .render("#paypal-button-container");
     } else {
       //If the user is not logged in, we validate on the input fields
+      console.log(53);
       if (document.querySelectorAll(".valid").length !== 12) {
+        console.log(
+          document.querySelectorAll(".valid").length,
+          document.querySelectorAll(".valid")
+        );
         if (document.querySelector(".paypal-buttons") !== null) {
+          console.log(57);
           //Remove paypal button if it's there
           ePaypalContainer.textContent = "";
           ePaypalContainer.appendChild(eButtonPlaceholder);
         }
       } else {
         //If all input fields are valid, we then make the paypal button
+        console.log(61);
         if (document.querySelector(".order-summary__button") !== null) {
+          console.log(
+            document.querySelectorAll(".valid").length,
+            document.querySelectorAll(".valid")
+          );
           ePaypalContainer.textContent = "";
           paypal
             .Buttons({
@@ -94,6 +105,7 @@ function togglePaypalButton(bLoginStatus, nPrice) {
     }
   } else {
     //If there are nothing in the cart, remove the paypal button
+    console.log(102);
     ePaypalContainer.textContent = "";
     ePaypalContainer.appendChild(eButtonPlaceholder);
   }
