@@ -85,7 +85,7 @@ function editInfo(sValidateType, sInputName) {
   eInput.setAttribute("name", `${sInputName}`);
   eInput.setAttribute("value", `${eProfileInfoPTag}`);
 
-  //buttons-container
+  //Buttons container
   let eButtonContainer = document.createElement("div");
   eButtonContainer.setAttribute("class", "form__button-container");
 
