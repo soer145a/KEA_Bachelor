@@ -70,7 +70,7 @@
 
 .order-summary__body {
     height: 100%;
-    max-height: 400px;
+    max-height: 500px;
     overflow: scroll;
     margin-bottom: 16px;
 }
@@ -90,7 +90,6 @@
     margin-left: 1px;
     cursor:initial;
     font-style: italic;
-    font-family: "helvetica neue";
     color: var(--white);
 }
 .order-summary__button:hover {

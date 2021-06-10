@@ -130,7 +130,7 @@
 .message-box__text {
     position: relative;
     top: 50%;
-    color: var(--purple-dark);
+    color: var(--white);
     transform: translateY(-50%);
 }
 
