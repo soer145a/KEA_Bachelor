@@ -9,15 +9,10 @@ function togglePaypalButton(bLoginStatus) {
   );
   let nPrice = 0;
   eButtonPlaceholder.textContent = "PayPal";
-  postData("api/get-cart-total.php", {
-      testString: "It worked!"
-  }).then((jResponse) => {
+  postData("api/get-cart-total.php", {}).then((jResponse) => {
     if (jResponse.priceReturned) {
       nPrice = jResponse.priceTotal;
-      
     }
-    console.log(jResponse);
-    console.log(nPrice,typeof nPrice);
   
     
   //If the price is
@@ -48,14 +43,18 @@ function togglePaypalButton(bLoginStatus) {
           //When the order is approved and the money is transfered
           onApprove: function (data, actions) {
             return actions.order.capture().then(function () {
+              document.body.style.cursor = 'wait';
               postData("api/start-purchase-session.php", {
                 confirmString: true,
-              }).then(
-                window.location.assign(
-                  //The way we redirect with javascript
-                  window.location.protocol +
-                    "/KEA_Bachelor/api/payment-handler.php"
-                )
+              }).then((jResponse) => {
+                
+                if (jResponse.purchaseStarted) {
+                  window.location.assign(window.location.origin +  "/api/payment-handler.php")
+                } else {
+                  showMessage("Access denied", true)
+                }
+              }
+                
               );
             });
           },
@@ -66,12 +65,11 @@ function togglePaypalButton(bLoginStatus) {
       
       if (document.querySelectorAll(".valid").length !== 12) {
         
-        if (document.querySelector(".paypal-buttons") !== null) {
+        
           
           //Remove paypal button if it's there
           ePaypalContainer.textContent = "";
           ePaypalContainer.appendChild(eButtonPlaceholder);
-        }
       } else {
         //If all input fields are valid, we then make the paypal button
         
@@ -100,9 +98,17 @@ function togglePaypalButton(bLoginStatus) {
               //When the money is transfered successfully
               onApprove: function (data, actions) {
                 return actions.order.capture().then(function () {
+                  document.body.style.cursor = 'wait';
                   postData("api/start-purchase-session.php", {
                     confirmString: true,
-                  }).then(document.querySelector(".account-details").submit());
+                  }).then((jResponse) => {
+                    
+                      if (jResponse.purchaseStarted) {
+                        document.querySelector(".account-details").submit();
+                      } else {
+                        showMessage("Access denied", true);
+                      }
+                  });
                 });
               },
             })
@@ -118,6 +124,10 @@ function togglePaypalButton(bLoginStatus) {
   }})
 }
 function removeItemFromCart(sItemId, bIsProduct, nAddonAmount, bLoginStatus, nPrice) {
+  let ePaypalContainer = document.querySelector("#paypal-button-container");
+  ePaypalContainer.textContent = "";
+  
+
   //the function that removes a selected object from the session
   updateCartCounter(bIsProduct, nAddonAmount, false);
   //Removing the element in the dom
@@ -130,9 +140,13 @@ function removeItemFromCart(sItemId, bIsProduct, nAddonAmount, bLoginStatus, nPr
   postData("api/remove-item-from-cart.php", {
     itemId: sItemId,
     isProduct: bIsProduct,
+  }).then((jResponse) => {
+    if (jResponse.itemRemovedFromCart) {
+      let eTotalPriceSpan = document.querySelector("#totalPriceSpan");
+      let nNewTotalPrice = parseFloat(eTotalPriceSpan.textContent) - nPrice;
+      totalPriceSpan.textContent = nNewTotalPrice;
+      togglePaypalButton(bLoginStatus);
+    }
   });
-  let eTotalPriceSpan = document.querySelector("#totalPriceSpan");
-  let nNewTotalPrice = parseFloat(eTotalPriceSpan.textContent) - nPrice;
-  totalPriceSpan.textContent = nNewTotalPrice;
-  togglePaypalButton(bLoginStatus);
+  
 }

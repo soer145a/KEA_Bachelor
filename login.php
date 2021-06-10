@@ -4,12 +4,12 @@ $sErrorMessage = "";
 include_once("components/head.php");
 include_once("components/header.php");
 include_once("components/footer.php");
-include_once("components/inputInfoButton.php");
+include_once("components/loginForm.php");
+$sLoginFormHtmlComp = loginFormComp();
 $sHeadHtmlComp = headComp();
 $sHeaderHtmlComp = headerComp('login');
 $sFooterHtmlComp = footerComp();
-$aListItems = array("<li class='infobox__list-item'>6-30 characters</li>", "<li class='infobox__list-item'>One uppercase character</li>", " <li class='infobox__list-item'>One numeric character</li>", "<li class='infobox__list-item'>One special character</li>");
-$sPasswordInfoButtonHtml = inputInfoButtonComp($aListItems);
+
 //If the user IS logged in, they should go to the profile page instead
 if (isset($_SESSION['loginStatus'])) {
     header('Location: profile.php');
@@ -70,20 +70,7 @@ if (isset($_POST['customerEmail']) && isset($_POST['customerPassword'])) {
             <div class="layout-container login">
 
                 <h1 class="section-header login-header">Login</h1>
-                <form class="login-form" method="post">
-                    <label class="login-form__label">Email:</label>
-
-                    <input class="login-form__input" type="email" placeholder="example@email.com" name="customerEmail">
-
-                    <label class="login-form__label">Password: <?= $sPasswordInfoButtonHtml ?>
-                    </label>
-
-                    <input class="login-form__input" type="password" placeholder="Type in your password" name="customerPassword">
-
-
-                    <br>
-                    <button class="login-form__button button button--purple" type="submit">Login</button>
-                </form>
+                <?=$sLoginFormHtmlComp?>
             </div>
         </section>
     </main>
