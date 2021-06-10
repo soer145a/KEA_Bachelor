@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  updateSliderButton();
   toggleDropdown();
   itemSelector();
   toggleInfoBox();
@@ -59,24 +58,32 @@ function sendContactForm() {
 }
 
 function handleCarouselScroll() {
+  //Check if there is a element with the class .slider in the DOM
     if (document.querySelector(".slider") !== null) {
-      
+      //scrollable container
       let options = {
         root: document.querySelector(".slider"),
         rootMargin: "0px",
         threshold: 1.0,
       };
-  
+      
+      //Target to observe when it is in viewport
       let target = document.querySelector("#card-3");
-  
+      
+      //Observer function that will observe scrollable container with a callback function
       let observer = new IntersectionObserver((e) => {
+        //In this callback find which card is in focus by looking at the position of the targeted card
+        //Get container with scroll indicators
         let eIndicatorContainer = document.querySelector(".scroll-indicators")
+        //Check if the target element is in viewport
         if(e[0].isIntersecting) {
+          //If true add hidden class
           eIndicatorContainer.classList.add("scroll-indicators--hidden");
         } else {
+          //Else remove hidden class
           eIndicatorContainer.classList.remove("scroll-indicators--hidden");
         }
-        //In this callback find which card is in focus by looking at the position of the middle card
+        
         return;
       }, options);
   
@@ -148,24 +155,6 @@ function addProductToCart(sProductId, sButtonId) {
         //update the frontend cart counter
         updateCartCounter(true, 0, true);
       }
-    });
-  }
-}
-
-function updateSliderButton() {
-  //This function sets the "active" class to the clicked element
-  if (document.querySelector(".js-carousel-button") !== null) {
-    let aSliderButtons = document.querySelectorAll(".js-carousel-button");
-
-    aSliderButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        for (let i = 0; i < aSliderButtons.length; i++) {
-          aSliderButtons[i].classList.remove(
-            "slider-dots__dot-element--active"
-          );
-        }
-        button.classList.add("slider-dots__dot-element--active");
-      });
     });
   }
 }

@@ -79,6 +79,20 @@
     display: none;
 }
 
+.order-summary__total-price {
+    border-top: 2px solid var(--purple-light);
+    padding: 8px;
+    text-align: right;
+}
+
+.total-price__price {
+    margin-left: 16px;
+}
+
+.total-price__price::before {
+    content: "\20AC";
+}
+
 .order-summary__button {
     background-color: var(--purple-grey);
     width: 200px;
