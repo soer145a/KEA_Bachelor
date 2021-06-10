@@ -115,7 +115,7 @@ $sApiKey = "";
                             <button class="delete-profile__button button button--red" onclick="showDeleteOption2()">I Understand</button>
                         </div>
                     </div>
-                    <div id="deleteModalTotal" class="modal modal--delete <?php
+                    <div id="deleteModalTotal" class=" modal--hiddenmodal modal--delete <?php
                                                                             if ($bShowFlag) {
                                                                                 echo "modal--shown";
                                                                             } else {

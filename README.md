@@ -3,7 +3,7 @@
 Project created with a XAMPP stack  
 1: Create db named purplescout in phpmyadmin  
 2: Import db file 'purplescout.sql' found in repo into this new db  
-3: Start apache server and go to http://localhost:PORT/KEA_bachelor/index.php where PORT is the port your apache server is running on
+3: Start apache server and go to http://localhost:PORT/KEA_BACHELOR/index.php where PORT is the port your apache server is running on
 4: If running locally, make sure that the firewall does not block the PHP mailer SMTP Authetication
 5: Site should work
 
