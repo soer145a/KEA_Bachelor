@@ -263,14 +263,13 @@ function toggleInfoBox() {
     aToggleElements.forEach((eToggleElement) => {
       eToggleElement.addEventListener("click", (eToggleElement) => {
         if(eToggleElement.target.classList.value !== "infobox") {
-          const eInfobox = eToggleElement.target.querySelector(
-            ".infobox"
-          );
-          eInfobox.classList.toggle("infobox--hidden");
-        } else {
-          eToggleElement.target.classList.toggle("infobox--hidden");
-        }
-        
+          const eInfobox = eToggleElement.target.querySelector(".infobox");
+          if(eInfobox) {
+            eInfobox.classList.toggle("infobox--hidden");
+          }
+        } else if(eToggleElement.target.classList.value === "infobox") {
+            eToggleElement.target.classList.toggle("infobox--hidden");
+          }
       });
     });
   }
