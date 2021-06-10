@@ -21,6 +21,14 @@
     max-width: 600px;
 }
 
+.modal--hidden {
+    display: none;
+}
+
+.modal--shown {
+    display: block;
+}
+
 .modal-form {
     margin: 16px 0;
     display: flex;

@@ -19,6 +19,10 @@
     --white: rgba(255, 255, 255, 1);
 }
 
+* {
+    box-sizing: border-box;
+}
+
 /* Typography */
 
 h1, h2, h3, h4, h5, th {
@@ -74,6 +78,9 @@ a, p, button, form, label, input, textarea, address, td {
     font-weight: 400;
 }
 
+
+/* GENERAL STYLING */
+
 input {
     padding: 0;
     border: none;
@@ -112,25 +119,6 @@ button:hover {
 .button--red {
     background-color: var(--red);
     color: var(--white);
-}
-
-/* Chrome, Safari, Edge, Opera */
-
-input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-/* Firefox */
-
-input[type="number"] {
-    -moz-appearance: textfield;
-}
-
-/* GENERAL STYLING */
-
-* {
-    box-sizing: border-box;
 }
 
 .container-full-width {
@@ -242,7 +230,20 @@ img {
     overflow: hidden;
 }
 
-.productCard {
+/* Chrome, Safari, Edge, Opera */
+
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* .productCard {
     max-width: 300px;
 }
 
@@ -275,4 +276,4 @@ img {
 
 .subInactive {
     background-color: red;
-}
+} */

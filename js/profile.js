@@ -1,27 +1,27 @@
 function showDeleteOption() {
   //Functionality for showing the delete modal
-  document.querySelector("#deleteModal").classList.remove("hidden");
-  document.querySelector("#deleteModal").classList.add("shown");
+  document.querySelector("#deleteModal").classList.remove("modal--hidden");
+  document.querySelector("#deleteModal").classList.add("modal--shown");
 }
 
 function cancelDeletion() {
   //Remove the delete modal
-  document.querySelector("#deleteModal").classList.add("hidden");
-  document.querySelector("#deleteModal").classList.remove("shown");
+  document.querySelector("#deleteModal").classList.add("modal--hidden");
+  document.querySelector("#deleteModal").classList.remove("modal--shown");
 }
 
 function showDeleteOption2() {
   //show the next step when deleting your user
-  document.querySelector("#deleteModal").classList.add("hidden");
-  document.querySelector("#deleteModal").classList.remove("shown");
-  document.querySelector("#deleteModalTotal").classList.remove("hidden");
-  document.querySelector("#deleteModalTotal").classList.add("shown");
+  document.querySelector("#deleteModal").classList.add("modal--hidden");
+  document.querySelector("#deleteModal").classList.remove("modal--shown");
+  document.querySelector("#deleteModalTotal").classList.remove("modal--hidden");
+  document.querySelector("#deleteModalTotal").classList.add("modal--shown");
 }
 
 function removeDeleteModals() {
   //Cancel the deletion process
-  document.querySelector("#deleteModalTotal").classList.add("hidden");
-  document.querySelector("#deleteModalTotal").classList.remove("shown");
+  document.querySelector("#deleteModalTotal").classList.add("modal--hidden");
+  document.querySelector("#deleteModalTotal").classList.remove("modal--shown");
 }
 async function toggleAutoRenew(sCustomerProductId) {
   //This function sends the request to the api when to toggle the auto renew on their product
