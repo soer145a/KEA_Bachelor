@@ -221,6 +221,7 @@
     color: var(--purple-dark);
     font-size: 1.5rem;
     position: relative;
+    cursor: pointer;
 }
 
 .product-card__arrow-outer {
@@ -308,6 +309,7 @@
     color: var(--purple-dark);
     font-size: 1.5rem;
     position: relative;
+    cursor: pointer;
 }
 
 .addon-card__arrow-outer {
@@ -327,4 +329,10 @@
     border-right: 2px solid var(--purple-dark);
     border-bottom: 2px solid var(--purple-dark);
     transform: rotate(45deg)
+}
+.rotated{
+    transform: rotate(225deg);
+}
+.collapsed{
+    display: none;
 }

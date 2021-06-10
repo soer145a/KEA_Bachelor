@@ -205,3 +205,14 @@ function cancelEdit() {
     aHiddenElements[i].classList.remove("customer-information__item--hidden");
   }
 }
+function toggleDropdownProfile(Selector) {
+  if (Selector != true) {
+    let eCollapsableBlock = document.querySelector(`#collapsable${Selector}`);
+    eCollapsableBlock.classList.toggle("collapsed");
+    let eRotatingArrowBlock = document.querySelector(`#product-card-arrow${Selector}`);
+    eRotatingArrowBlock.classList.toggle("rotated");
+  } else {
+    collapsableAddonContainer.classList.toggle("collapsed");
+    addonRotateArrow.classList.toggle("rotated");
+  }
+}

@@ -3,7 +3,7 @@ session_start();
 include_once("../db-connection/connection.php");
 //Check if the customer id is in the session
 
-if (isset($_POST['customerPassword'])) {
+if (isset($_POST['customerPassword']) && $_POST['customerPassword'] != "") {
     $sCustomerId = $_SESSION['customerId'];
     //Get the 2 passwords from the frontend
     $sCustomerPassword = $_POST['customerPassword'];
@@ -49,6 +49,6 @@ if (isset($_POST['customerPassword'])) {
         header("Location: ../profile.php");
     }
 } else {
-    header("Location: ../index.php");
-    exit();
+    $_SESSION['wrongPassword'] = true;
+    header("Location: ../profile.php");
 }
