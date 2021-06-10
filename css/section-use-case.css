@@ -1,7 +1,6 @@
 #use-case {
     height: auto;
     overflow: hidden;
-    /* padding: 1rem 0 2rem; */
 }
 
 .use-case {
@@ -24,7 +23,8 @@
     border-radius: 20px;
     opacity: 80%;
     z-index: -1;
-    box-shadow: 0 0 0 1rem var(--yellow);
+    -webkit-box-shadow: 0 0 0 1rem var(--yellow);
+            box-shadow: 0 0 0 1rem var(--yellow);
 }
 .use-case .background-sphere {
     position: absolute;
