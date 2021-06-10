@@ -23,7 +23,7 @@ if (isset($_POST['customerPassword'])) {
         $sCustomerPasswordHashed = password_hash($sNewPassword, PASSWORD_DEFAULT);
         $sCustomerUpdateSql = "UPDATE `customers` SET `customer_password` = \"$sCustomerPasswordHashed\" WHERE customer_id = \"$customerId\"";
         $oDbConnection->query($sCustomerUpdateSql);
-        $aResponse = array("customerUpdated" => true, "error" => "None");   
+        $aResponse = array("customerUpdated" => true, "error" => "None");
     } else {
         $aResponse = array("customerUpdated" => false, "error" => "Wrong password");
     }

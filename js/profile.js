@@ -69,7 +69,7 @@ function editInfo(sValidateType, sInputName) {
     "customer-information__" + sInputName
   )[0];
   let eProfileInfoPTag = eProfileInfo.querySelector("p").textContent;
-  
+
   //Create new dom elements
   //form element
   let eForm = document.createElement("form");
@@ -175,12 +175,10 @@ function changeCustomerPassword() {
     //Error on the empty fields
     showMessage("Please fill out all fields", true);
   } else {
-    
     if (sNewPassword.classList.contains("invalid")) {
       //The password is invalid case
       showMessage("New password does not meet requirements", true);
     } else {
-      
       if (sPasswordConfirm.classList.contains("invalid")) {
         //If the second input is invalid
         showMessage("The passwords do not match", true);
@@ -229,7 +227,9 @@ function toggleDropdownProfile(Selector) {
   if (Selector != true) {
     let eCollapsableBlock = document.querySelector(`#collapsable${Selector}`);
     eCollapsableBlock.classList.toggle("collapsed");
-    let eRotatingArrowBlock = document.querySelector(`#product-card-arrow${Selector}`);
+    let eRotatingArrowBlock = document.querySelector(
+      `#product-card-arrow${Selector}`
+    );
     eRotatingArrowBlock.classList.toggle("rotated");
   } else {
     collapsableAddonContainer.classList.toggle("collapsed");

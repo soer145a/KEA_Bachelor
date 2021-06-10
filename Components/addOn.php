@@ -11,7 +11,7 @@ function addOnsComp($oDbConnection)
     while ($oAddOnRow = $oAddOnResult->fetch_object()) {
 
         switch ($oAddOnRow->addon_id) {
-            //A custom block element for each addon
+                //A custom block element for each addon
             case 1:
                 $sAddOnHtmlComp = $sAddOnHtmlComp . "<div class='addon-wrapper'>
                 <img class='addon-image' src='./assets/images/3d-model.png' alt='3d model of shirt'>

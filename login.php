@@ -70,7 +70,7 @@ if (isset($_POST['customerEmail']) && isset($_POST['customerPassword'])) {
             <div class="layout-container login">
 
                 <h1 class="section-header login-header">Login</h1>
-                <?=$sLoginFormHtmlComp?>
+                <?= $sLoginFormHtmlComp ?>
             </div>
         </section>
     </main>

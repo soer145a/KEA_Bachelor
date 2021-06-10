@@ -84,9 +84,9 @@ async function inputValidate(bLoginStatus) {
           aInputsToValidate[i].classList.remove("valid");
           aInputsToValidate[i].classList.add("invalid");
           const lastSegment = window.location.href.split("/").pop();
-            if (lastSegment == "cart.php") {
-              togglePaypalButton(bLoginStatus);
-            }
+          if (lastSegment == "cart.php") {
+            togglePaypalButton(bLoginStatus);
+          }
         } else {
           //Contact api to check if email address already exists in database
           postData("api/check-db-for-existing-entries.php", {
@@ -96,7 +96,6 @@ async function inputValidate(bLoginStatus) {
             if (!jResponse.dataExists) {
               aInputsToValidate[i].classList.add("valid");
               aInputsToValidate[i].classList.remove("invalid");
-              
             } else {
               aInputsToValidate[i].classList.remove("valid");
               aInputsToValidate[i].classList.add("invalid");
@@ -106,10 +105,9 @@ async function inputValidate(bLoginStatus) {
             if (lastSegment == "cart.php") {
               togglePaypalButton(bLoginStatus);
             }
-          }
-          );
+          });
         }
-        
+
         break;
 
       case "string":
@@ -165,9 +163,9 @@ async function inputValidate(bLoginStatus) {
           aInputsToValidate[i].classList.add("invalid");
           aInputsToValidate[i].classList.remove("valid");
           const lastSegment = window.location.href.split("/").pop();
-            if (lastSegment == "cart.php") {
-              togglePaypalButton(bLoginStatus);
-            }
+          if (lastSegment == "cart.php") {
+            togglePaypalButton(bLoginStatus);
+          }
         } else {
           //Contact api to check if cvr address already exists in database
           postData("api/check-db-for-existing-entries.php", {

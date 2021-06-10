@@ -59,36 +59,36 @@ function sendContactForm() {
 
 function handleCarouselScroll() {
   //Check if there is a element with the class .slider in the DOM
-    if (document.querySelector(".slider") !== null) {
-      //scrollable container
-      let options = {
-        root: document.querySelector(".slider"),
-        rootMargin: "0px",
-        threshold: 1.0,
-      };
-      
-      //Target to observe when it is in viewport
-      let target = document.querySelector("#card-3");
-      
-      //Observer function that will observe scrollable container with a callback function
-      let observer = new IntersectionObserver((e) => {
-        //In this callback find which card is in focus by looking at the position of the targeted card
-        //Get container with scroll indicators
-        let eIndicatorContainer = document.querySelector(".scroll-indicators")
-        //Check if the target element is in viewport
-        if(e[0].isIntersecting) {
-          //If true add hidden class
-          eIndicatorContainer.classList.add("scroll-indicators--hidden");
-        } else {
-          //Else remove hidden class
-          eIndicatorContainer.classList.remove("scroll-indicators--hidden");
-        }
-        
-        return;
-      }, options);
-  
-      observer.observe(target);
-    }
+  if (document.querySelector(".slider") !== null) {
+    //scrollable container
+    let options = {
+      root: document.querySelector(".slider"),
+      rootMargin: "0px",
+      threshold: 1.0,
+    };
+
+    //Target to observe when it is in viewport
+    let target = document.querySelector("#card-3");
+
+    //Observer function that will observe scrollable container with a callback function
+    let observer = new IntersectionObserver((e) => {
+      //In this callback find which card is in focus by looking at the position of the targeted card
+      //Get container with scroll indicators
+      let eIndicatorContainer = document.querySelector(".scroll-indicators");
+      //Check if the target element is in viewport
+      if (e[0].isIntersecting) {
+        //If true add hidden class
+        eIndicatorContainer.classList.add("scroll-indicators--hidden");
+      } else {
+        //Else remove hidden class
+        eIndicatorContainer.classList.remove("scroll-indicators--hidden");
+      }
+
+      return;
+    }, options);
+
+    observer.observe(target);
+  }
 }
 
 //used to add an addon to the cart

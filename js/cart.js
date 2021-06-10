@@ -1,4 +1,3 @@
-
 function togglePaypalButton(bLoginStatus) {
   //The parameters come from the backend via php variables on the cart page
   let ePaypalContainer = document.querySelector("#paypal-button-container");
@@ -13,68 +12,61 @@ function togglePaypalButton(bLoginStatus) {
     if (jResponse.priceReturned) {
       nPrice = jResponse.priceTotal;
     }
-  
-    
-  //If the price is
-  if (nPrice > 0) {
-    //If the price is set below 0, we do not want to send data to the backend
-    if (bLoginStatus) {
-      ePaypalContainer.textContent = "";
 
-      paypal
-        .Buttons({
-          style: {
-            color: "blue",
-            shape: "rect",
-            size: "responsive",
-          },
-          //Create order with paypal
-          createOrder: function (data, actions) {
-            return actions.order.create({
-              purchase_units: [
-                {
-                  amount: {
-                    value: nPrice,
+    //If the price is
+    if (nPrice > 0) {
+      //If the price is set below 0, we do not want to send data to the backend
+      if (bLoginStatus) {
+        ePaypalContainer.textContent = "";
+
+        paypal
+          .Buttons({
+            style: {
+              color: "blue",
+              shape: "rect",
+              size: "responsive",
+            },
+            //Create order with paypal
+            createOrder: function (data, actions) {
+              return actions.order.create({
+                purchase_units: [
+                  {
+                    amount: {
+                      value: nPrice,
+                    },
                   },
-                },
-              ],
-            });
-          },
-          //When the order is approved and the money is transfered
-          onApprove: function (data, actions) {
-            return actions.order.capture().then(function () {
-              document.body.style.cursor = 'wait';
-              postData("api/start-purchase-session.php", {
-                confirmString: true,
-              }).then((jResponse) => {
-                
-                if (jResponse.purchaseStarted) {
-                  window.location.assign(window.location.origin +  "/api/payment-handler.php")
-                } else {
-                  showMessage("Access denied", true)
-                }
-              }
-                
-              );
-            });
-          },
-        })
-        .render("#paypal-button-container");
-    } else {
-      //If the user is not logged in, we validate on the input fields
-      
-      if (document.querySelectorAll(".valid").length !== 12) {
-        
-        
-          
+                ],
+              });
+            },
+            //When the order is approved and the money is transfered
+            onApprove: function (data, actions) {
+              return actions.order.capture().then(function () {
+                document.body.style.cursor = "wait";
+                postData("api/start-purchase-session.php", {
+                  confirmString: true,
+                }).then((jResponse) => {
+                  if (jResponse.purchaseStarted) {
+                    window.location.assign(
+                      window.location.origin + "/api/payment-handler.php"
+                    );
+                  } else {
+                    showMessage("Access denied", true);
+                  }
+                });
+              });
+            },
+          })
+          .render("#paypal-button-container");
+      } else {
+        //If the user is not logged in, we validate on the input fields
+
+        if (document.querySelectorAll(".valid").length !== 12) {
           //Remove paypal button if it's there
           ePaypalContainer.textContent = "";
           ePaypalContainer.appendChild(eButtonPlaceholder);
-      } else {
-        //If all input fields are valid, we then make the paypal button
-        
-        
-          
+        } else {
+          //If all input fields are valid, we then make the paypal button
+
           ePaypalContainer.textContent = "";
           paypal
             .Buttons({
@@ -98,35 +90,39 @@ function togglePaypalButton(bLoginStatus) {
               //When the money is transfered successfully
               onApprove: function (data, actions) {
                 return actions.order.capture().then(function () {
-                  document.body.style.cursor = 'wait';
+                  document.body.style.cursor = "wait";
                   postData("api/start-purchase-session.php", {
                     confirmString: true,
                   }).then((jResponse) => {
-                    
-                      if (jResponse.purchaseStarted) {
-                        document.querySelector(".account-details").submit();
-                      } else {
-                        showMessage("Access denied", true);
-                      }
+                    if (jResponse.purchaseStarted) {
+                      document.querySelector(".account-details").submit();
+                    } else {
+                      showMessage("Access denied", true);
+                    }
                   });
                 });
               },
             })
             .render("#paypal-button-container");
-        
+        }
       }
+    } else {
+      //If there are nothing in the cart, remove the paypal button
+
+      ePaypalContainer.textContent = "";
+      ePaypalContainer.appendChild(eButtonPlaceholder);
     }
-  } else {
-    //If there are nothing in the cart, remove the paypal button
-    
-    ePaypalContainer.textContent = "";
-    ePaypalContainer.appendChild(eButtonPlaceholder);
-  }})
+  });
 }
-function removeItemFromCart(sItemId, bIsProduct, nAddonAmount, bLoginStatus, nPrice) {
+function removeItemFromCart(
+  sItemId,
+  bIsProduct,
+  nAddonAmount,
+  bLoginStatus,
+  nPrice
+) {
   let ePaypalContainer = document.querySelector("#paypal-button-container");
   ePaypalContainer.textContent = "";
-  
 
   //the function that removes a selected object from the session
   updateCartCounter(bIsProduct, nAddonAmount, false);
@@ -148,5 +144,4 @@ function removeItemFromCart(sItemId, bIsProduct, nAddonAmount, bLoginStatus, nPr
       togglePaypalButton(bLoginStatus);
     }
   });
-  
 }

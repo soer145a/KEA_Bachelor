@@ -84,16 +84,17 @@ $sApiKey = "";
                                 //The addons the customer has access to
                                 $sCustomerAddonSelectSql = "SELECT * FROM customer_addons LEFT JOIN addons ON customer_addons.addon_id  = addons.addon_id  WHERE `customer_id` = \"$customerId\"";
                                 $oCustomerAddonResults = $oDbConnection->query($sCustomerAddonSelectSql);
-                                if($oCustomerAddonResults->num_rows > 0){
-                                while ($oCustomerAddonRow = $oCustomerAddonResults->fetch_assoc()) {
-                                    $nAddOnAmount = $oCustomerAddonRow['addon_amount'];
-                                    $sAddonName = $oCustomerAddonRow['addon_name'];
+                                if ($oCustomerAddonResults->num_rows > 0) {
+                                    while ($oCustomerAddonRow = $oCustomerAddonResults->fetch_assoc()) {
+                                        $nAddOnAmount = $oCustomerAddonRow['addon_amount'];
+                                        $sAddonName = $oCustomerAddonRow['addon_name'];
 
-                                    $sCustomerAddonHtml = $sCustomerAddonHtml . "
+                                        $sCustomerAddonHtml = $sCustomerAddonHtml . "
                                     <p class='section-paragraph addon-card__text'>$nAddOnAmount x <span class='addon-card__text--bold'>$sAddonName</span></p> ";
 
-                                    echo "<li> $nAddOnAmount $sAddonName's in our database</li>";
-                                }}else{
+                                        echo "<li> $nAddOnAmount $sAddonName's in our database</li>";
+                                    }
+                                } else {
                                     $sCustomerAddonHtml = $sCustomerAddonHtml . "
                                     <p class='section-paragraph addon-card__text'>No Addons bought</p>";
                                 }
@@ -115,7 +116,7 @@ $sApiKey = "";
                         </div>
                     </div>
                     <div id="deleteModalTotal" class="modal modal--delete <?php
-                                                                             if ($bShowFlag) {
+                                                                            if ($bShowFlag) {
                                                                                 echo "shown";
                                                                             } else {
                                                                                 echo "hidden";

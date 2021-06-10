@@ -10,7 +10,7 @@ function productsComp($oDbConnection)
     $sProductHtmlComp = "";
     $aSubscriptions = [];
     $nCounter = "0";
-//add the subscription data to an array
+    //add the subscription data to an array
     while ($subscriptionRow = $oSubscriptionResult->fetch_object()) {
         array_push($aSubscriptions, $subscriptionRow);
     }

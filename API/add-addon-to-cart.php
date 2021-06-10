@@ -52,7 +52,6 @@ if (isset($_POST['addOnId'])) {
     }
     $aResponse = array("itemAddedToCart" => true, "error" => "none");
     echo json_encode($aResponse);
-}else{
+} else {
     header("Location: ../index.php");
 }
-

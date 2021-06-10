@@ -4,7 +4,7 @@ include_once("../db-connection/connection.php");
 //The frame of the purplescout product
 
 //The key that the customer enter in their url
-if(!isset($_GET['key'])){
+if (!isset($_GET['key'])) {
     exit();
 }
 $key = $_GET['key'];
