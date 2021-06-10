@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  updateSliderButton();
+  // updateSliderButton();
   toggleDropdown();
   itemSelector();
   toggleInfoBox();
