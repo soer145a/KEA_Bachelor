@@ -6,7 +6,7 @@ function headComp()
         "<meta charset='UTF-8' />
         <meta http-equiv='X-UA-Compatible' content='IE=edge' />
         <meta name='viewport' content='width=device-width, initial-scale=1.0' />
-        <title>MainPage</title>
+        <title>Mirtual</title>
         <link rel='preconnect' href='https://fonts.gstatic.com' />
         <link rel='icon' type='image/png' href='assets/favicon.png'/>
         <link rel='stylesheet' href='//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.0.1/build/styles/default.min.css'>
