@@ -85,6 +85,10 @@ function editInfo(sValidateType, sInputName) {
   eInput.setAttribute("name", `${sInputName}`);
   eInput.setAttribute("value", `${eProfileInfoPTag}`);
 
+  //buttons-container
+  let eButtonContainer = document.createElement("div");
+  eButtonContainer.setAttribute("class", "form__button-container");
+
   //Submit button
   let eSubmitButton = document.createElement("button");
   eSubmitButton.setAttribute("class", "form__button form__button--submit");
@@ -96,10 +100,12 @@ function editInfo(sValidateType, sInputName) {
   eCancelButton.setAttribute("type", "button");
   eCancelButton.setAttribute("onclick", `cancelEdit()`);
 
-  //Append button and input inside of form
+  //Append buttons inside of button container
+  eButtonContainer.appendChild(eSubmitButton);
+  eButtonContainer.appendChild(eCancelButton);
+  //Append button container and input inside of form
   eForm.appendChild(eInput);
-  eForm.appendChild(eSubmitButton);
-  eForm.appendChild(eCancelButton);
+  eForm.appendChild(eButtonContainer);
 
   //Append new element inside of parent element
   eParentElement.appendChild(eForm);
@@ -202,7 +208,7 @@ function changeCustomerPassword() {
 
 //Close down the inputform and replace with the html that just displays the user information
 function cancelEdit() {
-  let eRootElement = event.target.parentElement.parentElement;
+  let eRootElement = event.target.parentElement.parentElement.parentElement;
 
   //Find form element to remove/delete
   const eForm = eRootElement.querySelector("form");

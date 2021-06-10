@@ -47,6 +47,16 @@
         transform: translate(20%, -50%);
         top: 50%;
     }
+    .form-wrapper {
+        flex-basis: 49%;
+    }
+    
+     .customer-information-wrapper {
+        justify-content: space-between;
+    }
+    .customer-information__item {
+        max-width: 50%;
+    }
 }
 
 /* Tablet */
@@ -120,6 +130,14 @@
     .delete-profile__button {
         margin: 0 auto;
     }
+    .form-wrapper {
+        flex-basis: initial;
+    }
+    
+    .customer-information__item {
+        max-width: 100%;
+    }
+
 }
 
 /* DESKTOP - Orientation Landscape */
@@ -209,4 +227,15 @@
         display: flex;
         flex-direction: column;
     }
+    .form-wrapper {
+        /* flex-basis: initial; */
+        max-width: 280px;
+    }
+
+    .customer-information__item {
+        max-width: 50%;
+    }
+    /* .customer-information-form .form__input {
+        max-width: 148px;
+    } */
 }
