@@ -8,7 +8,7 @@ $sFooterHtmlComp = footerComp();
 //If the order ID is not set, that means that no purchase was made, and we redirect the user back to the index page
 if (!isset($_SESSION['orderId'])) {
     header('Location: index.php');
-} 
+}
 
 $sProductName = "";
 $nTotalPrice = 0;
