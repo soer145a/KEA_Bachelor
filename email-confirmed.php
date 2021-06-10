@@ -44,5 +44,6 @@ $oCustomerResult = $oDbConnection->query($sCustomerUpdateSql);
     </main>
     <?= $sFooterHtmlComp ?>
 </body>
+<script src="js/app.js"></script>
 
 </html>

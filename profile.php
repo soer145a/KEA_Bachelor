@@ -60,7 +60,7 @@ $sApiKey = "";
             <div class="layout-container profile">
                 <h1 class="section-header profile__header">Welcome <span id="customerFirstNameHeader"><?= $sCustomerFirstName ?></span> <span id="customerLastNameHeader"><?= $sCustomerLastName ?></span></h1>
                 <div class="profile__main">
-                    <div id="deleteModal" class="hidden delete-profile modal--delete">
+                    <div id="deleteModal" class="modal--hidden delete-profile modal--delete">
                         <h2 class="section-header">Are you sure you want to delete your data?</h2>
                         <p class="section-paragraph">You are about to delete every data we have regarding your product and your orders. <br>
                             Going foward with this, there will be no recovering this information, and your product and licenses will be removed from your account.</p>
@@ -117,9 +117,9 @@ $sApiKey = "";
                     </div>
                     <div id="deleteModalTotal" class="modal modal--delete <?php
                                                                             if ($bShowFlag) {
-                                                                                echo "shown";
+                                                                                echo "modal--shown";
                                                                             } else {
-                                                                                echo "hidden";
+                                                                                echo "modal--hidden";
                                                                             } ?> ">
                         <h2 class="section-header">Enter password</h2>
                         <p class="section-paragraph">By entering your password, your account will be deleted.</p>
@@ -133,8 +133,6 @@ $sApiKey = "";
                                 <button id="deleteButton" class="delete-profile__button button button--red">DELETE MY ACOUNT</button>
                             </div>
                         </form>
-                    </div>
-                    <div class="customerInfoContainer">
                     </div>
                     <div class="account-information">
                         <div class="customer-information">

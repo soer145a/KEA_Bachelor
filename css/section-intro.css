@@ -11,12 +11,6 @@
     padding-top: 32px;
 }
 
-/* .intro__heading {
-    color: white;
-    margin-bottom: 2rem;
-    text-align: center;
-    line-height: 55px;
-} */
 .intro__heading {
     color: white;
     margin-bottom: 32px;
@@ -72,7 +66,9 @@
     top: 50%;
     z-index: 2;
     left: 50%;
-    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
 }
 
 .play-button-triangle {
@@ -83,7 +79,9 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-40%, -50%);
+    -webkit-transform: translate(-40%, -50%);
+        -ms-transform: translate(-40%, -50%);
+            transform: translate(-40%, -50%);
 }
 
 .intro .background-sphere {

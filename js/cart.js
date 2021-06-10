@@ -48,6 +48,7 @@ function togglePaypalButton(bLoginStatus) {
                   if (jResponse.purchaseStarted) {
                     window.location.assign(
                       window.location.origin + "/api/payment-handler.php"
+                      // window.location.origin + "/Bachelor/api/payment-handler.php"
                     );
                   } else {
                     showMessage("Access denied", true);

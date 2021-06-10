@@ -71,5 +71,6 @@ if (!isset($_SESSION['loginStatus'])) {
 
     <?= $sFooterHtmlComp ?>
 </body>
+<script src="js/app.js"></script>
 
 </html>
