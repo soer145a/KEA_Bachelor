@@ -82,7 +82,7 @@ function signUpFormComp($bLoginStatus, $nTotalPrice)
                 id='account-details__mail'
                 type='email'
                 name='customerEmail'
-                data-validate='email'
+                data-validate='email'               
                 required
                 oninput='inputValidate(); togglePaypalButton($bLoginStatus, $nTotalPrice);'
             />
@@ -142,11 +142,11 @@ function signUpFormComp($bLoginStatus, $nTotalPrice)
                 required
                 oninput='inputValidate(); togglePaypalButton($bLoginStatus, $nTotalPrice);'
             />
-            <label class='account-details__label' for='account-details__zip-code'
+            <label class='account-details__label' for='account-details__country'
                 >Country</label
             >
             <input
-                id='account-details__zip-code'
+                id='account-details__country'
                 type='text'
                 data-validate='string'
                 name='companyCountry'

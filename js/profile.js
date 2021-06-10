@@ -69,8 +69,8 @@ function editInfo(sValidateType, sInputName) {
     "customer-information__" + sInputName
   )[0];
   let eProfileInfoPTag = eProfileInfo.querySelector("p").textContent;
-  //Create new dom element
-
+  
+  //Create new dom elements
   //form element
   let eForm = document.createElement("form");
   eForm.setAttribute("class", "customer-information-form");
@@ -85,7 +85,7 @@ function editInfo(sValidateType, sInputName) {
   eInput.setAttribute("name", `${sInputName}`);
   eInput.setAttribute("value", `${eProfileInfoPTag}`);
 
-  //buttons-container
+  //Buttons container
   let eButtonContainer = document.createElement("div");
   eButtonContainer.setAttribute("class", "form__button-container");
 
