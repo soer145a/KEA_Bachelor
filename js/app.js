@@ -45,7 +45,7 @@ function stopTimeOut() {
 }
 
 //function used to validate inputs
-async function inputValidate() {
+async function inputValidate(bLoginStatus) {
   let sInputData;
   let aInputsToValidate = [];
   //Check to see what it is we are submitting
@@ -83,6 +83,10 @@ async function inputValidate() {
         if (!sEmailRegEx.test(sInputData)) {
           aInputsToValidate[i].classList.remove("valid");
           aInputsToValidate[i].classList.add("invalid");
+          const lastSegment = window.location.href.split("/").pop();
+            if (lastSegment == "cart.php") {
+              togglePaypalButton(bLoginStatus);
+            }
         } else {
           //Contact api to check if email address already exists in database
           postData("api/check-db-for-existing-entries.php", {
@@ -92,13 +96,20 @@ async function inputValidate() {
             if (!jResponse.dataExists) {
               aInputsToValidate[i].classList.add("valid");
               aInputsToValidate[i].classList.remove("invalid");
+              
             } else {
               aInputsToValidate[i].classList.remove("valid");
               aInputsToValidate[i].classList.add("invalid");
               showMessage("This email already exists", true); //Let user know what has happened
             }
-          });
+            const lastSegment = window.location.href.split("/").pop();
+            if (lastSegment == "cart.php") {
+              togglePaypalButton(bLoginStatus);
+            }
+          }
+          );
         }
+        
         break;
 
       case "string":
@@ -153,6 +164,10 @@ async function inputValidate() {
         if (!sCvrRegEx.test(sInputData)) {
           aInputsToValidate[i].classList.add("invalid");
           aInputsToValidate[i].classList.remove("valid");
+          const lastSegment = window.location.href.split("/").pop();
+            if (lastSegment == "cart.php") {
+              togglePaypalButton(bLoginStatus);
+            }
         } else {
           //Contact api to check if cvr address already exists in database
           postData("api/check-db-for-existing-entries.php", {
@@ -166,6 +181,10 @@ async function inputValidate() {
               showMessage("CVR already exists", true);
               aInputsToValidate[i].classList.add("invalid");
               aInputsToValidate[i].classList.remove("valid");
+            }
+            const lastSegment = window.location.href.split("/").pop();
+            if (lastSegment == "cart.php") {
+              togglePaypalButton(bLoginStatus);
             }
           });
         }

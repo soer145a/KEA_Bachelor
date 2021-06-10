@@ -37,7 +37,7 @@ if (isset($_SESSION['cartProducts'])) {
                                     <div class='product-items'>
                                         <p class='product-item product-item__name'>$sProductName</p>
                                         <p class='product-item product-item__quantity'>
-                                            <span class='product-item product-item__delete' onclick='removeItemFromCart($sProductId, true, 0, $bLoginStatus)'></span>
+                                            <span class='product-item product-item__delete' onclick='removeItemFromCart($sProductId, true, 0, $bLoginStatus, $nProductPrice)'></span>
                                             1
                                         </p>
                                         <p class='product-item product-item__price'>$nProductPrice</p>
@@ -65,7 +65,7 @@ if (isset($_SESSION['cartAddOns'])) {
                                     <div class='product-items'>
                                         <p class='product-item product-item__name'>$sAddonName</p>
                                         <p class='product-item product-item__quantity'>
-                                            <span class='product-item__delete' onclick='removeItemFromCart($sAddonId, false, $nAddonAmount, $bLoginStatus)'></span>
+                                            <span class='product-item__delete' onclick='removeItemFromCart($sAddonId, false, $nAddonAmount, $bLoginStatus, $nAddonTotalPrice)'></span>
                                             $nAddonAmount
                                         </p>
                                         <p class='product-item product-item__price'>$nAddonTotalPrice</p>
@@ -115,7 +115,7 @@ if ($bLoginStatus != 'true') {
                             </div>
                         </div>
                         <div class="order-summary__total-price total-price">
-                            <h5 class="section-subheader total-price__header">Total: <span class="total-price__price">2900</span></h5>
+                            <h5 class="section-subheader total-price__header">Total: <span id ="totalPriceSpan" class="total-price__price"><?=$nTotalPrice?></span></h5>
                         </div>
                         <div id='paypal-button-container' class="paypal-button-container">
                             <button id="paypalInactive" class="button order-summary__button " title="You need to fill out the form.">
@@ -136,5 +136,5 @@ if ($bLoginStatus != 'true') {
 <script src="js/cart.js"></script>
 
 <script>
-    togglePaypalButton(<?= $bLoginStatus ?>, <?= $nTotalPrice ?>);
+    togglePaypalButton(<?= $bLoginStatus ?>);
 </script>

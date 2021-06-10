@@ -27,7 +27,7 @@ function signUpFormComp($bLoginStatus, $nTotalPrice)
                 name='companyName'
                 data-validate='string'
                 required
-                oninput='inputValidate(); togglePaypalButton($bLoginStatus, $nTotalPrice);'
+                oninput='inputValidate(); togglePaypalButton($bLoginStatus);'
             />
             <label for='account-details__cvr' class='account-details__label'
                 >Company CVR nr. $sCvrInfoButtonHtml       
@@ -39,7 +39,7 @@ function signUpFormComp($bLoginStatus, $nTotalPrice)
                 name='companyCvr'
                 data-validate='cvr'
                 required
-                oninput='inputValidate(); togglePaypalButton($bLoginStatus, $nTotalPrice);'
+                oninput='inputValidate($bLoginStatus, $nTotalPrice);'
             />
             <div class='account-details__contact'>
                 <h4 class='section-subheader contact__header'>Contact Person</h4>
@@ -51,7 +51,7 @@ function signUpFormComp($bLoginStatus, $nTotalPrice)
                         name='customerFirstName'
                         data-validate='string'
                         required
-                        oninput='inputValidate(); togglePaypalButton($bLoginStatus, $nTotalPrice);'
+                        oninput='inputValidate(); togglePaypalButton($bLoginStatus);'
                     />
                 </div>
                 <div class='contact__wrapper'>
@@ -62,7 +62,7 @@ function signUpFormComp($bLoginStatus, $nTotalPrice)
                         name='customerLastName'
                         data-validate='string'
                         required
-                        oninput='inputValidate(); togglePaypalButton($bLoginStatus, $nTotalPrice);'
+                        oninput='inputValidate(); togglePaypalButton($bLoginStatus);'
                     />
                 </div>
             </div>
@@ -75,16 +75,16 @@ function signUpFormComp($bLoginStatus, $nTotalPrice)
                 name='customerPhone'
                 data-validate='phone'
                 required
-                oninput='inputValidate(); togglePaypalButton($bLoginStatus, $nTotalPrice);'
+                oninput='inputValidate(); togglePaypalButton($bLoginStatus);'
             />
             <label class='account-details__label' for='account-details__mail'>Email</label>
             <input
                 id='account-details__mail'
                 type='email'
                 name='customerEmail'
-                data-validate='email'               
+                data-validate='email'              
                 required
-                oninput='inputValidate(); togglePaypalButton($bLoginStatus, $nTotalPrice);'
+                oninput='inputValidate($bLoginStatus, $nTotalPrice);'
             />
             <label class='account-details__label' for='account-details__password'
                 >Password $sPasswordInfoButtonHtml
@@ -95,7 +95,7 @@ function signUpFormComp($bLoginStatus, $nTotalPrice)
                 name='customerPassword'
                 data-validate='password'
                 required
-                oninput='inputValidate(); togglePaypalButton($bLoginStatus, $nTotalPrice);'
+                oninput='inputValidate(); togglePaypalButton($bLoginStatus);'
             />
             <label class='account-details__label' for='account-details__confirm-password'
                 >Confirm Password</label
@@ -106,7 +106,7 @@ function signUpFormComp($bLoginStatus, $nTotalPrice)
                 name='customerPasswordConfirm'
                 data-validate='confirmPassword'
                 required
-                oninput='inputValidate(); togglePaypalButton($bLoginStatus, $nTotalPrice);'
+                oninput='inputValidate(); togglePaypalButton($bLoginStatus);'
             />
             <h2 class='section-header'>
                 Shipping/Billing address
@@ -120,7 +120,7 @@ function signUpFormComp($bLoginStatus, $nTotalPrice)
                 name='companyStreet'
                 data-validate='string'
                 required
-                oninput='inputValidate(); togglePaypalButton($bLoginStatus, $nTotalPrice);'
+                oninput='inputValidate(); togglePaypalButton($bLoginStatus);'
             />
             <label class='account-details__label' for='account-details__city'>City</label>
             <input
@@ -129,7 +129,7 @@ function signUpFormComp($bLoginStatus, $nTotalPrice)
                 data-validate='string'
                 name='companyCity'
                 required
-                oninput='inputValidate(); togglePaypalButton($bLoginStatus, $nTotalPrice);'
+                oninput='inputValidate(); togglePaypalButton($bLoginStatus);'
             />
             <label class='account-details__label' for='account-details__zip-code'
                 >Zip code</label
@@ -140,7 +140,7 @@ function signUpFormComp($bLoginStatus, $nTotalPrice)
                 data-validate='string'
                 name='companyZip'
                 required
-                oninput='inputValidate(); togglePaypalButton($bLoginStatus, $nTotalPrice);'
+                oninput='inputValidate(); togglePaypalButton($bLoginStatus);'
             />
             <label class='account-details__label' for='account-details__country'
                 >Country</label
@@ -151,7 +151,7 @@ function signUpFormComp($bLoginStatus, $nTotalPrice)
                 data-validate='string'
                 name='companyCountry'
                 required
-                oninput='inputValidate(); togglePaypalButton($bLoginStatus, $nTotalPrice);'
+                oninput='inputValidate(); togglePaypalButton($bLoginStatus);'
             />            
             <div class='errorMessage'></div>
         </form>
