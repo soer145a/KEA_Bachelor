@@ -117,6 +117,7 @@ function updateCustomerInfo(sInputName) {
   let eInput = document.getElementsByName(sInputName)[0];
   //check if the customer has provided a valid input
   if (eInput.classList.contains("invalid")) {
+    showMessage("Info invalid", true);
   } else {
     //Send the request to the api
     postData("api/update-customer-data.php", {
