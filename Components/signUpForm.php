@@ -67,10 +67,10 @@ function signUpFormComp($bLoginStatus, $nTotalPrice)
                 </div>
             </div>
             
-            <label class='account-details__label' for='account-details__mail'>Phone Number $sPhoneInfoButtonHtml
+            <label class='account-details__label' for='account-details__phone'>Phone Number $sPhoneInfoButtonHtml
             </label>
             <input
-                id='account-details__mail'
+                id='account-details__phone'
                 type='text'
                 name='customerPhone'
                 data-validate='phone'

@@ -70,8 +70,10 @@ $sApiKey = "";
                                 <?php
                                 //Creating the addon container and write the delete-user modal blocks
                                 $sCustomerAddonHtmlContainer = "<div class='addon-card'>
-                                <h4 class='section-header addon-card__header'>Addons:<span class='addon-card__arrow-outer'><span class='addon-card__arrow-inner'></span></span></h4>                                  
-                                <div class='addon-info'>";
+                                <h4 class='section-header addon-card__header' onclick='toggleDropdownProfile(true)' >Addons:<span class='addon-card__arrow-outer' ><span class='addon-card__arrow-inner' id='addonRotateArrow'></span></span></h4>                                  
+                                <div class='addon-info'>
+                                <div class='collapsable collapsed' id='collapsableAddonContainer'>
+                                ";
                                 $sCustomerAddonHtml = "";
                                 //We use count(*) to only get the numbers
                                 $sCustomerProductSelectSql = "SELECT count(*) FROM `customer_products` WHERE `customer_id` = \"$customerId\"";
@@ -82,6 +84,7 @@ $sApiKey = "";
                                 //The addons the customer has access to
                                 $sCustomerAddonSelectSql = "SELECT * FROM customer_addons LEFT JOIN addons ON customer_addons.addon_id  = addons.addon_id  WHERE `customer_id` = \"$customerId\"";
                                 $oCustomerAddonResults = $oDbConnection->query($sCustomerAddonSelectSql);
+                                if($oCustomerAddonResults->num_rows > 0){
                                 while ($oCustomerAddonRow = $oCustomerAddonResults->fetch_assoc()) {
                                     $nAddOnAmount = $oCustomerAddonRow['addon_amount'];
                                     $sAddonName = $oCustomerAddonRow['addon_name'];
@@ -90,9 +93,12 @@ $sApiKey = "";
                                     <p class='section-paragraph addon-card__text'>$nAddOnAmount x <span class='addon-card__text--bold'>$sAddonName</span></p> ";
 
                                     echo "<li> $nAddOnAmount $sAddonName's in our database</li>";
+                                }}else{
+                                    $sCustomerAddonHtml = $sCustomerAddonHtml . "
+                                    <p class='section-paragraph addon-card__text'>No Addons bought</p>";
                                 }
 
-                                $sCustomerAddonHtmlContainer = $sCustomerAddonHtmlContainer . $sCustomerAddonHtml . "</div></div>";
+                                $sCustomerAddonHtmlContainer = $sCustomerAddonHtmlContainer . $sCustomerAddonHtml . "</div></div></div>";
                                 //Get the order amount from the database
                                 $sOrderSelectSql = "SELECT count(*) FROM `orders` WHERE `customer_id` = \"$customerId\"";
                                 $oOrderResults = $oDbConnection->query($sOrderSelectSql);
@@ -109,8 +115,7 @@ $sApiKey = "";
                         </div>
                     </div>
                     <div id="deleteModalTotal" class="modal modal--delete <?php
-                                                                            // if the user fails the first password entry, keep the modal open
-                                                                            if ($bShowFlag) {
+                                                                             if ($bShowFlag) {
                                                                                 echo "shown";
                                                                             } else {
                                                                                 echo "hidden";
@@ -273,7 +278,8 @@ $sApiKey = "";
                                 //The html block we print
                                 if ($oCustomerProductRow->subscription_active) {
                                     $sCustomerProductHtml = $sCustomerProductHtml . "<div class='product-card'>
-                                                                                        <h4 class='section-header product-card__header'>$sProductName<span class='product-card__arrow-outer'><span class='product-card__arrow-inner'></span></span></h4>
+                                                                                            <h4 onclick='toggleDropdownProfile($sCustomerProductId)' class='section-header product-card__header'>$sProductName<span class='product-card__arrow-outer' ><span class='product-card__arrow-inner' id='product-card-arrow$sCustomerProductId'></span></span></h4>
+                                                                                            <div class='collapsable collapsed' id='collapsable$sCustomerProductId'>
                                                                                             <div class='subscription-info'>
                                                                                                 <h5 class='section-subheader product-card__subheader'>Subscription Period:</h5>
                                                                                                 <p class='section-paragraph product-card__text'><span class='product-card__text--bold'>FROM: </span>$sCustomerProductStartDate <span class='product-card__text--bold'>TO: </span> $sCustomerProductEndDate</p>
@@ -291,6 +297,7 @@ $sApiKey = "";
                                                                                             <h5 class='section-subheader product-card__subheader'>Auto renew:</h5>
                                                                                             <div class='product-card__container'>
                                                                                                 <p class='section-paragraph'><span id='autoRenewSpan$sCustomerProductId'>$sAutoRenew</span><span class='product-card__button-outer' type='button' onclick='toggleAutoRenew($sCustomerProductId)'><span id='autoRenewToggleButton$sCustomerProductId' class='product-card__button-inner'>Turn $sButtonToggle</span></span></p>
+                                                                                            </div>
                                                                                             </div>
                                                                                     </div>";
                                 }

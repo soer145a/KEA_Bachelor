@@ -70,7 +70,7 @@
 
 .order-summary__body {
     height: 100%;
-    max-height: 400px;
+    max-height: 500px;
     overflow: scroll;
     margin-bottom: 16px;
 }
@@ -81,7 +81,7 @@
 
 .order-summary__total-price {
     border-top: 2px solid var(--purple-light);
-    padding: 16px 8px;
+    padding: 8px;
     text-align: right;
 }
 
@@ -104,7 +104,6 @@
     margin-left: 1px;
     cursor:initial;
     font-style: italic;
-    font-family: "helvetica neue";
     color: var(--white);
 }
 .order-summary__button:hover {

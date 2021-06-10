@@ -3,13 +3,13 @@ session_start();
 include_once("../db-connection/connection.php");
 //Check if the customer id is in the session
 
-if (isset($_POST['customerPassword'])) {
+if (isset($_POST['customerPassword']) && $_POST['customerPassword'] !== "") {
     $sCustomerId = $_SESSION['customerId'];
     //Get the 2 passwords from the frontend
     $sCustomerPassword = $_POST['customerPassword'];
     
     //get the password of the user from the database
-    $sCustomerSelectSql = "SELECT * FROM customers WHERE customer_id = \"$customerId\"";
+    $sCustomerSelectSql = "SELECT * FROM customers WHERE customer_id = \"$sCustomerId\"";
     $oCustomerResult = $oDbConnection->query($sCustomerSelectSql);
     $oCustomerRow = $oCustomerResult->fetch_object();
     $sCustomerDbPassword = $oCustomerRow->customer_password;
@@ -18,7 +18,7 @@ if (isset($_POST['customerPassword'])) {
     if (password_verify($sCustomerPassword, $sCustomerDbPassword)) {
         //Create the new hashed password and update the database
           //When deleting from a relational database, have to do it in the correct order
-    $sCustomerId = $_SESSION['customerId'];
+   
     $sCustomerAddonDeleteSql = "DELETE FROM customer_addons WHERE customer_id = \"$sCustomerId\"";
     //First we delete the bridging table records
     $oDbConnection->query($sCustomerAddonDeleteSql);
@@ -49,6 +49,6 @@ if (isset($_POST['customerPassword'])) {
         header("Location: ../profile.php");
     }
 } else {
-    header("Location: ../index.php");
-    exit();
+    $_SESSION['wrongPassword'] = true;
+    header("Location: ../profile.php");
 }

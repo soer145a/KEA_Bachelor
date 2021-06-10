@@ -13,7 +13,7 @@ function sendContactForm() {
 
   //check if input fields has been filled out
   if (sCustomerName == "" || sCustomerEmail == "" || sCustomerMessage == "") {
-    showMessage("Please fill out all the field", true);
+    showMessage("Please fill out all the fields", true);
   } else {
     let sEmailRegEx =
       /^[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~](\.?[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/;
