@@ -9,7 +9,7 @@ $sHeadHtmlComp = headComp();
 $sHeaderHtmlComp = headerComp('profile');
 $sFooterHtmlComp = footerComp();
 $aListItems = array("<li class='infobox__list-item'>6-30 characters</li>", "<li class='infobox__list-item'>One uppercase character</li>", " <li class='infobox__list-item'>One numeric character</li>", "<li class='infobox__list-item'>One special character</li>");
-$sPasswordInfoButtonHtml = inputInfoButtonComp($aListItems);
+$sPasswordInfoButtonHtml = inputInfoButtonComp($aListItems, "Password requirements");
 //Reset the error message variabel
 $sErrorMessage = "";
 if (isset($_SESSION['wrongPassword'])) {
@@ -116,11 +116,11 @@ $sApiKey = "";
                         </div>
                     </div>
                     <div id="deleteModalTotal" class=" modal--hiddenmodal modal--delete <?php
-                                                                            if ($bShowFlag) {
-                                                                                echo "modal--shown";
-                                                                            } else {
-                                                                                echo "modal--hidden";
-                                                                            } ?> ">
+                                                                                        if ($bShowFlag) {
+                                                                                            echo "modal--shown";
+                                                                                        } else {
+                                                                                            echo "modal--hidden";
+                                                                                        } ?> ">
                         <h2 class="section-header">Enter password</h2>
                         <p class="section-paragraph">By entering your password, your account will be deleted.</p>
                         <form class="modal-form" method="post" action="api/delete-user-information.php">

@@ -7,11 +7,11 @@ function signUpFormComp($bLoginStatus, $nTotalPrice)
 {
 
     $aListItems = array("<li class='infobox__list-item'>8 characters</li>", "<li class='infobox__list-item'>Only numbers</li>");
-    $sCvrInfoButtonHtml = inputInfoButtonComp($aListItems);
+    $sCvrInfoButtonHtml = inputInfoButtonComp($aListItems,  "Cvr requirements");
     $aListItems = array("<li class='infobox__list-item'>6-30 characters</li>", "<li class='infobox__list-item'>One uppercase character</li>", " <li class='infobox__list-item'>One numeric character</li>", "<li class='infobox__list-item'>One special character</li>");
-    $sPasswordInfoButtonHtml = inputInfoButtonComp($aListItems);
+    $sPasswordInfoButtonHtml = inputInfoButtonComp($aListItems, "Password requirements");
     $aListItems = array("<li class='infobox__list-item'>Start with countrycode (+45)</li>", "<li class='infobox__list-item'>After that, only numbers</li>", "<li class='infobox__list-item'>between 5-15 characters</li>");
-    $sPhoneInfoButtonHtml = inputInfoButtonComp($aListItems);
+    $sPhoneInfoButtonHtml = inputInfoButtonComp($aListItems, "Phone requirements");
 
 
     $sSignUpFormHtmlComp =

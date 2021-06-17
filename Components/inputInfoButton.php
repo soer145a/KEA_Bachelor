@@ -3,7 +3,7 @@
 
 <?php
 
-function inputInfoButtonComp($aListItems)
+function inputInfoButtonComp($aListItems, $sTitleText)
 {
     $sListItems = "";
     foreach ($aListItems as $sListItem) {
@@ -16,7 +16,7 @@ function inputInfoButtonComp($aListItems)
                 <span class='question-mark__inner'></span>
             </span>
             <span class='infobox infobox--hidden'>
-                <h5 class='section-subheader infobox__header'>The password must concist of:</h5>
+                <h5 class='section-subheader infobox__header'>$sTitleText:</h5>
                 <ul class='infobox__list'>
                     $sListItems
                 </ul>
