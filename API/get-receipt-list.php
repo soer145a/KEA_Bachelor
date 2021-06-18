@@ -19,7 +19,7 @@ if (isset($_POST['firstDate']) && isset($_POST['secondDate'])) {
         $sOrderDateDay = $aOrderDate['tm_mday'];
         $sOrderDateMonth = $aOrderDate['tm_mon'] + 1;
         $sOrderDateYear = $aOrderDate['tm_year'] + 1900;
-        $sOrderDateHour = $aOrderDate['tm_hour'];
+        /* $sOrderDateHour = $aOrderDate['tm_hour'];
         if (strlen($sOrderDateHour) == 1) {
             $sOrderDateHour = "0$sOrderDateHour";
         }
@@ -27,9 +27,10 @@ if (isset($_POST['firstDate']) && isset($_POST['secondDate'])) {
         if (strlen($sOrderDateMin) == 1) {
             $sOrderDateMin = "0$sOrderDateMin";
         }
-        $sOrderDate = "$sOrderDateDay/$sOrderDateMonth/$sOrderDateYear - $sOrderDateHour:$sOrderDateMin";
+        $sOrderDate = "$sOrderDateDay/$sOrderDateMonth/$sOrderDateYear - $sOrderDateHour:$sOrderDateMin"; */
+
         $sOrderDateFileName = "$sOrderDateDay-$sOrderDateMonth-$sOrderDateYear";
-        array_push($aReceiptsHtmlList, "<li class='receipt-card__list-item'><p class='section-paragraph receipts-card__text'>$sOrderDate</p><a class='button button__small button__download' href='customer-receipts/$sCustomerId-$oOrderRow->order_id.pdf' download='Mirtual Order $oOrderRow->order_id - $sOrderDateFileName'><p>&#8676</p></a></li>");
+        array_push($aReceiptsHtmlList, json_decode("{'html':'<li class='receipt-card__list-item'><p id='receiptData$oOrderRow->order_date' class='section-paragraph receipts-card__text'></p><a class='button button__small button__download' href='customer-receipts/$sCustomerId-$oOrderRow->order_id.pdf' download='Mirtual Order $oOrderRow->order_id - $sOrderDateFileName'><p>&#8676</p></a></li>', 'orderDate': $oOrderRow->order_date}"));
     }
 
     $aResponse = array("ordersReceived" => true, "error" => "none", "results" => $oOrderResult->num_rows, "receiptList" => $aReceiptsHtmlList);
