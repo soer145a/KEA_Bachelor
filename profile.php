@@ -252,7 +252,7 @@ $sApiKey = "";
                                 $sStartDateDay = $aStartDate['tm_mday'];
                                 $sStartDateMonth = $aStartDate['tm_mon'] + 1;
                                 $sStartDateYear = $aStartDate['tm_year'] + 1900;
-                                
+
                                 $sCustomerProductStartDate = "$sStartDateDay/$sStartDateMonth/$sStartDateYear";
                                 /* $oEndDate = new DateTime("@$oCustomerProductRow->subscription_end");
                                 $sCustomerProductEndDate = $oEndDate->format('d-m-Y'); */
@@ -320,18 +320,22 @@ $sApiKey = "";
                                 <h4 onclick='toggleDropdownProfile("receipt")' class='section-header receipts-card__header'>Receipts<span class='receipts-card__arrow-outer'><span class='receipts-card__arrow-inner' id='receiptsRotateArrow'></span></span></h4>
                                 <div class='collapsable collapsed' id='receiptsCollapsable'>
                                     <p>Enter dates for receipt(s)</p>
-                                    <label>
-                                        <p>From:</p>
+                                    <div class="receipts-card__data-picker-container">
+
+                                        <p class="receipts-card__text--bold">From:</p>
                                         <input type="date" name="" id="eInputFirstDate">
-                                    </label>
-                                    <label>
-                                        <p>To:</p>
+
+
+                                        <p class="receipts-card__text--bold">To:</p>
                                         <input type="date" name="" id="eInputSecondDate">
-                                    </label>
-                                    <button onclick="getReceiptFileNames()">Get Order List!</button>
+
+                                        <button class="button button__small button--purple" onclick="getReceiptFileNames()">Find</button>
+
+                                    </div>
+
                                     <div class='subscription-info'>
                                         <h5 class='section-subheader receipts-card__subheader'>Date: <span>Download:</span></h5>
-                                        <ul id="receiptList">
+                                        <ul id="receiptList" class="receipt-card__list">
 
                                         </ul>
                                     </div>
