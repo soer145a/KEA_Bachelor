@@ -476,6 +476,10 @@
     align-items: center;
 }
 
+.receipts-card__data-picker-container input {
+    text-indent: 0px;
+}
+
 .receipt-card__list-item {
     width: 100%;
     display: grid;
