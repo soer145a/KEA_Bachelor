@@ -403,6 +403,99 @@
         -ms-transform: rotate(225deg);
             transform: rotate(225deg);
 }
+.receipts-card {
+    border: 2px solid var(--purple-light);
+    margin-bottom: 30px;
+    border-radius: 10px;
+    padding: 16px;
+}
+
+.receipts-card__header {
+    color: var(--purple-dark);
+    font-size: 1.5rem;
+    position: relative;
+    cursor: pointer;
+}
+
+.receipts-card__arrow-outer {
+    position: absolute;
+    display: block;
+    right: 0;
+    top: calc(50% - 15px);
+    -webkit-transform: translateY(calc(-50% + 15px));
+        -ms-transform: translateY(calc(-50% + 15px));
+            transform: translateY(calc(-50% + 15px));
+    cursor: pointer;
+    padding: 15px;
+}
+
+.receipts-card--collapsed {
+    height: calc(50px + 16px);
+    overflow: hidden;
+}
+
+.receipts-card__arrow-inner {
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid var(--purple-dark);
+    border-bottom: 2px solid var(--purple-dark);
+    -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+            transform: rotate(45deg)
+}
+
+.receipts-card__subheader {
+    color: var(--purple-light);
+    font-size: 1rem;
+}
+
+.receipts-card__title {
+    font-weight: bold;
+}
+
+.receipts-card__container {
+    width: 100%;
+    word-wrap: break-word;
+}
+
+.receipts-card__text--bold {
+    font-weight: bold;
+}
+
+.receipts-card__button-outer {
+    padding: 6px;
+    display: inline-block;
+    cursor: pointer;
+    position: relative;
+    margin-left: 8px;
+}
+
+.receipts-card__button-outer::before {
+    content: "-";
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+    left: -6px;
+}
+
+.receipts-card__button-outer:hover .receipts-card__button-inner {
+    background-color: var(--purple-dark);
+    color: var(--white);
+    border: 2px solid var(--purple-dark);
+}
+
+.receipts-card__button-inner {
+    display: inline-block;
+    height: auto;
+    width: auto;
+    border: 2px solid var(--purple-light);
+    padding: 3px;
+    border-radius: 10px;
+    line-height: 20px;
+}
 .collapsed{
     display: none;
 }

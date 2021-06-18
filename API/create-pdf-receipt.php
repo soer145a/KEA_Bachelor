@@ -39,7 +39,13 @@ function createReceipt($iTimeEpoch)
     $sCompanyStreet = $oCustomerData->companyStreet;
     $sCompanyZip = $oCustomerData->companyZip;
     $sCompanyCity = $oCustomerData->companyCity;
-    $sCurrentDate = date('d/m/Y', $iTimeEpoch);
+    $aCurrentDate = localtime($iTimeEpoch, true);
+    $sCurrentDay = $aCurrentDate['tm_mday'];
+    $sCurrentMonth = $aCurrentDate['tm_mon'] + 1;
+    $sCurrentYear = $aCurrentDate['tm_year'] + 1900;
+    
+
+    $sCurrentDate = "$sCurrentDay/$sCurrentMonth/$sCurrentYear";
     $nTotalPrice = 0;
     $nAddonTotalprice = 0;
 

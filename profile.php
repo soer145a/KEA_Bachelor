@@ -70,7 +70,7 @@ $sApiKey = "";
                                 <?php
                                 //Creating the addon container and write the delete-user modal blocks
                                 $sCustomerAddonHtmlContainer = "<div class='addon-card'>
-                                <h4 class='section-header addon-card__header' onclick='toggleDropdownProfile(true)' >Addons:<span class='addon-card__arrow-outer' ><span class='addon-card__arrow-inner' id='addonRotateArrow'></span></span></h4>                                  
+                                <h4 class='section-header addon-card__header' onclick='toggleDropdownProfile(\"addon\")' >Addons:<span class='addon-card__arrow-outer' ><span class='addon-card__arrow-inner' id='addonRotateArrow'></span></span></h4>                                  
                                 <div class='addon-info'>
                                 <div class='collapsable collapsed' id='collapsableAddonContainer'>
                                 ";
@@ -246,10 +246,22 @@ $sApiKey = "";
                                 $sApiKey = $oCustomerProductRow->api_key;
                                 //Make sure the new values are correct in the database
                                 $sCustomerProductId = $oCustomerProductRow->customer_products_id;
-                                $oStartDate = new DateTime("@$oCustomerProductRow->subscription_start");
-                                $sCustomerProductStartDate = $oStartDate->format('Y-m-d');
-                                $oEndDate = new DateTime("@$oCustomerProductRow->subscription_end");
-                                $sCustomerProductEndDate = $oEndDate->format('Y-m-d');
+                                /* $oStartDate = new DateTime("@$oCustomerProductRow->subscription_start");
+                                $sCustomerProductStartDate = $oStartDate->format('d-m-Y'); */
+                                $aStartDate = localtime($oCustomerProductRow->subscription_start, true);
+                                $sStartDateDay = $aStartDate['tm_mday'];
+                                $sStartDateMonth = $aStartDate['tm_mon'] + 1;
+                                $sStartDateYear = $aStartDate['tm_year'] + 1900;
+                                
+                                $sCustomerProductStartDate = "$sStartDateDay/$sStartDateMonth/$sStartDateYear";
+                                /* $oEndDate = new DateTime("@$oCustomerProductRow->subscription_end");
+                                $sCustomerProductEndDate = $oEndDate->format('d-m-Y'); */
+                                $aEndDate = localtime($oCustomerProductRow->subscription_end, true);
+                                $sEndDateDay = $aEndDate['tm_mday'];
+                                $sEndDateMonth = $aEndDate['tm_mon'] + 1;
+                                $sEndDateYear = $aEndDate['tm_year'] + 1900;
+                                $sCustomerProductEndDate = "$sEndDateDay/$sEndDateMonth/$sEndDateYear";
+
                                 $nSubscriptionTimeLeft = $oCustomerProductRow->subscription_end - time();
                                 $nSubscriptionDaysLeft = round($nSubscriptionTimeLeft / 86400);
                                 //If the subscription has ended, turn the product off
@@ -277,7 +289,7 @@ $sApiKey = "";
                                 //The html block we print
                                 if ($oCustomerProductRow->subscription_active) {
                                     $sCustomerProductHtml = $sCustomerProductHtml . "<div class='product-card'>
-                                                                                            <h4 onclick='toggleDropdownProfile($sCustomerProductId)' class='section-header product-card__header'>$sProductName<span class='product-card__arrow-outer' ><span class='product-card__arrow-inner' id='product-card-arrow$sCustomerProductId'></span></span></h4>
+                                                                                            <h4 onclick='toggleDropdownProfile(\"product\",$sCustomerProductId)' class='section-header product-card__header'>$sProductName<span class='product-card__arrow-outer' ><span class='product-card__arrow-inner' id='product-card-arrow$sCustomerProductId'></span></span></h4>
                                                                                             <div class='collapsable collapsed' id='collapsable$sCustomerProductId'>
                                                                                             <div class='subscription-info'>
                                                                                                 <h5 class='section-subheader product-card__subheader'>Subscription Period:</h5>
@@ -303,6 +315,30 @@ $sApiKey = "";
                             }
                             echo $sCustomerAddonHtmlContainer . $sCustomerProductHtml;
                             ?>
+
+                            <div class='receipts-card'>
+                                <h4 onclick='toggleDropdownProfile("receipt")' class='section-header receipts-card__header'>Receipts<span class='receipts-card__arrow-outer'><span class='receipts-card__arrow-inner' id='receiptsRotateArrow'></span></span></h4>
+                                <div class='collapsable collapsed' id='receiptsCollapsable'>
+                                    <p>Enter dates for receipt(s)</p>
+                                    <label>
+                                        <p>From:</p>
+                                        <input type="date" name="" id="eInputFirstDate">
+                                    </label>
+                                    <label>
+                                        <p>To:</p>
+                                        <input type="date" name="" id="eInputSecondDate">
+                                    </label>
+                                    <button onclick="getReceiptFileNames()">Get Order List!</button>
+                                    <div class='subscription-info'>
+                                        <h5 class='section-subheader receipts-card__subheader'>Date: <span>Download:</span></h5>
+                                        <ul id="receiptList">
+
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 

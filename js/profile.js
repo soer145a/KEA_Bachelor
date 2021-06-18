@@ -223,16 +223,57 @@ function cancelEdit() {
     aHiddenElements[i].classList.remove("customer-information__item--hidden");
   }
 }
-function toggleDropdownProfile(Selector) {
-  if (Selector != true) {
-    let eCollapsableBlock = document.querySelector(`#collapsable${Selector}`);
-    eCollapsableBlock.classList.toggle("collapsed");
-    let eRotatingArrowBlock = document.querySelector(
-      `#product-card-arrow${Selector}`
-    );
-    eRotatingArrowBlock.classList.toggle("rotated");
-  } else {
-    collapsableAddonContainer.classList.toggle("collapsed");
-    addonRotateArrow.classList.toggle("rotated");
+function toggleDropdownProfile(sSelector,sCustomerProductId) {
+  switch (sSelector) {
+    case 'addon':
+      collapsableAddonContainer.classList.toggle("collapsed");
+      addonRotateArrow.classList.toggle("rotated");
+      break;
+    case 'product':
+      let eCollapsableBlock = document.querySelector(`#collapsable${sCustomerProductId}`);
+      eCollapsableBlock.classList.toggle("collapsed");
+      let eRotatingArrowBlock = document.querySelector(
+        `#product-card-arrow${sCustomerProductId}`
+      );
+      eRotatingArrowBlock.classList.toggle("rotated");
+      break;
+    case 'receipt':
+      receiptsCollapsable.classList.toggle('collapsed');
+      receiptsRotateArrow.classList.toggle('rotated');
+      break;
   }
 }
+function getReceiptFileNames() {
+  receiptList.textContent = "";
+  console.log(eInputFirstDate.value, eInputSecondDate.value);
+  if (eInputFirstDate.value == "" || eInputSecondDate.value == "") {
+    showMessage("Please fill out both dates", true);
+  } else {
+    postData("api/get-receipt-list.php", {
+      firstDate: eInputFirstDate.value,
+      secondDate: eInputSecondDate.value
+    }).then((jResponse) => {
+      console.log(jResponse);
+      if (jResponse.ordersReceived) {
+        if (jResponse.results == 0) {
+          showMessage("No receipts found for chosen dates", true);
+        } else {
+          jResponse.receiptList.forEach(eListItem => {
+            let eListItemParsed = stringToHTML(eListItem)
+            document.querySelector("#receiptList").appendChild(eListItemParsed);
+          });
+          showMessage(`${jResponse.results} receipt(s) found`, false)
+        }
+        
+      } else {
+        showMessage(jResponse.error, true);
+      }
+    });
+  }
+  
+}
+function stringToHTML(sHtmlString) {
+	let oParser = new DOMParser();
+	let eDocument = oParser.parseFromString(sHtmlString, 'text/html');
+	return eDocument.body;
+};
