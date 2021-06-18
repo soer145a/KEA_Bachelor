@@ -2,10 +2,10 @@
 -- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
--- Host: danielbeck.dk.mysql.service.one.com:3306
--- Generation Time: Jun 10, 2021 at 03:59 PM
--- Server version: 10.3.29-MariaDB-1:10.3.29+maria~focal
--- PHP Version: 7.2.24-0ubuntu0.18.04.7
+-- Host: 127.0.0.1
+-- Generation Time: Jun 18, 2021 at 01:30 PM
+-- Server version: 10.4.18-MariaDB
+-- PHP Version: 8.0.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `danielbeck_dkpurplescout`
+-- Database: `purplescout`
 --
 
 -- --------------------------------------------------------
@@ -70,7 +70,7 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`customer_id`, `customer_first_name`, `customer_last_name`, `customer_company_name`, `customer_email`, `customer_password`, `customer_company_cvr`, `customer_city`, `customer_address`, `customer_country`, `customer_postcode`, `customer_phone`, `customer_confirm_code`, `customer_confirmed`) VALUES
-(109, 'Søren', 'Rembøll', 'KEA', 'Soren@remboll.dk', '$2y$10$ExNmPaucnqhTlEl.5T5USuWm/ZlLrHxyUsr73llvipVRRdEGsyaH2', '44444444', 'Brøndby', 'Brøndbyvestervej 62A, St3', 'Denmark', '2605', '+4522258809', '2950a482129f27d727e7a4b4b7e1b4f4cd8d27ac541b785e447b4c81b32e8a89', 1);
+(114, 'SÃ¸ren', 'RembÃ¸ll', 'KEA', 'Soren@remboll.dk', '$2y$10$A9Zh8I6/A3CALBtlLNfhuuqLGc9f/e1djgR6wN36URAV5M.esdSUC', '44444444', 'BrÃ¸ndby', 'BrÃ¸ndbyvestervej 62A, St3', 'Danmark', '2605', '+322258809', '83345639b714fa4c93c2181e51ecbc728b2ea0165533c4275d97139f03ea67d5', 1);
 
 -- --------------------------------------------------------
 
@@ -84,6 +84,14 @@ CREATE TABLE `customer_addons` (
   `addon_id` tinyint(6) NOT NULL,
   `addon_amount` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `customer_addons`
+--
+
+INSERT INTO `customer_addons` (`customer_addon_id`, `customer_id`, `addon_id`, `addon_amount`) VALUES
+(26, 114, 2, '4'),
+(27, 114, 1, '42');
 
 -- --------------------------------------------------------
 
@@ -109,7 +117,9 @@ CREATE TABLE `customer_products` (
 --
 
 INSERT INTO `customer_products` (`customer_products_id`, `customer_id`, `product_id`, `subscription_start`, `subscription_total_length`, `subscription_end`, `subscription_active`, `subscription_autorenew`, `api_key`, `embed_link`) VALUES
-(94, 109, 1, 1623340461, 31556916, 1654897377, 1, 1, '4f1e1abcec7d0b788c9e4f0b303f02c579f8f476742e0aaa66f0caae7e3500cf', '<iframe src=\'https://danielbeck.dk/purple-scout/product.php?key=INSERT KEY HERE\' frameborder=\'0\'></iframe>');
+(94, 114, 2, 1624004234, 15778458, 1639782692, 1, 1, 'd67b3cbc049f6dc925780965915384c8f689cc68878bdfe9f1190cdf3fe3bef8', '<iframe src=\'http://127.0.0.1/KEA_Bachelor/deploys/product.php?key=INSERT KEY HERE\' frameborder=\'0\'></iframe>'),
+(95, 114, 2, 1624012038, 31556916, 1655568954, 1, 1, '5c24a0a90c88ba370cb2109966e3909eb6913a8fa972aaab6f8a50bf9d9f0a60', '<iframe src=\'http://127.0.0.1/KEA_Bachelor/deploys/product.php?key=INSERT KEY HERE\' frameborder=\'0\'></iframe>'),
+(96, 114, 1, 1624014091, 2629743, 1626643834, 1, 1, '66ec0182a8db397e74e3b46c3ea699a695cf3dfdf8cf9edeca4448fb91ea105b', '<iframe src=\'http://127.0.0.1/KEA_Bachelor/deploys/product.php?key=INSERT KEY HERE\' frameborder=\'0\'></iframe>');
 
 -- --------------------------------------------------------
 
@@ -128,7 +138,9 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `customer_id`, `order_date`) VALUES
-(56, 109, 1623340461);
+(56, 114, 1624004234),
+(57, 114, 1624012038),
+(58, 114, 1624014091);
 
 -- --------------------------------------------------------
 
@@ -143,6 +155,14 @@ CREATE TABLE `order_addons` (
   `order_addon_payed_price` varchar(20) NOT NULL,
   `addon_amount` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `order_addons`
+--
+
+INSERT INTO `order_addons` (`order_addons_id`, `order_id`, `addon_id`, `order_addon_payed_price`, `addon_amount`) VALUES
+(38, 56, 2, '40', '4'),
+(39, 57, 1, '1260', '42');
 
 -- --------------------------------------------------------
 
@@ -163,7 +183,9 @@ CREATE TABLE `order_products` (
 --
 
 INSERT INTO `order_products` (`order_products_id`, `order_id`, `product_id`, `subscription_id`, `order_products_payed_price`) VALUES
-(45, 56, 1, 3, '2900');
+(45, 56, 2, 2, '1500'),
+(46, 57, 2, 3, '1500'),
+(47, 58, 1, 1, '2900');
 
 -- --------------------------------------------------------
 
@@ -183,9 +205,9 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`product_id`, `product_name`, `product_price`, `product_image_url`) VALUES
-(1, 'In-store Kiosk', '2900', './assets/images/product-1.jpg'),
-(2, 'Mobile App', '1500', './assets/images/product-2.jpg'),
-(3, 'Webcam', '999', './assets/images/product-3.png');
+(1, 'In-store Kiosk', '2900', './Assets/images/product-1.jpg'),
+(2, 'Mobile App', '1500', './Assets/images/product-2.jpg'),
+(3, 'Webcam', '999', './Assets/images/product-3.png');
 
 -- --------------------------------------------------------
 
@@ -293,37 +315,37 @@ ALTER TABLE `addons`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `customer_id` tinyint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
+  MODIFY `customer_id` tinyint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
 
 --
 -- AUTO_INCREMENT for table `customer_addons`
 --
 ALTER TABLE `customer_addons`
-  MODIFY `customer_addon_id` tinyint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `customer_addon_id` tinyint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `customer_products`
 --
 ALTER TABLE `customer_products`
-  MODIFY `customer_products_id` tinyint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
+  MODIFY `customer_products_id` tinyint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` tinyint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `order_id` tinyint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `order_addons`
 --
 ALTER TABLE `order_addons`
-  MODIFY `order_addons_id` tinyint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `order_addons_id` tinyint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `order_products`
 --
 ALTER TABLE `order_products`
-  MODIFY `order_products_id` tinyint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `order_products_id` tinyint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `products`
