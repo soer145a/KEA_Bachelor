@@ -44,8 +44,8 @@ function createReceipt($iTimeEpoch)
     $sCurrentMonth = $aCurrentDate['tm_mon'] + 1;
     $sCurrentYear = $aCurrentDate['tm_year'] + 1900;
     
-
-    $sCurrentDate = "$sCurrentDay/$sCurrentMonth/$sCurrentYear";
+    $sDateOffsetUTC = date("Z")/60/60;
+    $sCurrentDate = "$sCurrentDay/$sCurrentMonth/$sCurrentYear UTC+$sDateOffsetUTC";
     $nTotalPrice = 0;
     $nAddonTotalprice = 0;
 
