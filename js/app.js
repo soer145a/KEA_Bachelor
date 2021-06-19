@@ -250,25 +250,40 @@ function toggleMobileNavigation() {
 //UpdateCartCounter is used to update the cartcounter when a product has been added to the cart
 function updateCartCounter(bIsProduct, nAddonAmount, bIncrement) {
   let eCartCounter = document.querySelector(".cart-counter");
+  let aCartCounter = document.querySelectorAll(".cart-counter");
   let counter = parseInt(eCartCounter.textContent);
 
   //check if what has been added to the cart is a product or an addon
   if (bIsProduct) {
     if (!bIncrement) {
       //decrement counter
-      eCartCounter.textContent = counter - 1;
+      for(let i = 0;i < aCartCounter.length; i++) {
+        aCartCounter[i].textContent = counter - 1;
+      }
+      // eCartCounter.textContent = counter - 1;
     } else {
       //increment counter
-      eCartCounter.textContent = counter + 1;
+      for(let i = 0;i < aCartCounter.length; i++) {
+        aCartCounter[i].textContent = counter + 1;
+      }
+      // eCartCounter.textContent = counter + 1;
     }
   } else {
     //if it is an addon, check how many addons the user has added to the cart and add that to the cart counter
     if (!bIncrement) {
       //decrement counter
-      eCartCounter.textContent = counter - nAddonAmount;
+      for(let i = 0;i < aCartCounter.length; i++) {
+        
+        aCartCounter[i].textContent = counter - nAddonAmount;
+      }
+      // eCartCounter.textContent = counter - nAddonAmount;
     } else {
       //increment counter
-      eCartCounter.textContent = counter + nAddonAmount;
+      for(let i = 0;i < aCartCounter.length; i++) {
+        
+        aCartCounter[i].textContent = counter + nAddonAmount;
+      }
+      // eCartCounter.textContent = counter + nAddonAmount;
     }
   }
 }

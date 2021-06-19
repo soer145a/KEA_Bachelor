@@ -106,8 +106,9 @@
     color: var(--yellow);
 }
 
-.navigation-list__item .navigation-list__item-link--active {
-    color: var(--yellow);
+/* .navigation-list__item  */
+.navigation-list__item-link--active {
+    color: var(--yellow) !important;
 }
 
 .message-box {
@@ -173,4 +174,13 @@
             align-items: center;
     right: -10px;
     font-size: 0.8rem;
+}
+
+.cart-desktop {
+    display: none;
+}
+.cart-mobile {
+    position: absolute;
+    right: 90px;
+    color: var(--white);
 }

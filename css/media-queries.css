@@ -11,11 +11,7 @@
         height: 367px;
         padding: 0;
     }
-    .navigation-list__item-link {
-        display: block;
-        text-align: center;
-        margin: 0 auto;
-    }
+    
     .solutions .text-container {
         display: -webkit-box;
         display: -ms-flexbox;
@@ -237,6 +233,7 @@
     .navigation-hamburger {
         display: none;
     }
+    
     .navigation-wrapper {
         height: 100%;
     }
@@ -313,4 +310,18 @@
     .customer-information__item {
         max-width: 50%;
     }
+
+    .navigation-list__item-link {
+        display: block;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .cart-desktop {
+        display: block;
+    }
+    .cart-mobile {
+        display: none;
+    }
+    
 }

@@ -60,6 +60,9 @@ function headerComp($sActiveLink)
                     alt='brand logo'
             /></a>
             <div class='navigation-wrapper'>
+                <a href='cart.php' class='navigation-list__item-link $sCartActiveClass cart-mobile'>
+                    Cart<span class='cart-counter'>$nCartCount</span>
+                </a>
                 <div class='navigation-hamburger js-toggleNavigation'>
                     <span class='navigation-hamburger__line'></span>
                     <span class='navigation-hamburger__line'></span>
@@ -82,7 +85,7 @@ function headerComp($sActiveLink)
                             $sLoginLinkHtml
                         </li>
                         <li class='navigation-list__item'>
-                            <a href='cart.php' class='navigation-list__item-link $sCartActiveClass'
+                            <a href='cart.php' class='navigation-list__item-link $sCartActiveClass cart-desktop'
                                 >Cart<span class='cart-counter'>$nCartCount</span></a
                             >
                         </li>
