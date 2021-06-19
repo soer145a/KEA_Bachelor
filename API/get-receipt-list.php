@@ -31,7 +31,8 @@ if (isset($_POST['firstDate']) && isset($_POST['secondDate'])) {
 
         $sOrderDateFileName = "$sOrderDateDay-$sOrderDateMonth-$sOrderDateYear";
         $oReceiptObject = new stdClass();
-        $oReceiptObject->html = "<li class='receipt-card__list-item'><p id='receiptData$oOrderRow->order_date' class='section-paragraph receipts-card__text'></p><a class='button button__small button__download' href='customer-receipts/$sCustomerId-$oOrderRow->order_id.pdf' download='Mirtual Order $oOrderRow->order_id - $sOrderDateFileName'><p>&#8676</p></a></li>";
+        $sDateOffsetUTC = date("Z") / 60/60;
+        $oReceiptObject->html = "<li class='receipt-card__list-item'><p id='receiptData$oOrderRow->order_date' class='section-paragraph receipts-card__text'></p><a class='button button__small button__download' href='customer-receipts/$sCustomerId-$oOrderRow->order_id.pdf' download='Mirtual Order $oOrderRow->order_id - $sOrderDateFileName UTC+$sDateOffsetUTC'><p>&#8676</p></a></li>";
         $oReceiptObject->orderDate = $oOrderRow->order_date;
         array_push($aReceiptsHtmlList, $oReceiptObject);
     }

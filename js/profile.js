@@ -277,7 +277,7 @@ function getReceiptFileNames() {
               sOrderDate.getDate() + "/" +
               sOrderDate.getMonth() +"/" +
               sOrderDate.getFullYear() +
-              "-" + sOrderDate.getHours() + ":" + sNewMinute;
+              " - " + sOrderDate.getHours() + ":" + sNewMinute;
               
 
              
