@@ -181,11 +181,14 @@ function toggleDropdown() {
       eButton.addEventListener("click", () => {
         //Reset all dialog boxes
 
-        aDropdownListElements.forEach((eList) => {
-          if (eButton.dataset.buttonid === eList.dataset.listid) {
-            eList.classList.toggle("dropdown-list-container--hidden");
-          }
-        });
+        // aDropdownListElements.forEach((eList) => {
+        //   if (eButton.dataset.buttonid === eList.dataset.listid) {
+        //     eList.classList.toggle("dropdown-list-container--hidden");
+        //   }
+        // });
+
+        //-----------  REFACTORED VERSION ------------//
+        document.querySelector(`[data-listid='${eButton.dataset.buttonid}']`).classList.toggle("dropdown-list-container--hidden")
       });
     });
   }

@@ -78,7 +78,7 @@ function productsComp($oDbConnection)
                     </div>
                     <div class='dropdown-container'>
                         <div class='dropdown'>
-                          <span class='dialog-box dialog-box--hidden' data-buttonid='$nCounter'>You have to choose a subscription lenght.</span>
+                          <span class='dialog-box dialog-box--hidden' data-buttonid='$nCounter'>You have to choose a subscription length.</span>
                           <span class='dropdown__label'>Why do I need a subscription?</span>
                           <span class='dropdown__button' data-buttonid='$nCounter'>Choose a subscription length</span>
                           <div class='
@@ -154,7 +154,7 @@ function productsComp($oDbConnection)
   
                     <div class='dropdown-container'>
                       <div class='dropdown'>
-                      <span class='dialog-box dialog-box--hidden' data-buttonid='$nCounter'>You have to choose a subscription lenght.</span>
+                      <span class='dialog-box dialog-box--hidden' data-buttonid='$nCounter'>You have to choose a subscription length.</span>
                           <span class='dropdown__label'>Why do I need a subscription?</span>
                           <span class='dropdown__button' data-buttonid='$nCounter'>Choose a subscription length</span>
                           <div class='
@@ -230,7 +230,7 @@ function productsComp($oDbConnection)
   
                     <div class='dropdown-container'>
                       <div class='dropdown'>
-                      <span class='dialog-box dialog-box--hidden' data-buttonid='$nCounter'>You have to choose a subscription lenght.</span>
+                      <span class='dialog-box dialog-box--hidden' data-buttonid='$nCounter'>You have to choose a subscription length.</span>
                           <span class='dropdown__label'>Why do I need a subscription?</span>
                           <span class='dropdown__button' data-buttonid='$nCounter'>Choose a subscription length</span>
                           <div class='
