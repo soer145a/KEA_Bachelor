@@ -107,6 +107,7 @@
 }
 
 .order-summary__total-price {
+    margin-top: auto;
     border-top: 2px solid var(--purple-light);
     padding: 8px;
     text-align: right;
@@ -141,7 +142,7 @@
 
 .paypal-button-container {
     margin: 0 auto;
-    margin-top: auto;
+    /* margin-top: auto; */
 }
 
 .header-container {
