@@ -9,10 +9,11 @@ if (isset($_POST['itemId'])) {
 
     $sItemId = $_POST['itemId'];
     $bIsProduct = $_POST['isProduct'];
+    $sSubscriptionId = $_POST['subscriptionId'];
     if ($bIsProduct) {
         //If the selected item is a product
         foreach ($_SESSION['cartProducts'] as $key => $aProduct) {
-            if ($aProduct['productId'] === $sItemId) {
+            if ($aProduct['productId'] === $sItemId && $aProduct['subscriptionId'] == $sSubscriptionId) {
 
                 //removing from array
                 unset($_SESSION['cartProducts'][$key]);

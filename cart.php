@@ -29,6 +29,7 @@ if (isset($_SESSION['cartProducts'])) {
         $sProductName = $aProduct['productName'];
         $nProductPrice = $aProduct['productPrice'];
         $sProductId = $aProduct['productId'];
+        $sSubscriptionId = $aProduct['subscriptionId'];
         $sSubscriptionName = $aProduct['subscriptionName'];
         $nSubscriptionPrice = $aProduct['subscriptionPrice'];
         $nTotalPrice =  $nTotalPrice + $aProduct['productPrice'];
@@ -37,7 +38,7 @@ if (isset($_SESSION['cartProducts'])) {
                                     <div class='product-items'>
                                         <p class='product-item product-item__name'>$sProductName</p>
                                         <p class='product-item product-item__quantity'>
-                                            <span class='product-item product-item__delete' onclick='removeItemFromCart($sProductId, true, 0, $bLoginStatus, $nProductPrice)'></span>
+                                            <span class='product-item product-item__delete' onclick='removeItemFromCart($sProductId, true, 0, $bLoginStatus, $nProductPrice, $sSubscriptionId)'></span>
                                             1
                                         </p>
                                         <p class='product-item product-item__price'>$nProductPrice</p>

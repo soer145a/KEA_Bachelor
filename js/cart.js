@@ -124,7 +124,8 @@ function removeItemFromCart(
   bIsProduct,
   nAddonAmount,
   bLoginStatus,
-  nPrice
+  nPrice,
+  sSubscriptionId
 ) {
   let ePaypalContainer = document.querySelector("#paypal-button-container");
   ePaypalContainer.textContent = "";
@@ -140,6 +141,7 @@ function removeItemFromCart(
   //Send the request to the api
   postData("api/remove-item-from-cart.php", {
     itemId: sItemId,
+    subscriptionId: sSubscriptionId,
     isProduct: bIsProduct,
   }).then((jResponse) => {
     if (jResponse.itemRemovedFromCart) {
