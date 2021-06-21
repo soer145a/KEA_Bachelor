@@ -39,7 +39,7 @@ function signUpFormComp($bLoginStatus, $nTotalPrice)
                 name='companyCvr'
                 data-validate='cvr'
                 required
-                oninput='inputValidate($bLoginStatus, $nTotalPrice);'
+                oninput='inputValidate($bLoginStatus);'
             />
             <div class='account-details__contact'>
                 <h4 class='section-subheader contact__header'>Contact Person</h4>
@@ -84,7 +84,7 @@ function signUpFormComp($bLoginStatus, $nTotalPrice)
                 name='customerEmail'
                 data-validate='email'              
                 required
-                oninput='inputValidate($bLoginStatus, $nTotalPrice);'
+                oninput='inputValidate($bLoginStatus);'
             />
             <label class='account-details__label' for='account-details__password'
                 >Password $sPasswordInfoButtonHtml

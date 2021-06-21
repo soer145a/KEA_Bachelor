@@ -13,7 +13,7 @@ if (isset($_POST['itemId'])) {
         //If the selected item is a product
         foreach ($_SESSION['cartProducts'] as $key => $aProduct) {
             if ($aProduct['productId'] === $sItemId) {
-                $aResponse = array("line 14" => $key);
+
                 //removing from array
                 unset($_SESSION['cartProducts'][$key]);
             }
@@ -22,7 +22,7 @@ if (isset($_POST['itemId'])) {
         foreach ($_SESSION['cartAddOns'] as $key => $aAddon) {
             //If it is an addon
             if ($aAddon['addOnId'] === $sItemId) {
-                $aResponse = array("line 21" => $key);
+
                 //remove from array
                 unset($_SESSION['cartAddOns'][$key]);
             }

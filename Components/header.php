@@ -94,7 +94,7 @@ function headerComp($sActiveLink)
             </div>
         </nav>
         <div class='message-box message-box--hidden' id='messageBox'>
-            <p class='message-box__text' id='messageText'>User Feedback Banner</p>
+            <p class='message-box__text' id='messageText'></p>
         </div>
     </header>";
     //Return the newly assembled block of html

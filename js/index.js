@@ -100,7 +100,7 @@ function addAddOnToCart(sAddOnId) {
 
   //check if it is a number if it isn't let the user know
   if (isNaN(parseInt(nAddOnAmount))) {
-    showMessage("Please input a number", false);
+    showMessage("Please input a number", true);
   } else {
     nAddOnAmount = parseInt(nAddOnAmount);
 
@@ -174,9 +174,9 @@ function toggleDropdown() {
   if (document.querySelector(".dropdown") !== null) {
     let aDropdownButtonElements =
       document.querySelectorAll(".dropdown__button");
-    let aDropdownListElements = document.querySelectorAll(
+    /*  let aDropdownListElements = document.querySelectorAll(
       ".dropdown-list-container"
-    );
+    ); */
     aDropdownButtonElements.forEach((eButton) => {
       eButton.addEventListener("click", () => {
         //Reset all dialog boxes
@@ -188,7 +188,9 @@ function toggleDropdown() {
         // });
 
         //-----------  REFACTORED VERSION ------------//
-        document.querySelector(`[data-listid='${eButton.dataset.buttonid}']`).classList.toggle("dropdown-list-container--hidden")
+        document
+          .querySelector(`[data-listid='${eButton.dataset.buttonid}']`)
+          .classList.toggle("dropdown-list-container--hidden");
       });
     });
   }
@@ -203,9 +205,11 @@ function itemSelector() {
       //remove active class from all items
 
       aDropdownItems[i].addEventListener("click", (e) => {
+        //To be able to loop through with foreach
         let aChildrenNodes = Array.from(
           aDropdownItems[i].parentElement.children
         );
+        //Could have used a for loop instead though
         aChildrenNodes.forEach((eChild) => {
           //remove class
           eChild.classList.remove("dropdown__list-item--active");

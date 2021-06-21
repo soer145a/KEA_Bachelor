@@ -3,7 +3,7 @@ include_once("../db-connection/connection.php");
 $_POST = json_decode(file_get_contents("php://input"), true); //make json object an assoc array
 session_start();
 if (!isset($_SESSION['loginStatus'])) {
-    $aResponse = array("ordersReceived" => false, "error" => "You are not allowed here!");
+
     header("Location: ../index.php");
 }
 if (isset($_POST['firstDate']) && isset($_POST['secondDate'])) {
@@ -31,7 +31,7 @@ if (isset($_POST['firstDate']) && isset($_POST['secondDate'])) {
 
         $sOrderDateFileName = "$sOrderDateDay-$sOrderDateMonth-$sOrderDateYear";
         $oReceiptObject = new stdClass();
-        $sDateOffsetUTC = date("Z") / 60/60;
+        $sDateOffsetUTC = date("Z") / 60 / 60;
         $oReceiptObject->html = "<li class='receipt-card__list-item'><p id='receiptData$oOrderRow->order_date' class='section-paragraph receipts-card__text'></p><a class='button button__small button__download' href='customer-receipts/$sCustomerId-$oOrderRow->order_id.pdf' download='Mirtual Order $oOrderRow->order_id - $sOrderDateFileName UTC+$sDateOffsetUTC'><p>&#8676</p></a></li>";
         $oReceiptObject->orderDate = $oOrderRow->order_date;
         array_push($aReceiptsHtmlList, $oReceiptObject);

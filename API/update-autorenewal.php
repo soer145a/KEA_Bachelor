@@ -1,4 +1,4 @@
-<?php
+s<?php
 session_start();
 include_once("../db-connection/connection.php");
 $_POST = json_decode(file_get_contents("php://input"), true); //make json object an assoc array

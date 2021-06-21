@@ -262,25 +262,27 @@ function getReceiptFileNames() {
         } else {
           jResponse.receiptList.forEach((eListItem) => {
             let eListItemParsed = stringToHTML(eListItem.html);
-            
+
             document.querySelector("#receiptList").appendChild(eListItemParsed);
 
             let sOrderDate = new Date(parseInt(eListItem.orderDate * 1000));
-            
+
             let iNewMinute = sOrderDate.getMinutes();
             let sNewMinute = iNewMinute.toString();
-            console.log(sNewMinute.length);
+         
             if (sNewMinute.length == 1) {
-               sNewMinute = "0"+sNewMinute;
+              sNewMinute = "0" + sNewMinute;
             }
             sOrderDate =
-              sOrderDate.getDate() + "/" +
-              sOrderDate.getMonth() +"/" +
+              sOrderDate.getDate() +
+              "/" +
+              sOrderDate.getMonth() +
+              "/" +
               sOrderDate.getFullYear() +
-              " - " + sOrderDate.getHours() + ":" + sNewMinute;
-              
-
-             
+              " - " +
+              sOrderDate.getHours() +
+              ":" +
+              sNewMinute;
 
             document.querySelector(
               `#receiptData${eListItem.orderDate}`

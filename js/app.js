@@ -50,7 +50,7 @@ async function inputValidate(bLoginStatus) {
   let aInputsToValidate = [];
   //Check to see what it is we are submitting
   if (event.type == "submit") {
-    eFormToValidate = event.target;
+    let eFormToValidate = event.target;
     aInputsToValidate = eFormToValidate.querySelectorAll("[data-validate]");
     //else put just the trigger input field into the array
   } else {
@@ -155,6 +155,7 @@ async function inputValidate(bLoginStatus) {
           aInputsToValidate[i].classList.remove("invalid");
         }
         break;
+
       case "cvr":
         sInputData = aInputsToValidate[i].value;
         let sCvrRegEx = /^(\d){8}$/;
@@ -192,6 +193,7 @@ async function inputValidate(bLoginStatus) {
 
   if (event.type == "submit") {
     if (eFormToValidate.querySelectorAll(".invalid").length > 0) {
+      
       if (
         accountDetails__password.value !== accountDetails__confirmPassword.value
       ) {
@@ -249,21 +251,21 @@ function toggleMobileNavigation() {
 
 //UpdateCartCounter is used to update the cartcounter when a product has been added to the cart
 function updateCartCounter(bIsProduct, nAddonAmount, bIncrement) {
-  let eCartCounter = document.querySelector(".cart-counter");
+  // let eCartCounter = document.querySelector(".cart-counter");
   let aCartCounter = document.querySelectorAll(".cart-counter");
-  let counter = parseInt(eCartCounter.textContent);
+  let counter = parseInt(aCartCounter[0].textContent);
 
   //check if what has been added to the cart is a product or an addon
   if (bIsProduct) {
     if (!bIncrement) {
       //decrement counter
-      for(let i = 0;i < aCartCounter.length; i++) {
+      for (let i = 0; i < aCartCounter.length; i++) {
         aCartCounter[i].textContent = counter - 1;
       }
       // eCartCounter.textContent = counter - 1;
     } else {
       //increment counter
-      for(let i = 0;i < aCartCounter.length; i++) {
+      for (let i = 0; i < aCartCounter.length; i++) {
         aCartCounter[i].textContent = counter + 1;
       }
       // eCartCounter.textContent = counter + 1;
@@ -272,15 +274,13 @@ function updateCartCounter(bIsProduct, nAddonAmount, bIncrement) {
     //if it is an addon, check how many addons the user has added to the cart and add that to the cart counter
     if (!bIncrement) {
       //decrement counter
-      for(let i = 0;i < aCartCounter.length; i++) {
-        
+      for (let i = 0; i < aCartCounter.length; i++) {
         aCartCounter[i].textContent = counter - nAddonAmount;
       }
       // eCartCounter.textContent = counter - nAddonAmount;
     } else {
       //increment counter
-      for(let i = 0;i < aCartCounter.length; i++) {
-        
+      for (let i = 0; i < aCartCounter.length; i++) {
         aCartCounter[i].textContent = counter + nAddonAmount;
       }
       // eCartCounter.textContent = counter + nAddonAmount;

@@ -6,12 +6,12 @@ function togglePaypalButton(bLoginStatus) {
     "class",
     "order-summary__button button button--purple"
   );
-  let nPrice = 0;
   eButtonPlaceholder.textContent = "PayPal";
+
+  let nPrice = 0;
   postData("api/get-cart-total.php", {
-    sample:"test!"
+    grantAccess: "true",
   }).then((jResponse) => {
-    console.log(jResponse);
     if (jResponse.priceReturned) {
       nPrice = jResponse.priceTotal;
     }
@@ -51,7 +51,8 @@ function togglePaypalButton(bLoginStatus) {
                   if (jResponse.purchaseStarted) {
                     window.location.assign(
                       //window.location.origin + "/api/payment-handler.php"
-                       window.location.origin + "/KEA_Bachelor/api/payment-handler.php"
+                      window.location.origin +
+                        "/KEA_Bachelor/api/payment-handler.php"
                     );
                   } else {
                     showMessage("Access denied", true);

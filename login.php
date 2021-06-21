@@ -1,6 +1,5 @@
 <?php
 session_start();
-$sErrorMessage = "";
 include_once("components/head.php");
 include_once("components/header.php");
 include_once("components/footer.php");
@@ -9,6 +8,7 @@ $sLoginFormHtmlComp = loginFormComp();
 $sHeadHtmlComp = headComp();
 $sHeaderHtmlComp = headerComp('login');
 $sFooterHtmlComp = footerComp();
+$sErrorMessage = "";
 
 //If the user IS logged in, they should go to the profile page instead
 if (isset($_SESSION['loginStatus'])) {
@@ -20,8 +20,10 @@ if (isset($_POST['customerEmail']) && isset($_POST['customerPassword'])) {
     if ($_POST['customerEmail'] != "" && $_POST['customerPassword'] != "") {
 
         include("db-connection/connection.php");
+        //Sanitize POSTed data to remove SQL query characters
         $sCustomerPassword = $oDbConnection->real_escape_string($_POST['customerPassword']);
         $sCustomerEmail = $oDbConnection->real_escape_string($_POST['customerEmail']);
+
         //Get the customer data from the database
         $sCustomerSelectSql = "SELECT * FROM customers WHERE customer_email = \"$sCustomerEmail\"";
         $oCustomerResult = $oDbConnection->query($sCustomerSelectSql);

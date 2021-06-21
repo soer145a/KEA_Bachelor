@@ -8,8 +8,8 @@ if (!isset($_SESSION['purchaseProcess'])) {
     exit();
 }
 
-//the iframe embed that gates off customers which license has run out
-$sEmbed = "<iframe src='http://127.0.0.1/KEA_Bachelor/deploys/product.php?key=INSERT KEY HERE' frameborder='0'></iframe>";
+
+
 if (!isset($_SESSION['loginStatus'])) {
     //Get the customer data from post and put them into variables
     $sCustomerFirstName = $oDbConnection->real_escape_string($_POST['customerFirstName']);
@@ -72,6 +72,8 @@ if (isset($_SESSION['cartProducts'])) {
     //If there are any products in the purchase, loop through them 
     foreach ($_SESSION['cartProducts'] as $aProduct) {
         $nApiKey = bin2hex(random_bytes(32));
+        //the iframe embed that gates off customers which license has run out
+        $sEmbed = "<iframe src='http://127.0.0.1/KEA_Bachelor/purple-scout/product-emulator.php?key=$nApiKey' frameborder='0'></iframe>";
         $sProductId = $aProduct['productId'];
         $sSubscriptionId = $aProduct['subscriptionId'];
         $nProductPrice = $aProduct['productPrice'];
@@ -127,13 +129,11 @@ if (isset($_SESSION['cartAddOns'])) {
             $sCustomerAddonInsertSql = $oDbConnection->prepare("INSERT INTO customer_addons (customer_addon_id, customer_id, addon_id, addon_amount) VALUES ( null,?,?,?)");
             $sCustomerAddonInsertSql->bind_param("iii", $sCustomerId, $sAddOnId, $nAddOnAmount);
             $sCustomerAddonInsertSql->execute();
-            $sCustomerAddonInsertSql->insert_id;
         }
         //Create a link to the order addons table with the addon
         $sOrderAddonInsertSql = $oDbConnection->prepare("INSERT INTO order_addons (order_addons_id, order_id, addon_id, order_addon_payed_price, addon_amount) VALUES(null,?,?,?,?)");
         $sOrderAddonInsertSql->bind_param("iiss", $sOrderId, $sAddOnId, $nAddonTotalprice, $nAddOnAmount);
         $sOrderAddonInsertSql->execute();
-        $sOrderAddonInsertSql->insert_id;
     }
 }
 

@@ -75,12 +75,14 @@ $sApiKey = "";
                                 <div class='collapsable collapsed' id='collapsableAddonContainer'>
                                 ";
                                 $sCustomerAddonHtml = "";
+
                                 //We use count(*) to only get the numbers
                                 $sCustomerProductSelectSql = "SELECT count(*) FROM `customer_products` WHERE `customer_id` = \"$customerId\"";
                                 $oCustomerProductResult = $oDbConnection->query($sCustomerProductSelectSql);
                                 $oCustomerProductRow = $oCustomerProductResult->fetch_assoc();
                                 $nCustomerProductAmount = $oCustomerProductRow['count(*)'];
                                 echo "<li> $nCustomerProductAmount products with active licences</li>";
+
                                 //The addons the customer has access to
                                 $sCustomerAddonSelectSql = "SELECT * FROM customer_addons LEFT JOIN addons ON customer_addons.addon_id  = addons.addon_id  WHERE `customer_id` = \"$customerId\"";
                                 $oCustomerAddonResults = $oDbConnection->query($sCustomerAddonSelectSql);
@@ -98,8 +100,8 @@ $sApiKey = "";
                                     $sCustomerAddonHtml = $sCustomerAddonHtml . "
                                     <p class='section-paragraph addon-card__text'>No Addons bought</p>";
                                 }
-
                                 $sCustomerAddonHtmlContainer = $sCustomerAddonHtmlContainer . $sCustomerAddonHtml . "</div></div></div>";
+
                                 //Get the order amount from the database
                                 $sOrderSelectSql = "SELECT count(*) FROM `orders` WHERE `customer_id` = \"$customerId\"";
                                 $oOrderResults = $oDbConnection->query($sOrderSelectSql);
@@ -273,7 +275,6 @@ $sApiKey = "";
                                 }
 
                                 $nCustomerProductTotalDays = round($oCustomerProductRow->subscription_total_length / 86400);
-
                                 $sCustomerProductId = $oCustomerProductRow->customer_products_id;
 
                                 if ($oCustomerProductRow->subscription_autorenew) {

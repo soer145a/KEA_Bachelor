@@ -151,7 +151,6 @@ $sAddOnHtmlComp = addOnsComp($oDbConnection);
 
                 </div>
                 <div class='addon-container'>
-
                     <?= $sAddOnHtmlComp ?>
                 </div>
 

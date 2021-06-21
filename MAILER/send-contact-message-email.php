@@ -21,7 +21,7 @@ if (isset($_POST['customerMessage'])) {
     $sContactEmailContent = str_replace("::CUSTOMEREMAIL::", $potentialCustomerEmail, $sContactEmailContent);
     $sContactEmailContent = str_replace("::CUSTOMERMESSAGE::", $potentialCustomerMessage, $sContactEmailContent);
 
-
+    //true enables exceptions
     $oMail = new PHPMailer(true);
 
     try {
