@@ -34,17 +34,19 @@ if (!isset($_SESSION['loginStatus'])) {
     $sConfirmEmailContent = str_replace("::CONFIRMCODE::", $_SESSION['customerConfirmCode'], $sConfirmEmailContent);
 }
 //Add the bought products to the email
-foreach ($_SESSION['cartProducts'] as $product) {
-    $sProductName = $product['productName'] . ", " .  $sProductName;
-    $nTotalPrice =  $nTotalPrice + $product['productPrice'];
-}
-//Add the bought addons to the email
-foreach ($_SESSION['cartAddOns'] as $addon) {
-    $sAddonName = $addon['addOnName'];
-    $nAddonTotalprice = $addon['addOnPrice'] * $addon['addOnAmount'];
-    $sBoughtAddons = $sBoughtAddons . $addon['addOnAmount'] . " x " . $sAddonName . ", ";
-    $nTotalPrice =  $nTotalPrice + $nAddonTotalprice;
-}
+if(isset($_SESSION['cartProducts'])){
+    foreach ($_SESSION['cartProducts'] as $product) {
+        $sProductName = $product['productName'] . ", " .  $sProductName;
+        $nTotalPrice =  $nTotalPrice + $product['productPrice'];
+    }}
+    //Add the bought addons to the email
+    if(isset($_SESSION['cartAddOns'])){
+    foreach ($_SESSION['cartAddOns'] as $addon) {
+        $sAddonName = $addon['addOnName'];
+        $nAddonTotalprice = $addon['addOnPrice'] * $addon['addOnAmount'];
+        $sBoughtAddons = $sBoughtAddons . $addon['addOnAmount'] . " x " . $sAddonName . ", ";
+        $nTotalPrice =  $nTotalPrice + $nAddonTotalprice;
+    }}
 //replace the strings in the email
 $sOrderEmailContent = str_replace("::USERNAME::", $sCustomerName, $sOrderEmailContent);
 $sOrderEmailContent = str_replace("::ORDERPRODUCT::", $sProductName, $sOrderEmailContent);
